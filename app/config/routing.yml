@@ -1,3 +1,8 @@
+mykyta_admin:
+    resource: "@MykytaAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /adminpanic
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
