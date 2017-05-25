@@ -1,9 +1,9 @@
-mykyta_admin:
-    resource: "@MykytaAdminBundle/Controller/"
+web:
+    resource: "@WebBundle/Controller/"
     type:     annotation
-    prefix:   /adminpanic
+    prefix:   /
 
 easy_admin_bundle:
     resource: "@EasyAdminBundle/Controller/AdminController.php"
     type:     annotation
-    prefix:   /admin
+    prefix:   /adminpanic
