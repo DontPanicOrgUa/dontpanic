@@ -24,6 +24,6 @@ class DefaultController extends Controller
      */
     public function testAction()
     {
-        dump('Hello Mykyta!');
+        dump('Hello Mykyta! YEP!');die;
     }
 }
