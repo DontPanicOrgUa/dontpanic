@@ -1,0 +1,9 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block body %}
+    <h1 class="page-header">Add City</h1>
+    {{ form_start(cityAddForm) }}
+        {{ form_widget(cityAddForm) }}
+    {{ form_end(cityAddForm) }}
+{% endblock %}
+

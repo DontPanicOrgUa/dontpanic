@@ -3,35 +3,35 @@
 namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
- * @ORM\Entity(repositoryClass="WebBundle\Repository\CityRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="city_translations",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="lookup_unique_idx", columns={
+ *         "locale", "object_id", "field"
+ *     })}
+ * )
  */
-class CityTranslation
+class CityTranslation extends AbstractPersonalTranslation
 {
-    use ORMBehaviors\Translatable\Translation;
-
     /**
-     * @ORM\Column(type="string", length=255)
+     * Convenient constructor
+     *
+     * @param string $locale
+     * @param string $field
+     * @param string $value
      */
-    protected $name;
-
-    /**
-     * @return string
-     */
-    public function getName()
+    public function __construct($locale, $field, $value)
     {
-        return $this->name;
+        $this->setLocale($locale);
+        $this->setField($field);
+        $this->setContent($value);
     }
 
     /**
-     * @param  string
-     * @return null
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\City", inversedBy="translations")
+     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+    protected $object;
 }
-

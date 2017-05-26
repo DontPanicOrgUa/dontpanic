@@ -1,7 +1,7 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block body %}
-    <a class="btn btn-success pull-right" href="#">Add City <span class="fa fa-plus"></span></a>
+    <a class="btn btn-success pull-right" href="{{ path('admin_cities_add') }}">Add City <span class="fa fa-plus"></span></a>
     <h1 class="page-header">Cities</h1>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -21,8 +21,9 @@
                     <td>{{ city.translate('ru').name }}</td>
                     <td>{{ city.translate('en').name }}</td>
                     <td>{{ city.translate('de').name }}</td>
-                    <td><a class="btn btn-xs btn-warning" href="#">edit <span class=" fa fa-pencil"></span></a> <a
-                                class="btn btn-xs btn-danger" href="#">delete <span class=" fa fa-close"></span></a>
+                    <td>
+                        <a class="btn btn-xs btn-warning" href="{{ path('admin_cities_edit', {id: city.id}) }}">edit <span class=" fa fa-pencil"></span></a>
+                         <a class="btn btn-xs btn-danger" href="{{ path('admin_cities_delete', {id: city.id}) }}">delete <span class=" fa fa-close"></span></a>
                     </td>
                 </tr>
             {% endfor %}
