@@ -2,8 +2,3 @@ web:
     resource: "@WebBundle/Controller/"
     type:     annotation
     prefix:   /
-
-easy_admin_bundle:
-    resource: "@EasyAdminBundle/Controller/AdminController.php"
-    type:     annotation
-    prefix:   /adminpanic
