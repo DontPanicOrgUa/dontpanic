@@ -1,0 +1,8 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block body %}
+    <h1 class="page-header">Add Genre</h1>
+    {{ form_start(genreForm) }}
+        {{ form_widget(genreForm) }}
+    {{ form_end(genreForm) }}
+{% endblock %}
