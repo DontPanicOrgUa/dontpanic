@@ -4,10 +4,14 @@ namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="genres")
  * @ORM\Entity(repositoryClass="WebBundle\Repository\GenreRepository")
+ * @UniqueEntity(fields={"titleRu"})
+ * @UniqueEntity(fields={"titleEn"})
+ * @UniqueEntity(fields={"titleDe"})
  */
 class Genre
 {

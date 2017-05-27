@@ -4,10 +4,14 @@ namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="cities")
  * @ORM\Entity(repositoryClass="WebBundle\Repository\CityRepository")
+ * @UniqueEntity(fields={"nameRu"})
+ * @UniqueEntity(fields={"nameEn"})
+ * @UniqueEntity(fields={"nameDe"})
  */
 class City
 {
