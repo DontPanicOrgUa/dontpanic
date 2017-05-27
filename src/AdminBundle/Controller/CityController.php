@@ -14,13 +14,23 @@ class CityController extends Controller
     /**
      * @Route("/cities", name="admin_cities_list")
      * @Method("GET")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $cities = $em->getRepository('WebBundle:City')->findAll();
+
+        $paginator  = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $cities,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', $this->getParameter('records_per_page'))
+        );
+
         return $this->render('AdminBundle:City:list.html.twig', [
-            'cities' => $cities
+            'cities' => $result
         ]);
     }
 

@@ -20,6 +20,7 @@ class CustomerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $customers = $em->getRepository('WebBundle:Customer')->findAll();
+
         $paginator  = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $customers,

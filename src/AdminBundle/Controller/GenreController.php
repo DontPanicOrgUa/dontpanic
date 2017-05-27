@@ -15,13 +15,23 @@ class GenreController extends Controller
     /**
      * @Route("/genres", name="admin_genres_list")
      * @Method("GET")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $genres = $em->getRepository('WebBundle:Genre')->findAll();
+
+        $paginator  = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $genres,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', $this->getParameter('records_per_page'))
+        );
+
         return $this->render('AdminBundle:Genre:list.html.twig', [
-            'genres' => $genres
+            'genres' => $result
         ]);
     }
 

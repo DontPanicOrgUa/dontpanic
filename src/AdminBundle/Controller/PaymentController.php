@@ -20,6 +20,7 @@ class PaymentController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $payments = $em->getRepository('WebBundle:Payment')->findAll();
+
         $paginator  = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $payments,

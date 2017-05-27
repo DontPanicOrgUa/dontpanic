@@ -7,10 +7,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Name[RU]</th>
-                <th>Name[EN]</th>
-                <th>Name[DE]</th>
+                <th>{{ knp_pagination_sortable(cities, '#', 't0.id') }}</th>
+                <th>{{ knp_pagination_sortable(cities, 'City[RU]', 't0.nameRu') }}</th>
+                <th>{{ knp_pagination_sortable(cities, 'City[EN]', 't0.nameEn') }}</th>
+                <th>{{ knp_pagination_sortable(cities, 'City[DE]', 't0.nameDe') }}</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -29,5 +29,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(cities) }}
+        </div>
     </div>
 {% endblock %}

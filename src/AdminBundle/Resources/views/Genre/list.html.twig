@@ -7,10 +7,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Genre[RU]</th>
-                <th>Genre[EN]</th>
-                <th>Genre[DE]</th>
+                <th>{{ knp_pagination_sortable(genres, '#', 't0.id') }}</th>
+                <th>{{ knp_pagination_sortable(genres, 'Genre[RU]', 't0.nameRu') }}</th>
+                <th>{{ knp_pagination_sortable(genres, 'Genre[EN]', 't0.nameEn') }}</th>
+                <th>{{ knp_pagination_sortable(genres, 'Genre[DE]', 't0.nameDe') }}</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -29,5 +29,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(genres) }}
+        </div>
     </div>
 {% endblock %}
