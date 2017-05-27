@@ -83,4 +83,12 @@ knp_paginator:
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
         pagination: 'KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig'     # sliding pagination controls template
-        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig'                          # sort link template
+        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig'                         # sort link template
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AdminBundle\Entity\User
+    from_email:
+        address: "mp091689@gmail.com"
+        sender_name: "mp091689"
