@@ -7,7 +7,7 @@ use WebBundle\Entity\City;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 
-class LoadFixtures implements FixtureInterface
+class CityFixtures implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
