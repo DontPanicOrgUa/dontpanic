@@ -3,12 +3,12 @@
 namespace AdminBundle\Controller;
 
 
+use WebBundle\Entity\Genre;
 use AdminBundle\Form\GenreFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use WebBundle\Entity\Genre;
 
 class GenreController extends Controller
 {

@@ -1,8 +1,8 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block body %}
-    <a class="btn btn-success pull-right" href="{{ path('admin_genres_add') }}">Add City <span class="fa fa-plus"></span></a>
-    <h1 class="page-header">Cities</h1>
+    <a class="btn btn-success pull-right" href="{{ path('admin_genres_add') }}">Add Genre <span class="fa fa-plus"></span></a>
+    <h1 class="page-header">Genres</h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -18,9 +18,9 @@
             {% for genre in genres %}
                 <tr>
                     <td>{{ genre.id }}</td>
-                    <td>{{ genre.title('ru') }}</td>
-                    <td>{{ genre.title('en') }}</td>
-                    <td>{{ genre.title('de') }}</td>
+                    <td>{{ genre.name('ru') }}</td>
+                    <td>{{ genre.name('en') }}</td>
+                    <td>{{ genre.name('de') }}</td>
                     <td>
                         <a class="btn btn-xs btn-warning" href="{{ path('admin_genres_edit', {id: genre.id}) }}">edit <span class=" fa fa-pencil"></span></a>
                          <a class="btn btn-xs btn-danger" href="{{ path('admin_genres_delete', {id: genre.id}) }}">delete <span class=" fa fa-close"></span></a>

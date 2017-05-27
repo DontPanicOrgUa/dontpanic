@@ -9,9 +9,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Table(name="genres")
  * @ORM\Entity(repositoryClass="WebBundle\Repository\GenreRepository")
- * @UniqueEntity(fields={"titleRu"})
- * @UniqueEntity(fields={"titleEn"})
- * @UniqueEntity(fields={"titleDe"})
+ * @UniqueEntity(fields={"nameRu"})
+ * @UniqueEntity(fields={"nameEn"})
+ * @UniqueEntity(fields={"nameDe"})
  */
 class Genre
 {
@@ -27,19 +27,19 @@ class Genre
      * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
-    private $titleRu;
+    private $nameRu;
 
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
-    private $titleEn;
+    private $nameEn;
 
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
-    private $titleDe;
+    private $nameDe;
 
     public function getId()
     {
@@ -50,70 +50,70 @@ class Genre
      * @param string $locale
      * @return string
      */
-    public function getTitle($locale = null)
+    public function getName($locale = null)
     {
         $locale = !empty($locale) ? $locale : \Locale::getDefault();
-        $titleLocale = 'title' . ucfirst($locale);
-        return $this->$titleLocale;
+        $nameLocale = 'name' . ucfirst($locale);
+        return $this->$nameLocale;
     }
 
     /**
-     * @param string $title
+     * @param string $name
      * @param null $locale
      */
-    public function setTitle($title, $locale = null)
+    public function setName($name, $locale = null)
     {
         $locale = !empty($locale) ? $locale : \Locale::getDefault();
-        $titleLocale = 'title' . ucfirst($locale);
-        $this->$titleLocale = $title;
+        $nameLocale = 'name' . ucfirst($locale);
+        $this->$nameLocale = $name;
     }
 
     /**
      * @return mixed
      */
-    public function getTitleRu()
+    public function getNameRu()
     {
-        return $this->titleRu;
+        return $this->nameRu;
     }
 
     /**
-     * @param mixed $titleRu
+     * @param mixed $nameRu
      */
-    public function setTitleRu($titleRu)
+    public function setNameRu($nameRu)
     {
-        $this->titleRu = $titleRu;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTitleEn()
-    {
-        return $this->titleEn;
-    }
-
-    /**
-     * @param mixed $titleEn
-     */
-    public function setTitleEn($titleEn)
-    {
-        $this->titleEn = $titleEn;
+        $this->nameRu = $nameRu;
     }
 
     /**
      * @return mixed
      */
-    public function getTitleDe()
+    public function getNameEn()
     {
-        return $this->titleDe;
+        return $this->nameEn;
     }
 
     /**
-     * @param mixed $titleDe
+     * @param mixed $nameEn
      */
-    public function setTitleDe($titleDe)
+    public function setNameEn($nameEn)
     {
-        $this->titleDe = $titleDe;
+        $this->nameEn = $nameEn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameDe()
+    {
+        return $this->nameDe;
+    }
+
+    /**
+     * @param mixed $nameDe
+     */
+    public function setNameDe($nameDe)
+    {
+        $this->nameDe = $nameDe;
     }
 
 }

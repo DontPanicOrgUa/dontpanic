@@ -15,19 +15,19 @@ class GenreFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titleRu', TextType::class, [
+            ->add('nameRu', TextType::class, [
                 'label' => 'Genre [RU]',
                 'attr' => [
                     'placeholder' => 'Приключения'
                 ]
             ])
-            ->add('titleEn', TextType::class, [
+            ->add('nameEn', TextType::class, [
                 'label' => 'Genre [EN]',
                 'attr' => [
                     'placeholder' => 'Adventure'
                 ]
             ])
-            ->add('titleDe', TextType::class, [
+            ->add('nameDe', TextType::class, [
                 'label' => 'Genre [DE]',
                 'attr' => [
                     'placeholder' => 'Abenteuer'
