@@ -1,0 +1,36 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block body %}
+    <h1 class="page-header">Customers</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(customers, '#', 't0.id') }}</th>
+                <th>{{ knp_pagination_sortable(customers, 'Name', 't0.name') }}</th>
+                <th>{{ knp_pagination_sortable(customers, 'Second Name', 't0.secondname') }}</th>
+                <th>{{ knp_pagination_sortable(customers, 'Email', 't0.email') }}</th>
+                <th>{{ knp_pagination_sortable(customers, 'Phone', 't0.phone') }}</th>
+                <th>More..</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.id }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.secondname }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>
+                        {#<a class="btn btn-xs btn-warning" href="{{ path('admin_games_view', {id: game.id}) }}">view game info <span class=" fa fa-pencil"></span></a>#}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(customers) }}
+        </div>
+    </div>
+{% endblock %}

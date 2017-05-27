@@ -9,6 +9,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: ru
+    records_per_page: 20
 
 framework:
     #esi: ~

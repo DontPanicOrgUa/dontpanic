@@ -4,7 +4,7 @@
         <li {% if 'rooms' in app.request.get('_route') %}class="active"{% endif %}><a href="#">Rooms</a></li>
         <li {% if 'cities' in app.request.get('_route') %}class="active"{% endif %}><a href="{{ path('admin_cities_list') }}">Cities</a></li>
         <li {% if 'genres' in app.request.get('_route') %}class="active"{% endif %}><a href="{{ path('admin_genres_list') }}">Genres</a></li>
-        <li {% if 'customers' in app.request.get('_route') %}class="active"{% endif %}><a href="#">Customers</a></li>
+        <li {% if 'customers' in app.request.get('_route') %}class="active"{% endif %}><a href="{{ path('admin_customers_list') }}">Customers</a></li>
         <li {% if 'payments' in app.request.get('_route') %}class="active"{% endif %}><a href="{{ path('admin_payments_list') }}">Payments</a></li>
     </ul>
     <ul class="nav nav-sidebar">
