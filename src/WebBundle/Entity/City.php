@@ -3,75 +3,113 @@
 namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="cities")
  * @ORM\Entity(repositoryClass="WebBundle\Repository\CityRepository")
- * @Gedmo\TranslationEntity(class="WebBundle\Entity\CityTranslation")
  */
 class City
 {
 
     /**
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
      */
     private $id;
 
     /**
-     * @Gedmo\Translatable
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
-    private $title;
+    private $nameRu;
 
     /**
-     * @ORM\OneToMany(
-     *   targetEntity="WebBundle\Entity\CityTranslation",
-     *   mappedBy="object",
-     *   cascade={"persist", "remove"}
-     * )
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string")
      */
-    private $translations;
-
-    public function __construct()
-    {
-        $this->translations = new ArrayCollection();
-    }
+    private $nameEn;
 
     /**
-     * Get id
-     *
-     * @return int
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string")
      */
+    private $nameDe;
+
     public function getId()
     {
         return $this->id;
     }
 
-    public function setName($title)
+    /**
+     * @param string $locale
+     * @return string
+     */
+    public function getName($locale = null)
     {
-        $this->title = $title;
+        $locale = !empty($locale) ? $locale : \Locale::getDefault();
+        $nameLocale = 'name' . ucfirst($locale);
+        return $this->$nameLocale;
     }
 
-    public function getName()
+    /**
+     * @param string $name
+     * @param null $locale
+     */
+    public function setName($name, $locale = null)
     {
-        return $this->title;
+        $locale = !empty($locale) ? $locale : \Locale::getDefault();
+        $nameLocale = 'name' . ucfirst($locale);
+        $this->$nameLocale = $name;
     }
 
-    public function getTranslations()
+    /**
+     * @return mixed
+     */
+    public function getNameRu()
     {
-        return $this->translations;
+        return $this->nameRu;
     }
 
-    public function addTranslation(CityTranslation $t)
+    /**
+     * @param mixed $nameRu
+     */
+    public function setNameRu($nameRu)
     {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
-        }
+        $this->nameRu = $nameRu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameEn()
+    {
+        return $this->nameEn;
+    }
+
+    /**
+     * @param mixed $nameEn
+     */
+    public function setNameEn($nameEn)
+    {
+        $this->nameEn = $nameEn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameDe()
+    {
+        return $this->nameDe;
+    }
+
+    /**
+     * @param mixed $nameDe
+     */
+    public function setNameDe($nameDe)
+    {
+        $this->nameDe = $nameDe;
     }
 
 }

@@ -2,6 +2,7 @@ admin:
     resource: "@AdminBundle/Controller/"
     type:     annotation
     prefix:   /nepanikuy
+    defaults: { _locale: en }
 
 web:
     resource: "@WebBundle/Controller/"
