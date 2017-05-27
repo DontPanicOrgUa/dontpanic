@@ -6,12 +6,12 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Amount</th>
-                <th>Currency</th>
-                <th>Description</th>
+                <th>{{ knp_pagination_sortable(payments, '#', 't0.id') }}</th>
+                <th>{{ knp_pagination_sortable(payments, 'Amount', 't0.amount') }}</th>
+                <th>{{ knp_pagination_sortable(payments, 'Currency', 't0.currency') }}</th>
+                <th>{{ knp_pagination_sortable(payments, 'Description', 't0.description') }}</th>
+                <th>{{ knp_pagination_sortable(payments, 'Language', 't0.language') }}</th>
                 <th>Order_id</th>
-                <th>Language</th>
                 <th>Action</th>
                 <th>Version</th>
                 <th>More..</th>
@@ -24,8 +24,8 @@
                     <td>{{ payment.amount }}</td>
                     <td>{{ payment.currency }}</td>
                     <td>{{ payment.description }}</td>
-                    <td>{{ payment.orderId }}</td>
                     <td>{{ payment.language }}</td>
+                    <td>{{ payment.orderId }}</td>
                     <td>{{ payment.action }}</td>
                     <td>{{ payment.version }}</td>
                     <td>
@@ -35,5 +35,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(payments) }}
+        </div>
     </div>
 {% endblock %}
