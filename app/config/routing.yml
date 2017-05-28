@@ -1,10 +1,15 @@
+web:
+    resource: "@WebBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 admin:
     resource: "@AdminBundle/Controller/"
     type:     annotation
     prefix:   /nepanikuy
     defaults: { _locale: en }
 
-web:
-    resource: "@WebBundle/Controller/"
-    type:     annotation
-    prefix:   /
+fos_user_security:
+    prefix: /nepanikuy
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    defaults: { _locale: en }

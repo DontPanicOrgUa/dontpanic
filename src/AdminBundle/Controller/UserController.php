@@ -1,18 +1,25 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: mykyta
+ * Date: 5/28/17
+ * Time: 6:39 PM
+ */
 
 namespace AdminBundle\Controller;
 
-use WebBundle\Entity\City;
-use AdminBundle\Form\CityFormType;
+
+use AdminBundle\Entity\User;
+use AdminBundle\Form\UserFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-class CityController extends Controller
+class UserController extends Controller
 {
     /**
-     * @Route("/cities", name="admin_cities_list")
+     * @Route("/users", name="admin_users_list")
      * @Method("GET")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -20,7 +27,7 @@ class CityController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $cities = $em->getRepository('WebBundle:City')->findAll();
+        $cities = $em->getRepository('AdminBundle:User')->findAll();
 
         $paginator  = $this->get('knp_paginator');
         $result = $paginator->paginate(
@@ -29,71 +36,71 @@ class CityController extends Controller
             $request->query->getInt('limit', $this->getParameter('records_per_page'))
         );
 
-        return $this->render('AdminBundle:City:list.html.twig', [
-            'cities' => $result
+        return $this->render('AdminBundle:User:list.html.twig', [
+            'users' => $result
         ]);
     }
 
     /**
-     * @Route("/cities/add", name="admin_cities_add")
+     * @Route("/users/add", name="admin_users_add")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function addAction(Request $request)
     {
-        $form = $this->createForm(CityFormType::class);
+        $form = $this->createForm(UserFormType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $city = $form->getData();
+            $user = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($city);
+            $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'New city is added.');
-            return $this->redirectToRoute('admin_cities_list');
+            $this->addFlash('success', 'New user is added.');
+            return $this->redirectToRoute('admin_users_list');
         }
 
-        return $this->render('AdminBundle:City:add.html.twig', [
-            'cityForm' => $form->createView()
+        return $this->render('AdminBundle:User:add.html.twig', [
+            'userForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/cities/{id}/edit", name="admin_cities_edit")
+     * @Route("/users/{id}/edit", name="admin_users_edit")
      * @param Request $request
-     * @param City $city
+     * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, City $city)
+    public function editAction(Request $request, User $user)
     {
-        $form = $this->createForm(CityFormType::class, $city);
+        $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $city = $form->getData();
+            $user = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($city);
+            $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'City is edited.');
-            return $this->redirectToRoute('admin_cities_list');
+            $this->addFlash('success', 'User is edited.');
+            return $this->redirectToRoute('admin_users_list');
         }
 
-        return $this->render('AdminBundle:City:edit.html.twig', [
-            'cityForm' => $form->createView()
+        return $this->render('AdminBundle:User:edit.html.twig', [
+            'userForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/cities/{id}/delete", name="admin_cities_delete")
-     * @param City $city
+     * @Route("/users/{id}/delete", name="admin_users_delete")
+     * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(City $city)
+    public function deleteAction(User $user)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($city);
+        $em->remove($user);
         $em->flush();
-        $this->addFlash('success', 'City is deleted.');
-        return $this->redirectToRoute('admin_cities_list');
+        $this->addFlash('success', 'User is deleted.');
+        return $this->redirectToRoute('admin_users_list');
     }
 }

@@ -1,0 +1,32 @@
+AdminBundle\Entity\User:
+    properties:
+        email:
+            - Length:
+                min: 6
+                minMessage: "Email must have at least {{ limit }} characters."
+                max: 255
+                maxMessage: "Your email is too long."
+            - NotBlank:
+                message: "Please enter an email"
+        username:
+            - Length:
+                min: 3
+                minMessage: "Your username must have at least {{ limit }} characters."
+                max: 255
+                maxMessage: "Your username is too long."
+            - NotBlank:
+                message: "Please enter an username"
+        plainPassword:
+            - Length:
+                min: 6
+                minMessage: "Your password must have at least {{ limit }} characters."
+                max: 255
+                maxMessage: "Your password is too long."
+            - NotBlank:
+                message: "Please enter a password"
+        phone:
+            - NotBlank:
+                message: "Please enter a phone"
+        company:
+            - NotBlank:
+                message: "Please enter a company"

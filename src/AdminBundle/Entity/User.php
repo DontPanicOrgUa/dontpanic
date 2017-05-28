@@ -5,10 +5,13 @@ namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="`users`")
+ * @UniqueEntity(fields={"username"})
+ * @UniqueEntity(fields={"email"})
  */
 class User extends BaseUser
 {
@@ -33,6 +36,12 @@ class User extends BaseUser
      * @ORM\Column(type="string")
      */
     protected $company;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->apiToken = uniqid('api_');
+    }
 
     /**
      * @return mixed
@@ -89,4 +98,5 @@ class User extends BaseUser
     {
         $this->phone = $phone;
     }
+
 }

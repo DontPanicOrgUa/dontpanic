@@ -85,7 +85,7 @@ class GenreController extends Controller
     }
 
     /**
-     * @Route("genres/{id}/delete", name="admin_genres_delete")
+     * @Route("/genres/{id}/delete", name="admin_genres_delete")
      * @param Genre $genre
      * @return \Symfony\Component\HttpFoundation\Response
      */

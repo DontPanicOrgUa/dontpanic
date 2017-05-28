@@ -1,0 +1,42 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-success pull-right" href="{{ path('admin_users_add') }}">Add User <span class="fa fa-plus"></span></a>
+    <h1 class="page-header">Users</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(users, '#', 't0.id') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'IsActive', 't0.enabled') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Username', 't0.username') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Email', 't0.email') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Phone', 't0.phone') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Company', 't0.company') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'ApiToken', 't0.apiToken') }}</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.enabled ? 'yes' : 'no' }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>{{ user.company }}</td>
+                    <td>{{ user.apiToken }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-warning" href="{{ path('admin_users_edit', {id: user.id}) }}">edit <span class=" fa fa-pencil"></span></a>
+                         <a class="btn btn-xs btn-danger" href="{{ path('admin_users_delete', {id: user.id}) }}">delete <span class=" fa fa-cancel"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}
