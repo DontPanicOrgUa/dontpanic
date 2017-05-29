@@ -23,9 +23,6 @@ class UserFormType extends AbstractType
                     'class' => 'phone_number'
                 ]
             ])
-            ->add('company', TextType::class, [
-                'label' => 'Company'
-            ])
             ->add('enabled', ChoiceType::class, [
                 'label' => 'Is active',
                 'choices' => [

@@ -4,6 +4,7 @@ namespace WebBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="payments")
@@ -52,7 +53,24 @@ class Payment
     /**
      * @ORM\Column(type="string")
      */
+
     private $language;
+
+    /**
+     * @var \DateTime $created_at
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @var \DateTime $updated_at
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     /**
      * @return mixed
@@ -172,6 +190,38 @@ class Payment
     public function setLanguage($language)
     {
         $this->language = $language;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param \DateTime $created_at
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param \DateTime $updated_at
+     */
+    public function setUpdatedAt($updated_at)
+    {
+        $this->updated_at = $updated_at;
     }
 
 }

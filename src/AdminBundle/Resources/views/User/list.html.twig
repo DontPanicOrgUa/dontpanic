@@ -12,8 +12,6 @@
                 <th>{{ knp_pagination_sortable(users, 'Username', 't0.username') }}</th>
                 <th>{{ knp_pagination_sortable(users, 'Email', 't0.email') }}</th>
                 <th>{{ knp_pagination_sortable(users, 'Phone', 't0.phone') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'Company', 't0.company') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'ApiToken', 't0.apiToken') }}</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -25,8 +23,6 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.phone }}</td>
-                    <td>{{ user.company }}</td>
-                    <td>{{ user.apiToken }}</td>
                     <td>
                         <a class="btn btn-xs btn-warning" href="{{ path('admin_users_edit', {id: user.id}) }}">edit <span class=" fa fa-pencil"></span></a>
                          <a class="btn btn-xs btn-danger" href="{{ path('admin_users_delete', {id: user.id}) }}">delete <span class=" fa fa-cancel"></span></a>

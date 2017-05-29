@@ -92,3 +92,9 @@ fos_user:
     from_email:
         address: "mp091689@gmail.com"
         sender_name: "mp091689"
+
+stof_doctrine_extensions:
+    default_locale: en
+    orm:
+        default:
+            timestampable: true

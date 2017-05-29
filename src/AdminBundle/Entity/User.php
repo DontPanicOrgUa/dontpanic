@@ -25,23 +25,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string")
      */
-    protected $apiToken;
-
-    /**
-     * @ORM\Column(type="string")
-     */
     protected $phone;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $company;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->apiToken = uniqid('api_');
-    }
 
     /**
      * @return mixed
@@ -49,38 +33,6 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getApiToken()
-    {
-        return $this->apiToken;
-    }
-
-    /**
-     * @param mixed $apiToken
-     */
-    public function setApiToken($apiToken)
-    {
-        $this->apiToken = $apiToken;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
-     * @param mixed $company
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
     }
 
     /**

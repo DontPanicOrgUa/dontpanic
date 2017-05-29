@@ -4,6 +4,7 @@ namespace WebBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="customers")
@@ -38,6 +39,22 @@ class Customer
      * @ORM\Column(type="string")
      */
     private $phone;
+
+    /**
+     * @var \DateTime $created_at
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @var \DateTime $updated_at
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     /**
      * @return mixed
@@ -109,6 +126,38 @@ class Customer
     public function setPhone($phone)
     {
         $this->phone = $phone;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param \DateTime $created_at
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param \DateTime $updated_at
+     */
+    public function setUpdatedAt($updated_at)
+    {
+        $this->updated_at = $updated_at;
     }
 
 }
