@@ -16,4 +16,5 @@
 /web/bundles/
 /.idea/
 deploy.php
+/web/uploads/rooms/*
 
