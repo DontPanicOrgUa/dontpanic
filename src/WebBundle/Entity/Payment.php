@@ -58,7 +58,6 @@ class Payment
 
     /**
      * @var \DateTime $createdAt
-     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
      */
@@ -66,7 +65,6 @@ class Payment
 
     /**
      * @var \DateTime $updatedAt
-     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
