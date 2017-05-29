@@ -82,12 +82,16 @@ class RoomController extends Controller
     {
         $logo = $room->getLogo();
         $background = $room->getBackground();
-        $room->setLogo(
-            new File($this->getParameter('uploads_rooms_path').'/'.$room->getLogo())
-        );
-        $room->setBackground(
-            new File($this->getParameter('uploads_rooms_path').'/'.$room->getBackground())
-        );
+        if (is_file($this->getParameter('uploads_rooms_path') . '/' . $logo)) {
+            $room->setLogo(
+                new File($this->getParameter('uploads_rooms_path') . '/' . $logo)
+            );
+        }
+        if (is_file($this->getParameter('uploads_rooms_path') . '/' . $background)) {
+            $room->setBackground(
+                new File($this->getParameter('uploads_rooms_path') . '/' . $background)
+            );
+        }
 
         $form = $this->createForm(RoomFormType::class, $room);
 
@@ -127,7 +131,8 @@ class RoomController extends Controller
      * @param Room $room
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(Room $room)
+    public
+    function deleteAction(Room $room)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($room);

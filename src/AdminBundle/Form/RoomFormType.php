@@ -47,12 +47,14 @@ class RoomFormType extends AbstractType
             ])
             ->add('logo', FileType::class, [
                 'label' => 'Logo *.png',
+                'data_class' => null,
                 'attr' => [
                     'accept' => 'image/png'
                 ]
             ])
             ->add('background', FileType::class, [
                 'label' => 'Background *.jpg',
+                'data_class' => null,
                 'attr' => [
                     'accept' => 'image/jpeg'
                 ]

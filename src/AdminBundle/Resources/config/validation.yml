@@ -27,6 +27,3 @@ AdminBundle\Entity\User:
         phone:
             - NotBlank:
                 message: "Please enter a phone"
-        company:
-            - NotBlank:
-                message: "Please enter a company"
