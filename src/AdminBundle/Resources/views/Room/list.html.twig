@@ -1,0 +1,48 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-success pull-right" href="{{ path('admin_rooms_add') }}">Add Room <span class="fa fa-plus"></span></a>
+    <h1 class="page-header">Rooms</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(rooms, '#', 't0.id') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Title', 't0.titleEn') }}</th>
+                <th>Logo</th>
+                <th>Background</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Address', 't0.addressEn') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Difficulty', 't0.difficulty') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Time', 't0.timeMax') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Players', 't0.playersMax') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Age', 't0.ageMin') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'IsActive', 't0.enabled') }}</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for room in rooms %}
+                <tr>
+                    <td>{{ room.id }}</td>
+                    <td>{{ room.titleEn }}</td>
+                    <td>{% if room.logo %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.logo) }}" alt="">{% else %}No image{% endif %}</td>
+                    <td>{% if room.background %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.background) }}" alt="">{% else %}No image{% endif %}</td>
+                    <td>{{ room.address }}</td>
+                    <td>{{ room.difficulty }}</td>
+                    <td>{{ room.timeMax }}</td>
+                    <td>{{ room.playersMin }}/{{ room.playersMax }}</td>
+                    <td>{{ room.ageMin }}</td>
+                    <td>{{ room.enabled ? 'yes' : 'no' }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-warning" href="{{ path('admin_rooms_edit', {id: room.id}) }}">edit <span class=" fa fa-pencil"></span></a>
+                         <a class="btn btn-xs btn-danger" href="{{ path('admin_rooms_delete', {id: room.id}) }}">delete <span class=" fa fa-close"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(rooms) }}
+        </div>
+    </div>
+{% endblock %}

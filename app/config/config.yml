@@ -10,6 +10,7 @@ imports:
 parameters:
     locale: ru
     records_per_page: 20
+    uploads_rooms_path: '%kernel.root_dir%/../web/uploads/rooms'
 
 framework:
     #esi: ~
@@ -43,6 +44,8 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - bootstrap_3_layout.html.twig
+    globals:
+        uploads_rooms_path: '%uploads_rooms_path%'
 
 # Doctrine Configuration
 doctrine:
