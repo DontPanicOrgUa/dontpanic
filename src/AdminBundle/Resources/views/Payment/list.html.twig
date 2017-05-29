@@ -11,6 +11,7 @@
                 <th>{{ knp_pagination_sortable(payments, 'Currency', 't0.currency') }}</th>
                 <th>{{ knp_pagination_sortable(payments, 'Description', 't0.description') }}</th>
                 <th>{{ knp_pagination_sortable(payments, 'Language', 't0.language') }}</th>
+                <th>{{ knp_pagination_sortable(payments, 'CreatedAt', 't0.createdAt') }}</th>
                 <th>Order_id</th>
                 <th>Action</th>
                 <th>Version</th>
@@ -25,6 +26,7 @@
                     <td>{{ payment.currency }}</td>
                     <td>{{ payment.description }}</td>
                     <td>{{ payment.language }}</td>
+                    <td>{{ payment.createdAt|date('d.m.Y H:i:s') }}</td>
                     <td>{{ payment.orderId }}</td>
                     <td>{{ payment.action }}</td>
                     <td>{{ payment.version }}</td>
