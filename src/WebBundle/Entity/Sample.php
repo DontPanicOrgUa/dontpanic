@@ -34,6 +34,27 @@ class Sample
     private $playersPrice;
 
     /**
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room")
+     */
+    private $room;
+
+    /**
+     * @return mixed
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * @param mixed $room
+     */
+    public function setRoom(Room $room)
+    {
+        $this->room = $room;
+    }
+
+    /**
      * @return mixed
      */
     public function getTime()
