@@ -7,16 +7,16 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(rooms, '#', 't0.id') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Title', 't0.titleEn') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, '#', 'r.id') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Title', 'r.titleEn') }}</th>
                 <th>Logo</th>
                 <th>Background</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Address', 't0.addressEn') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Difficulty', 't0.difficulty') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Time', 't0.timeMax') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Players', 't0.playersMax') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Age', 't0.ageMin') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'IsActive', 't0.enabled') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Address', 'c.nameEn') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Difficulty', 'r.difficulty') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Time', 'r.timeMax') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Players', 'r.playersMax') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Age', 'r.ageMin') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'IsActive', 'r.enabled') }}</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -27,7 +27,7 @@
                     <td>{{ room.titleEn }}</td>
                     <td>{% if room.logo %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.logo) }}" alt="">{% else %}No image{% endif %}</td>
                     <td>{% if room.background %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.background) }}" alt="">{% else %}No image{% endif %}</td>
-                    <td>{{ room.address }}</td>
+                    <td>{{ room.city }}<br>{{ room.address }}</td>
                     <td>{{ room.difficulty }}</td>
                     <td>{{ room.timeMax }}</td>
                     <td>{{ room.playersMin }}/{{ room.playersMax }}</td>

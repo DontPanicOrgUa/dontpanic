@@ -22,7 +22,7 @@ class RoomController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $rooms = $em->getRepository('WebBundle:Room')->findAll();
+        $rooms = $em->getRepository('WebBundle:Room')->queryFindAll();
 
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(

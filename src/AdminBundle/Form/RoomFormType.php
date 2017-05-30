@@ -2,6 +2,8 @@
 
 namespace AdminBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use WebBundle\Entity\City;
 use WebBundle\Entity\Room;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use WebBundle\Repository\CityRepository;
 
 class RoomFormType extends AbstractType
 {
@@ -59,17 +62,24 @@ class RoomFormType extends AbstractType
                     'accept' => 'image/jpeg'
                 ]
             ])
+            ->add('city', EntityType::class, [
+                'class' => City::class,
+                'placeholder' => 'Choose a City',
+                'query_builder' => function (CityRepository $repo) {
+                    return $repo->createAlphabeticalQueryBuilder();
+                }
+            ])
             ->add('coordinates', TextType::class, [
                 'label' => 'Google coordinates',
             ])
             ->add('addressRu', TextType::class, [
-                'label' => '[RU]',
+                'label' => 'Address [RU]',
             ])
             ->add('addressEn', TextType::class, [
-                'label' => '[EN]',
+                'label' => 'Address [EN]',
             ])
             ->add('addressDe', TextType::class, [
-                'label' => '[DE]',
+                'label' => 'Address [DE]',
             ])
             ->add('difficulty', ChoiceType::class, [
                 'choices' => [

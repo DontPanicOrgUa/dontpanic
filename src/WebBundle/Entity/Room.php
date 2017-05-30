@@ -2,9 +2,9 @@
 
 namespace WebBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -152,6 +152,12 @@ class Room
      * @ORM\OneToMany(targetEntity="WebBundle\Entity\Sample", mappedBy="room")
      */
     private $samples;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\City", inversedBy="rooms")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
 
     /**
      * @var \DateTime $createdAt
@@ -577,13 +583,28 @@ class Room
     }
 
     /**
-     * @param mixed $samples
+     * @param Sample $samples
      */
-    public function setSamples($samples)
+    public function setSamples(Sample $samples)
     {
         $this->samples = $samples;
     }
 
+    /**
+     * @return City
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     */
+    public function setCity(City $city)
+    {
+        $this->city = $city;
+    }
 
 }
 

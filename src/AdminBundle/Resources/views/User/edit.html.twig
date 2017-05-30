@@ -3,11 +3,5 @@
 {% block body %}
     <a class="btn btn-danger pull-right" href="{{ path('admin_users_list') }}">Cancel</a>
     <h1 class="page-header">Edit User</h1>
-    {{ form_start(userForm) }}
-    {{ form_row(userForm.username) }}
-    {{ form_row(userForm.email) }}
-    {{ form_row(userForm.phone) }}
-    {{ form_row(userForm.enabled) }}
-    {{ form_row(userForm.plainPassword) }}
-    {{ form_end(userForm) }}
+    {{ include('AdminBundle:User:_form.html.twig') }}
 {% endblock %}

@@ -1,0 +1,59 @@
+{{ form_start(roomForm) }}
+    {{ form_row(roomForm._token) }}
+<div class="panel panel-default">
+    <div class="panel-heading">Title</div>
+    <div class="panel-body">
+        <div class="col-sm-4">{{ form_row(roomForm.titleRu) }}</div>
+        <div class="col-sm-4">{{ form_row(roomForm.titleEn) }}</div>
+        <div class="col-sm-4">{{ form_row(roomForm.titleDe) }}</div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Description</div>
+    <div class="panel-body">
+        <div class="col-sm-4">{{ form_row(roomForm.descriptionRu) }}</div>
+        <div class="col-sm-4">{{ form_row(roomForm.descriptionEn) }}</div>
+        <div class="col-sm-4">{{ form_row(roomForm.descriptionDe) }}</div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Address</div>
+    <div class="panel-body">
+        <dev class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.city) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.coordinates) }}</div>
+        </dev>
+        <div class="row">
+            <div class="col-sm-4">{{ form_row(roomForm.addressRu) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.addressEn) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.addressDe) }}</div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Images</div>
+    <div class="panel-body">
+        <div class="col-sm-6">{{ form_row(roomForm.logo) }}</div>
+        <div class="col-sm-6">{{ form_row(roomForm.background) }}</div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Settings</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.difficulty) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.timeMax) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.playersMin) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.playersMax) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.ageMin) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.enabled) }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">{{ form_row(roomForm.save) }}</div>
+{{ form_end(roomForm) }}

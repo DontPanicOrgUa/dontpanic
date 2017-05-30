@@ -3,8 +3,6 @@
 {% block body %}
     <a class="btn btn-danger pull-right" href="{{ path('admin_cities_list') }}">Cancel</a>
     <h1 class="page-header">Edit City</h1>
-    {{ form_start(cityForm) }}
-        {{ form_widget(cityForm) }}
-    {{ form_end(cityForm) }}
+    {{ include('AdminBundle:City:_form.html.twig') }}
 {% endblock %}
 

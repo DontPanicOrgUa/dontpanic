@@ -3,6 +3,7 @@
 namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -40,6 +41,16 @@ class City
      * @ORM\Column(type="string")
      */
     private $nameDe;
+
+    /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Room", mappedBy="city")
+     */
+    private $rooms;
+
+    function __construct()
+    {
+        $this->rooms = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -114,6 +125,27 @@ class City
     public function setNameDe($nameDe)
     {
         $this->nameDe = $nameDe;
+    }
+
+    /**
+     * @return ArrayCollection|Room[]
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
+    }
+
+    /**
+     * @param Room $rooms
+     */
+    public function setRooms(Room $rooms)
+    {
+        $this->rooms = $rooms;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
 }

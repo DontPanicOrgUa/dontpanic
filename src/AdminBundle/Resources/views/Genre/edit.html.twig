@@ -3,8 +3,6 @@
 {% block body %}
     <a class="btn btn-danger pull-right" href="{{ path('admin_genres_list') }}">Cancel</a>
     <h1 class="page-header">Edit Genre</h1>
-    {{ form_start(genreForm) }}
-        {{ form_widget(genreForm) }}
-    {{ form_end(genreForm) }}
+    {{ include('AdminBundle:Genre:_form.html.twig') }}
 {% endblock %}
 
