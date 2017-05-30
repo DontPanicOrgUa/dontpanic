@@ -3,10 +3,11 @@
 namespace WebBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="WebBundle\Repository\SampleRepository")
  * @ORM\Table(name="sample")
  */
 class Sample
@@ -34,12 +35,12 @@ class Sample
     private $playersPrice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room")
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="samples")
      */
     private $room;
 
     /**
-     * @return mixed
+     * @return Room
      */
     public function getRoom()
     {
@@ -47,7 +48,7 @@ class Sample
     }
 
     /**
-     * @param mixed $room
+     * @param Room $room
      */
     public function setRoom(Room $room)
     {

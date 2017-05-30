@@ -1,0 +1,30 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block body %}
+    <h1 class="page-header">Sample</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-xs btn-warning pull-right" href="{{ path('admin_rooms_edit', {id: room.id}) }}">Edit Room <span class="fa fa-pencil"></span></a>
+            {{ room.title() }}
+        </div>
+        <div class="panel-body">
+            Panel content
+        </div>
+    </div>
+    {#<div class="table-responsive">#}
+        {#<table class="table table-striped">#}
+            {#<thead>#}
+            {#<tr>#}
+                {#<th></th>#}
+            {#</tr>#}
+            {#</thead>#}
+            {#<tbody>#}
+            {#{% for i in [] %}#}
+                {#<tr>#}
+                    {#<td></td>#}
+                {#</tr>#}
+            {#{% endfor %}#}
+            {#</tbody>#}
+        {#</table>#}
+    {#</div>#}
+{% endblock %}

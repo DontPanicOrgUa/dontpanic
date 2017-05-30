@@ -2,6 +2,7 @@
 
 namespace WebBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -148,6 +149,11 @@ class Room
     private $enabled = true;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Sample", mappedBy="room")
+     */
+    private $samples;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -162,6 +168,11 @@ class Room
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    public function __construct()
+    {
+        $this->samples = new ArrayCollection();
+    }
 
     /**
      * @return integer
@@ -556,5 +567,23 @@ class Room
     {
         $this->updatedAt = $updatedAt;
     }
+
+    /**
+     * @return ArrayCollection|Sample[]
+     */
+    public function getSamples()
+    {
+        return $this->samples;
+    }
+
+    /**
+     * @param mixed $samples
+     */
+    public function setSamples($samples)
+    {
+        $this->samples = $samples;
+    }
+
+
 }
 
