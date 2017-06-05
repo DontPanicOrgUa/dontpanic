@@ -24,34 +24,16 @@ class Sample
     private $time;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    private $dayOfWeek;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $playersPrice;
-
-    /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="samples")
      */
     private $room;
 
     /**
-     * @return Room
+     * @return mixed
      */
-    public function getRoom()
+    public function getId()
     {
-        return $this->room;
-    }
-
-    /**
-     * @param Room $room
-     */
-    public function setRoom(Room $room)
-    {
-        $this->room = $room;
+        return $this->id;
     }
 
     /**
@@ -71,43 +53,19 @@ class Sample
     }
 
     /**
-     * @return mixed
+     * @return Room
      */
-    public function getDayOfWeek()
+    public function getRoom()
     {
-        return $this->dayOfWeek;
+        return $this->room;
     }
 
     /**
-     * @param mixed $dayOfWeek
+     * @param Room $room
      */
-    public function setDayOfWeek($dayOfWeek)
+    public function setRoom(Room $room)
     {
-        $this->dayOfWeek = $dayOfWeek;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlayersPrice()
-    {
-        return $this->playersPrice;
-    }
-
-    /**
-     * @param mixed $playersPrice
-     */
-    public function setPlayersPrice($playersPrice)
-    {
-        $this->playersPrice = $playersPrice;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
+        $this->room = $room;
     }
 
 }

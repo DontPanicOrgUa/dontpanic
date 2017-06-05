@@ -160,6 +160,18 @@ class Room
     private $city;
 
     /**
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Currency", inversedBy="rooms")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $currency;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     * @Gedmo\Slug(fields={"titleEn"})
+     */
+    private $slug;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -604,6 +616,38 @@ class Room
     public function setCity(City $city)
     {
         $this->city = $city;
+    }
+
+    /**
+     * @return Currency
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param Currency $currency
+     */
+    public function setCurrency(Currency $currency)
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 
 }

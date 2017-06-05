@@ -41,16 +41,17 @@
     <div class="panel-heading">Settings</div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-6">{{ form_row(roomForm.difficulty) }}</div>
-            <div class="col-sm-6">{{ form_row(roomForm.timeMax) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.currency) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.difficulty) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.timeMax) }}</div>
         </div>
         <div class="row">
-            <div class="col-sm-6">{{ form_row(roomForm.playersMin) }}</div>
-            <div class="col-sm-6">{{ form_row(roomForm.playersMax) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.playersMin) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.playersMax) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.ageMin) }}</div>
         </div>
         <div class="row">
-            <div class="col-sm-6">{{ form_row(roomForm.ageMin) }}</div>
-            <div class="col-sm-6">{{ form_row(roomForm.enabled) }}</div>
+            <div class="col-sm-4">{{ form_row(roomForm.enabled) }}</div>
         </div>
     </div>
 </div>

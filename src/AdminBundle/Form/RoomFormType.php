@@ -4,6 +4,7 @@ namespace AdminBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use WebBundle\Entity\City;
+use WebBundle\Entity\Currency;
 use WebBundle\Entity\Room;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -68,6 +69,10 @@ class RoomFormType extends AbstractType
                 'query_builder' => function (CityRepository $repo) {
                     return $repo->createAlphabeticalQueryBuilder();
                 }
+            ])
+            ->add('currency', EntityType::class, [
+                'class' => Currency::class,
+                'placeholder' => 'Choose a Currency'
             ])
             ->add('coordinates', TextType::class, [
                 'label' => 'Google coordinates',

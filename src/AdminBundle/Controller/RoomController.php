@@ -73,7 +73,7 @@ class RoomController extends Controller
     }
 
     /**
-     * @Route("/rooms/{id}/edit", name="admin_rooms_edit")
+     * @Route("/rooms/{slug}/edit", name="admin_rooms_edit")
      * @param Request $request
      * @param Room $room
      * @return \Symfony\Component\HttpFoundation\Response
@@ -127,7 +127,7 @@ class RoomController extends Controller
     }
 
     /**
-     * @Route("/rooms/{id}/delete", name="admin_rooms_delete")
+     * @Route("/rooms/{slug}/delete", name="admin_rooms_delete")
      * @param Room $room
      * @return \Symfony\Component\HttpFoundation\Response
      */

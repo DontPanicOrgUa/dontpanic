@@ -135,14 +135,6 @@ class City
         return $this->rooms;
     }
 
-    /**
-     * @param Room $rooms
-     */
-    public function setRooms(Room $rooms)
-    {
-        $this->rooms = $rooms;
-    }
-
     public function __toString()
     {
         return $this->getName();

@@ -11,7 +11,9 @@ class RoomRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('r')
             ->leftJoin('r.city', 'c')
-            ->addSelect('c');
+            ->leftJoin('r.currency', 'cu')
+            ->addSelect('c')
+            ->addSelect('cu');
         return $qb->getQuery();
     }
 }
