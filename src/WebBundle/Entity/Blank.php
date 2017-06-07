@@ -6,10 +6,10 @@ namespace WebBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="WebBundle\Repository\SampleRepository")
- * @ORM\Table(name="sample")
+ * @ORM\Entity(repositoryClass="WebBundle\Repository\BlankRepository")
+ * @ORM\Table(name="blank")
  */
-class Sample
+class Blank
 {
     /**
      * @ORM\Id
@@ -24,7 +24,7 @@ class Sample
     private $time;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="samples")
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="blanks")
      */
     private $room;
 

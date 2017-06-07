@@ -2,6 +2,7 @@
 
 namespace WebBundle\Entity;
 
+use AdminBundle\Controller\BlankController;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -149,9 +150,9 @@ class Room
     private $enabled = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Sample", mappedBy="room")
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Blank", mappedBy="room")
      */
-    private $samples;
+    private $blanks;
 
     /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\City", inversedBy="rooms")
@@ -189,7 +190,7 @@ class Room
 
     public function __construct()
     {
-        $this->samples = new ArrayCollection();
+        $this->blanks = new ArrayCollection();
     }
 
     /**
@@ -587,19 +588,19 @@ class Room
     }
 
     /**
-     * @return ArrayCollection|Sample[]
+     * @return ArrayCollection|Blank[]
      */
-    public function getSamples()
+    public function getBlanks()
     {
-        return $this->samples;
+        return $this->blanks;
     }
 
     /**
-     * @param Sample $samples
+     * @param Blank $blanks
      */
-    public function setSamples(Sample $samples)
+    public function setBlanks(Blank $blanks)
     {
-        $this->samples = $samples;
+        $this->blanks = $blanks;
     }
 
     /**
