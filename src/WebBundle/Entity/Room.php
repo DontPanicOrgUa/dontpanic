@@ -2,7 +2,6 @@
 
 namespace WebBundle\Entity;
 
-use AdminBundle\Controller\BlankController;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;

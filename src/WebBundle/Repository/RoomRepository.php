@@ -16,4 +16,18 @@ class RoomRepository extends EntityRepository
             ->addSelect('cu');
         return $qb->getQuery();
     }
+
+    public function findBySlug($slug)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->leftJoin('r.blanks', 'b')
+            ->leftJoin('b.prices','p')
+            ->addSelect('b')
+            ->addSelect('p')
+            ->orderBy('b.time', 'ASC')
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

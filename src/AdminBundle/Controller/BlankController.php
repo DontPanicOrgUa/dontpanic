@@ -3,11 +3,10 @@
 namespace AdminBundle\Controller;
 
 
-use DateTime;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Blank;
+use AdminBundle\Form\BlankFormType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -18,81 +17,86 @@ class BlankController extends Controller
     /**
      * @Route("/rooms/{slug}/blanks", name="admin_blanks_list")
      * @Method("GET")
-     * @param Room $room
+     * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(Room $room)
+    public function listAction($slug)
     {
+        $em = $this->getDoctrine()->getManager();
+        $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
         return $this->render('AdminBundle:Blank:list.html.twig', [
             'room' => $room
         ]);
     }
 
     /**
-     * @Route("/rooms/{slug}/blanks", name="admin_blanks_add")
-     * @Method("POST")
-     * @param Room $room
+     * @Route("/rooms/{slug}/blanks/add", name="admin_blanks_add")
+     * @ParamConverter("room", options={"mapping": {"slug": "slug"}})
      * @param Request $request
-     * @return JsonResponse
+     * @param Room $room
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function addAction(Room $room, Request $request)
+    public function addAction(Request $request, Room $room)
     {
-        $time = DateTime::createFromFormat('H:i:s', $request->request->get('time') . ':00');
-        $blank = new Blank();
-        $blank->setRoom($room);
-        $blank->setTime($time);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($blank);
-        $em->flush();
-        return new JsonResponse([
-            'blank' => [
-                'id' => $blank->getId(),
-                'room_id' => $blank->getRoom()->getId(),
-                'time' => $blank->getTime()->format('H:i')
-            ]
+        $form = $this->createForm(BlankFormType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $blank = $form->getData();
+            $blank->setRoom($room);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blank);
+            $em->flush();
+            $this->addFlash('success', 'New time is added.');
+            return $this->redirectToRoute('admin_blanks_list', ['slug' => $room->getSlug()]);
+        }
+
+        return $this->render('AdminBundle:Blank:add.html.twig', [
+            'room' => $room,
+            'blankForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/rooms/{slug}/blanks/{id}", name="admin_blanks_delete")
+     * @Route("/rooms/{slug}/blanks/{id}/delete", name="admin_blanks_delete")
      * @ParamConverter("room", options={"mapping": {"slug": "slug"}})
      * @ParamConverter("blank", options={"mapping": {"id": "id"}})
-     * @Method("DELETE")
+     * @param Room $room
      * @param Blank $blank
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Room $room, Blank $blank) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($blank);
         $em->flush();
-        return new JsonResponse([
-            'message' => 'success',
-            'status' => 204
-        ], 204);
+        return $this->redirectToRoute('admin_blanks_list', ['slug' => $room->getSlug()]);
     }
 
     /**
-     * @Route("/rooms/{slug}/blanks/{id}", name="admin_blanks_edit")
+     * @Route("/rooms/{slug}/blanks/{id}/edit", name="admin_blanks_edit")
      * @ParamConverter("room", options={"mapping": {"slug": "slug"}})
      * @ParamConverter("blank", options={"mapping": {"id": "id"}})
-     * @Method("PUT")
      * @param Room $room
      * @param Blank $blank
      * @param Request $request
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Room $room, Blank $blank, Request $request) {
-        $time = DateTime::createFromFormat('H:i:s', $request->request->get('time') . ':00');
-        $em = $this->getDoctrine()->getManager();
-        $blank->setTime($time);
-        $em->persist($blank);
-        $em->flush();
-        return new JsonResponse([
-            'blank' => [
-                'id' => $blank->getId(),
-                'room_id' => $blank->getRoom()->getId(),
-                'time' => $blank->getTime()->format('H:i')
-            ]
-        ], 200);
+        $form = $this->createForm(BlankFormType::class, $blank);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $blank = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blank);
+            $em->flush();
+            $this->addFlash('success', 'Blank is edited.');
+            return $this->redirectToRoute('admin_blanks_list', ['slug' => $room->getSlug()]);
+        }
+
+        return $this->render('AdminBundle:Blank:edit.html.twig', [
+            'room' => $room,
+            'blankForm' => $form->createView()
+        ]);
     }
 }

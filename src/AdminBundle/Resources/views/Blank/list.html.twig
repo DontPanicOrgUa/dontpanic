@@ -22,345 +22,170 @@
                 <tr data-blank-id="{{ blank.id }}">
                     <td>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false"><span>{{ blank.time | date('H:i') }}</span> <span class="caret"></span>
+                            <button
+                                    type="button"
+                                    class="btn btn-xs btn-info dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                <span>{{ blank.time | date('H:i') }}</span> <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil blank-edit" data-toggle="modal"
-                                       data-target="#blank-modal"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close blank-delete"> Delete</a></li>
+                                <li><a href="{{ path('admin_blanks_edit', {slug: room.slug, id: blank.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                <li><a href="{{ path('admin_blanks_delete', {slug: room.slug, id: blank.id}) }}" class="fa fa-close"> Delete</a></li>
                             </ul>
                         </div>
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" data-price-id="">
-                                1-2 / 500 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                3-4 / 450 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                5 / 400 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-success fa fa-plus" data-toggle="modal"
-                           data-target="#price-modal"> add price</a>
+                        {% for price in blank.prices %}
+                            {% if price.dayOfWeek == 'monday' %}
+                                <div class="btn-group">
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">{{ price.players }} / {{ price.price }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_prices_edit', {slug: room.slug, id: price.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                        <li><a href="{{ path('admin_prices_delete', {slug: room.slug, id: price.id}) }}" class="fa fa-close"> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                1-2 / 500 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                3-4 / 450 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                5 / 400 <span class="caret"></span>
-                            </button>
-                            <br>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-success fa fa-plus" data-toggle="modal"
-                           data-target="#price-modal"> add price</a>
+                        {% for price in blank.prices %}
+                            {% if price.dayOfWeek == 'tuesday' %}
+                                <div class="btn-group">
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">{{ price.players }} / {{ price.price }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_prices_edit', {slug: room.slug, id: price.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                        <li><a href="{{ path('admin_prices_delete', {slug: room.slug, id: price.id}) }}" class="fa fa-close"> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                1-2 / 500 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                3-4 / 450 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                5 / 400 <span class="caret"></span>
-                            </button>
-                            <br>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-success fa fa-plus" data-toggle="modal"
-                           data-target="#price-modal"> add price</a>
+                        {% for price in blank.prices %}
+                            {% if price.dayOfWeek == 'wednesday' %}
+                                <div class="btn-group">
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">{{ price.players }} / {{ price.price }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_prices_edit', {slug: room.slug, id: price.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                        <li><a href="{{ path('admin_prices_delete', {slug: room.slug, id: price.id}) }}" class="fa fa-close"> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                1-2 / 500 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                3-4 / 450 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                5 / 400 <span class="caret"></span>
-                            </button>
-                            <br>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-success fa fa-plus" data-toggle="modal"
-                           data-target="#price-modal"> add price</a>
+                        {% for price in blank.prices %}
+                            {% if price.dayOfWeek == 'thursday' %}
+                                <div class="btn-group">
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">{{ price.players }} / {{ price.price }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_prices_edit', {slug: room.slug, id: price.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                        <li><a href="{{ path('admin_prices_delete', {slug: room.slug, id: price.id}) }}" class="fa fa-close"> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                1-2 / 500 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                3-4 / 450 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                5 / 400 <span class="caret"></span>
-                            </button>
-                            <br>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-success fa fa-plus" data-toggle="modal"
-                           data-target="#price-modal"> add price</a>
+                        {% for price in blank.prices %}
+                            {% if price.dayOfWeek == 'friday' %}
+                                <div class="btn-group">
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">{{ price.players }} / {{ price.price }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_prices_edit', {slug: room.slug, id: price.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                        <li><a href="{{ path('admin_prices_delete', {slug: room.slug, id: price.id}) }}" class="fa fa-close"> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                1-2 / 500 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                3-4 / 450 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                5 / 400 <span class="caret"></span>
-                            </button>
-                            <br>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-success fa fa-plus" data-toggle="modal" data-target="#price-modal"> add price</a>
+                        {% for price in blank.prices %}
+                            {% if price.dayOfWeek == 'saturday' %}
+                                <div class="btn-group">
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">{{ price.players }} / {{ price.price }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_prices_edit', {slug: room.slug, id: price.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                        <li><a href="{{ path('admin_prices_delete', {slug: room.slug, id: price.id}) }}" class="fa fa-close"> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                1-2 / 500 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                3-4 / 450 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                5 / 400 <span class="caret"></span>
-                            </button>
-                            <br>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="fa fa-pencil"> Edit</a></li>
-                                <li><a href="#" class="fa fa-close"> Delete</a></li>
-                            </ul>
-                        </div>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-success fa fa-plus" data-toggle="modal"
-                           data-target="#price-modal"> add price</a>
+                        {% for price in blank.prices %}
+                            {% if price.dayOfWeek == 'sunday' %}
+                                <div class="btn-group">
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">{{ price.players }} / {{ price.price }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_prices_edit', {slug: room.slug, id: price.id}) }}" class="fa fa-pencil"> Edit</a></li>
+                                        <li><a href="{{ path('admin_prices_delete', {slug: room.slug, id: price.id}) }}" class="fa fa-close"> Delete</a></li>
+                                    </ul>
+                                </div>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        <a href="#" id="btn-add-blank" class="btn btn-success" data-toggle="modal" data-target="#blank-modal">Add time <span class="fa fa-plus"></span></a>
-    </div>
-
-    <!-- Price Modal -->
-    <div class="modal fade" id="price-modal" tabindex="-1" role="dialog" aria-labelledby="price-modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="price-modal-label">Add Price</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="players">Players</label>
-                        <input type="text" class="form-control" id="players" placeholder="2-4">
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="number" class="form-control" id="price" placeholder="500">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Blank Modal -->
-    <div class="modal fade " id="blank-modal" tabindex="-1" role="dialog" aria-labelledby="blank-modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="blank-modal-label">Time</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control timepicker">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default cancel" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary save" data-loading-text="Saving...">Save</button>
-                </div>
-            </div>
-        </div>
+        <a href="{{ path('admin_blanks_add', {slug: room.slug}) }}" class="btn btn-success">Add time <span class="fa fa-plus"></span></a>
+        <a href="{{ path('admin_prices_add', {slug: room.slug}) }}" class="btn btn-success">Add price <span class="fa fa-plus"></span></a>
     </div>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/wickedpicker.css') }}">
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('js/wickedpicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
-    <script>
-        var admin_blanks_save_url = '{{ path('admin_blanks_add', {slug: room.slug}) }}'
-    </script>
 {% endblock %}

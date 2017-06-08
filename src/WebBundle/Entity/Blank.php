@@ -4,10 +4,12 @@ namespace WebBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="WebBundle\Repository\BlankRepository")
- * @ORM\Table(name="blank")
+ * @ORM\Table(name="blanks")
  */
 class Blank
 {
@@ -20,6 +22,7 @@ class Blank
 
     /**
      * @ORM\Column(type="time")
+     * @Assert\NotBlank()
      */
     private $time;
 
@@ -27,6 +30,16 @@ class Blank
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="blanks")
      */
     private $room;
+
+    /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Price", mappedBy="blank")
+     */
+    private $prices;
+
+    public function __construct()
+    {
+        $this->prices = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -66,6 +79,27 @@ class Blank
     public function setRoom(Room $room)
     {
         $this->room = $room;
+    }
+
+    /**
+     * @return ArrayCollection|Price[]
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+    /**
+     * @param Price $prices
+     */
+    public function setPrices(Price $prices)
+    {
+        $this->prices = $prices;
+    }
+
+    public function __toString()
+    {
+        return $this->getTime()->format('H:i');
     }
 
 }
