@@ -150,6 +150,7 @@ class Room
 
     /**
      * @ORM\OneToMany(targetEntity="WebBundle\Entity\Blank", mappedBy="room")
+     * @ORM\OrderBy({"time" = "ASC"})
      */
     private $blanks;
 

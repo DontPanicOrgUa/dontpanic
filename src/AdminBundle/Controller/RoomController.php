@@ -3,6 +3,9 @@
 namespace AdminBundle\Controller;
 
 
+use AdminBundle\Service\CalendarBuilder;
+use DateTime;
+use DateTimeZone;
 use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
 use Symfony\Component\HttpFoundation\File\File;
@@ -131,13 +134,22 @@ class RoomController extends Controller
      * @param Room $room
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public
-    function deleteAction(Room $room)
+    public function deleteAction(Room $room)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($room);
         $em->flush();
         $this->addFlash('success', 'Room is deleted.');
         return $this->redirectToRoute('admin_rooms_list');
+    }
+
+    /**
+     * @Route("/rooms/{slug}", name="admin_rooms_calendar")
+     * @param Room $room
+     */
+    public function showCalendarAction(Room $room)
+    {
+        $calendar = new CalendarBuilder($room);
+        echo($calendar->getTimeDrivenCalendar());die;
     }
 }

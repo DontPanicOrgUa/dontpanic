@@ -33,6 +33,7 @@ class Blank
 
     /**
      * @ORM\OneToMany(targetEntity="WebBundle\Entity\Price", mappedBy="blank")
+     * @ORM\OrderBy({"price" = "DESC"})
      */
     private $prices;
 
