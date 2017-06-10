@@ -3,13 +3,11 @@
 namespace AdminBundle\Controller;
 
 
-use AdminBundle\Service\CalendarBuilder;
-use DateTime;
-use DateTimeZone;
 use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
-use Symfony\Component\HttpFoundation\File\File;
+use AdminBundle\Service\CalendarBuilder;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -145,11 +143,20 @@ class RoomController extends Controller
 
     /**
      * @Route("/rooms/{slug}", name="admin_rooms_calendar")
-     * @param Room $room
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showCalendarAction(Room $room)
+    public function showCalendarAction($slug)
     {
-        $calendar = new CalendarBuilder($room);
-        echo($calendar->getTimeDrivenCalendar());die;
+        $em = $this->getDoctrine()->getManager();
+        $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
+        $calendarBuilder = new CalendarBuilder($room);
+        $calendar = $calendarBuilder->getTimeDrivenCalendar();
+        $calendarHeaders = $calendarBuilder->getCalendarHeaders();
+        return $this->render('AdminBundle:Room:calendar.html.twig', [
+            'room' => $room,
+            'calendar' => $calendar,
+            'calendarHeaders' => $calendarHeaders
+        ]);
     }
 }

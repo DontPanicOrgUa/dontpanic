@@ -17,13 +17,12 @@ class CalendarBuilder
 {
     private $room;
 
-    private $date;
+    private $timeZone;
 
     public function __construct(Room $room)
     {
         $this->room = $room;
-        $this->date = new DateTime();
-        $this->date->setTimezone(new DateTimeZone('Europe/Kiev'));
+        $this->timeZone = new DateTimeZone('Europe/Kiev');
     }
 
     /**
@@ -34,6 +33,8 @@ class CalendarBuilder
      * @return array
      */
     public function getTimeDrivenCalendar() {
+        $date = new DateTime();
+        $date->setTimezone($this->timeZone);
         $times = [];
         foreach ($this->room->getBlanks() as $blank) {
             $prices = [];
@@ -44,16 +45,22 @@ class CalendarBuilder
                     'price' => $price->getPrice()
                 ];
             }
-            $datetime = [];
+            $games = [];
             for ($i = 0; $i < 14; $i++) {
                 if ($i > 0) {
-                    $this->date->modify('+1 day');
+                    $date->modify('+1 day');
                 }
-                $datetime[$this->date->format('d-m-Y')] = $prices[strtolower($this->date->format('l'))];
+                $games[] = [
+                    'date' => $date->format('d-m-Y'),
+                    'prices' => $prices[strtolower($date->format('l'))]
+                ];
             }
-            $times[$blank->getTime()->format('H:i')] = $datetime;
+            $times[] = [
+                'time' => $blank->getTime()->format('H:i'),
+                'games' => $games
+            ];
         }
-        return json_encode($times);
+        return $times;
     }
 
     /**
@@ -62,10 +69,12 @@ class CalendarBuilder
      * @return array
      */
     public function getDayDrivenCalendar() {
+        $date = new DateTime();
+        $date->setTimezone($this->timeZone);
         $days = [];
         for ($i = 0; $i < 14; $i++) {
             if ($i > 0) {
-                $this->date->modify('+1 day');
+                $date->modify('+1 day');
             }
             $games = [];
             foreach ($this->room->getBlanks() as $blank) {
@@ -75,15 +84,28 @@ class CalendarBuilder
                 }
                 $games[] = [
                     'timeGame' => $blank->getTime()->format('H:i:s'),
-                    'cost' => $prices[strtolower($this->date->format('l'))][0]->getPrice(),
+                    'cost' => $prices[strtolower($date->format('l'))][0]->getPrice(),
                     'busy' => false
                 ];
             }
             $days[] = [
-                'date' => $this->date->format('d-m-Y'),
+                'date' => $date->format('d-m-Y'),
                 'games' => $games
             ];
         }
-        return json_encode($days);
+        return $days;
+    }
+
+    public function getCalendarHeaders() {
+        $date = new DateTime();
+        $date->setTimezone($this->timeZone);
+        $headers = [];
+        for ($i = 0; $i < 7; $i++) {
+            if ($i > 0) {
+                $date->modify('+1 day');
+            }
+            $headers[] = $date->format('l');
+        }
+        return $headers;
     }
 }

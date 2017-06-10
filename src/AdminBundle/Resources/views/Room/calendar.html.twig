@@ -1,0 +1,52 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block body %}
+    <h1 class="page-header">{{ room.title }} calendar</h1>
+    <h2>First Week</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                {% for th in calendarHeaders %}
+                    <th>{{ th }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in calendar %}
+                <tr>
+                    <th>{{ row.time }}</th>
+                    {% for game in row.games|slice(0, 7) %}
+                        <td>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <h2>Second Week</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                {% for th in calendarHeaders %}
+                    <th>{{ th }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in calendar %}
+                <tr>
+                    <th>{{ row.time }}</th>
+                    {% for game in row.games|slice(7, 14) %}
+                        <td>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
