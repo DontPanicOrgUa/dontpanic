@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use WebBundle\Entity\TimeZone;
 use WebBundle\Repository\CityRepository;
 
 class RoomFormType extends AbstractType
@@ -100,6 +101,10 @@ class RoomFormType extends AbstractType
                     '10' => 10
                 ],
                 'data' => 5
+            ])
+            ->add('timezone', EntityType::class, [
+                'class' => TimeZone::class,
+                'placeholder' => 'Choose the TimeZone'
             ])
             ->add('timeMax', IntegerType::class, [
                 'label' => 'Time max in minutes',

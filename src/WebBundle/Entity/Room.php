@@ -188,6 +188,20 @@ class Room
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\TimeZone")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $timezone;
+
+    /**
+     * @param mixed $timezone
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
+
     public function __construct()
     {
         $this->blanks = new ArrayCollection();
@@ -649,6 +663,14 @@ class Room
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
     }
 
 }
