@@ -3,6 +3,7 @@
 namespace AdminBundle\Controller;
 
 
+use AdminBundle\Service\ScheduleBuilder;
 use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
 use AdminBundle\Service\CalendarBuilder;
@@ -146,17 +147,14 @@ class RoomController extends Controller
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showCalendarAction($slug)
+    public function showScheduleAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
         $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
-        $calendarBuilder = new CalendarBuilder($room);
-        $calendar = $calendarBuilder->getTimeDrivenCalendar();
-        $calendarHeaders = $calendarBuilder->getCalendarHeaders();
-        return $this->render('AdminBundle:Room:calendar.html.twig', [
+        $scheduleBuilder = new ScheduleBuilder($room);
+        return $this->render('AdminBundle:Room:schedule.html.twig', [
             'room' => $room,
-            'calendar' => $calendar,
-            'calendarHeaders' => $calendarHeaders
+            'schedule' => $scheduleBuilder->collectByTime()
         ]);
     }
 }

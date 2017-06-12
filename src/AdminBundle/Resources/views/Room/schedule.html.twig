@@ -8,17 +8,17 @@
             <thead>
             <tr>
                 <th></th>
-                {% for th in calendarHeaders %}
-                    <th>{{ th }}</th>
+                {% for game in schedule[0]['games']|slice(0, 7) %}
+                    <th>{{ game.date|date('l') }}<br><small>{{ game.date|date('d-m-Y') }}</small></th>
                 {% endfor %}
             </tr>
             </thead>
             <tbody>
-            {% for row in calendar %}
+            {% for row in schedule %}
                 <tr>
                     <th>{{ row.time }}</th>
                     {% for game in row.games|slice(0, 7) %}
-                        <td>{{ game.busy ? 'busy' : 'free' }}{#{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}#}</td>
+                        <td>{{ game.busy ? 'busy' : 'free' }}<br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
@@ -31,17 +31,17 @@
             <thead>
             <tr>
                 <th></th>
-                {% for th in calendarHeaders %}
-                    <th>{{ th }}</th>
+                {% for game in schedule[0]['games']|slice(7, 14) %}
+                    <th>{{ game.date|date('l') }}<br><small>{{ game.date|date('d-m-Y') }}</small></th>
                 {% endfor %}
             </tr>
             </thead>
             <tbody>
-            {% for row in calendar %}
+            {% for row in schedule %}
                 <tr>
                     <th>{{ row.time }}</th>
                     {% for game in row.games|slice(7, 14) %}
-                        <td>{{ game.busy ? 'busy' : 'free' }}{#{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}#}</td>
+                        <td>{{ game.busy ? 'busy' : 'free' }}<br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}

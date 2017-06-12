@@ -3,6 +3,7 @@
 namespace WebBundle\Entity;
 
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -88,6 +89,13 @@ class Blank
     public function getPrices()
     {
         return $this->prices;
+    }
+
+    public function getPricesByDayOfWeek($dow)
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('dayOfWeek', $dow));
+        return $this->prices->matching($criteria);
     }
 
     /**
