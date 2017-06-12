@@ -5,3 +5,7 @@
 #blank-table tbody tr td div.btn-group {
     margin-bottom: 4px;
 }
+
+div.table-responsive table tbody tr td a.btn {
+    margin-bottom: 4px;
+}

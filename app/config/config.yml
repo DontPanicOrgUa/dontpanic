@@ -100,4 +100,5 @@ stof_doctrine_extensions:
     default_locale: en
     orm:
         default:
+            sluggable: true
             timestampable: true

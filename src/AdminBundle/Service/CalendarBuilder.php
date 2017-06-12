@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mykyta
- * Date: 6/9/17
- * Time: 2:39 PM
- */
 
 namespace AdminBundle\Service;
 
@@ -22,7 +16,7 @@ class CalendarBuilder
     public function __construct(Room $room)
     {
         $this->room = $room;
-        $this->timeZone = new DateTimeZone('Europe/Kiev');
+        $this->timeZone = new DateTimeZone($room->getTimezone());
     }
 
     /**
@@ -52,7 +46,8 @@ class CalendarBuilder
                 }
                 $games[] = [
                     'date' => $date->format('d-m-Y'),
-                    'prices' => $prices[strtolower($date->format('l'))]
+                    'prices' => $prices[strtolower($date->format('l'))],
+                    'busy' => $this->gameDateTimeBusy('dateTimeMustBe')
                 ];
             }
             $times[] = [
@@ -85,7 +80,7 @@ class CalendarBuilder
                 $games[] = [
                     'timeGame' => $blank->getTime()->format('H:i:s'),
                     'cost' => $prices[strtolower($date->format('l'))][0]->getPrice(),
-                    'busy' => false
+                    'busy' => $this->gameDateTimeBusy('dateTimeMustBe')
                 ];
             }
             $days[] = [
@@ -107,5 +102,10 @@ class CalendarBuilder
             $headers[] = $date->format('l');
         }
         return $headers;
+    }
+
+    public function gameDateTimeBusy($datetime)
+    {
+        return false;
     }
 }

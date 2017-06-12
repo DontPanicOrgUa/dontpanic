@@ -74,8 +74,8 @@ class Room
     private $background;
 
     /**
-     * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @ORM\Column(type="string")
      */
     private $coordinates;
 
@@ -98,8 +98,8 @@ class Room
     private $addressDe;
 
     /**
-     * @ORM\Column(type="integer")
      * @Assert\NotBlank()
+     * @ORM\Column(type="integer")
      * @Assert\Range(
      *      min = 1,
      *      max = 10,
@@ -161,6 +161,7 @@ class Room
     private $city;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Currency", inversedBy="rooms")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -171,6 +172,13 @@ class Room
      * @Gedmo\Slug(fields={"titleEn"})
      */
     private $slug;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\TimeZone")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $timezone;
 
     /**
      * @var \DateTime $createdAt
@@ -187,20 +195,6 @@ class Room
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\TimeZone")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $timezone;
-
-    /**
-     * @param mixed $timezone
-     */
-    public function setTimezone($timezone)
-    {
-        $this->timezone = $timezone;
-    }
 
     public function __construct()
     {
@@ -666,12 +660,19 @@ class Room
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTimezone()
     {
         return $this->timezone;
     }
 
+    /**
+     * @param string $timezone
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
 }
 
