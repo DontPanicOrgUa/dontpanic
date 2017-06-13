@@ -1,7 +1,7 @@
 web:
     resource: "@WebBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /z
 
 admin:
     resource: "@AdminBundle/Controller/"

@@ -3,10 +3,9 @@
 namespace AdminBundle\Controller;
 
 
-use AdminBundle\Service\ScheduleBuilder;
 use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
-use AdminBundle\Service\CalendarBuilder;
+use AdminBundle\Service\ScheduleBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -143,7 +142,7 @@ class RoomController extends Controller
     }
 
     /**
-     * @Route("/rooms/{slug}", name="admin_rooms_calendar")
+     * @Route("/rooms/{slug}", name="admin_rooms_schedule")
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */

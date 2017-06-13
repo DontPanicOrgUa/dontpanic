@@ -25,7 +25,7 @@
             {% for room in rooms %}
             <tr>
                 <td>{{ room.id }}</td>
-                <td><a href="{{ path('admin_rooms_calendar', {slug: room.slug}) }}">{{ room.titleEn }}</a></td>
+                <td><a href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}">{{ room.titleEn }}</a></td>
                 <td>{% if room.logo %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.logo) }}" alt="">{% else %}No image{% endif %}</td>
                 <td>{% if room.background %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.background) }}" alt="">{% else %}No image{% endif %}</td>
                 <td>{{ room.city.nameEn }}<br>{{ room.address }}</td>

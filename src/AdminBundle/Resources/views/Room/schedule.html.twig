@@ -1,7 +1,11 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block body %}
-    <h1 class="page-header">{{ room.title }} calendar</h1>
+    <div class="pull-right">
+        <a class="btn btn-info fa fa-list" href="{{ path('admin_rooms_list') }}"> Back to rooms</a>
+        <a class="btn btn-info fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> Edit template</a>
+    </div>
+    <h1 class="page-header">{{ room.title }} template</h1>
     <h2>First Week</h2>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -9,7 +13,9 @@
             <tr>
                 <th></th>
                 {% for game in schedule[0]['games']|slice(0, 7) %}
-                    <th>{{ game.date|date('l') }}<br><small>{{ game.date|date('d-m-Y') }}</small></th>
+                    <th>{{ game.date|date('l') }}<br>
+                        <small>{{ game.date|date('d-m-Y') }}</small>
+                    </th>
                 {% endfor %}
             </tr>
             </thead>
@@ -18,7 +24,9 @@
                 <tr>
                     <th>{{ row.time }}</th>
                     {% for game in row.games|slice(0, 7) %}
-                        <td>{{ game.busy ? 'busy' : 'free' }}<br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}</td>
+                        <td>{{ game.busy ? 'busy' : 'free' }}
+                            <br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}
+                        </td>
                     {% endfor %}
                 </tr>
             {% endfor %}
@@ -32,7 +40,9 @@
             <tr>
                 <th></th>
                 {% for game in schedule[0]['games']|slice(7, 14) %}
-                    <th>{{ game.date|date('l') }}<br><small>{{ game.date|date('d-m-Y') }}</small></th>
+                    <th>{{ game.date|date('l') }}<br>
+                        <small>{{ game.date|date('d-m-Y') }}</small>
+                    </th>
                 {% endfor %}
             </tr>
             </thead>
@@ -41,7 +51,9 @@
                 <tr>
                     <th>{{ row.time }}</th>
                     {% for game in row.games|slice(7, 14) %}
-                        <td>{{ game.busy ? 'busy' : 'free' }}<br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}</td>
+                        <td>{{ game.busy ? 'busy' : 'free' }}
+                            <br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}
+                        </td>
                     {% endfor %}
                 </tr>
             {% endfor %}

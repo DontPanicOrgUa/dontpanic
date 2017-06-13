@@ -1,6 +1,10 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block body %}
+    <div class="pull-right">
+        <a class="btn btn-info fa fa-list" href="{{ path('admin_rooms_list') }}"> Back to rooms</a>
+        <a class="btn btn-info fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}"> View schedule</a>
+    </div>
     <h1 class="page-header">Blank</h1>
     <h4>"{{ room.title() }}" room</h4>
     <div class="table-responsive">
