@@ -23,9 +23,11 @@ class RoomRepository extends EntityRepository
             ->where('r.slug = :slug')
             ->setParameter('slug', $slug)
             ->leftJoin('r.blanks', 'b')
+            ->leftJoin('r.timezone','t')
             ->leftJoin('b.prices','p')
             ->addSelect('b')
             ->addSelect('p')
+            ->addSelect('t')
             ->orderBy('b.time', 'ASC')
             ->getQuery()
             ->getSingleResult();
