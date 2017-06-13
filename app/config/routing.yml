@@ -1,7 +1,14 @@
+default_page:
+    path:     /
+    defaults: { _controller: WebBundle:Default:index, _locale: ru }
+
 web:
     resource: "@WebBundle/Controller/"
     type:     annotation
-    prefix:   /z
+    prefix:   /{_locale}/
+    defaults: { _locale: ru }
+    requirements:
+        _locale: ru|en|de
 
 admin:
     resource: "@AdminBundle/Controller/"
