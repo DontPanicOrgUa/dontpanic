@@ -3,7 +3,7 @@
     <div class="row logo-container">
         <a href="#" class="location">
             <i class="fa fa-map-marker" aria-hidden="true"></i>
-            <span class="city hidden-xs">Киев</span>
+            <span class="city hidden-xs">{{ app.request.query.get('city')|capitalize|trans ?: 'Kiev'|trans }}</span>
             <span class="caret hidden-xs"></span>
         </a>
 
@@ -14,7 +14,7 @@
         <div class="callback hidden-sm hidden-xs">
             <p>+38 (098) 000-80-77</p>
             <p>+38 (073) 044-50-77</p>
-            <button class="btn btn-warning">Обратная связь</button>
+            <button class="btn btn-warning">{{ 'Callback'|trans }}</button>
         </div>
 
         <div class="lang">
@@ -68,12 +68,8 @@
         </div>
 
         <ul class="city-list">
-            <li><a href="#">Киев</a></li>
-            <li><a href="#">Харьков</a></li>
-            <li><a href="#">Днепр</a></li>
-            <li><a href="#">Львов</a></li>
-            <li><a href="#">Одесса</a></li>
-            <li><a href="#">Ивано-Франковск</a></li>
+            <li><a href="#">{{ 'Kiev'|trans }}</a></li>
+            <li><a href="#">{{ 'Brussels'|trans }}</a></li>
         </ul>
     </div>
 </header>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Don&#039;t Panic | Квест-комнаты в Киеве{% endblock %}</title>
+    <title>{% block title %}Don&#039;t Panic | {{ 'Escape rooms in'|trans }} {{ 'Kiev'|trans }}{% endblock %}</title>
     {% block stylesheets %}
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic" rel="stylesheet">
         <link rel="icon" href="{{ asset('img/favicon.png') }}">
@@ -24,116 +24,7 @@
 
 <!--  CONTENT -->
 <div class="content container-fluid">
-
-    <!--    slider start -->
-    <section class="slider container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="flexslider">
-                    <ul class="slides">
-                        <li>
-                            <h3>Акция !</h3>
-                            При бронировании игры у нас на сайте и онлайн-оплате, Вы получите скидку 5%.
-                        </li>
-                        <li>
-                            <h3>Акция !</h3>
-                            Если Вы решите посетить квест-комнату «Проект Генезис» в свой День Рождения, мы сделаем Вам
-                            скидку 10% (как в день вашего рождения, так и в течении 3-х дней после него).
-                        </li>
-                        <li>
-                            <h3>Акция !</h3>
-                            А когда Вы бронируете 3 и более сеансов игры «Проект Генезис» в один день, Вы получаете
-                            скидку 20%.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--    slider end -->
-
-    <!-- service btn-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 servise-btn">
-
-                <a href="http://tamtamlg.github.io/dontpanic/schedule" class="btn btn-link calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Pacписание
-                </a>
-
-                <div class="sort-wrapper">
-                    <span class="sort-text">По сложности</span>
-                    <span class="caret"></span>
-                    <ul class="sort-list">
-                        <li><a href="#">По количеству игроков</a></li>
-                        <li><a href="#">По рейтингу</a></li>
-                        <li><a href="#">По сложности</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!-- service btn end-->
-
-    <!--    gallery start -->
-    <section class="gallery container-fluid">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 gallery-item">
-                <div class="gallery-img-container">
-                    <img src="{{ asset('img/game-1.jpg') }}" alt="Автостопом по галактике" class="img-responsive zoom">
-                    <img src="{{ asset('img/hitchhike-logo.png') }}" alt="" class="game-logo">
-                    <div class="game-title">
-                        <p>Автостопом по галактике</p>
-                    </div>
-                    <a href="#" class="img-hover"></a>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 gallery-item">
-                <div class="gallery-img-container">
-                    <img src="{{ asset('img/game-2.jpg') }}" alt="Генезис" class="img-responsive zoom">
-                    <img src="{{ asset('img/genesis-logo.png') }}" alt="" class="game-logo">
-                    <div class="game-title">
-                        <p>Проект: Genesis</p>
-                    </div>
-                    <a href="http://tamtamlg.github.io/dontpanic/room" class="img-hover"></a>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 gallery-item">
-                <div class="gallery-img-container">
-                    <img src="{{ asset('img/game-3.jpg') }}" alt="Музей невозможных фигур" class="img-responsive zoom">
-                    <img src="{{ asset('img/museum-logo.png') }}" alt="" class="game-logo">
-                    <div class="game-title">
-                        <p>Музей невозможных фигур</p>
-                    </div>
-                    <a href="http://www.60.kiev.ua/?lang=uk" class="img-hover" target="_blank"></a>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 gallery-item">
-                <div class="gallery-img-container">
-                    <img src="{{ asset('img/game-4.jpg') }}" alt="Не пойман - не вор" class="img-responsive zoom">
-                    <img src="{{ asset('img/burglar-logo.png') }}" alt="" class="game-logo">
-                    <div class="game-title">
-                        <p>Не пойман - не вор</p>
-                    </div>
-                    <a href="http://podzamkom.com.ua/" class="img-hover" target="_blank"></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--    gallery end -->
-
-    <section class="info">
-        <p>Наверняка Вы что-то слышали о таком популярном жанре развлечений, как «выберись из комнаты», «Escape Room»
-            или «квест в реальности». Поэтому мы не будем здесь писать какие-то стандартные вещи, которые знают все.
-            Скажем только одно: мы настолько уверены в своем подходе, что искренне считаем наши квест-комнаты одними из
-            лучших. И порой, Вы можете забыть о том, что находитесь в Киеве, шагнув в совершенно иной мир… Просто
-            попробуйте и Don’t Panic!</p>
-    </section>
-
+    {% block content %}{% endblock %}
 </div>
 <!--  CONTENT end -->
 
