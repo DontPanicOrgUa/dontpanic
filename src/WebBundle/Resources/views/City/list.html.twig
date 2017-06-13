@@ -5,26 +5,26 @@
     <!--    slider start -->
     <section class="slider container-fluid">
         {#<div class="row">#}
-            {#<div class="col-sm-12">#}
-                {#<div class="flexslider">#}
-                    {#<ul class="slides">#}
-                        {#<li>#}
-                            {#<h3>Акция !</h3>#}
-                            {#При бронировании игры у нас на сайте и онлайн-оплате, Вы получите скидку 5%.#}
-                        {#</li>#}
-                        {#<li>#}
-                            {#<h3>Акция !</h3>#}
-                            {#Если Вы решите посетить квест-комнату «Проект Генезис» в свой День Рождения, мы сделаем Вам#}
-                            {#скидку 10% (как в день вашего рождения, так и в течении 3-х дней после него).#}
-                        {#</li>#}
-                        {#<li>#}
-                            {#<h3>Акция !</h3>#}
-                            {#А когда Вы бронируете 3 и более сеансов игры «Проект Генезис» в один день, Вы получаете#}
-                            {#скидку 20%.#}
-                        {#</li>#}
-                    {#</ul>#}
-                {#</div>#}
-            {#</div>#}
+        {#<div class="col-sm-12">#}
+        {#<div class="flexslider">#}
+        {#<ul class="slides">#}
+        {#<li>#}
+        {#<h3>Акция !</h3>#}
+        {#При бронировании игры у нас на сайте и онлайн-оплате, Вы получите скидку 5%.#}
+        {#</li>#}
+        {#<li>#}
+        {#<h3>Акция !</h3>#}
+        {#Если Вы решите посетить квест-комнату «Проект Генезис» в свой День Рождения, мы сделаем Вам#}
+        {#скидку 10% (как в день вашего рождения, так и в течении 3-х дней после него).#}
+        {#</li>#}
+        {#<li>#}
+        {#<h3>Акция !</h3>#}
+        {#А когда Вы бронируете 3 и более сеансов игры «Проект Генезис» в один день, Вы получаете#}
+        {#скидку 20%.#}
+        {#</li>#}
+        {#</ul>#}
+        {#</div>#}
+        {#</div>#}
         {#</div>#}
     </section>
     <!--    slider end -->
@@ -56,6 +56,20 @@
     <!--    gallery start -->
     <section class="gallery container-fluid">
         <div class="row">
+
+            {% for room in city.rooms %}
+                <div class="col-sm-6 col-md-4 gallery-item">
+                    <div class="gallery-img-container">
+                        <img src="{{ asset('uploads/rooms/'~room.background) }}" alt="{{ room.title(app.request.locale) }}" class="img-responsive zoom">
+                        <img src="{{ asset('uploads/rooms/'~room.logo) }}" alt="" class="game-logo">
+                        <div class="game-title">
+                            <p>{{ room.title(app.request.locale) }}</p>
+                        </div>
+                        <a href="#" class="img-hover"></a>
+                    </div>
+                </div>
+            {% endfor %}
+
             <div class="col-sm-6 col-md-4 gallery-item">
                 <div class="gallery-img-container">
                     <img src="{{ asset('img/game-1.jpg') }}" alt="Автостопом по галактике" class="img-responsive zoom">

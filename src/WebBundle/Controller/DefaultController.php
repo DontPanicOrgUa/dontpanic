@@ -23,20 +23,12 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $city = $request->query->get('city') ?: 'kiev';
+        $cityName = $request->query->get('city') ?: 'kiev';
         /** @var $city \WebBundle\Entity\City */
         $city = $em->getRepository('WebBundle:City')
-            ->findOneBy(['nameEn' => $city]);
+            ->findOneByCityNameWithActiveRooms(ucfirst($cityName));
         return $this->render('WebBundle:City:list.html.twig', [
             'city' => $city
         ]);
-    }
-
-    /**
-     * @Route("/second", name="web_second")
-     */
-    public function secondAction()
-    {
-        dump(123);die;
     }
 }
