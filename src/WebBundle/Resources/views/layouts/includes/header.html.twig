@@ -7,7 +7,7 @@
             <span class="caret hidden-xs"></span>
         </a>
 
-        <a href="{{ path('default_page') }}" class="logo">
+        <a href="{{ path('home_page') }}" class="logo">
             <img src="{{ asset('img/logo.gif') }}" alt="Don&#039;t Panic">
         </a>
 
@@ -16,11 +16,11 @@
             <p>+38 (073) 044-50-77</p>
             <button class="btn btn-warning">{{ 'Callback'|trans }}</button>
         </div>
-
+        {% set route = 'home_page_without_prefix' == app.request.get('_route') ? 'home_page' : app.request.get('_route') %}
         <div class="lang">
             <ul class="lang-list">
                 <li>
-                    <a href="{{ path(app.request.get('_route'), {'_locale': 'ru'}|merge(app.request.query.all)) }}">
+                    <a href="{{ path(route, {_locale: 'ru'}|merge(app.request.query.all)) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                             <g fill-rule="evenodd" stroke-width="1pt">
                                 <path fill="#fff" d="M0 0h640v480H0z"/>
@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path(app.request.get('_route'), {'_locale': 'de'}|merge(app.request.query.all)) }}">
+                    <a href="{{ path(route, {_locale: 'de'}|merge(app.request.query.all)) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                             <path fill="#ffce00" d="M0 320h640v160.002H0z"/>
                             <path d="M0 0h640v160H0z"/>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path(app.request.get('_route'), {'_locale': 'en'}|merge(app.request.query.all)) }}">
+                    <a href="{{ path(route, {_locale: 'en'}|merge(app.request.query.all)) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                             <defs>
                                 <clipPath id="a">

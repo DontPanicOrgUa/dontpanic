@@ -1,4 +1,4 @@
-default_page:
+home_page_without_prefix:
     path:     /
     defaults: { _controller: WebBundle:Default:index, _locale: ru }
 
