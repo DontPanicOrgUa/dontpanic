@@ -68,8 +68,9 @@
         </div>
 
         <ul class="city-list">
-            <li><a href="#">{{ 'Kiev'|trans }}</a></li>
-            <li><a href="#">{{ 'Brussels'|trans }}</a></li>
+            {% for city in cities %}
+                <li><a href="{{ path('home_page', {city: city.nameEn|lower}) }}">{{ city.nameEn|capitalize|trans }}</a></li>
+            {% endfor %}
         </ul>
     </div>
 </header>

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mykyta
- * Date: 5/28/17
- * Time: 4:24 PM
- */
 
 namespace WebBundle\Controller;
 
@@ -24,10 +18,20 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $cityName = $request->query->get('city') ?: 'kiev';
-        /** @var $city \WebBundle\Entity\City */
-        $city = $em->getRepository('WebBundle:City')
-            ->findOneByCityNameWithActiveRooms(ucfirst($cityName));
+        $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+        $city = null;
+        foreach ($cities as $c) {
+            /** @var $c \WebBundle\Entity\City */
+            if ($c->getNameEn() == ucfirst($cityName)){
+                $city = $c;
+                break;
+            }
+        }
+        if (!$city) {
+            throw $this->createNotFoundException('City '. $cityName .' not found');
+        }
         return $this->render('WebBundle:City:list.html.twig', [
+            'cities' => $cities,
             'city' => $city
         ]);
     }

@@ -37,16 +37,16 @@ WebBundle\Entity\TimeZone:
         title: Europe/Brussels
 
 WebBundle\Entity\Room:
-    room_1:
+    room_{1..2}:
         city: '@city_*'
         currency: '@currency_*'
         timezone: '@timeZone_*'
-        titleRu: Тестовая комната
-        titleEn: Test room
-        titleDe: Testraum
-        descriptionRu: Самая лучшая комната в мире
-        descriptionEn: The best room in the world
-        descriptionDe: Das beste Zimmer in der Welt
+        titleRu: Тестовая комната <current()>
+        titleEn: Test room <current()>
+        titleDe: Testraum <current()>
+        descriptionRu: Самая лучшая комната в мире <current()>
+        descriptionEn: The best room in the world <current()>
+        descriptionDe: Das beste Zimmer in der Welt <current()>
         coordinates: 50.450968, 30.522623
         addressRu: Майдан Незалежности 1
         addressEn: Maidan Nezalezhnosti 1
@@ -69,7 +69,7 @@ AdminBundle\Entity\User:
 
 WebBundle\Entity\Blank:
     blank_{0..9}:
-        room: '@room_*'
+        room: '@room_1'
         time: <blankTime((int)$this->valueForCurrent)>
 
 WebBundle\Entity\Price:

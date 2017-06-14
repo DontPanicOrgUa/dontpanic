@@ -26,4 +26,15 @@ class CityRepository extends EntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    public function findAllWithActiveRooms()
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.rooms', 'r', 'WITH', 'r.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->addSelect('c')
+            ->addSelect('r')
+            ->getQuery()
+            ->execute();
+    }
 }
