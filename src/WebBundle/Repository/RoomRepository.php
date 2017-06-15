@@ -4,6 +4,7 @@ namespace WebBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
+use WebBundle\Entity\Room;
 
 class RoomRepository extends EntityRepository
 {
@@ -17,6 +18,10 @@ class RoomRepository extends EntityRepository
         return $qb->getQuery();
     }
 
+    /**
+     * @param string $slug
+     * @return Room
+     */
     public function findBySlug($slug)
     {
         return $this->createQueryBuilder('r')

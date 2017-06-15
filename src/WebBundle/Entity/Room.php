@@ -99,6 +99,18 @@ class Room
 
     /**
      * @Assert\NotBlank()
+     * @ORM\Column(type="string")
+     */
+    private $phone;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string")
+     */
+    private $email;
+
+    /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="integer")
      * @Assert\Range(
      *      min = 1,
@@ -465,6 +477,38 @@ class Room
     public function setAddressDe($addressDe)
     {
         $this->addressDe = $addressDe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     /**

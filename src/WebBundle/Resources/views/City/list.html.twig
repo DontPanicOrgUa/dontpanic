@@ -1,81 +1,84 @@
 {% extends 'WebBundle:layouts:main.html.twig' %}
 
 {% block content %}
+    <!--  CONTENT -->
+    <div class="content container-fluid">
+        <!--    slider start -->
+        <section class="slider container-fluid">
+            {#<div class="row">#}
+            {#<div class="col-sm-12">#}
+            {#<div class="flexslider">#}
+            {#<ul class="slides">#}
+            {#<li>#}
+            {#<h3>Акция !</h3>#}
+            {#При бронировании игры у нас на сайте и онлайн-оплате, Вы получите скидку 5%.#}
+            {#</li>#}
+            {#<li>#}
+            {#<h3>Акция !</h3>#}
+            {#Если Вы решите посетить квест-комнату «Проект Генезис» в свой День Рождения, мы сделаем Вам#}
+            {#скидку 10% (как в день вашего рождения, так и в течении 3-х дней после него).#}
+            {#</li>#}
+            {#<li>#}
+            {#<h3>Акция !</h3>#}
+            {#А когда Вы бронируете 3 и более сеансов игры «Проект Генезис» в один день, Вы получаете#}
+            {#скидку 20%.#}
+            {#</li>#}
+            {#</ul>#}
+            {#</div>#}
+            {#</div>#}
+            {#</div>#}
+        </section>
+        <!--    slider end -->
 
-    <!--    slider start -->
-    <section class="slider container-fluid">
-        {#<div class="row">#}
-        {#<div class="col-sm-12">#}
-        {#<div class="flexslider">#}
-        {#<ul class="slides">#}
-        {#<li>#}
-        {#<h3>Акция !</h3>#}
-        {#При бронировании игры у нас на сайте и онлайн-оплате, Вы получите скидку 5%.#}
-        {#</li>#}
-        {#<li>#}
-        {#<h3>Акция !</h3>#}
-        {#Если Вы решите посетить квест-комнату «Проект Генезис» в свой День Рождения, мы сделаем Вам#}
-        {#скидку 10% (как в день вашего рождения, так и в течении 3-х дней после него).#}
-        {#</li>#}
-        {#<li>#}
-        {#<h3>Акция !</h3>#}
-        {#А когда Вы бронируете 3 и более сеансов игры «Проект Генезис» в один день, Вы получаете#}
-        {#скидку 20%.#}
-        {#</li>#}
-        {#</ul>#}
-        {#</div>#}
-        {#</div>#}
-        {#</div>#}
-    </section>
-    <!--    slider end -->
+        <!-- service btn-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 servise-btn">
 
-    <!-- service btn-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 servise-btn">
+                    <a href="http://tamtamlg.github.io/dontpanic/schedule" class="btn btn-link calendar">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{ 'Schedule'|trans }}
+                    </a>
 
-                <a href="http://tamtamlg.github.io/dontpanic/schedule" class="btn btn-link calendar">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{ 'Schedule'|trans }}
-                </a>
+                    <div class="sort-wrapper">
+                        <span class="sort-text">{{ 'By complexity'|trans }}</span>
+                        <span class="caret"></span>
+                        <ul class="sort-list">
+                            <li><a href="#">{{ 'By complexity'|trans }}</a></li>
+                            <li><a href="#">{{ 'By players number'|trans }}</a></li>
+                            <li><a href="#">{{ 'By rating'|trans }}</a></li>
+                        </ul>
+                    </div>
 
-                <div class="sort-wrapper">
-                    <span class="sort-text">{{ 'By complexity'|trans }}</span>
-                    <span class="caret"></span>
-                    <ul class="sort-list">
-                        <li><a href="#">{{ 'By complexity'|trans }}</a></li>
-                        <li><a href="#">{{ 'By players number'|trans }}</a></li>
-                        <li><a href="#">{{ 'By rating'|trans }}</a></li>
-                    </ul>
                 </div>
-
             </div>
         </div>
-    </div>
-    <!-- service btn end-->
+        <!-- service btn end-->
 
-    <!--    gallery start -->
-    <section class="gallery container-fluid">
-        <div class="row">
+        <!--    gallery start -->
+        <section class="gallery container-fluid">
+            <div class="row">
 
-            {% for room in city.rooms %}
-                <div class="col-sm-6 col-md-4 gallery-item">
-                    <div class="gallery-img-container">
-                        <img src="{{ asset('uploads/rooms/'~room.background) }}" alt="{{ room.title(app.request.locale) }}" class="img-responsive zoom">
-                        <img src="{{ asset('uploads/rooms/'~room.logo) }}" alt="" class="game-logo">
-                        <div class="game-title">
-                            <p>{{ room.title(app.request.locale) }}</p>
+                {% for room in city.rooms %}
+                    <div class="col-sm-6 col-md-4 gallery-item">
+                        <div class="gallery-img-container">
+                            <img src="{{ asset('uploads/rooms/'~room.background) }}"
+                                 alt="{{ room.title(app.request.locale) }}" class="img-responsive zoom">
+                            <img src="{{ asset('uploads/rooms/'~room.logo) }}" alt="" class="game-logo">
+                            <div class="game-title">
+                                <p>{{ room.title(app.request.locale) }}</p>
+                            </div>
+                            <a href="{{ path('room_schedule', {slug: room.slug}) }}" class="img-hover"></a>
                         </div>
-                        <a href="#" class="img-hover"></a>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
 
-        </div>
-    </section>
-    <!--    gallery end -->
+            </div>
+        </section>
+        <!--    gallery end -->
 
-    <section class="info">
-        <p>{{ 'About escape room'|trans }}</p>
-    </section>
-
+        <section class="info">
+            <p>{{ 'About escape room'|trans }}</p>
+        </section>
+    </div>
+    <!--  CONTENT end -->
 {% endblock %}

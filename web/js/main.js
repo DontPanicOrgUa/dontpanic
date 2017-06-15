@@ -28,6 +28,7 @@ $(function () {
         if (menu.css('right') === '0px' && !menu.is(e.target) && menu.has(e.target).length === 0) {
             menu.animate({right: '-300px'}, 500);
             $('.open-menu').css('display', 'none');
+            $('.cmn-toggle-switch').removeClass('active');
         }
     });
 
@@ -43,6 +44,7 @@ $(function () {
             city.css('color', 'transparent');
         } else {
             cityList.hide();
+            e.stopImmediatePropagation();
             city.css('color', '#fff');
         }
     });
@@ -50,7 +52,6 @@ $(function () {
     //выбор города
     cityListItem.click(function (e) {
         // e.preventDefault();
-        e.stopImmediatePropagation();
         city.text($(this).text());
         cityList.hide();
         city.css('color', '#fff');
@@ -88,7 +89,7 @@ $(function () {
     });
 
     // подключение слайдера расписания
-    $('.shedule-slider').flexslider({
+    $('.schedule-slider').flexslider({
         animation: 'slide',
         controlNav: false,
         directionNav: true,

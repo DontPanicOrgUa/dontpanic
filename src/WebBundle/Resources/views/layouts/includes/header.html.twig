@@ -1,4 +1,3 @@
-<!--  HEADER -->
 <header class="container-fluid">
     <div class="row logo-container">
         <a href="#" class="location">
@@ -20,7 +19,7 @@
         <div class="lang">
             <ul class="lang-list">
                 <li>
-                    <a href="{{ path(route, {_locale: 'ru'}|merge(app.request.query.all)) }}">
+                    <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'ru'})) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                             <g fill-rule="evenodd" stroke-width="1pt">
                                 <path fill="#fff" d="M0 0h640v480H0z"/>
@@ -31,16 +30,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path(route, {_locale: 'de'}|merge(app.request.query.all)) }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
-                            <path fill="#ffce00" d="M0 320h640v160.002H0z"/>
-                            <path d="M0 0h640v160H0z"/>
-                            <path fill="#d00" d="M0 160h640v160H0z"/>
-                        </svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path(route, {_locale: 'en'}|merge(app.request.query.all)) }}">
+                    <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'en'})) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                             <defs>
                                 <clipPath id="a">
@@ -58,10 +48,17 @@
                         </svg>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'de'})) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
+                            <path fill="#ffce00" d="M0 320h640v160.002H0z"/>
+                            <path d="M0 0h640v160H0z"/>
+                            <path fill="#d00" d="M0 160h640v160H0z"/>
+                        </svg>
+                    </a>
+                </li>
             </ul>
         </div>
-
-        <!--      <a href="#" class="bars"><i class="fa fa-bars" aria-hidden="true"></i></a>-->
 
         <div role="button" class="cmn-toggle-switch cmn-toggle-switch__htx">
             <span>toggle menu</span>

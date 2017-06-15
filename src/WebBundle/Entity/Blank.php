@@ -34,7 +34,7 @@ class Blank
 
     /**
      * @ORM\OneToMany(targetEntity="WebBundle\Entity\Price", mappedBy="blank")
-     * @ORM\OrderBy({"price" = "DESC"})
+     * @ORM\OrderBy({"price" = "ASC"})
      */
     private $prices;
 
@@ -91,10 +91,14 @@ class Blank
         return $this->prices;
     }
 
-    public function getPricesByDayOfWeek($dow)
+    /**
+     * @param $dayOfWeek
+     * @return ArrayCollection|\Doctrine\Common\Collections\Collection
+     */
+    public function getPricesByDayOfWeek($dayOfWeek)
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq('dayOfWeek', $dow));
+            ->where(Criteria::expr()->eq('dayOfWeek', $dayOfWeek));
         return $this->prices->matching($criteria);
     }
 

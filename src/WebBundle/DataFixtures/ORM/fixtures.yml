@@ -47,10 +47,12 @@ WebBundle\Entity\Room:
         descriptionRu: Самая лучшая комната в мире <current()>
         descriptionEn: The best room in the world <current()>
         descriptionDe: Das beste Zimmer in der Welt <current()>
-        coordinates: 50.450968, 30.522623
+        coordinates: 50.450968 30.522623
         addressRu: Майдан Незалежности 1
         addressEn: Maidan Nezalezhnosti 1
         addressDe: Maidan Nezalezhnosti 1
+        phone: "+38 (098) 000 80 77"
+        email: "dontpanic.org.ua@gmail.com"
         difficulty: <numberBetween(1, 10)>
         timeMax: 60
         playersMin: 2
@@ -76,350 +78,350 @@ WebBundle\Entity\Price:
     price_01{0..1}:
         blank: '@blank_0'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_02{0..1}:
         blank: '@blank_0'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_03{0..1}:
         blank: '@blank_0'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_04{0..1}:
         blank: '@blank_0'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_05{0..1}:
         blank: '@blank_0'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_06{0..1}:
         blank: '@blank_0'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_07{0..1}:
         blank: '@blank_0'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_11{0..1}:
         blank: '@blank_1'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_12{0..1}:
         blank: '@blank_1'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_13{0..1}:
         blank: '@blank_1'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_14{0..1}:
         blank: '@blank_1'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_15{0..1}:
         blank: '@blank_1'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_16{0..1}:
         blank: '@blank_1'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_17{0..1}:
         blank: '@blank_1'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_21{0..1}:
         blank: '@blank_2'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_22{0..1}:
         blank: '@blank_2'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_23{0..1}:
         blank: '@blank_2'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_24{0..1}:
         blank: '@blank_2'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_25{0..1}:
         blank: '@blank_2'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_26{0..1}:
         blank: '@blank_2'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_27{0..1}:
         blank: '@blank_2'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_31{0..1}:
         blank: '@blank_3'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_32{0..1}:
         blank: '@blank_3'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_33{0..1}:
         blank: '@blank_3'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_34{0..1}:
         blank: '@blank_3'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_35{0..1}:
         blank: '@blank_3'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_36{0..1}:
         blank: '@blank_3'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_37{0..1}:
         blank: '@blank_3'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_41{0..1}:
         blank: '@blank_4'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_42{0..1}:
         blank: '@blank_4'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_43{0..1}:
         blank: '@blank_4'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_44{0..1}:
         blank: '@blank_4'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_45{0..1}:
         blank: '@blank_4'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_46{0..1}:
         blank: '@blank_4'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(700, 900)>
         dayOfWeek: saturday
     price_47{0..1}:
         blank: '@blank_4'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(700, 900)>
         dayOfWeek: sunday
     price_51{0..1}:
         blank: '@blank_5'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_52{0..1}:
         blank: '@blank_5'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_53{0..1}:
         blank: '@blank_5'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_54{0..1}:
         blank: '@blank_5'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_55{0..1}:
         blank: '@blank_5'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_56{0..1}:
         blank: '@blank_5'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_57{0..1}:
         blank: '@blank_5'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_61{0..1}:
         blank: '@blank_6'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_62{0..1}:
         blank: '@blank_6'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_63{0..1}:
         blank: '@blank_6'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_64{0..1}:
         blank: '@blank_6'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_65{0..1}:
         blank: '@blank_6'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_66{0..1}:
         blank: '@blank_6'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_67{0..1}:
         blank: '@blank_6'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_71{0..1}:
         blank: '@blank_7'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_72{0..1}:
         blank: '@blank_7'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_73{0..1}:
         blank: '@blank_7'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_74{0..1}:
         blank: '@blank_7'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_75{0..1}:
         blank: '@blank_7'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_76{0..1}:
         blank: '@blank_7'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_77{0..1}:
         blank: '@blank_7'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_81{0..1}:
         blank: '@blank_8'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_82{0..1}:
         blank: '@blank_8'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_83{0..1}:
         blank: '@blank_8'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_84{0..1}:
         blank: '@blank_8'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_85{0..1}:
         blank: '@blank_8'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_86{0..1}:
         blank: '@blank_8'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_87{0..1}:
         blank: '@blank_8'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday
     price_91{0..1}:
         blank: '@blank_9'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: monday
     price_92{0..1}:
         blank: '@blank_9'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: tuesday
     price_93{0..1}:
         blank: '@blank_9'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: wednesday
     price_94{0..1}:
         blank: '@blank_9'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: thursday
     price_95{0..1}:
         blank: '@blank_9'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(300, 500)>
+        price: <numberBetween(400, 700)>
         dayOfWeek: friday
     price_96{0..1}:
         blank: '@blank_9'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: saturday
     price_97{0..1}:
         blank: '@blank_9'
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
-        price: <numberBetween(500, 800)>
+        price: <numberBetween(500, 900)>
         dayOfWeek: sunday

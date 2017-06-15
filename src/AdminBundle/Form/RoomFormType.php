@@ -87,6 +87,8 @@ class RoomFormType extends AbstractType
             ->add('addressDe', TextType::class, [
                 'label' => 'Address [DE]',
             ])
+            ->add('phone')
+            ->add('email')
             ->add('difficulty', ChoiceType::class, [
                 'choices' => [
                     '1' => 1,

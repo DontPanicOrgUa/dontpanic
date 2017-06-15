@@ -19,10 +19,14 @@
 <div class="panel panel-default">
     <div class="panel-heading">Address</div>
     <div class="panel-body">
-        <dev class="row">
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.phone) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.email) }}</div>
+        </div>
+        <div class="row">
             <div class="col-sm-6">{{ form_row(roomForm.city) }}</div>
             <div class="col-sm-6">{{ form_row(roomForm.coordinates) }}</div>
-        </dev>
+        </div>
         <div class="row">
             <div class="col-sm-4">{{ form_row(roomForm.addressRu) }}</div>
             <div class="col-sm-4">{{ form_row(roomForm.addressEn) }}</div>

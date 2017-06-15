@@ -31,9 +31,11 @@ class ScheduleBuilder
             $blanks = $this->room->getBlanks();
             foreach ($blanks as $blank) {
                 $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'));
+                $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
                 $games[] = [
                     'dateTime' => $dateTime,
-                    'prices' => $blank->getPricesByDayOfWeek($dayOfWeek),
+                    'minPrice' => $this->getMinPrice($prices),
+                    'prices' => $prices,
                     'busy' => $this->isExpired($dateTime)
                 ];
             }
@@ -54,9 +56,11 @@ class ScheduleBuilder
             $games = [];
             foreach ($blanks as $blank) {
                 $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'));
+                $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
                 $games[] = [
                     'time' => $blank->getTime()->format('H:i'),
-                    'prices' => $blank->getPricesByDayOfWeek($dayOfWeek),
+                    'minPrice' => $this->getMinPrice($prices),
+                    'prices' => $prices,
                     'busy' => $this->isExpired($dateTime)
                 ];
             }
@@ -80,9 +84,11 @@ class ScheduleBuilder
             ) {
                 $dayOfWeek = strtolower($date->format('l'));
                 $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'));
+                $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
                 $games[] = [
                     'date' => $date->format('d-m-Y'),
-                    'prices' => $blank->getPricesByDayOfWeek($dayOfWeek),
+                    'minPrice' => $this->getMinPrice($prices),
+                    'prices' => $prices,
                     'busy' => $this->isExpired($dateTime)
                 ];
             }
@@ -100,5 +106,16 @@ class ScheduleBuilder
         return $now->format('d-m-Y H:i') > $date->format('d-m-Y H:i');
     }
 
+    private function getMinPrice($prices)
+    {
+        $minPrice = 999999;
+        if ($prices) {
+            foreach ($prices as $price) {
+                $minPrice = $price->getPrice() < $minPrice ? $price->getPrice() : $minPrice;
+            }
+            return $minPrice == 999999 ? null : $minPrice;
+        }
+        return null;
+    }
 
 }
