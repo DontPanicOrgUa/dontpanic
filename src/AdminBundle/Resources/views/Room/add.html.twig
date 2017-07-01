@@ -5,3 +5,10 @@
     <h1 class="page-header">Add Room</h1>
     {{ include('AdminBundle:Room:_form.html.twig') }}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#admin_bundle_city_form_type_roomManagers").chosen();
+    </script>
+{% endblock %}

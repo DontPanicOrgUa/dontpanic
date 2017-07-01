@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Form;
 
+use AdminBundle\Entity\User;
 use WebBundle\Entity\City;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\TimeZone;
@@ -158,6 +159,11 @@ class RoomFormType extends AbstractType
                     'class' => 'btn-primary',
                     'formnovalidate' => true
                 ]
+            ])
+            ->add('roomManagers', EntityType::class, [
+                'class' => User::class,
+                'multiple' => true,
+                'label' => 'Managers'
             ]);
     }
 

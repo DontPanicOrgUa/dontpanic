@@ -12,35 +12,48 @@
                 <th>Logo</th>
                 <th>Background</th>
                 <th>{{ knp_pagination_sortable(rooms, 'City', 'c.nameEn') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Currency', 'cu.currency') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Difficulty', 'r.difficulty') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Time', 'r.timeMax') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Players', 'r.playersMax') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Age', 'r.ageMin') }}</th>
+                {#<th>{{ knp_pagination_sortable(rooms, 'Currency', 'cu.currency') }}</th>#}
+                {#<th>{{ knp_pagination_sortable(rooms, 'Difficulty', 'r.difficulty') }}</th>#}
+                {#<th>{{ knp_pagination_sortable(rooms, 'Time', 'r.timeMax') }}</th>#}
+                {#<th>{{ knp_pagination_sortable(rooms, 'Players', 'r.playersMax') }}</th>#}
+                {#<th>{{ knp_pagination_sortable(rooms, 'Age', 'r.ageMin') }}</th>#}
+                <th>Managers</th>
                 <th>{{ knp_pagination_sortable(rooms, 'IsActive', 'r.enabled') }}</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for room in rooms %}
-            <tr>
-                <td>{{ room.id }}</td>
-                <td><a href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}">{{ room.titleEn }}</a></td>
-                <td>{% if room.logo %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.logo) }}" alt="">{% else %}No image{% endif %}</td>
-                <td>{% if room.background %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.background) }}" alt="">{% else %}No image{% endif %}</td>
-                <td>{{ room.city.nameEn }}<br>{{ room.address }}<br>{{ room.phone }}<br>{{ room.email }}</td>
-                <td>{{ room.currency.currency }}</td>
-                <td>{{ room.difficulty }}</td>
-                <td>{{ room.timeMax }}</td>
-                <td>{{ room.playersMin }}/{{ room.playersMax }}</td>
-                <td>{{ room.ageMin }}</td>
-                <td>{{ room.enabled ? 'yes' : 'no' }}</td>
-                <td>
-                    <a class="btn btn-xs btn-warning" href="{{ path('admin_rooms_edit', {slug: room.slug}) }}">edit <span class=" fa fa-pencil"></span></a>
-                    <a class="btn btn-xs btn-danger" href="{{ path('admin_rooms_delete', {slug: room.slug}) }}">delete <span class=" fa fa-close"></span></a><br>
-                    <a class="btn btn-xs btn-info" href="{{ path('admin_blanks_list', {slug: room.slug}) }}">template <span class=" fa fa-calendar"></span></a>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ room.id }}</td>
+                    <td><a href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}">{{ room.titleEn }}</a></td>
+                    <td>{% if room.logo %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.logo) }}"
+                                               alt="">{% else %}No image{% endif %}</td>
+                    <td>{% if room.background %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.background) }}"
+                                                     alt="">{% else %}No image{% endif %}</td>
+                    <td>{{ room.city.nameEn }}<br>{{ room.address }}<br>{{ room.phone }}<br>{{ room.email }}</td>
+                    {#<td>{{ room.currency.currency }}</td>#}
+                    {#<td>{{ room.difficulty }}</td>#}
+                    {#<td>{{ room.timeMax }}</td>#}
+                    {#<td>{{ room.playersMin }}/{{ room.playersMax }}</td>#}
+                    {#<td>{{ room.ageMin }}</td>#}
+                    <td>
+                        <ul>
+                            {% for roomManager in room.roomManagers %}
+                                <li>{{ roomManager.username }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ room.enabled ? 'yes' : 'no' }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-warning" href="{{ path('admin_rooms_edit', {slug: room.slug}) }}">edit
+                            <span class=" fa fa-pencil"></span></a>
+                        <a class="btn btn-xs btn-danger" href="{{ path('admin_rooms_delete', {slug: room.slug}) }}">delete
+                            <span class=" fa fa-close"></span></a><br>
+                        <a class="btn btn-xs btn-info" href="{{ path('admin_blanks_list', {slug: room.slug}) }}">template
+                            <span class=" fa fa-calendar"></span></a>
+                    </td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>

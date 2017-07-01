@@ -49,6 +49,7 @@ class RoomController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Room $room */
             $room = $form->getData();
 
             if ($logoFile = $room->getLogo()) {
@@ -62,6 +63,11 @@ class RoomController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
+
+            $user = $em->getRepository('AdminBundle:User')
+                ->findOneBy([]);
+            $room->addRoomManager($user);
+
             $em->persist($room);
             $em->flush();
             $this->addFlash('success', 'New room is added.');

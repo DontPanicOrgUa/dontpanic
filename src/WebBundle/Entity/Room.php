@@ -2,6 +2,7 @@
 
 namespace WebBundle\Entity;
 
+use AdminBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -193,6 +194,11 @@ class Room
     private $timezone;
 
     /**
+     * @ORM\ManyToMany(targetEntity="AdminBundle\Entity\User")
+     */
+    private $roomManagers;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -211,6 +217,7 @@ class Room
     public function __construct()
     {
         $this->blanks = new ArrayCollection();
+        $this->roomManagers = new ArrayCollection();
     }
 
     /**
@@ -717,6 +724,27 @@ class Room
     public function setTimezone($timezone)
     {
         $this->timezone = $timezone;
+    }
+
+    public function addRoomManager(User $user)
+    {
+        if ($this->roomManagers->contains($user)) {
+            return;
+        }
+        $this->roomManagers[] = $user;
+    }
+
+    public function removeRoomManager(User $user)
+    {
+        $this->roomManagers->removeElement($user);
+    }
+
+    /**
+     * @return ArrayCollection|User[]
+     */
+    public function getRoomManagers()
+    {
+        return $this->roomManagers;
     }
 }
 
