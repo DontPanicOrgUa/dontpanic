@@ -10,7 +10,8 @@ namespace AdminBundle\Controller;
 
 
 use AdminBundle\Entity\User;
-use AdminBundle\Form\UserFormType;
+use AdminBundle\Form\AddUserFormType;
+use AdminBundle\Form\EditUserFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -29,7 +30,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cities = $em->getRepository('AdminBundle:User')->findAll();
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $cities,
             $request->query->getInt('page', 1),
@@ -48,7 +49,7 @@ class UserController extends Controller
      */
     public function addAction(Request $request)
     {
-        $form = $this->createForm(UserFormType::class);
+        $form = $this->createForm(AddUserFormType::class);
 
         $form->handleRequest($request);
 
@@ -74,10 +75,13 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
-        $form = $this->createForm(UserFormType::class, $user);
+        $form = $this->createForm(EditUserFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            if ($user->getPlainPassword()) {
+                $user->setPassword('');
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

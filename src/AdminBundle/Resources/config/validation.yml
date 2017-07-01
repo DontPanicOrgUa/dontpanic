@@ -1,6 +1,9 @@
 AdminBundle\Entity\User:
     properties:
         email:
+            - Email:
+                message: "The email \"{{ value }}\" is not a valid email."
+#                checkMX: true
             - Length:
                 min: 6
                 minMessage: "Email must have at least {{ limit }} characters."
@@ -23,6 +26,7 @@ AdminBundle\Entity\User:
                 max: 255
                 maxMessage: "Your password is too long."
             - NotBlank:
+                groups: [registration]
                 message: "Please enter a password"
         phone:
             - NotBlank:
