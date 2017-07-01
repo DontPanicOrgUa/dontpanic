@@ -13,12 +13,19 @@ class ScheduleBuilder
 
     private $timeZone;
 
+    /**
+     * ScheduleBuilder constructor.
+     * @param Room $room
+     */
     public function __construct(Room $room)
     {
         $this->room = $room;
         $this->timeZone = new DateTimeZone($room->getTimezone());
     }
 
+    /**
+     * @return array
+     */
     public function getSchedule()
     {
         $games = [];
@@ -30,7 +37,7 @@ class ScheduleBuilder
             $dayOfWeek = strtolower($date->format('l'));
             $blanks = $this->room->getBlanks();
             foreach ($blanks as $blank) {
-                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'));
+                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'), $this->timeZone);
                 $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
                 $games[] = [
                     'dateTime' => $dateTime,
@@ -43,6 +50,9 @@ class ScheduleBuilder
         return $games;
     }
 
+    /**
+     * @return array
+     */
     public function collectByDate()
     {
         $dates = [];
@@ -55,7 +65,7 @@ class ScheduleBuilder
             $blanks = $this->room->getBlanks();
             $games = [];
             foreach ($blanks as $blank) {
-                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'));
+                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'), $this->timeZone);
                 $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
                 $games[] = [
                     'time' => $blank->getTime()->format('H:i'),
@@ -72,6 +82,9 @@ class ScheduleBuilder
         return $dates;
     }
 
+    /**
+     * @return array
+     */
     public function collectByTime()
     {
         $times = [];
@@ -83,7 +96,7 @@ class ScheduleBuilder
                 $date->modify('+1 days')
             ) {
                 $dayOfWeek = strtolower($date->format('l'));
-                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'));
+                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'), $this->timeZone);
                 $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
                 $games[] = [
                     'date' => $date->format('d-m-Y'),
@@ -100,12 +113,20 @@ class ScheduleBuilder
         return $times;
     }
 
+    /**
+     * @param DateTime $date
+     * @return bool
+     */
     private function isExpired(DateTime $date)
     {
         $now = new DateTime('now', $this->timeZone);
-        return $now->format('d-m-Y H:i') > $date->format('d-m-Y H:i');
+        return $now > $date;
     }
 
+    /**
+     * @param $prices
+     * @return int|null
+     */
     private function getMinPrice($prices)
     {
         $minPrice = 999999;

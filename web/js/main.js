@@ -125,4 +125,5 @@ $(function () {
         }
     });
 
+    objectFitImages('.zoom', {watchMQ: true});
 });

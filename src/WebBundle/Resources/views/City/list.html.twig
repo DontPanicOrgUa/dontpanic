@@ -57,21 +57,23 @@
         <!--    gallery start -->
         <section class="gallery container-fluid">
             <div class="row">
+                <div class="row d-flex-r">
 
-                {% for room in city.rooms %}
-                    <div class="col-sm-6 col-md-4 gallery-item">
-                        <div class="gallery-img-container">
-                            <img src="{{ asset('uploads/rooms/'~room.background) }}"
-                                 alt="{{ room.title(app.request.locale) }}" class="img-responsive zoom">
-                            <img src="{{ asset('uploads/rooms/'~room.logo) }}" alt="" class="game-logo">
-                            <div class="game-title">
-                                <p>{{ room.title(app.request.locale) }}</p>
+                    {% for room in city.rooms %}
+                        <div class="col-sm-6 col-md-4 gallery-item">
+                            <div class="gallery-img-container">
+                                <img src="{{ asset('uploads/rooms/'~room.background) }}"
+                                     alt="{{ room.title(app.request.locale) }}" class="img-responsive zoom">
+                                <img src="{{ asset('uploads/rooms/'~room.logo) }}" alt="" class="game-logo">
+                                <div class="game-title">
+                                    <p>{{ room.title(app.request.locale) }}</p>
+                                </div>
+                                <a href="{{ path('room_schedule', {slug: room.slug}) }}" class="img-hover"></a>
                             </div>
-                            <a href="{{ path('room_schedule', {slug: room.slug}) }}" class="img-hover"></a>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
 
+                </div>
             </div>
         </section>
         <!--    gallery end -->

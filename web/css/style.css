@@ -1,9 +1,17 @@
 @charset "UTF-8";
+
+.d-flex-r {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 body {
-    background: #171717;
     position: relative;
     margin: 0;
     padding: 0;
+    background: #171717;
     color: #fff;
     font-size: 18px;
 }
@@ -18,34 +26,35 @@ body {
 }
 
 .clearfix:after {
-    content: '';
     display: table;
     clear: both;
+    content: '';
 }
 
 /* menu btn */
+
 .cmn-toggle-switch {
-    display: block;
     position: absolute;
     top: 27px;
     right: 0px;
+    z-index: 20;
+    display: block;
     overflow: hidden;
     margin: 0;
     padding: 0;
     width: 65px;
     height: 65px;
-    font-size: 0;
-    text-indent: -9999px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    box-shadow: none;
-    border-radius: none;
     border: none;
+    border-radius: none;
+    box-shadow: none;
+    text-indent: -9999px;
+    font-size: 0;
     cursor: pointer;
     -webkit-transition: background 0.3s;
     transition: background 0.3s;
-    z-index: 20;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .cmn-toggle-switch:focus {
@@ -53,11 +62,11 @@ body {
 }
 
 .cmn-toggle-switch span {
-    display: block;
     position: absolute;
     top: 30px;
-    left: 11px;
     right: 11px;
+    left: 11px;
+    display: block;
     height: 6px;
     background: white;
 }
@@ -65,8 +74,8 @@ body {
 .cmn-toggle-switch span::before,
 .cmn-toggle-switch span::after {
     position: absolute;
-    display: block;
     left: 0;
+    display: block;
     width: 100%;
     height: 6px;
     background-color: #fff;
@@ -92,10 +101,10 @@ body {
 
 .cmn-toggle-switch__htx span::before,
 .cmn-toggle-switch__htx span::after {
-    -webkit-transition-duration: 0.3s, 0.3s;
-    transition-duration: 0.3s, 0.3s;
     -webkit-transition-delay: 0.3s, 0;
     transition-delay: 0.3s, 0;
+    -webkit-transition-duration: 0.3s, 0.3s;
+    transition-duration: 0.3s, 0.3s;
 }
 
 .cmn-toggle-switch__htx span::before {
@@ -108,7 +117,8 @@ body {
     transition-property: bottom, transform;
 }
 
-/* ╨░╨║╤В╨╕╨▓╨╜╨╛╨╡ ╤Б╨╛╤Б╤В╨╛╤П╨╜╨╕╨╡, ╤В.╨╡. ╨╝╨╡╨╜╤О ╨╛╤В╨║╤А╤Л╤В╨╛ */
+/* â•¨â–‘â•¨â•‘â•¤Ð’â•¨â••â•¨â–“â•¨â•œâ•¨â•›â•¨â•¡ â•¤Ð‘â•¨â•›â•¤Ð‘â•¤Ð’â•¨â•›â•¤ÐŸâ•¨â•œâ•¨â••â•¨â•¡, â•¤Ð’.â•¨â•¡. â•¨â•â•¨â•¡â•¨â•œâ•¤Ðž â•¨â•›â•¤Ð’â•¨â•‘â•¤Ðâ•¤Ð›â•¤Ð’â•¨â•› */
+
 .cmn-toggle-switch__htx.active {
     background-color: transparent;
 }
@@ -138,7 +148,9 @@ body {
 }
 
 /* menu btn end */
+
 /* HEADER */
+
 header {
     position: relative;
     height: 146px;
@@ -146,17 +158,17 @@ header {
 }
 
 .location {
-    display: block;
     position: absolute;
     top: 40px;
     left: 30px;
+    display: block;
     color: #fff;
 }
 
 .location .fa-map-marker {
-    font-size: 40px;
-    color: #fff;
     margin-right: 15px;
+    color: #fff;
+    font-size: 40px;
 }
 
 .location:hover,
@@ -166,16 +178,22 @@ header {
 }
 
 .city-list {
-    display: none;
     position: absolute;
     top: 60px;
     left: 70px;
-    width: 175px;
+    z-index: 30;
+    display: none;
     padding: 0;
+    width: 175px;
     background: rgba(0, 0, 0, 0.9);
     list-style: none;
     text-align: left;
-    z-index: 30;
+}
+
+.city-list a:hover,
+.city-list a:focus {
+    color: lightblue;
+    text-decoration: none;
 }
 
 .city-list li {
@@ -183,14 +201,8 @@ header {
 }
 
 .city-list a {
-    color: #fff;
     display: block;
-}
-
-.city-list a:hover,
-.city-list a:focus {
-    color: lightblue;
-    text-decoration: none;
+    color: #fff;
 }
 
 .logo-container {
@@ -227,9 +239,9 @@ header {
 
 .lang-list li {
     display: inline-block;
+    margin-right: 5px;
     width: 40px;
     height: 30px;
-    margin-right: 5px;
 }
 
 .lang-list a {
@@ -239,17 +251,19 @@ header {
 }
 
 /* HEADER end */
+
 /* MENU */
+
 .open-menu {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 9;
+    display: none;
     width: 100%;
     height: 100%;
-    z-index: 9;
     background-color: #212127;
     opacity: 0.7;
-    display: none;
     transition: all 0.5s ease-in-out;
 }
 
@@ -257,11 +271,16 @@ header {
     position: fixed;
     top: 0;
     right: -300px;
-    height: 100%;
-    width: 300px;
-    background: rgba(0, 0, 0, 0.9);
     z-index: 10;
     padding-top: 146px;
+    width: 300px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.main-menu a:hover {
+    color: lightblue;
+    text-decoration: none;
 }
 
 .main-menu ul {
@@ -274,15 +293,10 @@ header {
 
 .main-menu a {
     display: block;
-    width: 100%;
     padding: 10px;
+    width: 100%;
     color: #fff;
     font-size: 22px;
-}
-
-.main-menu a:hover {
-    color: lightblue;
-    text-decoration: none;
 }
 
 .main-menu .callback-menu {
@@ -290,13 +304,16 @@ header {
 }
 
 /* MENU end*/
+
 /* CONTENT */
+
 .content {
     width: 100%;
     background: url("../img/bg.jpg") center top;
 }
 
 /* slider */
+
 .slider {
     margin-bottom: 50px;
 }
@@ -315,31 +332,32 @@ header {
 }
 
 /* slider end */
+
 .calendar {
-    color: #fff;
-    font-size: 18px;
     border: 1px solid #fff;
     border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
 }
 
 .calendar:hover {
-    color: lightblue;
     border: 1px solid lightblue;
+    color: lightblue;
     text-decoration: none;
 }
 
 .sort-wrapper {
     position: relative;
     float: right;
+    padding: 6px 12px;
     width: 230px;
     border: 1px solid #fff;
     border-radius: 5px;
-    padding: 6px 12px;
 }
 
 .sort-wrapper:hover {
-    color: lightblue;
     border: 1px solid lightblue;
+    color: lightblue;
     cursor: pointer;
 }
 
@@ -354,25 +372,16 @@ header {
 }
 
 .sort-list {
-    display: none;
     position: absolute;
-    right: 0px;
     top: 40px;
-    width: 230px;
+    right: 0px;
+    z-index: 30;
+    display: none;
     padding: 10px;
+    width: 230px;
     background: rgba(0, 0, 0, 0.9);
     list-style: none;
     text-align: left;
-    z-index: 30;
-}
-
-.sort-list li {
-    padding: 5px;
-}
-
-.sort-list a {
-    color: #fff;
-    display: block;
 }
 
 .sort-list a:hover,
@@ -381,10 +390,19 @@ header {
     text-decoration: none;
 }
 
+.sort-list li {
+    padding: 5px;
+}
+
+.sort-list a {
+    display: block;
+    color: #fff;
+}
+
 .radio-item {
     display: inline-block;
-    cursor: pointer;
     margin-left: 20px;
+    cursor: pointer;
 }
 
 .radio-item:first-child {
@@ -392,6 +410,7 @@ header {
 }
 
 /* gallery */
+
 .gallery {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -408,13 +427,23 @@ header {
 .gallery-img-container {
     position: relative;
     overflow: hidden;
+    width: 100%;
+    height: 230px;
+    margin: 0;
+}
+
+.gallery-img-container .zoom {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    font-family: 'object-fit: cover';
 }
 
 .img-hover {
-    display: none;
     position: absolute;
     top: 0;
     left: 0;
+    display: none;
     width: 100%;
     height: 100%;
     background-color: rgba(28, 104, 189, 0.6);
@@ -430,9 +459,9 @@ header {
 
 .game-logo {
     position: absolute;
-    height: 25%;
     top: 50%;
     left: 50%;
+    height: 25%;
     transform: translate(-50%, -50%);
 }
 
@@ -449,21 +478,29 @@ header {
     border-radius: 10px;
     background: rgba(193, 193, 193, 0.3);
     text-transform: uppercase;
-    font-size: 14px;
     font-weight: 300;
+    font-size: 14px;
 }
 
 /* gallery end*/
+
 .info {
     margin-bottom: 50px;
 }
 
 /* CONTENT end */
+
 /* FOOTER */
+
 footer {
     padding: 10px;
     min-height: 100px;
     background: url("../img/footer-bg.jpg") center top;
+}
+
+footer a:hover {
+    color: lightblue;
+    text-decoration: none;
 }
 
 footer p {
@@ -474,15 +511,14 @@ footer a {
     color: #fff;
 }
 
-footer a:hover {
-    color: lightblue;
-    text-decoration: none;
+.footer-menu {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
 }
 
-.footer-menu {
-    padding: 0;
-    margin-top: 20px;
-    list-style: none;
+.footer-menu a:hover {
+    border-color: lightblue;
 }
 
 .footer-menu li {
@@ -492,14 +528,10 @@ footer a:hover {
 .footer-menu a {
     display: block;
     width: 48px;
-    text-align: center;
-    font-size: 30px;
     border: 2px solid #fff;
     border-radius: 50%;
-}
-
-.footer-menu a:hover {
-    border-color: lightblue;
+    text-align: center;
+    font-size: 30px;
 }
 
 .copy {
@@ -507,6 +539,7 @@ footer a:hover {
 }
 
 /* FOOTER end */
+
 /* ROOM */
 .schedule {
     margin-top: 50px;
@@ -663,7 +696,7 @@ th:hover {
 /* ROOM end*/
 /* SCHEDULE */
 /*.schedule h2 {*/
-    /*text-transform: uppercase;*/
+/*text-transform: uppercase;*/
 /*}*/
 
 .schedule h2 a {
@@ -786,12 +819,12 @@ th:hover {
     }
 }
 
-.schedule-slider table th.th-today {
-    color: #dd7404;
-}
-
 .schedule-slider table th.th-weekend {
     color: red;
+}
+
+.schedule-slider table th.th-today {
+    color: #dd7404;
 }
 
 .schedule-slider table {
