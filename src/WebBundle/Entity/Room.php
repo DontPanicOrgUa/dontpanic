@@ -168,6 +168,11 @@ class Room
     private $blanks;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Game", mappedBy="room")
+     */
+    private $games;
+
+    /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\City", inversedBy="rooms")
      * @ORM\JoinColumn(nullable=false)
      */

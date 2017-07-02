@@ -53,8 +53,12 @@ class Payment
     /**
      * @ORM\Column(type="string")
      */
-
     private $language;
+
+    /**
+     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Game", mappedBy="payment")
+     */
+    private $game;
 
     /**
      * @var \DateTime $createdAt

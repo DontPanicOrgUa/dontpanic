@@ -41,6 +41,11 @@ class Customer
     private $phone;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Game", mappedBy="customer")
+     */
+    private $games;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
