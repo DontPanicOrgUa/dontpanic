@@ -19,46 +19,40 @@ class Game
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="datetime")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     private $datetime;
 
     /**
      * Storing price, currency, players, discount
      * @Assert\NotBlank()
-     * @ORM\Column(type="string")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $bookingData;
 
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $result;
 
     /**
-     * @ORM\Column(type="string")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $photo;
 
     /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="games")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $room;
 
     /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Customer", inversedBy="games")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
 
     /**
-     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Payment", inversedBy="game")
+     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Payment", mappedBy="game")
      */
     private $payment;
 

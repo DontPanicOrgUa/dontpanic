@@ -56,7 +56,7 @@ class Payment
     private $language;
 
     /**
-     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Game", mappedBy="payment")
+     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Game", inversedBy="payment")
      */
     private $game;
 
