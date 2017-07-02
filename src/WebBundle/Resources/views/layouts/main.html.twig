@@ -16,7 +16,10 @@
 </head>
 <body>
 
-{% include 'WebBundle:layouts/includes:header.html.twig' %}
+{% block header %}
+    {% embed 'WebBundle:layouts/includes:header.html.twig' %}
+    {% endembed %}
+{% endblock %}
 
 <div class="dotted-line"></div>
 

@@ -1,0 +1,15 @@
+{% extends 'admin' in app.request.get('_route') ? "AdminBundle:layouts:main.html.twig" : "WebBundle:layouts:main.html.twig" %}
+
+{% block header %}
+    {% embed 'WebBundle:layouts/includes:header.html.twig' %}
+        {% block cities %}{% endblock %}
+        {% block languages %}{% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block content %}
+    <div class="content container-fluid">
+        <h1>"Oops!</h1>
+        <h2>Something went wrong. Please try again later.</h2>
+    </div>
+{% endblock %}

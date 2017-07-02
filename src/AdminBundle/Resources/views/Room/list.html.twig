@@ -1,6 +1,6 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
-{% block body %}
+{% block content %}
     {% if is_granted('ROLE_ADMIN') %}
         <a class="btn btn-success pull-right" href="{{ path('admin_rooms_add') }}">Add Room <span
                     class="fa fa-plus"></span></a>
