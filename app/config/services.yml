@@ -10,3 +10,8 @@ services:
     admin.file_uploader:
             class: AdminBundle\Service\FileUploader
             arguments: ['%uploads_rooms_path%']
+
+    room_voter:
+        class: AdminBundle\Security\RoomVoter
+        tags:
+            - { name: security.voter }

@@ -3,7 +3,9 @@
 {% block body %}
     <div class="pull-right">
         <a class="btn btn-info fa fa-list" href="{{ path('admin_rooms_list') }}"> Back to rooms</a>
-        <a class="btn btn-info fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> Edit template</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-info fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> Edit template</a>
+        {% endif %}
     </div>
     <h1 class="page-header">{{ room.title }} template</h1>
     <h2>First Week</h2>

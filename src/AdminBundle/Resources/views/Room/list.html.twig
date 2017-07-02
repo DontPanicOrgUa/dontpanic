@@ -1,7 +1,10 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block body %}
-    <a class="btn btn-success pull-right" href="{{ path('admin_rooms_add') }}">Add Room <span class="fa fa-plus"></span></a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-success pull-right" href="{{ path('admin_rooms_add') }}">Add Room <span
+                    class="fa fa-plus"></span></a>
+    {% endif %}
     <h1 class="page-header">Rooms</h1>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -19,7 +22,9 @@
                 {#<th>{{ knp_pagination_sortable(rooms, 'Age', 'r.ageMin') }}</th>#}
                 <th>Managers</th>
                 <th>{{ knp_pagination_sortable(rooms, 'IsActive', 'r.enabled') }}</th>
-                <th>Actions</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -45,14 +50,16 @@
                         </ul>
                     </td>
                     <td>{{ room.enabled ? 'yes' : 'no' }}</td>
-                    <td>
-                        <a class="btn btn-xs btn-warning" href="{{ path('admin_rooms_edit', {slug: room.slug}) }}">edit
-                            <span class=" fa fa-pencil"></span></a>
-                        <a class="btn btn-xs btn-danger" href="{{ path('admin_rooms_delete', {slug: room.slug}) }}">delete
-                            <span class=" fa fa-close"></span></a><br>
-                        <a class="btn btn-xs btn-info" href="{{ path('admin_blanks_list', {slug: room.slug}) }}">template
-                            <span class=" fa fa-calendar"></span></a>
-                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <a class="btn btn-xs btn-warning" href="{{ path('admin_rooms_edit', {slug: room.slug}) }}">edit
+                                <span class=" fa fa-pencil"></span></a>
+                            <a class="btn btn-xs btn-danger" href="{{ path('admin_rooms_delete', {slug: room.slug}) }}">delete
+                                <span class=" fa fa-close"></span></a><br>
+                            <a class="btn btn-xs btn-info" href="{{ path('admin_blanks_list', {slug: room.slug}) }}">template
+                                <span class=" fa fa-calendar"></span></a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

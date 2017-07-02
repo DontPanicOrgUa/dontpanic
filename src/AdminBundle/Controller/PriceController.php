@@ -9,8 +9,14 @@ use AdminBundle\Form\PriceFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+/**
+ * Class PriceController
+ * @package AdminBundle\Controller
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class PriceController extends Controller
 {
     /**

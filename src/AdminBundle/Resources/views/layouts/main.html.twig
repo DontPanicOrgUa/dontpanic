@@ -40,6 +40,16 @@
                     </div>
                 {% endfor %}
 
+                {% for msgs in app.session.flashBag.get('errors') %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for msg in msgs %}
+                                <li>{{ msg }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+
                 {% block body %}<h1>Hello Body!</h1>{% endblock body %}
             </div>
         </div>

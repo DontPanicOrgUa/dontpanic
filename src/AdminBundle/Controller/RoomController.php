@@ -11,7 +11,13 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * Class RoomController
+ * @package AdminBundle\Controller
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class RoomController extends Controller
 {
     /**
@@ -19,11 +25,13 @@ class RoomController extends Controller
      * @Method("GET")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USER')")
      */
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $rooms = $em->getRepository('WebBundle:Room')->queryFindAll();
+
+        $rooms = $em->getRepository('WebBundle:Room')->queryFindAllByUserRights($this->getUser());
 
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
@@ -151,15 +159,22 @@ class RoomController extends Controller
      * @Route("/rooms/{slug}", name="admin_rooms_schedule")
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_USER')")
      */
     public function showScheduleAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
         $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
+        $this->denyAccessUnlessGranted('view', $room);
         $scheduleBuilder = new ScheduleBuilder($room);
+        $schedule = $scheduleBuilder->collectByTime();
+        if (empty($schedule)) {
+            $this->addFlash('errors', ['No schedule for "' . $room->getTitle() . '".']);
+            return $this->redirectToRoute('admin_rooms_list');
+        }
         return $this->render('AdminBundle:Room:schedule.html.twig', [
             'room' => $room,
-            'schedule' => $scheduleBuilder->collectByTime()
+            'schedule' => $schedule
         ]);
     }
 }
