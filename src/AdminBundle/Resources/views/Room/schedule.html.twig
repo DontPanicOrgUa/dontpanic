@@ -39,7 +39,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ game.busy.id }}">View</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#">Delete</a></li>
+                                            <li><a href="{{ path('admin_games_delete', {slug: room.slug, id: game.busy.id}) }}">Delete</a></li>
                                         </ul>
                                     </div>
                                 {% else %}
