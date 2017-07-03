@@ -2,6 +2,7 @@
 namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -55,6 +56,19 @@ class Game
      * @ORM\OneToOne(targetEntity="WebBundle\Entity\Payment", mappedBy="game")
      */
     private $payment;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $bookedBy;
+
+    /**
+     * @var \DateTime $createdAt
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $createdAt;
 
     /**
      * @return mixed
@@ -175,4 +189,29 @@ class Game
     {
         $this->payment = $payment;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBookedBy()
+    {
+        return $this->bookedBy;
+    }
+
+    /**
+     * @param mixed $bookedBy
+     */
+    public function setBookedBy($bookedBy)
+    {
+        $this->bookedBy = $bookedBy;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
 }

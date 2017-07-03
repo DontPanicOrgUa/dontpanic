@@ -4,7 +4,8 @@
     <div class="pull-right">
         <a class="btn btn-info fa fa-list" href="{{ path('admin_rooms_list') }}"> Back to rooms</a>
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-info fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> Edit template</a>
+            <a class="btn btn-info fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> Edit
+                template</a>
         {% endif %}
     </div>
     <h1 class="page-header">{{ room.title }} template</h1>
@@ -27,14 +28,34 @@
                     <th>{{ row.time }}</th>
                     {% for game in row.games|slice(0, 7) %}
                         <td class="{{ game.busy ? 'expired' : '' }}">
-                            {% if game.busy  %}
+                            {% if game.busy %}
                                 {% if game.busy.id is defined %}
-                                    <a href="#">{{ game.busy.id }}</a>
+                                    {% set btnColors = ['success', 'info', 'warning', 'primary'] %}
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-{{ btnColors[game.busy.bookedBy] }} dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Free <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ game.busy.id }}">View</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Delete</a></li>
+                                        </ul>
+                                    </div>
                                 {% else %}
                                     expired
                                 {% endif %}
                             {% else %}
-                                free
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        Free <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Book</a></li>
+                                        <li><a href="#">Exception</a></li>
+                                    </ul>
+                                </div>
                             {% endif %}
                             <br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}
                         </td>
