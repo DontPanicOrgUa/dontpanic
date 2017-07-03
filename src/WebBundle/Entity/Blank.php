@@ -98,7 +98,8 @@ class Blank
     public function getPricesByDayOfWeek($dayOfWeek)
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq('dayOfWeek', $dayOfWeek));
+            ->where(Criteria::expr()->eq('dayOfWeek', $dayOfWeek))
+            ->orderBy(['price' => 'ASC']);
         return $this->prices->matching($criteria);
     }
 

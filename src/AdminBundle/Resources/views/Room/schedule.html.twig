@@ -26,7 +26,16 @@
                 <tr>
                     <th>{{ row.time }}</th>
                     {% for game in row.games|slice(0, 7) %}
-                        <td>{{ game.busy ? 'busy' : 'free' }}
+                        <td class="{{ game.busy ? 'expired' : '' }}">
+                            {% if game.busy  %}
+                                {% if game.busy.id is defined %}
+                                    <a href="#">{{ game.busy.id }}</a>
+                                {% else %}
+                                    expired
+                                {% endif %}
+                            {% else %}
+                                free
+                            {% endif %}
                             <br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}
                         </td>
                     {% endfor %}

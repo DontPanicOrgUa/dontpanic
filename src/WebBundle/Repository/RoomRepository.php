@@ -3,6 +3,7 @@
 namespace WebBundle\Repository;
 
 
+use DateTime;
 use WebBundle\Entity\Room;
 use AdminBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
@@ -44,6 +45,30 @@ class RoomRepository extends EntityRepository
             ->addSelect('b')
             ->addSelect('p')
             ->addSelect('t')
+            ->orderBy('b.time', 'ASC')
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function findBySlugWithActualGames($slug)
+    {
+        $dateTimeFrom = new DateTime('now - 14 days');
+        $dateTimeTo = new DateTime('now + 14 days');
+        return $this->createQueryBuilder('r')
+            ->where('r.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->leftJoin('r.blanks', 'b')
+            ->leftJoin('r.timezone', 't')
+            ->leftJoin('b.prices', 'p')
+            ->leftJoin('r.games', 'g')
+            ->addSelect('g')
+            ->addSelect('b')
+            ->addSelect('p')
+            ->addSelect('t')
+            ->andWhere('g.datetime > :dateTimeFrom')
+            ->andWhere('g.datetime < :dateTimeTo')
+            ->setParameter('dateTimeFrom', $dateTimeFrom)
+            ->setParameter('dateTimeTo', $dateTimeTo)
             ->orderBy('b.time', 'ASC')
             ->getQuery()
             ->getSingleResult();

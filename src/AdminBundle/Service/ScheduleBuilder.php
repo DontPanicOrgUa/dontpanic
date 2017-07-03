@@ -5,6 +5,7 @@ namespace AdminBundle\Service;
 
 use DateTime;
 use DateTimeZone;
+use WebBundle\Entity\Game;
 use WebBundle\Entity\Room;
 
 class ScheduleBuilder
@@ -12,6 +13,10 @@ class ScheduleBuilder
     private $room;
 
     private $timeZone;
+
+    const DATE_FORMAT = 'd-m-Y';
+    const TIME_FORMAT = 'H:i';
+    const DATETIME_FORMAT = 'd-m-Y H:i';
 
     /**
      * ScheduleBuilder constructor.
@@ -26,87 +31,33 @@ class ScheduleBuilder
     /**
      * @return array
      */
-    public function getSchedule()
-    {
-        $games = [];
-        for (
-            $date = new DateTime('now', $this->timeZone);
-            $date < new DateTime('+13 days', $this->timeZone);
-            $date->modify('+1 days')
-        ) {
-            $dayOfWeek = strtolower($date->format('l'));
-            $blanks = $this->room->getBlanks();
-            foreach ($blanks as $blank) {
-                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'), $this->timeZone);
-                $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
-                $games[] = [
-                    'dateTime' => $dateTime,
-                    'minPrice' => $this->getMinPrice($prices),
-                    'prices' => $prices,
-                    'busy' => $this->isExpired($dateTime)
-                ];
-            }
-        }
-        return $games;
-    }
-
-    /**
-     * @return array
-     */
-    public function collectByDate()
-    {
-        $dates = [];
-        for (
-            $date = new DateTime('now', $this->timeZone);
-            $date < new DateTime('+13 days', $this->timeZone);
-            $date->modify('+1 days')
-        ) {
-            $dayOfWeek = strtolower($date->format('l'));
-            $blanks = $this->room->getBlanks();
-            $games = [];
-            foreach ($blanks as $blank) {
-                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'), $this->timeZone);
-                $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
-                $games[] = [
-                    'time' => $blank->getTime()->format('H:i'),
-                    'minPrice' => $this->getMinPrice($prices),
-                    'prices' => $prices,
-                    'busy' => $this->isExpired($dateTime)
-                ];
-            }
-            $dates[] = [
-                'date' => $date->format('d-m-Y'),
-                'games' => $games
-            ];
-        }
-        return $dates;
-    }
-
-    /**
-     * @return array
-     */
     public function collectByTime()
     {
         $times = [];
         foreach ($this->room->getBlanks() as $blank) {
             $games = [];
+            $strTime = $blank->getTime()->format(self::TIME_FORMAT);
             for (
                 $date = new DateTime('now', $this->timeZone);
                 $date < new DateTime('+13 days', $this->timeZone);
                 $date->modify('+1 days')
             ) {
-                $dayOfWeek = strtolower($date->format('l'));
-                $dateTime = new DateTime($date->format('d-m-Y') . ' ' . $blank->getTime()->format('H:i'), $this->timeZone);
-                $prices = $blank->getPricesByDayOfWeek($dayOfWeek);
+
+                $strDate = $date->format(self::DATE_FORMAT);
+                $prices = $blank->getPricesByDayOfWeek(strtolower($date->format('l')));
+                $dateTime = new DateTime($strDate . ' ' . $strTime, $this->timeZone);
+                $busy = $this->isBusy($dateTime);
+
                 $games[] = [
-                    'date' => $date->format('d-m-Y'),
-                    'minPrice' => $this->getMinPrice($prices),
+                    'date' => $strDate,
                     'prices' => $prices,
-                    'busy' => $this->isExpired($dateTime)
+                    'minPrice' => $prices->first(),
+                    'busy' => $busy
                 ];
+
             }
             $times[] = [
-                'time' => $blank->getTime()->format('H:i'),
+                'time' => $strTime,
                 'games' => $games
             ];
         }
@@ -114,29 +65,43 @@ class ScheduleBuilder
     }
 
     /**
-     * @param DateTime $date
+     * @param DateTime $dateTime
      * @return bool
      */
-    private function isExpired(DateTime $date)
+    private function isExpired(DateTime $dateTime)
     {
         $now = new DateTime('now', $this->timeZone);
-        return $now > $date;
+        return $now > $dateTime;
     }
 
     /**
-     * @param $prices
-     * @return int|null
+     * @param DateTime $dateTime
+     * @return bool|Game
      */
-    private function getMinPrice($prices)
+    public function findGameByDateTime(DateTime $dateTime)
     {
-        $minPrice = 999999;
-        if ($prices) {
-            foreach ($prices as $price) {
-                $minPrice = $price->getPrice() < $minPrice ? $price->getPrice() : $minPrice;
+        /** @var Game $game */
+        foreach ($this->room->getGames() as $game) {
+            if ($game->getDatetime()->format(self::DATETIME_FORMAT) == $dateTime->format(self::DATETIME_FORMAT)) {
+                return $game;
             }
-            return $minPrice == 999999 ? null : $minPrice;
         }
-        return null;
+        return false;
     }
 
+    public function isBusy(DateTime $dateTime)
+    {
+        // is expired
+        if ($this->isExpired($dateTime)) {
+            return true;
+        }
+
+        // is booked
+        if ($game = $this->findGameByDateTime($dateTime)) {
+            return $game;
+        }
+
+        // time not busy
+        return false;
+    }
 }

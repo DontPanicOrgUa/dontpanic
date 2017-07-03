@@ -164,7 +164,7 @@ class RoomController extends Controller
     public function showScheduleAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
+        $room = $em->getRepository('WebBundle:Room')->findBySlugWithActualGames($slug);
         $this->denyAccessUnlessGranted('view', $room);
         $scheduleBuilder = new ScheduleBuilder($room);
         $schedule = $scheduleBuilder->collectByTime();
