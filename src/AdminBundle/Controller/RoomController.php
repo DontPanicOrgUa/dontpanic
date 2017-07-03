@@ -168,6 +168,7 @@ class RoomController extends Controller
         $this->denyAccessUnlessGranted('view', $room);
         $scheduleBuilder = new ScheduleBuilder($room);
         $schedule = $scheduleBuilder->collectByTime();
+//        dump($schedule);die;
         if (empty($schedule)) {
             $this->addFlash('errors', ['No schedule for "' . $room->getTitle() . '".']);
             return $this->redirectToRoute('admin_rooms_list');

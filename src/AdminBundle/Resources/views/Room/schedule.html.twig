@@ -32,14 +32,17 @@
                                 {% if game.busy.id is defined %}
                                     {% set btnColors = ['success', 'info', 'warning', 'primary'] %}
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-{{ btnColors[game.busy.bookedBy] }} dropdown-toggle"
+                                        <button type="button"
+                                                class="btn btn-{{ btnColors[game.busy.bookedBy] }} dropdown-toggle"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Free <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ game.busy.id }}">View</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="{{ path('admin_games_delete', {slug: room.slug, id: game.busy.id}) }}">Delete</a></li>
+                                            <li>
+                                                <a href="{{ path('admin_games_delete', {slug: room.slug, id: game.busy.id}) }}">Delete</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 {% else %}
@@ -52,12 +55,20 @@
                                         Free <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Book</a></li>
+                                        <li><a href="#" class="book-game" data-toggle="modal" data-target="#bookingModal">Book game</a></li>
                                         <li><a href="#">Exception</a></li>
                                     </ul>
                                 </div>
                             {% endif %}
-                            <br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}
+                            <div class="hidden-prices hidden">
+                                <p class="game-date">Date: <span>{{ game.date }}</span></p>
+                                <p class="game-time">Time: <span>{{ row.time }}</span></p>
+                                <div class="prices-list">
+                                    {% for price in game.prices %}
+                                        <input type="radio" name="price" value="{'players':'{{ price.players }}', 'price':'{{ price.price }}'}"> {{ price.players }} / {{ price.price }} <br>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </td>
                     {% endfor %}
                 </tr>
@@ -92,5 +103,7 @@
             </tbody>
         </table>
     </div>
+
+    {% include 'AdminBundle:Game:modal_add.html.twig' %}
 {% endblock %}
 
