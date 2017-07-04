@@ -14,7 +14,7 @@
                 <th>{{ knp_pagination_sortable(rooms, 'Title', 'r.titleEn') }}</th>
                 <th>Logo</th>
                 <th>Background</th>
-                <th>{{ knp_pagination_sortable(rooms, 'City', 'c.nameEn') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'Address', 'c.nameEn') }}</th>
                 {#<th>{{ knp_pagination_sortable(rooms, 'Currency', 'cu.currency') }}</th>#}
                 {#<th>{{ knp_pagination_sortable(rooms, 'Difficulty', 'r.difficulty') }}</th>#}
                 {#<th>{{ knp_pagination_sortable(rooms, 'Time', 'r.timeMax') }}</th>#}
@@ -56,7 +56,7 @@
                                 <span class=" fa fa-pencil"></span></a>
                             <a class="btn btn-xs btn-danger" href="{{ path('admin_rooms_delete', {slug: room.slug}) }}">delete
                                 <span class=" fa fa-close"></span></a><br>
-                            <a class="btn btn-xs btn-info" href="{{ path('admin_blanks_list', {slug: room.slug}) }}">template
+                            <a class="btn btn-xs btn-info" href="{{ path('admin_blanks_list', {slug: room.slug}) }}">edit template
                                 <span class=" fa fa-calendar"></span></a>
                         </td>
                     {% endif %}

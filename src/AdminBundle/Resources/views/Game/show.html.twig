@@ -15,7 +15,7 @@
             <tbody>
             <tr>
                 <td>room</td>
-                <td><a href="#">{{ game.room.title }}</a></td>
+                <td><a href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}">{{ game.room.title }}</a></td>
             </tr>
             <tr>
                 <td>booked by</td>

@@ -8,8 +8,9 @@
                 template</a>
         {% endif %}
     </div>
-    <h1 class="page-header">{{ room.title }} template</h1>
-    <h2>First Week</h2>
+    <h1 class="page-header">{{ room.title }}</h1>
+
+    <h3>First Week</h3>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -76,7 +77,7 @@
             </tbody>
         </table>
     </div>
-    <h2>Second Week</h2>
+    <h3>Second Week</h3>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -100,6 +101,98 @@
                     {% endfor %}
                 </tr>
             {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <h3>Room info</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Option</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>title</td>
+                <td>{{ room.title }}</td>
+            </tr>
+            <tr>
+                <td>slug</td>
+                <td>{{ room.slug }}</td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>{{ room.description }}</td>
+            </tr>
+            <tr>
+                <td>logo</td>
+                <td><a href="{{ asset('uploads/rooms/' ~ room.logo) }}" target="_blank">{{ room.logo }}</a></td>
+            </tr>
+            <tr>
+                <td>background</td>
+                <td><a href="{{ asset('uploads/rooms/' ~ room.background) }}" target="_blank">{{ room.background }}</a></td>
+            </tr>
+            <tr>
+                <td>coordinates</td>
+                <td>{{ room.coordinates }}</td>
+            </tr>
+            <tr>
+                <td>city</td>
+                <td>{{ room.city.name }}</td>
+            </tr>
+            <tr>
+                <td>timezone</td>
+                <td>{{ room.timezone.title }}</td>
+            </tr>
+            <tr>
+                <td>address</td>
+                <td>{{ room.address }}</td>
+            </tr>
+            <tr>
+                <td>phone</td>
+                <td>{{ room.phone }}</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>{{ room.email }}</td>
+            </tr>
+            <tr>
+                <td>currency</td>
+                <td>{{ room.currency.currency }}</td>
+            </tr>
+            <tr>
+                <td>difficulty</td>
+                <td>{{ room.difficulty }}</td>
+            </tr>
+            <tr>
+                <td>time max</td>
+                <td>{{ room.timeMax }}</td>
+            </tr>
+            <tr>
+                <td>players max</td>
+                <td>{{ room.playersMax }}</td>
+            </tr>
+            <tr>
+                <td>players min</td>
+                <td>{{ room.playersMin }}</td>
+            </tr>
+            <tr>
+                <td>age min</td>
+                <td>{{ room.ageMin }}</td>
+            </tr>
+            <tr>
+                <td>enabled</td>
+                <td>{{ room.enabled }}</td>
+            </tr>
+
+            <tr>
+                <td>created at</td>
+                <td>{{ room.createdAt | date('d-m-Y H:m:s') }}</td>
+            </tr>
             </tbody>
         </table>
     </div>
