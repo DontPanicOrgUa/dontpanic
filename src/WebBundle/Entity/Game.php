@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="games")
+ * @ORM\Table(name="games", uniqueConstraints={@ORM\UniqueConstraint(name="unique_room_datetime", columns={"room_id", "datetime"})})
  * @ORM\Entity(repositoryClass="WebBundle\Repository\GameRepository")
  */
 class Game

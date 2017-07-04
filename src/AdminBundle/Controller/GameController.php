@@ -9,15 +9,59 @@
 namespace AdminBundle\Controller;
 
 
+use DateTime;
+use DateTimeZone;
 use WebBundle\Entity\Game;
+use WebBundle\Entity\Room;
+use WebBundle\Entity\Customer;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class GameController extends Controller
 {
-    public function addAction()
+    /**
+     * @Route("/rooms/{slug}/games", name="admin_games_add")
+     * @Method("POST")
+     * @param Request $request
+     * @param $room
+     * @return JsonResponse
+     */
+    public function addAction(Request $request, Room $room)
     {
-        // TODO: implement
+        $bookingData = $request->request->get('bookingData');
+
+        $customer = new Customer();
+        $customer->setName($bookingData['name']);
+        $customer->setSecondname($bookingData['secondName']);
+        $customer->setEmail($bookingData['email']);
+        $customer->setPhone($bookingData['phone']);
+
+        $game = new Game();
+        $game->setRoom($room);
+        $game->setCustomer($customer);
+        $game->setBookedBy($bookingData['bookedBy']);
+        $game->setBookingData(serialize([
+            'discount' => $bookingData['discount']
+        ]));
+        $game->setDatetime(
+            new DateTime(
+                $bookingData['date'] . ' ' . $bookingData['time'],
+                new DateTimeZone($room->getTimezone())
+            )
+        );
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($customer);
+        $em->persist($game);
+        $em->flush();
+
+        return new JsonResponse([
+            'success' => true,
+            'data' => $bookingData,
+        ], 201);
     }
 
     /**

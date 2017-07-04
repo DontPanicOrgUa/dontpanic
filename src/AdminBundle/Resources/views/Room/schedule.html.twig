@@ -35,13 +35,13 @@
                                         <button type="button"
                                                 class="btn btn-{{ btnColors[game.busy.bookedBy] }} dropdown-toggle"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Free <span class="caret"></span>
+                                            Busy <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ game.busy.id }}">View</a></li>
+                                            <li><a href="{{ game.busy.id }}">View booking</a></li>
                                             <li role="separator" class="divider"></li>
                                             <li>
-                                                <a href="{{ path('admin_games_delete', {slug: room.slug, id: game.busy.id}) }}">Delete</a>
+                                                <a href="{{ path('admin_games_delete', {slug: room.slug, id: game.busy.id}) }}">Delete booking</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -63,9 +63,9 @@
                             <div class="hidden-prices hidden">
                                 <p class="game-date">Date: <span>{{ game.date }}</span></p>
                                 <p class="game-time">Time: <span>{{ row.time }}</span></p>
-                                <div class="prices-list">
+                                <div class="prices-list input-group">
                                     {% for price in game.prices %}
-                                        <input type="radio" name="price" value="{'players':'{{ price.players }}', 'price':'{{ price.price }}'}"> {{ price.players }} / {{ price.price }} <br>
+                                        <input type="radio" name="price" value='{"players": "{{ price.players }}", "price": "{{ price.price }}"}'> {{ price.players }} / {{ price.price }} <br>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -105,5 +105,13 @@
     </div>
 
     {% include 'AdminBundle:Game:modal_add.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var adminGamesAddRoute = '{{ path('admin_games_add', {slug: room.slug}) }}';
+        var adminRoomsScheduleRoute = '{{ path('admin_rooms_schedule', {slug: room.slug}) }}';
+    </script>
 {% endblock %}
 

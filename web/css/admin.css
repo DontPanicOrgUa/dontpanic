@@ -9,3 +9,7 @@
 div.table-responsive table tbody tr td a.btn {
     margin-bottom: 4px;
 }
+
+#bookingModal .input-group.has-error {
+    color: red;
+}
