@@ -69,6 +69,6 @@ class RoomRepository extends EntityRepository
             ->addSelect('t')
             ->orderBy('b.time', 'ASC')
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 }

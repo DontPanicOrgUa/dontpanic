@@ -23,6 +23,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class GameController extends Controller
 {
     /**
+     * @Route("/rooms/{slug}/games/{id}", name="admin_game_show")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @internal param Game $game
+     */
+    public function showAction($id) {
+        $bookedBy = ['customer', 'admin', 'manager', 'api'];
+        $em = $this->getDoctrine()->getManager();
+        /** @var Game $game */
+        $game = $em->getRepository('WebBundle:Game')->findByIdWithRelatedData($id);
+        if (!$game) {
+            throw $this->createNotFoundException('The game does not exist');
+        }
+        $game->setBookingData(unserialize($game->getBookingData()));
+        $game->setBookedBy($bookedBy[$game->getBookedBy()]);
+        return $this->render('AdminBundle:Game:show.html.twig', [
+            'game' => $game
+        ]);
+    }
+
+    /**
      * @Route("/rooms/{slug}/games", name="admin_games_add")
      * @Method("POST")
      * @param Request $request
@@ -44,6 +65,8 @@ class GameController extends Controller
         $game->setCustomer($customer);
         $game->setBookedBy($bookingData['bookedBy']);
         $game->setBookingData(serialize([
+            'players' => $bookingData['players'],
+            'price' => $bookingData['price'],
             'discount' => $bookingData['discount']
         ]));
         $game->setDatetime(

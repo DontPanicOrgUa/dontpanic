@@ -1,0 +1,118 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <a class="btn btn-info pull-right" href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}">Back <span
+                class="fa fa-calendar"></span></a>
+    <h3>Booking info</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Option</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>room</td>
+                <td><a href="#">{{ game.room.title }}</a></td>
+            </tr>
+            <tr>
+                <td>booked by</td>
+                <td>{{ game.bookedBy }}</td>
+            </tr>
+            <tr>
+                <td>created at</td>
+                <td>{{ game.createdAt | date("d-m-Y H:i:s") }}</td>
+            </tr>
+            <tr>
+                <td>game time</td>
+                <td>{{ game.datetime | date("d-m-Y H:i") }}</td>
+            </tr>
+            {% for key, value in game.bookingData %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>payment</td>
+                <td>{{ game.payment }}</td>
+            </tr>
+            <tr>
+                <td>result</td>
+                <td>{{ game.result }}</td>
+            </tr>
+            <tr>
+                <td>photo</td>
+                <td>{{ game.photo }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Customer info</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Option</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>name</td>
+                <td>{{ game.customer.name }}</td>
+            </tr>
+            <tr>
+                <td>second name</td>
+                <td>{{ game.customer.secondname }}</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>{{ game.customer.email }}</td>
+            </tr>
+            <tr>
+                <td>phone</td>
+                <td>{{ game.customer.phone }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Payment info</h3>
+    <div class="table-responsive">
+        {% if game.payment %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Option</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>name</td>
+                    <td>{{ game.customer.name }}</td>
+                </tr>
+                <tr>
+                    <td>second name</td>
+                    <td>{{ game.customer.secondname }}</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>{{ game.customer.email }}</td>
+                </tr>
+                <tr>
+                    <td>phone</td>
+                    <td>{{ game.customer.phone }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        {% else %}
+            no payment info
+        {% endif %}
+    </div>
+{% endblock %}
