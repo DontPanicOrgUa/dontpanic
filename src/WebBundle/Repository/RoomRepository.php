@@ -14,12 +14,13 @@ class RoomRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('r')
             ->leftJoin('r.city', 'c')
-            ->leftJoin('r.currency', 'cu')
-            ->addSelect('c')
-            ->addSelect('cu');
+            ->addSelect('c');
 
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
-            return $qb->getQuery();
+            return $qb
+                ->leftJoin('r.roomManagers', 'm')
+                ->addSelect('m')
+                ->getQuery();
         }
 
         $qb->innerJoin('r.roomManagers', 'rm')

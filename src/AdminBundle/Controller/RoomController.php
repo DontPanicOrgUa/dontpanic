@@ -5,6 +5,7 @@ namespace AdminBundle\Controller;
 
 use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
+use Knp\Component\Pager\Paginator;
 use AdminBundle\Service\ScheduleBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
@@ -33,7 +34,9 @@ class RoomController extends Controller
 
         $rooms = $em->getRepository('WebBundle:Room')->queryFindAllByUserRights($this->getUser());
 
+        /** @var Paginator $paginator */
         $paginator = $this->get('knp_paginator');
+
         $result = $paginator->paginate(
             $rooms,
             $request->query->getInt('page', 1),
