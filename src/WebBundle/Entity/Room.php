@@ -204,6 +204,11 @@ class Room
     private $roomManagers;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Corrective", mappedBy="corrective")
+     */
+    private $correctives;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -766,6 +771,22 @@ class Room
     public function setGames($games)
     {
         $this->games = $games;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorrectives()
+    {
+        return $this->correctives;
+    }
+
+    /**
+     * @param mixed $correctives
+     */
+    public function setCorrectives($correctives)
+    {
+        $this->correctives = $correctives;
     }
 
 
