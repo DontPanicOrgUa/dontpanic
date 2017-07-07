@@ -1,12 +1,12 @@
 home_page_without_prefix:
     path:     /
-    defaults: { _controller: WebBundle:Default:index, _locale: ru }
+    defaults: { _controller: WebBundle:Default:index, _locale: '%locale%' }
 
 web:
     resource: "@WebBundle/Controller/"
     type:     annotation
     prefix:   /{_locale}/
-    defaults: { _locale: ru }
+    defaults: { _locale: '%locale%' }
     requirements:
         _locale: ru|en|de
 
