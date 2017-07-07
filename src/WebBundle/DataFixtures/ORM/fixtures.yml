@@ -30,12 +30,6 @@ WebBundle\Entity\Genre:
         nameEn: Books and movies
         nameDe: Bücher und Filme
 
-WebBundle\Entity\TimeZone:
-    timeZone_1:
-        title: Europe/Kiev
-    timeZone_2:
-        title: Europe/Brussels
-
 WebBundle\Entity\Room:
     room_{1..2}:
         city: '@city_*'
