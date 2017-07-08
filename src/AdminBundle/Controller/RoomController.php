@@ -167,13 +167,15 @@ class RoomController extends Controller
     public function showScheduleAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $room = $em->getRepository('WebBundle:Room')->findBySlugWithActualGames($slug);
+        $room = $em
+            ->getRepository('WebBundle:Room')
+            ->findBySlugWithActualGamesAndCorrectives($slug);
         if (!$room) {
             throw $this->createNotFoundException('The room does not exist');
         }
         $this->denyAccessUnlessGranted('view', $room);
         $scheduleBuilder = new ScheduleBuilder($room);
-        $schedule = $scheduleBuilder->collectByTime();
+        $schedule = $scheduleBuilder->collect();
         if (empty($schedule)) {
             $this->addFlash('errors', ['No schedule for "' . $room->getTitle() . '".']);
             return $this->redirectToRoute('admin_rooms_list');

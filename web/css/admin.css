@@ -13,3 +13,19 @@ div.table-responsive table tbody tr td a.btn {
 #bookingModal .input-group.has-error {
     color: red;
 }
+
+.th-weekend {
+    color: red;
+}
+
+.th-today {
+    color: #dd7404;
+}
+
+.expired {
+    color: gray;
+}
+
+.info {
+    color: gray;
+}

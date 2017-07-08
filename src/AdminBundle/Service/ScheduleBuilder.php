@@ -5,6 +5,7 @@ namespace AdminBundle\Service;
 
 use DateTime;
 use DateTimeZone;
+use WebBundle\Entity\Corrective;
 use WebBundle\Entity\Game;
 use WebBundle\Entity\Room;
 
@@ -31,37 +32,54 @@ class ScheduleBuilder
     /**
      * @return array
      */
-    public function collectByTime()
+    public function collect()
     {
-        $times = [];
-        foreach ($this->room->getBlanks() as $blank) {
-            $games = [];
-            $strTime = $blank->getTime()->format(self::TIME_FORMAT);
-            for (
-                $date = new DateTime('now', $this->timeZone);
-                $date < new DateTime('+13 days', $this->timeZone);
-                $date->modify('+1 days')
-            ) {
+        $sevenDays = [];
+        for ($sd = 1; $sd <= 4; $sd++) {
+            $times = [];
+            foreach ($this->room->getBlanks() as $blank) {
+                $games = [];
+                $strTime = $blank->getTime()->format(self::TIME_FORMAT);
 
-                $strDate = $date->format(self::DATE_FORMAT);
-                $prices = $blank->getPricesByDayOfWeek(strtolower($date->format('l')));
-                $dateTime = new DateTime($strDate . ' ' . $strTime, $this->timeZone);
-                $busy = $this->isBusy($dateTime);
+                for (
+                    $date = new DateTime('now + ' . ($sd * 7 - 7) . ' days', $this->timeZone);
+                    $date < new DateTime('now + ' . ($sd * 7 - 1) . ' days', $this->timeZone);
+                    $date->modify('+1 days')
+                ) {
 
-                $games[] = [
-                    'date' => $strDate,
-                    'prices' => $prices,
-                    'minPrice' => $prices->first(),
-                    'busy' => $busy
+                    $strDate = $date->format(self::DATE_FORMAT);
+                    $dateTime = new DateTime($strDate . ' ' . $strTime, $this->timeZone);
+                    $prices = [];
+                    $pricesCollection = $blank->getPricesByDayOfWeek(strtolower($date->format('l')));
+                    foreach ($pricesCollection as $price) {
+                        $prices[] = [
+                            'players' => $price->getPlayers(),
+                            'price' => $price->getPrice()
+                        ];
+                    }
+                    $corrective = $this->findCorrective($dateTime);
+                    if ($corrective) {
+                        $prices = $corrective['prices'];
+                    }
+
+                    $busy = $this->isBusy($dateTime);
+
+                    $games[] = [
+                        'date' => $strDate,
+                        'prices' => $prices,
+                        'corrective' => $corrective,
+                        'busy' => $busy
+                    ];
+
+                }
+                $times[] = [
+                    'time' => $strTime,
+                    'dates' => $games
                 ];
-
             }
-            $times[] = [
-                'time' => $strTime,
-                'games' => $games
-            ];
+            $sevenDays[] = $times;
         }
-        return $times;
+        return $sevenDays;
     }
 
     /**
@@ -84,6 +102,20 @@ class ScheduleBuilder
         foreach ($this->room->getGames() as $game) {
             if ($game->getDatetime()->format(self::DATETIME_FORMAT) == $dateTime->format(self::DATETIME_FORMAT)) {
                 return $game;
+            }
+        }
+        return false;
+    }
+
+    private function findCorrective(DateTime $dateTime)
+    {
+        /** @var Corrective $corrective */
+        foreach ($this->room->getCorrectives() as $corrective) {
+            if ($corrective->getDatetime()->format(self::DATETIME_FORMAT) == $dateTime->format(self::DATETIME_FORMAT)) {
+                return [
+                    'id' => $corrective->getId(),
+                    'prices' => unserialize($corrective->getData())
+                ];
             }
         }
         return false;

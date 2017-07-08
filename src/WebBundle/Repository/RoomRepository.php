@@ -51,23 +51,34 @@ class RoomRepository extends EntityRepository
             ->getSingleResult();
     }
 
-    public function findBySlugWithActualGames($slug)
+    public function findBySlugWithActualGamesAndCorrectives($slug)
     {
-        $dateTimeFrom = new DateTime('now - 14 days');
-        $dateTimeTo = new DateTime('now + 14 days');
+        $now = new DateTime('now');
+        $dateTimeTo = new DateTime('now + 30 days');
         return $this->createQueryBuilder('r')
             ->andWhere('r.slug = :slug')
-            ->setParameter('slug', $slug)
             ->leftJoin('r.blanks', 'b')
             ->leftJoin('r.timezone', 't')
             ->leftJoin('b.prices', 'p')
-            ->leftJoin('r.games', 'g', 'WITH', 'g.datetime > :dateTimeFrom AND g.datetime < :dateTimeTo')
-            ->setParameter('dateTimeFrom', $dateTimeFrom)
+            ->leftJoin(
+                'r.games',
+                'g',
+                'WITH',
+                'g.datetime > :now AND g.datetime < :dateTimeTo'
+            )
+            ->leftJoin(
+                'r.correctives',
+                'c',
+                'WITH',
+                'c.datetime > :now')
+            ->setParameter('slug', $slug)
             ->setParameter('dateTimeTo', $dateTimeTo)
+            ->setParameter('now', $now)
             ->addSelect('g')
             ->addSelect('b')
             ->addSelect('p')
             ->addSelect('t')
+            ->addSelect('c')
             ->orderBy('b.time', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();

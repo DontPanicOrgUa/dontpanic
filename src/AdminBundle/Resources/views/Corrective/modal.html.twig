@@ -9,9 +9,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <p class="game-date">Date: <span></span></p>
-                        <p class="game-time">Time: <span></span></p>
-                        <p class="is-active">Is active: <input type="checkbox" checked></p>
+                        <p class="game-date-time">DateTime: <span></span></p>
+                        <p class="fa fa-info-circle info"> To delete corrective make empty all fields.</p>
                     </div>
                 </div>
                 <div class="row">
@@ -19,20 +18,33 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <td>players</td>
-                                <td>price</td>
-                            </tr>
-                            <tr>
-                                <td><input type="text"></td>
-                                <td><input type="text"></td>
+                                <th>players</th>
+                                <th>price</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            <tr>
+                                <td><input class="form-control players" type="text" value="1"></td>
+                                <td><input class="form-control price" type="text" value="100"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control players" type="text" value="2"></td>
+                                <td><input class="form-control price" type="text" value="200"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control players" type="text" value="3"></td>
+                                <td><input class="form-control price" type="text" value="300"></td>
+                            </tr>
+                            </tbody>
                         </table>
+                        <button class="pull-right btn btn-success">Add price <span class="fa fa-plus"></span>
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save corrective <i class="hidden fa fa-spinner fa-pulse fa-1x fa-fw"></i></button>
+                <button type="button" class="btn btn-primary">Save corrective</button>
+                <i class="hidden fa fa-spinner fa-pulse fa-2x fa-fw"></i>
             </div>
         </div>
     </div>

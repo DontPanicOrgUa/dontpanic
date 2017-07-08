@@ -12,7 +12,7 @@ $(function () {
     bookingModal.find('button.btn-primary').click(function () {
         var bookingData = collectBookingData();
         if (!validateBookingModal(bookingData)) {
-            showSpinner();
+            showSpinner(bookingModal);
             sendNewGameData(bookingData);
         }
         removeHasErrorClass();
@@ -72,16 +72,6 @@ $(function () {
         return hasError;
     }
 
-    function removeHasErrorClass() {
-        setTimeout(function () {
-            bookingModal.find('.input-group').has('input[name=price]').removeClass('has-error', 5000);
-            bookingModal.find('.input-group').has('input[name=name]').removeClass('has-error', 5000);
-            bookingModal.find('.input-group').has('input[name=secondName]').removeClass('has-error', 5000);
-            bookingModal.find('.input-group').has('input[name=email]').removeClass('has-error', 5000);
-            bookingModal.find('.input-group').has('input[name=phone]').removeClass('has-error', 5000);
-        }, 5000);
-    }
-
     function sendNewGameData(bookingData) {
         $.ajax({
             type: "POST",
@@ -94,18 +84,108 @@ $(function () {
         });
     }
 
-    function showSpinner() {
-        bookingModal.find('button.btn-primary').addClass('disabled');
-        bookingModal.find('button.btn-primary i').removeClass('hidden');
-    }
-
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 
     var correctiveModal = $('#correctiveModal');
+    var correctiveDateTime = '';
+    var correctivePrices = '';
 
     $('.corrective-btn').click(function (e) {
         e.preventDefault();
-        correctiveModal.find('.game-date span').html($(this).closest('td').data('date'));
-        correctiveModal.find('.game-time span').html($(this).closest('td').data('time'));
+        correctiveDateTime = $(this).closest('td').data('date-time');
+        correctivePrices = $(this).closest('td').data('prices');
+        resetCorrectiveModal();
+        buildCorrectiveModal();
     });
+
+    function resetCorrectiveModal() {
+        correctiveModal.find('table tbody').html('');
+        correctiveModal.find('i').addClass('hidden');
+        correctiveModal.find('button').removeClass('hidden');
+        correctiveModal.find('.has-error').removeClass('.has-error');
+    }
+
+    function buildCorrectiveModal() {
+        correctiveModal.find('.game-date-time span').html(correctiveDateTime);
+        $.each(correctivePrices, function () {
+            correctiveModal.find('table tbody').append(
+                '<tr>' +
+                '<td><input type="text" class="form-control players" value="' + this.players + '"></td>' +
+                '<td><input type="text" class="form-control price" value="' + this.price + '"></td>' +
+                '</tr>'
+            );
+        })
+    }
+
+    correctiveModal.find('button.btn-primary').click(function () {
+        var correctiveData = collectCorrectiveData();
+        if (correctiveData) {
+            showSpinner(correctiveModal);
+            sendNewCorrectiveData(correctiveDateTime, correctiveData);
+        }
+        removeHasErrorClass(correctiveModal);
+    });
+
+    correctiveModal.find('button.btn-success').click(function () {
+        correctiveModal.find('table tbody').append(
+            '<tr>' +
+            '<td><input type="text" class="form-control players" value=""></td>' +
+            '<td><input type="text" class="form-control price" value=""></td>' +
+            '</tr>'
+        );
+    });
+
+    function collectCorrectiveData() {
+        var prices = [];
+        var errors = false;
+        correctiveModal.find('table tbody tr').each(function () {
+            $this = $(this);
+            var players = $this.find('input.players').val();
+            var price = $this.find('input.price').val();
+            if (players && price) {
+                prices.push({
+                    "players": $this.find('input.players').val(),
+                    "price": $this.find('input.price').val()
+                });
+            } else if ((!players && price) || (players && !price)) {
+                errors = true;
+                $this.addClass('has-error');
+            }
+        });
+        if (errors) {
+            return false;
+        }
+        return prices;
+    }
+
+    function sendNewCorrectiveData(dateTime, correctiveData) {
+        $.ajax({
+            type: "POST",
+            url: adminCorrectivesRoute,
+            data: {
+                dateTime: dateTime,
+                data: correctiveData
+            }
+        }).done(function (data) {
+            window.location.replace(adminRoomsScheduleRoute);
+        }).fail(function (data) {
+            alert('Something went wrong, please contact the administrator.')
+        });
+    }
+
+
+    function showSpinner(modal) {
+        modal.find('button').addClass('hidden');
+        modal.find('i').removeClass('hidden');
+        modal.find('input').attr('disabled', true);
+    }
+
+    function removeHasErrorClass(modal) {
+        setTimeout(function () {
+            modal.find('.has-error').removeClass('has-error', 5000);
+        }, 5000);
+    }
 });
 

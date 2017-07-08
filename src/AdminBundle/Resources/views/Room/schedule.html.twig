@@ -10,99 +10,83 @@
     </div>
     <h1 class="page-header">{{ room.title }}</h1>
 
-    <h3>First Week</h3>
+    <span class="label label-default">free</span>
+    <span class="label label-success">by client</span>
+    <span class="label label-info">by admin</span>
+    <span class="label label-warning">by manager</span>
+    <span class="label label-primary">by api</span>
+    <span class="label label-danger">corrective</span>
+
     <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th></th>
-                {% for game in schedule[0]['games']|slice(0, 7) %}
-                    <th>{{ game.date|date('l') }}<br>
-                        <small>{{ game.date|date('d-m-Y') }}</small>
-                    </th>
-                {% endfor %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for row in schedule %}
+        {% for sevenDays in schedule %}
+            <h3>Week {{ loop.index }}</h3>
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <th>{{ row.time }}</th>
-                    {% for game in row.games|slice(0, 7) %}
-                        <td class="{{ game.busy ? 'expired' : '' }}" data-date="{{ game.date }}" data-time="{{ row.time }}">
-                            {% if game.busy %}
-                                {% if game.busy.id is defined %}
-                                    {% set btnColors = ['success', 'info', 'warning', 'primary'] %}
+                    <th></th>
+                    {% for game in sevenDays[0]['dates'] %}
+                        <th class="{% if loop.index == 1 %}th-today{% endif %} {% if game.date|date('l') in ['Saturday', 'Sunday'] %}th-weekend{% endif %}">{{ game.date|date('l') }}
+                            <br>
+                            <small>{{ game.date|date('d-m-Y') }}</small>
+                        </th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in sevenDays %}
+                    <tr>
+                        <th>{{ row.time }}</th>
+                        {% for game in row.dates %}
+                            <td class="{{ game.busy ? 'expired' : '' }}"
+                                data-date-time="{{ game.date }} {{ row.time }}"
+                                data-prices="{{ game.prices|json_encode }}">
+                                {% if game.busy %}
+                                    {% if game.busy.id is defined %}
+                                        {% set btnColors = ['success', 'info', 'warning', 'primary'] %}
+                                        <div class="btn-group">
+                                            <button type="button"
+                                                    class="btn btn-{{ btnColors[game.busy.bookedBy] }} dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Busy <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="{{ path('admin_game_show', {slug: room.slug, id: game.busy.id}) }}">View
+                                                        booking</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li>
+                                                    <a href="{{ path('admin_games_delete', {slug: room.slug, id: game.busy.id}) }}">Delete
+                                                        booking</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    {% else %}
+                                        expired
+                                    {% endif %}
+                                {% else %}
                                     <div class="btn-group">
                                         <button type="button"
-                                                class="btn btn-{{ btnColors[game.busy.bookedBy] }} dropdown-toggle"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Busy <span class="caret"></span>
+                                                class="btn btn-{{ game.corrective ? 'danger' : 'default' }} dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            Free <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ path('admin_game_show', {slug: room.slug, id: game.busy.id}) }}">View booking</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li>
-                                                <a href="{{ path('admin_games_delete', {slug: room.slug, id: game.busy.id}) }}">Delete booking</a>
-                                            </li>
+                                            <li><a href="#" class="book-btn" data-toggle="modal"
+                                                   data-target="#bookingModal">Book game</a></li>
+                                            <li><a href="#" class="corrective-btn" data-toggle="modal"
+                                                   data-target="#correctiveModal">Corrective</a></li>
                                         </ul>
                                     </div>
-                                {% else %}
-                                    expired
                                 {% endif %}
-                            {% else %}
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        Free <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" class="book-btn" data-toggle="modal" data-target="#bookingModal">Book game</a></li>
-                                        <li><a href="#" class="corrective-btn" data-toggle="modal" data-target="#correctiveModal">Corrective</a></li>
-                                    </ul>
-                                </div>
-                            {% endif %}
-                            <div class="hidden-prices hidden">
-                                <div class="prices-list input-group">
-                                    {% for price in game.prices %}
-                                        <input type="radio" name="price" value='{"players": "{{ price.players }}", "price": "{{ price.price }}"}'> {{ price.players }} / {{ price.price }} <br>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <h3>Second Week</h3>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th></th>
-                {% for game in schedule[0]['games']|slice(7, 14) %}
-                    <th>{{ game.date|date('l') }}<br>
-                        <small>{{ game.date|date('d-m-Y') }}</small>
-                    </th>
+                            </td>
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for row in schedule %}
-                <tr>
-                    <th>{{ row.time }}</th>
-                    {% for game in row.games|slice(7, 14) %}
-                        <td>{{ game.busy ? 'busy' : 'free' }}
-                            <br>{% for price in game.prices %}{{ price.players }} / {{ price.price }}<br>{% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        {% endfor %}
     </div>
-
 
     <h3>Room info</h3>
     <div class="table-responsive">
@@ -132,7 +116,8 @@
             </tr>
             <tr>
                 <td>background</td>
-                <td><a href="{{ asset('uploads/rooms/' ~ room.background) }}" target="_blank">{{ room.background }}</a></td>
+                <td><a href="{{ asset('uploads/rooms/' ~ room.background) }}" target="_blank">{{ room.background }}</a>
+                </td>
             </tr>
             <tr>
                 <td>coordinates</td>
@@ -203,6 +188,7 @@
     {{ parent() }}
     <script>
         var adminGamesAddRoute = '{{ path('admin_games_add', {slug: room.slug}) }}';
+        var adminCorrectivesRoute = '{{ path('admin_correctives_add', {slug: room.slug}) }}';
         var adminRoomsScheduleRoute = '{{ path('admin_rooms_schedule', {slug: room.slug}) }}';
     </script>
 {% endblock %}
