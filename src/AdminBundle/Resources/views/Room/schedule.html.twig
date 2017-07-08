@@ -190,6 +190,7 @@
         var adminGamesAddRoute = '{{ path('admin_games_add', {slug: room.slug}) }}';
         var adminCorrectivesRoute = '{{ path('admin_correctives_add', {slug: room.slug}) }}';
         var adminRoomsScheduleRoute = '{{ path('admin_rooms_schedule', {slug: room.slug}) }}';
+        var userRole = '{{ is_granted('ROLE_ADMIN') ? '1' : '2' }}';
     </script>
 {% endblock %}
 

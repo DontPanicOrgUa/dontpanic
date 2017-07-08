@@ -28,7 +28,8 @@ class GameController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param Game $game
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $bookedBy = ['customer', 'admin', 'manager', 'api'];
         $em = $this->getDoctrine()->getManager();
         /** @var Game $game */
@@ -54,11 +55,19 @@ class GameController extends Controller
     {
         $bookingData = $request->request->get('bookingData');
 
-        $customer = new Customer();
-        $customer->setName($bookingData['name']);
-        $customer->setSecondname($bookingData['secondName']);
-        $customer->setEmail($bookingData['email']);
-        $customer->setPhone($bookingData['phone']);
+        $em = $this->getDoctrine()->getManager();
+
+        $customer = $em
+            ->getRepository('WebBundle:Customer')
+            ->findOneBy(['phone' => $bookingData['phone']]);
+
+        if (!$customer) {
+            $customer = new Customer();
+            $customer->setName($bookingData['name']);
+            $customer->setSecondname($bookingData['secondName']);
+            $customer->setEmail($bookingData['email']);
+            $customer->setPhone($bookingData['phone']);
+        }
 
         $game = new Game();
         $game->setRoom($room);
@@ -71,12 +80,11 @@ class GameController extends Controller
         ]));
         $game->setDatetime(
             new DateTime(
-                $bookingData['date'] . ' ' . $bookingData['time'],
+                $bookingData['dateTime'],
                 new DateTimeZone($room->getTimezone())
             )
         );
 
-        $em = $this->getDoctrine()->getManager();
         $em->persist($customer);
         $em->persist($game);
         $em->flush();

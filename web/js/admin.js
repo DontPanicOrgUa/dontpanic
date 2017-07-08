@@ -1,12 +1,14 @@
 $(function () {
     var bookingModal = $('#bookingModal');
+    var bookingDateTime = '';
+    var bookingPrices = '';
 
     $('.book-btn').click(function (e) {
         e.preventDefault();
-        bookingModal.find('.game-date span').html($(this).closest('td').data('date'));
-        bookingModal.find('.game-time span').html($(this).closest('td').data('time'));
-        var pricesList = $(this).closest('td').find('.hidden-prices').html();
-        bookingModal.find('.price-list').append(pricesList);
+        bookingDateTime = $(this).closest('td').data('date-time');
+        bookingPrices = $(this).closest('td').data('prices');
+        resetBookingModal();
+        buildBookingModal();
     });
 
     bookingModal.find('button.btn-primary').click(function () {
@@ -15,13 +17,31 @@ $(function () {
             showSpinner(bookingModal);
             sendNewGameData(bookingData);
         }
-        removeHasErrorClass();
+        removeHasErrorClass(bookingModal);
     });
+
+    function resetBookingModal() {
+        bookingModal.find('i').addClass('hidden');
+        bookingModal.find('button').removeClass('hidden');
+        bookingModal.find('.has-error').removeClass('.has-error');
+        bookingModal.find('.price-list .input-group').html('');
+    }
+
+    function buildBookingModal() {
+        bookingModal.find('.game-date-time span').html(bookingDateTime);
+        $.each(bookingPrices, function () {
+            bookingModal.find('.price-list .input-group').append(
+                '<input' +
+                ' type="radio"' +
+                ' name="price"' +
+                ' value=\'{"players": "' + this.players + '", "price": "' + this.price + '"}\'> ' + this.players + ' / ' + this.price + ' <br>'
+            );
+        });
+    }
 
     function collectBookingData() {
         var booking = {
-            date: bookingModal.find('.game-date span').html(),
-            time: bookingModal.find('.game-time span').html(),
+            dateTime: bookingModal.find('.game-date-time span').html(),
             players: '',
             price: '',
             name: bookingModal.find('input[name=name]').val(),
@@ -29,7 +49,7 @@ $(function () {
             email: bookingModal.find('input[name=email]').val(),
             phone: bookingModal.find('input[name=phone]').val(),
             discount: bookingModal.find('input[name=discount]').val(),
-            bookedBy: 1 // index 1 equals 'admin'
+            bookedBy: userRole // index 1 equals 'admin', 2 equals 'manager'
         };
         var priceJSON = bookingModal.find('input[name=price]:checked').val();
         if (priceJSON) {
@@ -41,11 +61,7 @@ $(function () {
 
     function validateBookingModal(data) {
         var hasError = false;
-        if (!data.date) {
-            alert('Got no date, please try again later or contact the administrator.');
-            hasError = true;
-        }
-        if (!data.time) {
+        if (!data.dateTime) {
             alert('Got no date, please try again later or contact the administrator.');
             hasError = true;
         }
@@ -184,7 +200,10 @@ $(function () {
 
     function removeHasErrorClass(modal) {
         setTimeout(function () {
-            modal.find('.has-error').removeClass('has-error', 5000);
+            var err = modal.find('.has-error');
+            if (err) {
+                err.removeClass('has-error', 5000);
+            }
         }, 5000);
     }
 });
