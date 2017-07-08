@@ -204,7 +204,7 @@ class Room
     private $roomManagers;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Corrective", mappedBy="corrective")
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Corrective", mappedBy="room")
      */
     private $correctives;
 

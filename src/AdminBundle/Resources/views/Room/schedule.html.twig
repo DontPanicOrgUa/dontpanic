@@ -28,7 +28,7 @@
                 <tr>
                     <th>{{ row.time }}</th>
                     {% for game in row.games|slice(0, 7) %}
-                        <td class="{{ game.busy ? 'expired' : '' }}">
+                        <td class="{{ game.busy ? 'expired' : '' }}" data-date="{{ game.date }}" data-time="{{ row.time }}">
                             {% if game.busy %}
                                 {% if game.busy.id is defined %}
                                     {% set btnColors = ['success', 'info', 'warning', 'primary'] %}
@@ -56,14 +56,12 @@
                                         Free <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" class="book-game" data-toggle="modal" data-target="#bookingModal">Book game</a></li>
-                                        <li><a href="#">Exception</a></li>
+                                        <li><a href="#" class="book-btn" data-toggle="modal" data-target="#bookingModal">Book game</a></li>
+                                        <li><a href="#" class="corrective-btn" data-toggle="modal" data-target="#correctiveModal">Corrective</a></li>
                                     </ul>
                                 </div>
                             {% endif %}
                             <div class="hidden-prices hidden">
-                                <p class="game-date">Date: <span>{{ game.date }}</span></p>
-                                <p class="game-time">Time: <span>{{ row.time }}</span></p>
                                 <div class="prices-list input-group">
                                     {% for price in game.prices %}
                                         <input type="radio" name="price" value='{"players": "{{ price.players }}", "price": "{{ price.price }}"}'> {{ price.players }} / {{ price.price }} <br>
@@ -198,6 +196,7 @@
     </div>
 
     {% include 'AdminBundle:Game:modal_add.html.twig' %}
+    {% include 'AdminBundle:Corrective:modal.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

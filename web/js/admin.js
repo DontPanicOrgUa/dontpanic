@@ -1,10 +1,12 @@
 $(function () {
     var bookingModal = $('#bookingModal');
 
-    $('.book-game').click(function (e) {
+    $('.book-btn').click(function (e) {
         e.preventDefault();
+        bookingModal.find('.game-date span').html($(this).closest('td').data('date'));
+        bookingModal.find('.game-time span').html($(this).closest('td').data('time'));
         var pricesList = $(this).closest('td').find('.hidden-prices').html();
-        bookingModal.find('.price-list').html(pricesList);
+        bookingModal.find('.price-list').append(pricesList);
     });
 
     bookingModal.find('button.btn-primary').click(function () {
@@ -97,5 +99,13 @@ $(function () {
         bookingModal.find('button.btn-primary i').removeClass('hidden');
     }
 
+
+    var correctiveModal = $('#correctiveModal');
+
+    $('.corrective-btn').click(function (e) {
+        e.preventDefault();
+        correctiveModal.find('.game-date span').html($(this).closest('td').data('date'));
+        correctiveModal.find('.game-time span').html($(this).closest('td').data('time'));
+    });
 });
 
