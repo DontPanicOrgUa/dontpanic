@@ -34,7 +34,7 @@ WebBundle\Entity\Room:
     room_{1..2}:
         city: '@city_*'
         currency: '@currency_*'
-        timezone: '@timeZone_*'
+        timezone: '@zone_*'
         titleRu: Тестовая комната <current()>
         titleEn: Test room <current()>
         titleDe: Testraum <current()>
