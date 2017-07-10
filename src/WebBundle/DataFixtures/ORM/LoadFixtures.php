@@ -12,11 +12,6 @@ class LoadFixtures implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         Fixtures::load(
-            __DIR__ . '/timeZoneFixtures.yml',
-            $manager
-        );
-
-        Fixtures::load(
             __DIR__ . '/fixtures.yml',
             $manager,
             [ 'providers' => [$this] ]
