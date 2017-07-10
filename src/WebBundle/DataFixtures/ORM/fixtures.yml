@@ -419,3 +419,607 @@ WebBundle\Entity\Price:
         players: <numberBetween(1, 3)> - <numberBetween(4, 6)>
         price: <numberBetween(500, 900)>
         dayOfWeek: sunday
+
+WebBundle\Entity\TimeZone:
+    zone_001:
+        title: America/Adak
+    zone_002:
+        title: America/Anchorage
+    zone_003:
+        title: America/Anguilla
+    zone_004:
+        title: America/Antigua
+    zone_005:
+        title: America/Araguaina
+    zone_006:
+        title: America/Argentina/Buenos_Aires
+    zone_007:
+        title: America/Argentina/Catamarca
+    zone_008:
+        title: America/Argentina/Cordoba
+    zone_009:
+        title: America/Argentina/Jujuy
+    zone_010:
+        title: America/Argentina/La_Rioja
+    zone_011:
+        title: America/Argentina/Mendoza
+    zone_012:
+        title: America/Argentina/Rio_Gallegos
+    zone_013:
+        title: America/Argentina/Salta
+    zone_014:
+        title: America/Argentina/San_Juan
+    zone_015:
+        title: America/Argentina/San_Luis
+    zone_016:
+        title: America/Argentina/Tucuman
+    zone_017:
+        title: America/Argentina/Ushuaia
+    zone_018:
+        title: America/Aruba
+    zone_019:
+        title: America/Asuncion
+    zone_020:
+        title: America/Atikokan
+    zone_021:
+        title: America/Bahia
+    zone_022:
+        title: America/Bahia_Banderas
+    zone_023:
+        title: America/Barbados
+    zone_024:
+        title: America/Belem
+    zone_025:
+        title: America/Belize
+    zone_026:
+        title: America/Blanc-Sablon
+    zone_027:
+        title: America/Boa_Vista
+    zone_028:
+        title: America/Bogota
+    zone_029:
+        title: America/Boise
+    zone_030:
+        title: America/Cambridge_Bay
+    zone_031:
+        title: America/Campo_Grande
+    zone_032:
+        title: America/Cancun
+    zone_033:
+        title: America/Caracas
+    zone_034:
+        title: America/Cayenne
+    zone_035:
+        title: America/Cayman
+    zone_036:
+        title: America/Chicago
+    zone_037:
+        title: America/Chihuahua
+    zone_038:
+        title: America/Costa_Rica
+    zone_039:
+        title: America/Creston
+    zone_040:
+        title: America/Cuiaba
+    zone_041:
+        title: America/Curacao
+    zone_042:
+        title: America/Danmarkshavn
+    zone_043:
+        title: America/Dawson
+    zone_044:
+        title: America/Dawson_Creek
+    zone_045:
+        title: America/Denver
+    zone_046:
+        title: America/Detroit
+    zone_047:
+        title: America/Dominica
+    zone_048:
+        title: America/Edmonton
+    zone_049:
+        title: America/Eirunepe
+    zone_050:
+        title: America/El_Salvador
+    zone_051:
+        title: America/Fort_Nelson
+    zone_052:
+        title: America/Fortaleza
+    zone_053:
+        title: America/Glace_Bay
+    zone_054:
+        title: America/Godthab
+    zone_055:
+        title: America/Goose_Bay
+    zone_056:
+        title: America/Grand_Turk
+    zone_057:
+        title: America/Grenada
+    zone_058:
+        title: America/Guadeloupe
+    zone_059:
+        title: America/Guatemala
+    zone_060:
+        title: America/Guayaquil
+    zone_061:
+        title: America/Guyana
+    zone_062:
+        title: America/Halifax
+    zone_063:
+        title: America/Havana
+    zone_064:
+        title: America/Hermosillo
+    zone_065:
+        title: America/Indiana/Indianapolis
+    zone_066:
+        title: America/Indiana/Knox
+    zone_067:
+        title: America/Indiana/Marengo
+    zone_068:
+        title: America/Indiana/Petersburg
+    zone_069:
+        title: America/Indiana/Tell_City
+    zone_070:
+        title: America/Indiana/Vevay
+    zone_071:
+        title: America/Indiana/Vincennes
+    zone_072:
+        title: America/Indiana/Winamac
+    zone_073:
+        title: America/Inuvik
+    zone_074:
+        title: America/Iqaluit
+    zone_075:
+        title: America/Jamaica
+    zone_076:
+        title: America/Juneau
+    zone_077:
+        title: America/Kentucky/Louisville
+    zone_078:
+        title: America/Kentucky/Monticello
+    zone_079:
+        title: America/Kralendijk
+    zone_080:
+        title: America/La_Paz
+    zone_081:
+        title: America/Lima
+    zone_082:
+        title: America/Los_Angeles
+    zone_083:
+        title: America/Lower_Princes
+    zone_084:
+        title: America/Maceio
+    zone_085:
+        title: America/Managua
+    zone_086:
+        title: America/Manaus
+    zone_087:
+        title: America/Marigot
+    zone_088:
+        title: America/Martinique
+    zone_089:
+        title: America/Matamoros
+    zone_090:
+        title: America/Mazatlan
+    zone_091:
+        title: America/Menominee
+    zone_092:
+        title: America/Merida
+    zone_093:
+        title: America/Metlakatla
+    zone_094:
+        title: America/Mexico_City
+    zone_095:
+        title: America/Miquelon
+    zone_096:
+        title: America/Moncton
+    zone_097:
+        title: America/Monterrey
+    zone_098:
+        title: America/Montevideo
+    zone_099:
+        title: America/Montserrat
+    zone_100:
+        title: America/Nassau
+    zone_101:
+        title: America/New_York
+    zone_102:
+        title: America/Nipigon
+    zone_103:
+        title: America/Nome
+    zone_104:
+        title: America/Noronha
+    zone_105:
+        title: America/North_Dakota/Beulah
+    zone_106:
+        title: America/North_Dakota/Center
+    zone_107:
+        title: America/North_Dakota/New_Salem
+    zone_108:
+        title: America/Ojinaga
+    zone_119:
+        title: America/Panama
+    zone_110:
+        title: America/Pangnirtung
+    zone_111:
+        title: America/Paramaribo
+    zone_112:
+        title: America/Phoenix
+    zone_113:
+        title: America/Port-au-Prince
+    zone_114:
+        title: America/Port_of_Spain
+    zone_115:
+        title: America/Porto_Velho
+    zone_116:
+        title: America/Puerto_Rico
+    zone_117:
+        title: America/Punta_Arenas
+    zone_118:
+        title: America/Rainy_River
+    zone_119:
+        title: America/Rankin_Inlet
+    zone_120:
+        title: America/Recife
+    zone_121:
+        title: America/Regina
+    zone_122:
+        title: America/Resolute
+    zone_123:
+        title: America/Rio_Branco
+    zone_124:
+        title: America/Santarem
+    zone_125:
+        title: America/Santiago
+    zone_126:
+        title: America/Santo_Domingo
+    zone_127:
+        title: America/Sao_Paulo
+    zone_128:
+        title: America/Scoresbysund
+    zone_129:
+        title: America/Sitka
+    zone_130:
+        title: America/St_Barthelemy
+    zone_131:
+        title: America/St_Johns
+    zone_132:
+        title: America/St_Kitts
+    zone_133:
+        title: America/St_Lucia
+    zone_134:
+        title: America/St_Thomas
+    zone_135:
+        title: America/St_Vincent
+    zone_136:
+        title: America/Swift_Current
+    zone_137:
+        title: America/Tegucigalpa
+    zone_138:
+        title: America/Thule
+    zone_139:
+        title: America/Thunder_Bay
+    zone_140:
+        title: America/Tijuana
+    zone_141:
+        title: America/Toronto
+    zone_142:
+        title: America/Tortola
+    zone_143:
+        title: America/Vancouver
+    zone_144:
+        title: America/Whitehorse
+    zone_145:
+        title: America/Winnipeg
+    zone_146:
+        title: America/Yakutat
+    zone_147:
+        title: America/Yellowknife
+    zone_148:
+        title: Asia/Aden
+    zone_149:
+        title: Asia/Almaty
+    zone_150:
+        title: Asia/Amman
+    zone_151:
+        title: Asia/Anadyr
+    zone_152:
+        title: Asia/Aqtau
+    zone_153:
+        title: Asia/Aqtobe
+    zone_154:
+        title: Asia/Ashgabat
+    zone_155:
+        title: Asia/Atyrau
+    zone_156:
+        title: Asia/Baghdad
+    zone_157:
+        title: Asia/Bahrain
+    zone_158:
+        title: Asia/Baku
+    zone_159:
+        title: Asia/Bangkok
+    zone_160:
+        title: Asia/Barnaul
+    zone_161:
+        title: Asia/Beirut
+    zone_162:
+        title: Asia/Bishkek
+    zone_163:
+        title: Asia/Brunei
+    zone_164:
+        title: Asia/Chita
+    zone_165:
+        title: Asia/Choibalsan
+    zone_166:
+        title: Asia/Colombo
+    zone_167:
+        title: Asia/Damascus
+    zone_168:
+        title: Asia/Dhaka
+    zone_169:
+        title: Asia/Dili
+    zone_170:
+        title: Asia/Dubai
+    zone_181:
+        title: Asia/Dushanbe
+    zone_182:
+        title: Asia/Famagusta
+    zone_183:
+        title: Asia/Gaza
+    zone_184:
+        title: Asia/Hebron
+    zone_185:
+        title: Asia/Ho_Chi_Minh
+    zone_186:
+        title: Asia/Hong_Kong
+    zone_187:
+        title: Asia/Hovd
+    zone_188:
+        title: Asia/Irkutsk
+    zone_189:
+        title: Asia/Jakarta
+    zone_190:
+        title: Asia/Jayapura
+    zone_191:
+        title: Asia/Jerusalem
+    zone_192:
+        title: Asia/Kabul
+    zone_193:
+        title: Asia/Kamchatka
+    zone_194:
+        title: Asia/Karachi
+    zone_195:
+        title: Asia/Kathmandu
+    zone_196:
+        title: Asia/Khandyga
+    zone_197:
+        title: Asia/Kolkata
+    zone_198:
+        title: Asia/Krasnoyarsk
+    zone_199:
+        title: Asia/Kuala_Lumpur
+    zone_200:
+        title: Asia/Kuching
+    zone_201:
+        title: Asia/Kuwait
+    zone_202:
+        title: Asia/Macau
+    zone_203:
+        title: Asia/Magadan
+    zone_204:
+        title: Asia/Makassar
+    zone_205:
+        title: Asia/Manila
+    zone_206:
+        title: Asia/Muscat
+    zone_207:
+        title: Asia/Nicosia
+    zone_208:
+        title: Asia/Novokuznetsk
+    zone_209:
+        title: Asia/Novosibirsk
+    zone_210:
+        title: Asia/Omsk
+    zone_211:
+        title: Asia/Oral
+    zone_212:
+        title: Asia/Phnom_Penh
+    zone_213:
+        title: Asia/Pontianak
+    zone_214:
+        title: Asia/Pyongyang
+    zone_215:
+        title: Asia/Qatar
+    zone_216:
+        title: Asia/Qyzylorda
+    zone_217:
+        title: Asia/Riyadh
+    zone_218:
+        title: Asia/Sakhalin
+    zone_219:
+        title: Asia/Samarkand
+    zone_220:
+        title: Asia/Seoul
+    zone_221:
+        title: Asia/Shanghai
+    zone_222:
+        title: Asia/Singapore
+    zone_223:
+        title: Asia/Srednekolymsk
+    zone_224:
+        title: Asia/Taipei
+    zone_225:
+        title: Asia/Tashkent
+    zone_226:
+        title: Asia/Tbilisi
+    zone_227:
+        title: Asia/Tehran
+    zone_228:
+        title: Asia/Thimphu
+    zone_229:
+        title: Asia/Tokyo
+    zone_230:
+        title: Asia/Tomsk
+    zone_231:
+        title: Asia/Ulaanbaatar
+    zone_232:
+        title: Asia/Urumqi
+    zone_233:
+        title: Asia/Ust-Nera
+    zone_234:
+        title: Asia/Vientiane
+    zone_235:
+        title: Asia/Vladivostok
+    zone_236:
+        title: Asia/Yakutsk
+    zone_237:
+        title: Asia/Yangon
+    zone_238:
+        title: Asia/Yekaterinburg
+    zone_239:
+        title: Asia/Yerevan
+    zone_240:
+        title: Australia/Adelaide
+    zone_241:
+        title: Australia/Brisbane
+    zone_242:
+        title: Australia/Broken_Hill
+    zone_243:
+        title: Australia/Currie
+    zone_244:
+        title: Australia/Darwin
+    zone_245:
+        title: Australia/Eucla
+    zone_246:
+        title: Australia/Hobart
+    zone_247:
+        title: Australia/Lindeman
+    zone_248:
+        title: Australia/Lord_Howe
+    zone_249:
+        title: Australia/Melbourne
+    zone_250:
+        title: Australia/Perth
+    zone_251:
+        title: Australia/Sydney
+    zone_252:
+        title: Europe/Amsterdam
+    zone_253:
+        title: Europe/Andorra
+    zone_254:
+        title: Europe/Astrakhan
+    zone_255:
+        title: Europe/Athens
+    zone_256:
+        title: Europe/Belgrade
+    zone_257:
+        title: Europe/Berlin
+    zone_258:
+        title: Europe/Bratislava
+    zone_259:
+        title: Europe/Brussels
+    zone_260:
+        title: Europe/Bucharest
+    zone_261:
+        title: Europe/Budapest
+    zone_262:
+        title: Europe/Busingen
+    zone_263:
+        title: Europe/Chisinau
+    zone_264:
+        title: Europe/Copenhagen
+    zone_265:
+        title: Europe/Dublin
+    zone_266:
+        title: Europe/Gibraltar
+    zone_267:
+        title: Europe/Guernsey
+    zone_268:
+        title: Europe/Helsinki
+    zone_269:
+        title: Europe/Isle_of_Man
+    zone_270:
+        title: Europe/Istanbul
+    zone_271:
+        title: Europe/Jersey
+    zone_272:
+        title: Europe/Kaliningrad
+    zone_273:
+        title: Europe/Kiev
+    zone_274:
+        title: Europe/Kirov
+    zone_275:
+        title: Europe/Lisbon
+    zone_276:
+        title: Europe/Ljubljana
+    zone_277:
+        title: Europe/London
+    zone_278:
+        title: Europe/Luxembourg
+    zone_279:
+        title: Europe/Madrid
+    zone_280:
+        title: Europe/Malta
+    zone_281:
+        title: Europe/Mariehamn
+    zone_282:
+        title: Europe/Minsk
+    zone_283:
+        title: Europe/Monaco
+    zone_284:
+        title: Europe/Moscow
+    zone_285:
+        title: Europe/Oslo
+    zone_286:
+        title: Europe/Paris
+    zone_287:
+        title: Europe/Podgorica
+    zone_288:
+        title: Europe/Prague
+    zone_289:
+        title: Europe/Riga
+    zone_290:
+        title: Europe/Rome
+    zone_291:
+        title: Europe/Samara
+    zone_292:
+        title: Europe/San_Marino
+    zone_293:
+        title: Europe/Sarajevo
+    zone_294:
+        title: Europe/Saratov
+    zone_295:
+        title: Europe/Simferopol
+    zone_296:
+        title: Europe/Skopje
+    zone_297:
+        title: Europe/Sofia
+    zone_298:
+        title: Europe/Stockholm
+    zone_299:
+        title: Europe/Tallinn
+    zone_300:
+        title: Europe/Tirane
+    zone_301:
+        title: Europe/Ulyanovsk
+    zone_302:
+        title: Europe/Uzhgorod
+    zone_303:
+        title: Europe/Vaduz
+    zone_304:
+        title: Europe/Vatican
+    zone_305:
+        title: Europe/Vienna
+    zone_306:
+        title: Europe/Vilnius
+    zone_307:
+        title: Europe/Volgograd
+    zone_308:
+        title: Europe/Warsaw
+    zone_309:
+        title: Europe/Zagreb
+    zone_310:
+        title: Europe/Zaporozhye
+    zone_311:
+        title: Europe/Zurich
