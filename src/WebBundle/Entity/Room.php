@@ -209,6 +209,11 @@ class Room
     private $correctives;
 
     /**
+     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Mail", mappedBy="room", cascade={"remove"})
+     */
+    private $mailTemplate;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -789,6 +794,20 @@ class Room
         $this->correctives = $correctives;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMailTemplate()
+    {
+        return $this->mailTemplate;
+    }
 
+    /**
+     * @param mixed $mailTemplate
+     */
+    public function setMailTemplate($mailTemplate)
+    {
+        $this->mailTemplate = $mailTemplate;
+    }
 }
 

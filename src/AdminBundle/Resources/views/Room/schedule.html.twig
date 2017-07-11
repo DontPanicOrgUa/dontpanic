@@ -27,7 +27,7 @@
                     {% for game in sevenDays[0]['dates'] %}
                         <th class="{% if loop.index == 1 %}th-today{% endif %} {% if game.date|date('l') in ['Saturday', 'Sunday'] %}th-weekend{% endif %}">{{ game.date|date('l') }}
                             <br>
-                            <small>{{ game.date|date('d-m-Y') }}</small>
+                            <small>{{ game.date|date('d.m.Y') }}</small>
                         </th>
                     {% endfor %}
                 </tr>
@@ -174,7 +174,7 @@
 
             <tr>
                 <td>created at</td>
-                <td>{{ room.createdAt | date('d-m-Y H:m:s') }}</td>
+                <td>{{ room.createdAt | date('d.m.Y H:m:s') }}</td>
             </tr>
             </tbody>
         </table>

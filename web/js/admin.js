@@ -206,5 +206,9 @@ $(function () {
             }
         }, 5000);
     }
+
+    $('[data-target="#previewModal"]').click(function () {
+        $('#previewModal .modal-body .row div').html($(this).closest('div').find('textarea').val());
+    });
 });
 

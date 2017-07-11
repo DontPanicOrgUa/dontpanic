@@ -23,11 +23,11 @@
             </tr>
             <tr>
                 <td>created at</td>
-                <td>{{ game.createdAt | date("d-m-Y H:i:s") }}</td>
+                <td>{{ game.createdAt | date("d.m.Y H:i:s") }}</td>
             </tr>
             <tr>
                 <td>game time</td>
-                <td>{{ game.datetime | date("d-m-Y H:i") }}</td>
+                <td>{{ game.datetime | date("d.m.Y H:i") }}</td>
             </tr>
             {% for key, value in game.bookingData %}
                 <tr>

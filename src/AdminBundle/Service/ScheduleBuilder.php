@@ -15,9 +15,9 @@ class ScheduleBuilder
 
     private $timeZone;
 
-    const DATE_FORMAT = 'd-m-Y';
+    const DATE_FORMAT = 'd.m.Y';
     const TIME_FORMAT = 'H:i';
-    const DATETIME_FORMAT = 'd-m-Y H:i';
+    const DATETIME_FORMAT = 'd.m.Y H:i';
 
     /**
      * ScheduleBuilder constructor.
