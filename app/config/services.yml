@@ -11,6 +11,10 @@ services:
             class: AdminBundle\Service\FileUploader
             arguments: ['%uploads_rooms_path%']
 
+    mail_sender:
+            class: AdminBundle\Service\MailSender
+            arguments: ['@mailer', '@templating']
+
     room_voter:
         class: AdminBundle\Security\RoomVoter
         tags:

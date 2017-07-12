@@ -89,6 +89,8 @@ class GameController extends Controller
         $em->persist($game);
         $em->flush();
 
+        $this->get('mail_sender')->sendBookedGame($bookingData, $room);
+
         return new JsonResponse([
             'success' => true,
             'data' => $bookingData,
