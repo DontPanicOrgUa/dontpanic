@@ -15,6 +15,10 @@ services:
             class: AdminBundle\Service\MailSender
             arguments: ['@mailer', '@templating']
 
+    turbosms_sender:
+                class: AdminBundle\Service\SmsSender
+                arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%']
+
     room_voter:
         class: AdminBundle\Security\RoomVoter
         tags:
