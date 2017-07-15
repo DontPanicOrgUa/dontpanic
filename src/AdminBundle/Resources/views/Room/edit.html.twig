@@ -2,7 +2,6 @@
 
 {% block content %}
     <a class="btn btn-danger pull-right" href="{{ path('admin_rooms_list') }}">Cancel</a>
-    <a class="btn btn-default pull-right" href="{{ path('admin_mail_edit', {slug: roomForm.vars.value.slug}) }}">Edit Mail Template</a>
     <h1 class="page-header">Edit Room</h1>
     {{ include('AdminBundle:Room:_form.html.twig') }}
 {% endblock %}

@@ -1,12 +1,74 @@
+WebBundle\Entity\Notification:
+    notification_1:
+            type: email
+            event: booked
+            recipient: customer
+            titleRu: Бронь квесткмнаты
+            titleEn: Booking escape room
+            titleDe: Buchung Zimmer
+            messageRu: 'Ваша игра забронирована, администрация с вами свяжется в ближайшее время.'
+            messageEn: 'Your game is booked, the administration will contact you as soon as possible.'
+            messageDe: 'Ihr Spiel wird reserviert, die Verwaltung wird Ihnen in Verbindung setzen.'
+    notification_2:
+            type: email
+            event: canceled
+            recipient: customer
+            titleRu: Отмена брони
+            titleEn: Cancel Reservation
+            titleDe: Stornierung
+            messageRu: 'Ваша игра была отменена.'
+            messageEn: 'Your game canceled.'
+            messageDe: 'Ihr Spiel wird abgebrochen.'
+    notification_3:
+            type: email
+            event: booked
+            recipient: manager
+            titleRu: Новая бронь
+            titleEn: New reservation
+            titleDe: Neue Reservierung
+            messageRu: 'Новая игра была забронирована.'
+            messageEn: 'The new game was booked.'
+            messageDe: 'Das neue Spiel wurde gebucht.'
+    notification_4:
+            type: email
+            event: calnceled
+            recipient: manager
+            titleRu: Отмена брони
+            titleEn: Cancel Reservation
+            titleDe: Stornierung
+            messageRu: 'Игра была успешно отменена.'
+            messageEn: 'The game was successfully canceled.'
+            messageDe: 'Das Spiel wurde erfolgreich gelöscht.'
+    notification_5:
+            type: sms
+            event: booked
+            recipient: customer
+            titleRu: Новая игра
+            titleEn: New game
+            titleDe: Neues Spiel
+            messageRu: Новая игра
+            messageEn: New game
+            messageDe: Neues Spiel
+    notification_6:
+            type: sms
+            event: booked
+            recipient: manager
+            titleRu: Новая игра
+            titleEn: New game
+            titleDe: Neues Spiel
+            messageRu: Новая игра
+            messageEn: New game
+            messageDe: Neues Spiel
+
 WebBundle\Entity\City:
     city_1:
         nameRu: Киев
         nameEn: Kiev
         nameDe: Kiew
     city_2:
-        nameRu: Брюссель
-        nameEn: Brussels
-        nameDe: Brüssel
+        nameRu: Вена
+        nameEn: Vienna
+        nameDe: Wien
 
 WebBundle\Entity\Currency:
     currency_1:
@@ -31,16 +93,16 @@ WebBundle\Entity\Genre:
         nameDe: Bücher und Filme
 
 WebBundle\Entity\Room:
-    room_{1..2}:
-        city: '@city_*'
-        currency: '@currency_*'
-        timezone: '@zone_*'
-        titleRu: Тестовая комната <current()>
-        titleEn: Test room <current()>
-        titleDe: Testraum <current()>
-        descriptionRu: Самая лучшая комната в мире <current()>
-        descriptionEn: The best room in the world <current()>
-        descriptionDe: Das beste Zimmer in der Welt <current()>
+    room_1:
+        city: '@city_2'
+        currency: '@currency_2'
+        timezone: '@zone_305'
+        titleRu: Тестовая комната
+        titleEn: Test room
+        titleDe: Testraum
+        descriptionRu: Самая лучшая комната в мире
+        descriptionEn: The best room in the world
+        descriptionDe: Das beste Zimmer in der Welt
         coordinates: 50.450968 30.522623
         addressRu: Майдан Незалежности 1
         addressEn: Maidan Nezalezhnosti 1
@@ -48,6 +110,7 @@ WebBundle\Entity\Room:
         phone: "+38 (098) 000 80 77"
         email: "dontpanic.org.ua@gmail.com"
         difficulty: <numberBetween(1, 10)>
+        roomManagers: ['@user_1']
         timeMax: 60
         playersMin: 2
         playersMax: 4
@@ -57,7 +120,7 @@ WebBundle\Entity\Room:
 AdminBundle\Entity\User:
     user_1:
         userName: admin
-        email: admin@example.com
+        email: mp091689@gmail.com
         plainPassword: 123456789
         enabled: true
         roles: ['ROLE_ADMIN']

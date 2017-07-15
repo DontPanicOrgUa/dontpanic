@@ -3,7 +3,7 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Mail;
+use WebBundle\Entity\Notification;
 use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
 use Knp\Component\Pager\Paginator;
@@ -95,7 +95,7 @@ class RoomController extends Controller
 
     public function createDefaultMail(Room $room)
     {
-        $mail = new Mail();
+        $mail = new Notification();
         $mail->setRoom($room);
         $mail->setTitleRu('Бронь квесткмнаты');
         $mail->setTitleEn('Booking escape room');

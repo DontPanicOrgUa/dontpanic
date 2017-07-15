@@ -7,10 +7,10 @@ use Locale;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="mails")
- * @ORM\Entity(repositoryClass="WebBundle\Repository\MailRepository")
+ * @ORM\Table(name="notifications")
+ * @ORM\Entity(repositoryClass="WebBundle\Repository\NotificationRepository")
  */
-class Mail
+class Notification
 {
     /**
      * @ORM\Id
@@ -19,6 +19,21 @@ class Mail
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $event;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $recipient;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -49,10 +64,6 @@ class Mail
      * @ORM\Column(type="text", nullable=false)
      */
     private $messageDe;
-    /**
-     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Room", inversedBy="mailTemplate")
-     */
-    private $room;
 
     /**
      * @param string $locale
@@ -157,22 +168,6 @@ class Mail
     /**
      * @return mixed
      */
-    public function getRoom()
-    {
-        return $this->room;
-    }
-
-    /**
-     * @param mixed $room
-     */
-    public function setRoom($room)
-    {
-        $this->room = $room;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getTitleRu()
     {
         return $this->titleRu;
@@ -218,5 +213,52 @@ class Mail
         $this->titleDe = $titleDe;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * @param mixed $event
+     */
+    public function setEvent($event)
+    {
+        $this->event = $event;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecipient()
+    {
+        return $this->recipient;
+    }
+
+    /**
+     * @param mixed $recipient
+     */
+    public function setRecipient($recipient)
+    {
+        $this->recipient = $recipient;
+    }
 
 }

@@ -3,7 +3,7 @@
 namespace AdminBundle\Form;
 
 
-use WebBundle\Entity\Mail;
+use WebBundle\Entity\Notification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -64,7 +64,7 @@ class MailFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Mail::class
+            'data_class' => Notification::class
         ]);
     }
 

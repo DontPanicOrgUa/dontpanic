@@ -4,7 +4,7 @@ namespace AdminBundle\Service;
 
 
 use Swift_Mailer;
-use WebBundle\Entity\Mail;
+use WebBundle\Entity\Notification;
 use WebBundle\Entity\Room;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
@@ -28,39 +28,8 @@ class MailSender
 
     public function sendToCustomer($bookingData, Room $room)
     {
-        /** @var Mail $mailTemplate */
-        $mailTemplate = $room->getMailTemplate();
-        $message = str_replace(
-            [
-                '[customer_name]',
-                '[customer_second_name]',
-                '[customer_email]',
-                '[customer_phone]',
-                '[game_date]',
-                '[game_time]',
-                '[game_price]',
-                '[room_title]',
-                '[room_city]',
-                '[room_address]',
-                '[room_phone]',
-                '[room_email]'
-            ],
-            [
-                $bookingData['name'],
-                $bookingData['secondName'],
-                $bookingData['email'],
-                $bookingData['phone'],
-                explode(' ', $bookingData['dateTime'])[0],
-                explode(' ', $bookingData['dateTime'])[1],
-                $bookingData['price'] . ' ' . $room->getCurrency()->getCurrency(),
-                $room->getTitle(),
-                $room->getCity()->getName(),
-                $room->getAddress(),
-                $room->getPhone(),
-                $room->getEmail()
-            ],
-            $mailTemplate->getMessage()
-        );
+        $mailTemplate = '';
+        $message = NotificationMarkup::convert($mailTemplate, $bookingData, $room);
         $swiftMessage = (new \Swift_Message($mailTemplate->getTitle()))
             ->setFrom('dontpanic@gmail.com', 'Don\'t Panic')
             ->setTo($bookingData['email'])
