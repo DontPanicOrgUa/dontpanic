@@ -7,7 +7,7 @@ use WebBundle\Entity\Room;
 
 abstract class NotificationMarkup
 {
-    static public function convert($template, $bookingData, Room $room)
+    static public function convert($text, $bookingData, Room $room)
     {
         return str_replace(
             [
@@ -40,7 +40,7 @@ abstract class NotificationMarkup
                 $room->getPhone(),
                 $room->getEmail()
             ],
-            $template
+            $text
         );
     }
 

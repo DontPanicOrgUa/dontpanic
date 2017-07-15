@@ -13,7 +13,7 @@ services:
 
     mail_sender:
             class: AdminBundle\Service\MailSender
-            arguments: ['@mailer', '@templating']
+            arguments: ['@mailer', '@templating', '@doctrine.orm.entity_manager']
 
     turbosms_sender:
                 class: AdminBundle\Service\SmsSender
