@@ -1,9 +1,0 @@
-{% extends 'AdminBundle:layouts:main.html.twig' %}
-
-{% block content %}
-    <a class="btn btn-danger pull-right" href="{{ path('admin_rooms_edit', {slug: room.slug}) }}">Back</a>
-    <h1 class="page-header">Edit Mail Template</h1>
-    {{ include('AdminBundle:Notification:_form.html.twig') }}
-    {{ include('AdminBundle:Notification:modal_preview.html.twig') }}
-{% endblock %}
-

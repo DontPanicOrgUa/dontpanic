@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class MailFormType extends AbstractType
+class NotificationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -37,19 +37,19 @@ class MailFormType extends AbstractType
             ->add('messageRu', TextareaType::class, [
                 'label' => '[RU]',
                 'attr' => [
-                    'rows' => '6'
+                    'rows' => '12'
                 ]
             ])
             ->add('messageEn', TextareaType::class, [
                 'label' => '[En]',
                 'attr' => [
-                    'rows' => '6'
+                    'rows' => '12'
                 ]
             ])
             ->add('messageDe', TextareaType::class, [
                 'label' => '[De]',
                 'attr' => [
-                    'rows' => '6'
+                    'rows' => '12'
                 ]
             ])
             ->add('save', SubmitType::class, [
