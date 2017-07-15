@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "af9a2fbda799bf7d1e0a22eebf6f1161",
+    "content-hash": "05cdc3f9fa2c066963494b4d3c281d32",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1576,6 +1576,48 @@
                 "psr-3"
             ],
             "time": "2017-06-19T01:22:40+00:00"
+        },
+        {
+            "name": "mp091689/turbosms",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mp091689/TurboSms.git",
+                "reference": "8a9563d3d19e443dcd11787df1899a0bbc7fb369"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mp091689/TurboSms/zipball/8a9563d3d19e443dcd11787df1899a0bbc7fb369",
+                "reference": "8a9563d3d19e443dcd11787df1899a0bbc7fb369",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "mp091689\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mykyta",
+                    "email": "mp091689@gmail.com"
+                }
+            ],
+            "description": "Package for TurboSms gateway based on SQL connection",
+            "homepage": "https://github.com/mp091689/TurboSms",
+            "keywords": [
+                "sms",
+                "sms gateway",
+                "turbosms"
+            ],
+            "time": "2017-07-14T23:29:13+00:00"
         },
         {
             "name": "ocramius/package-versions",
