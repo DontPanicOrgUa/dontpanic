@@ -16,31 +16,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class NotificationController extends Controller
 {
+
     /**
-     * @Route("/rooms/{slug}/notification/edit", name="admin_notification_edit")
+     * @Route("/notifications", name="admin_notifications_list")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $notifications = $em->getRepository('WebBundle:Notification')->findAll();
+
+        return $this->render('AdminBundle:Notification:list.html.twig', [
+            'notifications' => $notifications
+        ]);
+    }
+
+    /**
+     * @Route("/notifications/{id}/edit", name="admin_notifications_edit")
      * @param Request $request
-     * @param Room $room
+     * @param Notification $notification
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, Room $room)
+    public function editAction(Request $request, Notification $notification)
     {
-        $mail = $room->getMailTemplate();
-        $form = $this->createForm(MailFormType::class, $mail);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $notification = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($notification);
-            $em->flush();
-            $this->addFlash('success', 'Template is saved.');
-            return $this->redirectToRoute('admin_notification_edit', [
-                'slug' => $room->getSlug()
-            ]);
-        }
-
-        return $this->render('AdminBundle:Notification:edit.html.twig', [
-            'room' => $room,
-            'form' => $form->createView()
-        ]);
+        die;
     }
 }
