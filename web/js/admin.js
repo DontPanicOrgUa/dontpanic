@@ -94,7 +94,8 @@ $(function () {
             url: adminGamesAddRoute,
             data: {bookingData}
         }).done(function () {
-            window.location.replace(adminRoomsScheduleRoute);
+            resetBookingModal();
+            // window.location.replace(adminRoomsScheduleRoute);
         }).fail(function () {
             alert('Something went wrong, please contact the administrator.')
         });
