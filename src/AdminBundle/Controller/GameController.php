@@ -90,6 +90,7 @@ class GameController extends Controller
         $em->flush();
 
         $this->get('mail_sender')->sendBookedGame($bookingData, $room);
+        $this->get('turbosms_sender')->send($bookingData, $room);
 
         return new JsonResponse([
             'success' => true,

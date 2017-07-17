@@ -17,7 +17,7 @@ services:
 
     turbosms_sender:
                 class: AdminBundle\Service\SmsSender
-                arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%']
+                arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%', '@doctrine.orm.entity_manager']
 
     room_voter:
         class: AdminBundle\Security\RoomVoter

@@ -17,4 +17,5 @@
 /.idea/
 deploy.php
 /web/uploads/rooms/*
+/app/spool
 
