@@ -42,6 +42,23 @@
     </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading">Notifications</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.clientMailNotification) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.managerMailNotification) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.clientSmsNotification) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.managerSmsNotification) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(roomForm.clientSmsReminder) }}</div>
+            <div class="col-sm-6">{{ form_row(roomForm.managerSMSReminder) }}</div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading">Settings</div>
     <div class="panel-body">
         <div class="row">

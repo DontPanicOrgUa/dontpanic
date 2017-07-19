@@ -21,10 +21,18 @@ class SmsSender
 
     public function send($bookingData, Room $room)
     {
-        $this->sendToCustomer($bookingData, $room);
-        $this->sendRemindToCustomer($bookingData, $room);
-        $this->sendToManagers($bookingData, $room);
-        $this->sendRemindToManagers($bookingData, $room);
+        if ($room->getClientSmsNotification()) {
+            $this->sendToCustomer($bookingData, $room);
+        }
+        if ($room->getClientSmsReminder()) {
+            $this->sendRemindToCustomer($bookingData, $room);
+        }
+        if ($room->getManagerSmsNotification()) {
+            $this->sendToManagers($bookingData, $room);
+        }
+        if ($room->getManagerSMSReminder()) {
+            $this->sendRemindToManagers($bookingData, $room);
+        }
     }
 
     public function sendToCustomer($bookingData, Room $room)

@@ -147,7 +147,7 @@ class RoomFormType extends AbstractType
                 ]
             ])
             ->add('enabled', ChoiceType::class, [
-                'label' => 'Is active',
+                'label' => 'Is room active',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
@@ -164,7 +164,13 @@ class RoomFormType extends AbstractType
                 'class' => User::class,
                 'multiple' => true,
                 'label' => 'Managers'
-            ]);
+            ])
+            ->add('clientMailNotification')
+            ->add('clientSmsNotification')
+            ->add('clientSmsReminder')
+            ->add('managerMailNotification')
+            ->add('managerSmsNotification')
+            ->add('managerSMSReminder');
     }
 
     public function configureOptions(OptionsResolver $resolver)

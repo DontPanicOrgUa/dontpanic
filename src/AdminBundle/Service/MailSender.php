@@ -25,8 +25,12 @@ class MailSender
 
     public function sendBookedGame($bookingData, Room $room)
     {
-        $this->sendToCustomer($bookingData, $room);
-        $this->sendToManager($bookingData, $room);
+        if ($room->getClientMailNotification()) {
+            $this->sendToCustomer($bookingData, $room);
+        }
+        if ($room->getManagerMailNotification()) {
+            $this->sendToManager($bookingData, $room);
+        }
     }
 
     public function sendToCustomer($bookingData, Room $room)
