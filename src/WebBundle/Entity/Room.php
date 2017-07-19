@@ -162,13 +162,13 @@ class Room
     private $enabled = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Blank", mappedBy="room")
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Blank", mappedBy="room", cascade={"remove"})
      * @ORM\OrderBy({"time" = "ASC"})
      */
     private $blanks;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Game", mappedBy="room")
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Game", mappedBy="room", cascade={"remove"})
      */
     private $games;
 
@@ -204,7 +204,7 @@ class Room
     private $roomManagers;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Corrective", mappedBy="room")
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Corrective", mappedBy="room", cascade={"remove"})
      */
     private $correctives;
 

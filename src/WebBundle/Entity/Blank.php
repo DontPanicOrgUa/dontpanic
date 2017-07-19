@@ -3,8 +3,9 @@
 namespace WebBundle\Entity;
 
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,11 +30,12 @@ class Blank
 
     /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="blanks")
+     * @JoinColumn(name="room_id", referencedColumnName="id")
      */
     private $room;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Price", mappedBy="blank")
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Price", mappedBy="blank", cascade={"remove"})
      * @ORM\OrderBy({"price" = "ASC"})
      */
     private $prices;

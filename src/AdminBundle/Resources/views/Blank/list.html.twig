@@ -185,7 +185,9 @@
             </tbody>
         </table>
         <a href="{{ path('admin_blanks_add', {slug: room.slug}) }}" class="btn btn-success">Add time <span class="fa fa-plus"></span></a>
-        <a href="{{ path('admin_prices_add', {slug: room.slug}) }}" class="btn btn-success">Add price <span class="fa fa-plus"></span></a>
+        {% if room.blanks is not empty %}
+            <a href="{{ path('admin_prices_add', {slug: room.slug}) }}" class="btn btn-success">Add price <span class="fa fa-plus"></span></a>
+        {% endif %}
     </div>
 {% endblock %}
 

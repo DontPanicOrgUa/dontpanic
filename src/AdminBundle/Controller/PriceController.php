@@ -28,7 +28,7 @@ class PriceController extends Controller
      */
     public function addAction(Room $room, Request $request)
     {
-        $form = $this->createForm(PriceFormType::class);
+        $form = $this->createForm(PriceFormType::class, null, ['blanks' => $room->getBlanks()]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $price = $form->getData();

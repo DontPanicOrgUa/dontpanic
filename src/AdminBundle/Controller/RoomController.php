@@ -3,7 +3,6 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Notification;
 use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
 use Knp\Component\Pager\Paginator;
@@ -82,7 +81,6 @@ class RoomController extends Controller
             $room->addRoomManager($user);
 
             $em->persist($room);
-            $em->persist($this->createDefaultMail($room));
             $em->flush();
             $this->addFlash('success', 'New room is added.');
             return $this->redirectToRoute('admin_rooms_list');
@@ -91,19 +89,6 @@ class RoomController extends Controller
         return $this->render('AdminBundle:Room:add.html.twig', [
             'roomForm' => $form->createView()
         ]);
-    }
-
-    public function createDefaultMail(Room $room)
-    {
-        $mail = new Notification();
-        $mail->setRoom($room);
-        $mail->setTitleRu('Бронь квесткмнаты');
-        $mail->setTitleEn('Booking escape room');
-        $mail->setTitleDe('Buchung Zimmer');
-        $mail->setMessageRu('Ваша игра забронирована, администрация с вами свяжется в ближайшее время.');
-        $mail->setMessageEn('Your game is booked, the administration will contact you as soon as possible.');
-        $mail->setMessageDe('Ihr Spiel wird reserviert, die Verwaltung wird Ihnen in Verbindung setzen.');
-        return $mail;
     }
 
     /**

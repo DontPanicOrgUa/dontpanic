@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use WebBundle\Repository\RoomRepository;
 
 class PriceFormType extends AbstractType
 {
@@ -34,9 +35,7 @@ class PriceFormType extends AbstractType
                 'label' => 'Time',
                 'class' => Blank::class,
                 'placeholder' => 'Choose the Time',
-                'query_builder' => function (BlankRepository $repo) {
-                    return $repo->createTimeOrderedQueryBuilder();
-                }
+                'choices' => $options['blanks']
             ])
             ->add('players')
             ->add('price')
@@ -52,7 +51,8 @@ class PriceFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Price::class
+            'data_class' => Price::class,
+            'blanks' => null,
         ]);
     }
 
