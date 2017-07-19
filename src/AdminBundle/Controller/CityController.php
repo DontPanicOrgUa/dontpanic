@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Controller;
 
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use WebBundle\Entity\City;
 use AdminBundle\Form\CityFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,7 @@ class CityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cities = $em->getRepository('WebBundle:City')->findAll();
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $cities,
             $request->query->getInt('page', 1),
@@ -97,10 +98,17 @@ class CityController extends Controller
      */
     public function deleteAction(City $city)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($city);
-        $em->flush();
-        $this->addFlash('success', 'City is deleted.');
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($city);
+            $em->flush();
+            $this->addFlash('success', 'City is deleted.');
+        } catch (ForeignKeyConstraintViolationException $e) {
+            $this->addFlash('errors', [
+                'Can not delete ' . $city->getName() . '.',
+                'There are registered rooms in ' . $city->getName() . '.'
+            ]);
+        }
         return $this->redirectToRoute('admin_cities_list');
     }
 }
