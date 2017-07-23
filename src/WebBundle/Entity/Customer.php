@@ -114,7 +114,7 @@ class Customer
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->email = strtolower($email);
     }
 
     /**
@@ -130,7 +130,7 @@ class Customer
      */
     public function setPhone($phone)
     {
-        $this->phone = $phone;
+        $this->phone = preg_replace("/[^0-9]/", '', $phone);
     }
 
     /**

@@ -40,7 +40,7 @@ class RoomController extends Controller
         $result = $paginator->paginate(
             $rooms,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', $this->getParameter('records_per_page'))
+            $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range'))
         );
 
         return $this->render('AdminBundle:Room:list.html.twig', [

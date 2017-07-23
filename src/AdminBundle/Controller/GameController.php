@@ -23,6 +23,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class GameController extends Controller
 {
     /**
+     * @Route("/games")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAction(Request $request)
+    {
+        $search = $request->query->get('search');
+
+        $dateStart = $request->query->get('start');
+        $dateEnd = $request->query->get('end');
+
+        $em = $this->getDoctrine()->getManager();
+        $games = $em
+            ->getRepository('WebBundle:Game')
+            ->queryFindAllByUserRights($search, $dateStart, $dateEnd, $this->getUser());
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $games,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range'))
+        );
+
+        return $this->render('AdminBundle:Game:list.html.twig', [
+            'games' => $result
+        ]);
+    }
+
+    /**
      * @Route("/rooms/{slug}/games/{id}", name="admin_game_show")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -90,7 +118,7 @@ class GameController extends Controller
         $em->flush();
 
         $this->get('mail_sender')->sendBookedGame($bookingData, $room);
-        if ($this->getParameter('sms')){
+        if ($this->getParameter('sms')) {
             $this->get('turbosms_sender')->send($bookingData, $room);
         }
 

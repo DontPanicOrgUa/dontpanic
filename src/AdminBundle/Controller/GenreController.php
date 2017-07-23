@@ -33,7 +33,7 @@ class GenreController extends Controller
         $result = $paginator->paginate(
             $genres,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', $this->getParameter('records_per_page'))
+            $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range'))
         );
 
         return $this->render('AdminBundle:Genre:list.html.twig', [

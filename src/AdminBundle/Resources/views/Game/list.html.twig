@@ -1,0 +1,114 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <h1 class="page-header">Games</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6">
+                    <form action="{{ path('admin_game_list') }}" method="get">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label for="search">Search..</label>
+                                    <input id="search" name="search" type="text" class="form-control"
+                                           placeholder="Search for..."
+                                           value="{{ app.request.get('search') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group" id="daterangepicker">
+                                <div class="col-sm-6">
+                                    <label for="daterange1">DateTime start</label>
+                                    <input id="daterange1" name="start" type="text" class="form-control"
+                                           value="{{ app.request.get('start') }}">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="daterange2">DateTime end</label>
+                                    <input id="daterange2" name="end" type="text" class="form-control"
+                                           value="{{ app.request.get('end') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <br>
+                            <button class="btn btn-default pull-right" type="submit">Search!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(games, '#', 'g.id') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'DateTime', 'g.datetime') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'Customer Name', 'gc.name') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'Customer Last Name', 'gc.secondname') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'Customer Phone', 'gc.phone') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'Customer Email', 'gc.email') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'Room', 'gr.titleEn') }}</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for game in games %}
+                <tr>
+                    <td>{{ game.id }}</td>
+                    <td>{{ game.datetime | date('d.m.Y H:i') }}</td>
+                    <td>{{ game.customer.name }}</td>
+                    <td>{{ game.customer.secondname }}</td>
+                    <td>{{ game.customer.phone }}</td>
+                    <td>{{ game.customer.email }}</td>
+                    <td>{{ game.room.title }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-warning" href="">edit <span class=" fa fa-pencil"></span></a>
+                        <a class="btn btn-xs btn-danger" href="">delete <span class=" fa fa-close"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(games) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('daterangepicker/daterangepicker.min.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('daterangepicker/jquery.daterangepicker.min.js') }}"></script>
+    <script>
+        $('#daterangepicker').dateRangePicker({
+            autoClose: false,
+            format: 'DD.MM.YYYY HH:mm',
+            separator: ' to ',
+            language: 'en',
+            startOfWeek: 'monday',
+            time: {
+                enabled: true
+            },
+            getValue: function () {
+                if ($('#daterange1').val() && $('#daterange2').val())
+                    return $('#daterange1').val() + ' to ' + $('#daterange2').val();
+                else
+                    return '';
+            },
+            setValue: function (s, s1, s2) {
+                $('#daterange1').val(s1);
+                $('#daterange2').val(s2);
+            }
+        }).bind('datepicker-open', function () {
+            $('div.date-picker-wrapper').css('z-index', 9999999);
+        });
+    </script>
+{% endblock %}
