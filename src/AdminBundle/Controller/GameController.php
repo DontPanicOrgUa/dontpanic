@@ -23,7 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class GameController extends Controller
 {
     /**
-     * @Route("/games")
+     * @Route("/games", name="admin_games_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -51,7 +51,7 @@ class GameController extends Controller
     }
 
     /**
-     * @Route("/rooms/{slug}/games/{id}", name="admin_game_show")
+     * @Route("/rooms/{slug}/games/{id}", name="admin_games_show")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param Game $game
