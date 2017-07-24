@@ -87,4 +87,33 @@ class RoomRepository extends EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findAllActive()
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->addSelect('r')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllByCity($cityName)
+    {
+        $queryBuilder = $this->createQueryBuilder('r');
+        if (!$cityName) {
+            return $queryBuilder->where('r.enabled = :enabled')
+                ->setParameter('enabled', true)
+                ->addSelect('r')
+                ->getQuery()
+                ->getResult();
+        }
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.city', 'rc')
+            ->where('rc.nameEn = :cityName')
+            ->setParameter('cityName', $cityName)
+            ->addSelect('rc')
+            ->getQuery()
+            ->getResult();
+    }
 }

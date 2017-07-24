@@ -846,7 +846,7 @@ class Room
     /**
      * @param mixed $clientSmsNotification
      */
-    public function setEnableClientSmsNotification($clientSmsNotification)
+    public function setClientSmsNotification($clientSmsNotification)
     {
         $this->clientSmsNotification = $clientSmsNotification;
     }

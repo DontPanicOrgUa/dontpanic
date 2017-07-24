@@ -30,7 +30,7 @@ class CityRepository extends EntityRepository
     public function findAllWithActiveRooms()
     {
         return $this->createQueryBuilder('c')
-            ->leftJoin('c.rooms', 'r', 'WITH', 'r.enabled = :enabled')
+            ->innerJoin('c.rooms', 'r', 'WITH', 'r.enabled = :enabled')
             ->setParameter('enabled', true)
             ->addSelect('c')
             ->addSelect('r')

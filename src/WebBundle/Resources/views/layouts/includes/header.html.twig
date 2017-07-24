@@ -3,13 +3,16 @@
         {% block cities %}
             <a href="#" class="location">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span class="city hidden-xs">{{ app.request.query.get('city')|capitalize ?: 'Kiev'|trans }}</span>
+                <span class="city hidden-xs">{{ currentCity }}</span>
                 <span class="caret hidden-xs"></span>
             </a>
             <ul class="city-list">
+                <li>
+                    <a href="{{ path('home_page') }}">{{ 'All cities'|trans }}</a>
+                </li>
                 {% for city in cities %}
                     <li>
-                        <a href="{{ path('home_page', {city: city.nameEn|lower}) }}">{{ city.nameEn|capitalize|trans }}</a>
+                        <a href="{{ path('home_page', {city: city.nameEn|lower}) }}">{{ city.name|capitalize }}</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -26,11 +29,11 @@
         </div>
 
         {% block languages %}
-            {% set route = 'home_page_without_prefix' == app.request.get('_route') ? 'home_page' : app.request.get('_route') %}
+            {% set route = app.request.get('_route') == 'default_home_page' ? 'home_page' : app.request.get('_route') %}
             <div class="lang">
                 <ul class="lang-list">
                     <li>
-                        <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'ru'})) }}">
+                        <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'ru'})|merge(app.request.query.all)) }}">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                                 <g fill-rule="evenodd" stroke-width="1pt">
                                     <path fill="#fff" d="M0 0h640v480H0z"/>
@@ -41,7 +44,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'en'})) }}">
+                        <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'en'})|merge(app.request.query.all)) }}">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                                 <defs>
                                     <clipPath id="a">
@@ -63,7 +66,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'de'})) }}">
+                        <a href="{{ path(route, app.request.get('_route_params')|merge({'_locale': 'de'})|merge(app.request.query.all)) }}">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="40" viewBox="0 0 640 480">
                                 <path fill="#ffce00" d="M0 320h640v160.002H0z"/>
                                 <path d="M0 0h640v160H0z"/>
