@@ -18,16 +18,36 @@ class RoomController extends Controller
     public function scheduleAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
-        $scheduleBuilder = new ScheduleBuilder($room);
-        if ($room) {
-            return $this->render('WebBundle:Room:schedule.html.twig', [
-                'cities' => $this->getCities(),
-                'room' => $room,
-                'schedule' => $scheduleBuilder->collectByTime()
-            ]);
+        $room = $em
+            ->getRepository('WebBundle:Room')
+            ->findBySlugWithActualGamesAndCorrectives($slug);
+        if (!$room) {
+            throw $this->createNotFoundException('The room does not exist');
         }
-        throw $this->createNotFoundException('Room ' . $slug . ' not found');
+        $this->denyAccessUnlessGranted('view', $room);
+        $scheduleBuilder = new ScheduleBuilder($room);
+        $schedule = $scheduleBuilder->collect();
+        if (empty($schedule)) {
+            $this->addFlash('errors', ['No schedule for "' . $room->getTitle() . '".']);
+            return $this->redirectToRoute('admin_rooms_list');
+        }
+        return $this->render('WebBundle:Room:schedule.html.twig', [
+            'cities' => $this->getCities(),
+            'room' => $room,
+            'schedule' => $schedule
+        ]);
+
+//        $em = $this->getDoctrine()->getManager();
+//        $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
+//        $scheduleBuilder = new ScheduleBuilder($room);
+//        if ($room) {
+//            return $this->render('WebBundle:Room:schedule.html.twig', [
+//                'cities' => $this->getCities(),
+//                'room' => $room,
+//                'schedule' => $scheduleBuilder->collectByTime()
+//            ]);
+//        }
+//        throw $this->createNotFoundException('Room ' . $slug . ' not found');
     }
 
     /**

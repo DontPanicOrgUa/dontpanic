@@ -3,7 +3,7 @@
         {% block cities %}
             <a href="#" class="location">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span class="city hidden-xs">{{ currentCity }}</span>
+                <span class="city hidden-xs">{{ currentCity is defined ? currentCity : room.city.name }}</span>
                 <span class="caret hidden-xs"></span>
             </a>
             <ul class="city-list">

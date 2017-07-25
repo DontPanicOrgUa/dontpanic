@@ -25,7 +25,7 @@
                 <tr>
                     <th></th>
                     {% for game in sevenDays[0]['dates'] %}
-                        <th class="{% if loop.index == 1 %}th-today{% endif %} {% if game.date|date('l') in ['Saturday', 'Sunday'] %}th-weekend{% endif %}">{{ game.date|date('l') }}
+                        <th class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %}th-today{% endif %} {% if game.date|date('l') in ['Saturday', 'Sunday'] %}th-weekend{% endif %}">{{ game.date|date('l') }}
                             <br>
                             <small>{{ game.date|date('d.m.Y') }}</small>
                         </th>
