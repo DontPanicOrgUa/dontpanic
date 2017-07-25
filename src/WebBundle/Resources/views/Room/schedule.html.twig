@@ -39,7 +39,7 @@
                                     <tr>
                                         <th></th>
                                         {% for game in sevenDays[0]['dates'] %}
-                                            <th class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} th-today{% endif %}{% if game.date|date('l') in ['Saturday', 'Sunday'] %} th-weekend{% endif %}">
+                                            <th class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} th-today cell-today{% endif %}{% if game.date|date('l') in ['Saturday', 'Sunday'] %} th-weekend{% endif %}">
                                                 <span class="font-small">{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %}{{ 'Today'|trans }}{% endif %}</span>
                                                 <br>
                                                 {{ game.date|date('d') }} {{ game.date|date('F')|trans }}
@@ -55,7 +55,7 @@
                                             <td class="cell-time">{{ row.time }}</td>
                                             {% for game in row.dates %}
                                                 {% if game.busy %}
-                                                    <td>
+                                                    <td class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} cell-today{% endif %}">
                                                         <div class="cell cell-expired">
                                                             <span class="game-time">{{ row.time }}</span>
                                                             - {{ 'from'|trans }}
@@ -73,7 +73,7 @@
                                                     {% elseif game.prices|first.price >= 800 %}
                                                         {% set priceClass = 'price-l' %}
                                                     {% endif %}
-                                                    <td>
+                                                    <td class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} cell-today{% endif %}">
                                                         <div class="cell {{ priceClass }}">
                                                             <span class="game-time">{{ row.time }}</span>
                                                             - {{ 'from'|trans }}
@@ -291,12 +291,12 @@
                 <div class="media-body">
                     <h4 class="media-heading">
                         <a href="#" class="review-name">Анна</a>
-                        <span class="review-date">7 дней назад</span>
+                        <span class="review-date">7 {{ 'June' }} 2017</span>
                     </h4>
                     <p>Сын (14 лет) с друзьями в восторге. Лучшее времяпровождение. Все очень интересно,
                         профессионально. Рекомендую!!!</p>
                     <div class="review-rating">
-                        <div class="star-block">Атмосферность
+                        <div class="star-block">{{ 'Atmosphere'|trans }}
                             <span class="star">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
@@ -306,7 +306,7 @@
               </span>
                             <span>10</span>
                         </div>
-                        <div class="star-block">Сюжет
+                        <div class="star-block">{{ 'Story'|trans }}
                             <span class="star">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
@@ -316,7 +316,7 @@
               </span>
                             <span>10</span>
                         </div>
-                        <div class="star-block">Обслуживание
+                        <div class="star-block">{{ 'Service'|trans }}
                             <span class="star">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
@@ -326,14 +326,14 @@
               </span>
                             <span>10</span>
                         </div>
-                        <div class="star-block">Время прохождения:
+                        <div class="star-block">{{ 'Result'|trans }}:
                             <span class="time">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
                   <path fill="#ec971f" fill-rule="evenodd"
                         d="M 6 12 C 2.69 12 0 9.32 0 6 C 0 2.69 2.69 0.01 6 0.01 C 9.32 0.01 12 2.69 12 6 C 12 9.32 9.32 12 6 12 Z M 7.97 2.22 C 7.97 2.22 6.7 1.79 6.7 1.79 C 6.7 1.79 5.37 5.79 5.37 5.79 C 5.37 5.79 5.38 5.79 5.38 5.79 C 5.35 5.86 5.34 5.93 5.34 6 C 5.34 6.3 5.53 6.54 5.79 6.63 C 5.79 6.63 5.79 6.64 5.79 6.64 C 5.79 6.64 9.79 7.97 9.79 7.97 C 9.79 7.97 10.21 6.7 10.21 6.7 C 10.21 6.7 6.85 5.58 6.85 5.58 C 6.85 5.58 7.97 2.22 7.97 2.22 Z"/>
                 </svg>
-              </span> <span>43 {{ 'minutes'|trans }}</span></div>
+              </span> <span>43 {{ 'min'|trans }}.</span></div>
                     </div>
                 </div>
             </div>
