@@ -40,11 +40,11 @@
                                         <th></th>
                                         {% for game in sevenDays[0]['dates'] %}
                                             <th class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} th-today cell-today{% endif %}{% if game.date|date('l') in ['Saturday', 'Sunday'] %} th-weekend{% endif %}">
-                                                <span class="font-small">{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %}{{ 'Today'|trans }}{% endif %}</span>
+                                                <span class="font-s">{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %}{{ 'Today'|trans }}{% endif %}</span>
                                                 <br>
                                                 {{ game.date|date('d') }} {{ game.date|date('F')|trans }}
                                                 <br>
-                                                <span class="font-small">{{ game.date|date('l')|trans }}</span>
+                                                <span class="font-s">{{ game.date|date('l')|trans }}</span>
                                             </th>
                                         {% endfor %}
                                     </tr>
@@ -54,34 +54,34 @@
                                         <tr>
                                             <td class="cell-time">{{ row.time }}</td>
                                             {% for game in row.dates %}
-                                                {% if game.busy %}
-                                                    <td class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} cell-today{% endif %}">
+                                                <td class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} cell-today{% endif %}"
+                                                    data-date-time="{{ game.date }} {{ row.time }}"
+                                                    data-prices="{{ game.prices|json_encode }}">
+                                                    {% if game.busy %}
                                                         <div class="cell cell-expired">
                                                             <span class="game-time">{{ row.time }}</span>
                                                             - {{ 'from'|trans }}
                                                             <br>
                                                             <span class="game-price">{{ game.prices|first.price }}</span> {{ room.currency }}
                                                         </div>
-                                                    </td>
-                                                {% else %}
-                                                    {% if game.prices|first.price < 600 %}
-                                                        {% set priceClass = 'price-xs' %}
-                                                    {% elseif game.prices|first.price >= 600 and game.prices|first.price < 700 %}
-                                                        {% set priceClass = 'price-s' %}
-                                                    {% elseif game.prices|first.price >= 700 and game.prices|first.price < 800 %}
-                                                        {% set priceClass = 'price-m' %}
-                                                    {% elseif game.prices|first.price >= 800 %}
-                                                        {% set priceClass = 'price-l' %}
-                                                    {% endif %}
-                                                    <td class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} cell-today{% endif %}">
+                                                    {% else %}
+                                                        {% if game.prices|first.price < 600 %}
+                                                            {% set priceClass = 'price-xs' %}
+                                                        {% elseif game.prices|first.price >= 600 and game.prices|first.price < 700 %}
+                                                            {% set priceClass = 'price-s' %}
+                                                        {% elseif game.prices|first.price >= 700 and game.prices|first.price < 800 %}
+                                                            {% set priceClass = 'price-m' %}
+                                                        {% elseif game.prices|first.price >= 800 %}
+                                                            {% set priceClass = 'price-l' %}
+                                                        {% endif %}
                                                         <div class="cell {{ priceClass }}">
                                                             <span class="game-time">{{ row.time }}</span>
                                                             - {{ 'from'|trans }}
                                                             <br>
                                                             <span class="game-price">{{ game.prices|first.price }}</span> {{ room.currency }}
                                                         </div>
-                                                    </td>
-                                                {% endif %}
+                                                    {% endif %}
+                                                </td>
                                             {% endfor %}
                                         </tr>
                                     {% endfor %}
@@ -102,56 +102,54 @@
 
                 <div class="container">
                     <div class="row form-reservation-row">
-                        <div class="">
-                            <p class="room-time"></p>
-                            <p class="room-price"></p>
-                            <div class="gamers-wrap">
-                                <input type="radio" name="gamers" id="gamers2">
-                                <label for="gamers2">
-                                    <div>Игроков: 2</div>
-                                    <div>Цена: 600 грн</div>
-                                </label>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>{{ room.title }}</h3>
+                                <p><span class="fa fa-map-marker"> {{ room.address }}</span></p>
+                                <p><span class="fa fa-calendar"> date</span></p>
+                                <p><span class="fa fa-clock-o "> time</span></p>
+                                <p><span class="font-xxl">800</span> {{ room.currency }}</p>
+                                <p><span class="font-s"><span
+                                                style="color:red">*</span> {{ 'Pre-booking is required'|trans }}.</span>
+                                </p>
                             </div>
-
-                            <div class="gamers-wrap">
-                                <input type="radio" name="gamers" id="gamers3">
-                                <label for="gamers3">
-                                    <div>Игроков: 3</div>
-                                    <div>Цена: 650 грн</div>
-                                </label>
+                            <div class="col-sm-6">
+                                <div>
+                                    <input type="text" name="name" id="name" required placeholder="{{ 'Name'|trans }}*">
+                                </div>
+                                <div>
+                                    <input type="text" name="lastName" id="lastName" required
+                                           placeholder="{{ 'Last Name'|trans }}*">
+                                </div>
+                                <div>
+                                    <input type="email" name="email" id="email" required placeholder="Email*">
+                                </div>
+                                <div>
+                                    <input type="tel" name="phone" id="phone" required
+                                           placeholder="{{ 'Phone'|trans }}*">
+                                </div>
+                                <div>
+                                    <select required>
+                                        <option disabled>{{ 'Players'|trans }}</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="discount" id="discount"
+                                           placeholder="{{ 'Discount'|trans }}">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning" type="button">Check</button>
+                                    </span>
+                                </div>
                             </div>
-
-                            <div class="gamers-wrap">
-                                <input type="radio" name="gamers" id="gamers4">
-                                <label for="gamers4">
-                                    <div>Игроков: 4</div>
-                                    <div>Цена: 700 грн</div>
-                                </label>
-                            </div>
-
                         </div>
-                        <div class="">
-                            <div>
-                                <input type="text" name="userSurname" id="userSurname" required placeholder="Фамилия*">
-                            </div>
-                            <div>
-                                <input type="text" name="userName" id="userName" required placeholder="Имя*">
-                            </div>
-                            <div>
-                                <input type="email" name="userEmail" id="userEmail" required placeholder="Email*">
-                            </div>
-                            <div>
-                                <input type="tel" name="userPhone" id="userPhone" required placeholder="Телефон*">
-                            </div>
-                            <div>
-                                <input type="text" name="userPromo" id="userPromo" placeholder="Промо-код">
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <div class="text-center btn-wrap">
-                    <button type="submit" class="btn btn-warning">{{ 'Book'|trans }}</button>
+                    <button type="submit" class="btn btn-warning">{{ 'Book game'|trans }}</button>
                 </div>
 
             </form>
@@ -405,11 +403,11 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMugwAfvvSHxHNaQ3gdmEr0_cgSawCc48&callback=initMap"
             async defer></script>
-
+    <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     <script>
-
         var coordinates = '{{ room.coordinates }}'.split(' ');
 
         function initMap() {
@@ -428,6 +426,4 @@
             });
         }
     </script>
-
-    {{ parent() }}
 {% endblock %}

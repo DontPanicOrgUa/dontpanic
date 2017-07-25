@@ -36,18 +36,6 @@ class RoomController extends Controller
             'room' => $room,
             'schedule' => $schedule
         ]);
-
-//        $em = $this->getDoctrine()->getManager();
-//        $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
-//        $scheduleBuilder = new ScheduleBuilder($room);
-//        if ($room) {
-//            return $this->render('WebBundle:Room:schedule.html.twig', [
-//                'cities' => $this->getCities(),
-//                'room' => $room,
-//                'schedule' => $scheduleBuilder->collectByTime()
-//            ]);
-//        }
-//        throw $this->createNotFoundException('Room ' . $slug . ' not found');
     }
 
     /**

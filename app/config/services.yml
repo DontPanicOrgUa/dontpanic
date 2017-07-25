@@ -8,16 +8,19 @@ services:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
     admin.file_uploader:
-            class: AdminBundle\Service\FileUploader
-            arguments: ['%uploads_rooms_path%']
+        class: AdminBundle\Service\FileUploader
+        arguments: ['%uploads_rooms_path%']
 
     mail_sender:
-            class: AdminBundle\Service\MailSender
-            arguments: ['@mailer', '@templating', '@doctrine.orm.entity_manager']
+        class: AdminBundle\Service\MailSender
+        arguments: ['@mailer', '@templating', '@doctrine.orm.entity_manager']
 
     turbosms_sender:
-                class: AdminBundle\Service\SmsSender
-                arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%', '@doctrine.orm.entity_manager']
+        class: AdminBundle\Service\SmsSender
+        arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%', '@doctrine.orm.entity_manager']
+
+    uuid:
+        class: AdminBundle\Service\Uuid
 
     room_voter:
         class: AdminBundle\Security\RoomVoter

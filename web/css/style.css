@@ -74,7 +74,7 @@ body {
     text-indent: -9999px;
 
     border: none;
-    border-radius: none;
+    /*border-radius: 0;*/
     box-shadow: none;
 
     -webkit-appearance: none;
@@ -148,8 +148,6 @@ body {
     -webkit-transition-property: bottom, -webkit-transform;
     transition-property: bottom, transform;
 }
-
-/* ╨░╨║╤В╨╕╨▓╨╜╨╛╨╡ ╤Б╨╛╤Б╤В╨╛╤П╨╜╨╕╨╡, ╤В.╨╡. ╨╝╨╡╨╜╤О ╨╛╤В╨║╤А╤Л╤В╨╛ */
 
 .cmn-toggle-switch__htx.active {
     background-color: transparent;
@@ -1004,12 +1002,25 @@ th:hover {
     text-transform: uppercase;
 }
 
-.form-reservation input {
+.form-reservation input,
+.form-reservation select
+{
+    width: 100%;
     margin-bottom: 10px;
     padding: 5px 10px;
-
-    color: #fff;
+    color: #ddd;
     background: transparent;
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+}
+
+.form-reservation option {
+    background-color: #343434;
+}
+
+.form-reservation .input-group .input-group-btn button {
+    margin-bottom: 8px;
 }
 
 .form-reservation ::-webkit-input-placeholder {
@@ -1372,15 +1383,27 @@ th:hover {
     height: 450px;
 }
 
-.font-medium {
+.font-xxl {
+    font-size: xx-large;
+}
+
+.font-xl {
+    font-size: x-large;
+}
+
+.font-l {
+    font-size: large;
+}
+
+.font-m {
     font-size: medium;
 }
 
-.font-small {
+.font-s {
     font-size: small;
 }
 
-.font-x-small {
+.font-xs {
     font-size: x-small;
 }
 
