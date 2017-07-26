@@ -160,5 +160,53 @@ $(function () {
 
     $.mask.definitions['x'] = "[A-Za-z0-9]";
     $("#discount").mask("xxxx-xxxxxxxx");
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // booking ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    var $bookingForm = $('.form-reservation form');
+    var bookingDateTime = '';
+    var bookingPrices = '';
+
+    function resetBookingForm() {
+        $bookingForm.find('#players').children('option:not(:first)').remove();
+        $bookingForm.find('#players').val('Players*');
+        $bookingForm.find('input').val('');
+        $bookingForm.find('#date').html(' --.--.---');
+        $bookingForm.find('#time').html(' --:--');
+        $bookingForm.find('#price').html('0');
+    }
+
+    function scrollToBookingForm() {
+        $('html, body').animate({
+            scrollTop: $('section.form-reservation').offset().top
+        }, 1000);
+    }
+
+    function buildBookingForm() {
+        $bookingForm.find('#date').html(' ' + bookingDateTime.split(' ')[0]);
+        $bookingForm.find('#time').html(' ' + bookingDateTime.split(' ')[1]);
+        $.each(bookingPrices, function () {
+            $bookingForm.find('#players').append(
+                $('</option>', {
+                    text: this.players,
+                    value: this.price
+                })
+            );
+        });
+    }
+
+    $('.cell').closest('td').click(function (e) {
+        e.preventDefault();
+        if ($(this).find('.cell').hasClass('cell-expired')) {
+            return;
+        }
+        bookingDateTime = $(this).data('date-time');
+        bookingPrices = $(this).data('prices');
+        resetBookingForm();
+        scrollToBookingForm();
+        buildBookingForm();
+    });
 });
 

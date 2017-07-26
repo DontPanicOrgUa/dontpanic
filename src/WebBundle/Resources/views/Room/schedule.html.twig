@@ -98,7 +98,7 @@
 
             <h2 class="text-center">{{ 'Book game'|trans }}</h2>
 
-            <form action="/">
+            <form action="#">
 
                 <div class="container">
                     <div class="row form-reservation-row">
@@ -106,9 +106,9 @@
                             <div class="col-sm-6">
                                 <h3>{{ room.title }}</h3>
                                 <p><span class="fa fa-map-marker"> {{ room.address }}</span></p>
-                                <p><span class="fa fa-calendar"> date</span></p>
-                                <p><span class="fa fa-clock-o "> time</span></p>
-                                <p><span class="font-xxl">800</span> {{ room.currency }}</p>
+                                <p><span id="date" class="fa fa-calendar"> date</span></p>
+                                <p><span id="time" class="fa fa-clock-o"> time</span></p>
+                                <p><span id="price" class="font-xxl">800</span> {{ room.currency }}</p>
                                 <p><span class="font-s"><span
                                                 style="color:red">*</span> {{ 'Pre-booking is required'|trans }}.</span>
                                 </p>
@@ -129,11 +129,8 @@
                                            placeholder="{{ 'Phone'|trans }}*">
                                 </div>
                                 <div>
-                                    <select required>
-                                        <option disabled>{{ 'Players'|trans }}</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
+                                    <select required id="players">
+                                        <option disabled selected>{{ 'Players*'|trans }}</option>
                                         <option value="5">5</option>
                                     </select>
                                 </div>
