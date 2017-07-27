@@ -166,10 +166,13 @@ $(function () {
     var $bookingForm = $('.form-reservation .booking-form');
     var $resultForm = $('.form-reservation .result-form');
 
-    function resetBookingForm() {
+    function resetVisibility() {
         $greetingForm.css('display', 'block');
         $bookingForm.css('display', 'none');
         $resultForm.css('display', 'none');
+    }
+
+    function resetBookingForm() {
         $bookingForm.find('#date').html(' --.--.---');
         $bookingForm.find('#time').html(' --:--');
         $bookingForm.find('#price').html('0');
@@ -188,15 +191,12 @@ $(function () {
         $bookingForm.find('#date').html(' ' + $target.data('date-time').split(' ')[0]);
         $bookingForm.find('#time').html(' ' + $target.data('date-time').split(' ')[1]);
         $.each($target.data('prices'), function () {
-            $bookingForm.find('#players').append(
-                $('</option>', {
-                    text: this.players,
-                    value: this.price
-                })
-            );
+            $bookingForm.find('#players').append($('<option>', {value: this.price, text: this.players}));
         });
-        $greetingForm.fadeOut('2000');
-        $bookingForm.fadeIn('2000');
+
+        $('.form-reservation > div:visible').fadeOut(1000, function () {
+            $bookingForm.fadeIn(1000);
+        });
     }
 
     $('.cell').closest('td').click(function (e) {
@@ -208,5 +208,11 @@ $(function () {
         buildBookingForm($(this));
         scrollTo($('section.form-reservation'));
     });
+
+    $bookingForm.find('#players').change(function () {
+        $bookingForm.find('#price').html($(this).val());
+    });
+
+
 });
 
