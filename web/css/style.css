@@ -1003,8 +1003,7 @@ th:hover {
 }
 
 .form-reservation input,
-.form-reservation select
-{
+.form-reservation select {
     width: 100%;
     margin-bottom: 10px;
     padding: 5px 10px;
@@ -1017,6 +1016,44 @@ th:hover {
 
 .form-reservation option {
     background-color: #343434;
+}
+
+.form-reservation ul {
+    list-style: none;
+}
+
+.color-orange,
+.form-reservation i {
+    color: #f0ad4e;
+}
+
+.form-reservation ul li {
+    position: relative;
+    padding: 0 0 12px 31px;
+}
+
+.form-reservation ul li i {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.form-reservation .form-middle {
+    border-left: solid 1px gray;
+    border-right: solid 1px gray;
+}
+
+.form-reservation img {
+    margin: 32px 0;
+}
+
+.form-reservation .greeting-form {
+    display: block;
+}
+
+.form-reservation .booking-form,
+.form-reservation .result-form {
+    display: none;
 }
 
 .form-reservation .input-group .input-group-btn button {
@@ -1049,9 +1086,12 @@ th:hover {
 
 .form-reservation-row {
     display: flex;
-
     justify-content: space-around;
     align-items: center;
+}
+
+.form-reservation-row div.row > div:nth-child(2) {
+    margin-bottom: 32px;
 }
 
 /* form-reservation end */
@@ -1459,3 +1499,4 @@ th:hover {
 .price-l {
     background-color: #75ae88;
 }
+

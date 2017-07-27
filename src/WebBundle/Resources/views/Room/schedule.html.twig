@@ -16,7 +16,7 @@
                 <p class="time-to-play">{{ room.timeMax }} {{ 'minutes' }}</p>
             </div>
 
-            <a href="#" class="team-results">{{ 'Results of teams'|trans }}</a>
+            <a href="#" class="team-results">{{ 'Team results'|trans }}</a>
 
             {#<p class="average-time">{{ 'Average time' }} <span></span> {{ 'minutes'|trans }}</p>#}
 
@@ -95,61 +95,120 @@
         </section>
 
         <section class="form-reservation">
-
             <h2 class="text-center">{{ 'Book game'|trans }}</h2>
-
-            <form action="#">
-
-                <div class="container">
-                    <div class="row form-reservation-row">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h3>{{ room.title }}</h3>
-                                <p><span class="fa fa-map-marker"> {{ room.address }}</span></p>
-                                <p><span id="date" class="fa fa-calendar"> date</span></p>
-                                <p><span id="time" class="fa fa-clock-o"> time</span></p>
-                                <p><span id="price" class="font-xxl">800</span> {{ room.currency }}</p>
-                                <p><span class="font-s"><span
-                                                style="color:red">*</span> {{ 'Pre-booking is required'|trans }}.</span>
-                                </p>
-                            </div>
-                            <div class="col-sm-6">
-                                <div>
-                                    <input type="text" name="name" id="name" required placeholder="{{ 'Name'|trans }}*">
-                                </div>
-                                <div>
-                                    <input type="text" name="lastName" id="lastName" required
-                                           placeholder="{{ 'Last Name'|trans }}*">
-                                </div>
-                                <div>
-                                    <input type="email" name="email" id="email" required placeholder="Email*">
-                                </div>
-                                <div>
-                                    <input type="tel" name="phone" id="phone" required
-                                           placeholder="{{ 'Phone'|trans }}*">
-                                </div>
-                                <div>
-                                    <select required id="players">
-                                        <option disabled selected>{{ 'Players*'|trans }}</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <input type="text" name="discount" id="discount"
-                                           placeholder="{{ 'Discount'|trans }}">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-warning" type="button">Check</button>
+            <div class="row greeting-form">
+                <div class="col-sm-12 text-center">
+                    <h3>{{ room.title }}</h3>
+                    <img src="{{ asset('img/genesis-logo.png') }}" alt="{{ room.title }}" class="room-logo">
+                    <p>
+                        <i class="li-ico fa fa-exclamation"></i>
+                        <span>{{ 'Please, select a game'|trans }}.</span>
+                    </p>
+                </div>
+            </div>
+            <div class="booking-form">
+                <div class="row">
+                    <div class="col-sm-4 text-center">
+                        <h3>{{ room.title }}</h3>
+                        <img src="{{ asset('img/genesis-logo.png') }}" alt="{{ room.title }}" class="room-logo">
+                    </div>
+                    <div class="col-sm-4">
+                        <ul>
+                            <li>
+                                <i class="li-ico fa fa-map-marker"></i>
+                                <span>{{ room.address }}</span>
+                            </li>
+                            <li>
+                                <i class="li-ico fa fa-calendar"></i>
+                                <span id="date">--.--.----</span>
+                            </li>
+                            <li>
+                                <i class="li-ico fa fa-clock-o"></i>
+                                <span id="time">--:--</span>
+                            </li>
+                            <li>
+                                <i class="li-ico fa fa-money"></i>
+                                <span id="price">0</span> {{ room.currency }}
+                            </li>
+                            <li>
+                                <i class="li-ico fa fa-exclamation"></i>
+                                <span class="font-s">{{ 'Pre-booking is required'|trans }}.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <div>
+                            <input type="text" name="name" id="name" required placeholder="{{ 'Name'|trans }}*">
+                        </div>
+                        <div>
+                            <input type="text" name="lastName" id="lastName" required
+                                   placeholder="{{ 'Last Name'|trans }}*">
+                        </div>
+                        <div>
+                            <input type="email" name="email" id="email" required placeholder="Email*">
+                        </div>
+                        <div>
+                            <input type="tel" name="phone" id="phone" required
+                                   placeholder="{{ 'Phone'|trans }}*">
+                        </div>
+                        <div>
+                            <select required id="players">
+                                <option disabled selected>{{ 'Players'|trans }}*</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="discount" id="discount"
+                                   placeholder="{{ 'Discount'|trans }}">
+                            <span class="input-group-btn">
+                                        <button class="btn btn-warning" type="button">{{ 'Use discount' }}</button>
                                     </span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center btn-wrap">
-                    <button type="submit" class="btn btn-warning">{{ 'Book game'|trans }}</button>
+                <div class="row">
+                    <div class="text-center btn-wrap">
+                        <button type="submit" class="btn btn-warning">{{ 'Book game'|trans }}</button>
+                    </div>
                 </div>
-
-            </form>
+            </div>
+            <div class="row result-form">
+                <div class="col-sm-4">
+                    <h3 class="text-center">{{ 'Congratulations'|trans }}!</h3>
+                    <p class="color-orange text-center">{{ 'You have successfuly booked the game'|trans }}</p>
+                    <p>Мы свяжемся с Вами ближайшее время, по указанному Вами номеру телефона</p>:
+                    <p>Все детали Вашего заказа мы отправили на</p>:
+                </div>
+                <div class="col-sm-4 form-middle">
+                    <h3 class="text-center">{{ 'Your order'|trans }}:</h3>
+                    <p class="color-orange text-center">{{ 'Quest'|trans }} - {{ room.title }}</p>
+                    <ul>
+                        <li>
+                            <i class="fa fa-map-marker"></i>
+                            <span>{{ room.address }}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-user"></i>
+                            <span>players</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <h3 class="text-center">{{ 'Price'|trans }}</h3>
+                    <p class="text-center"><span>800</span> {{ room.currency }}</p>
+                    <p>{{ 'Our contacts'|trans }}:</p>
+                    <ul>
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <span>{{ room.phone }}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            <span>{{ room.email }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
         <div class="container-fluid">
@@ -403,7 +462,6 @@
     {{ parent() }}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMugwAfvvSHxHNaQ3gdmEr0_cgSawCc48&callback=initMap"
             async defer></script>
-    <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     <script>
         var coordinates = '{{ room.coordinates }}'.split(' ');
 

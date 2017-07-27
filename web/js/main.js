@@ -158,36 +158,36 @@ $(function () {
         }
     });
 
-    $.mask.definitions['x'] = "[A-Za-z0-9]";
-    $("#discount").mask("xxxx-xxxxxxxx");
-
     //////////////////////////////////////////////////////////////////////////////////////
     // booking ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////
 
-    var $bookingForm = $('.form-reservation form');
-    var bookingDateTime = '';
-    var bookingPrices = '';
+    var $greetingForm = $('.form-reservation .greeting-form');
+    var $bookingForm = $('.form-reservation .booking-form');
+    var $resultForm = $('.form-reservation .result-form');
 
     function resetBookingForm() {
-        $bookingForm.find('#players').children('option:not(:first)').remove();
-        $bookingForm.find('#players').val('Players*');
-        $bookingForm.find('input').val('');
+        $greetingForm.css('display', 'block');
+        $bookingForm.css('display', 'none');
+        $resultForm.css('display', 'none');
         $bookingForm.find('#date').html(' --.--.---');
         $bookingForm.find('#time').html(' --:--');
         $bookingForm.find('#price').html('0');
+        $bookingForm.find('input').val('');
+        $bookingForm.find('#players').children('option:not(:first)').remove();
+        $bookingForm.find('#players').val('Players*');
     }
 
-    function scrollToBookingForm() {
+    function scrollTo(target) {
         $('html, body').animate({
-            scrollTop: $('section.form-reservation').offset().top
+            scrollTop: target.offset().top
         }, 1000);
     }
 
-    function buildBookingForm() {
-        $bookingForm.find('#date').html(' ' + bookingDateTime.split(' ')[0]);
-        $bookingForm.find('#time').html(' ' + bookingDateTime.split(' ')[1]);
-        $.each(bookingPrices, function () {
+    function buildBookingForm($target) {
+        $bookingForm.find('#date').html(' ' + $target.data('date-time').split(' ')[0]);
+        $bookingForm.find('#time').html(' ' + $target.data('date-time').split(' ')[1]);
+        $.each($target.data('prices'), function () {
             $bookingForm.find('#players').append(
                 $('</option>', {
                     text: this.players,
@@ -195,6 +195,8 @@ $(function () {
                 })
             );
         });
+        $greetingForm.fadeOut('2000');
+        $bookingForm.fadeIn('2000');
     }
 
     $('.cell').closest('td').click(function (e) {
@@ -202,11 +204,9 @@ $(function () {
         if ($(this).find('.cell').hasClass('cell-expired')) {
             return;
         }
-        bookingDateTime = $(this).data('date-time');
-        bookingPrices = $(this).data('prices');
         resetBookingForm();
-        scrollToBookingForm();
-        buildBookingForm();
+        buildBookingForm($(this));
+        scrollTo($('section.form-reservation'));
     });
 });
 

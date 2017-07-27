@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Don&#039;t Panic | {{ 'Escape rooms in'|trans }} {{ 'Kiev'|trans }}{% endblock %}</title>
     {% block stylesheets %}
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic">
         <link rel="icon" href="{{ asset('img/favicon.png') }}">
         <link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css">
+        <link rel="stylesheet" href="{{ asset('awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('fancybox/css/jquery.fancybox.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/star-rating-svg.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% endblock %}
@@ -32,9 +32,9 @@
 {% include 'WebBundle:layouts/includes:footer.html.twig' %}
 
 {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('fancybox/js/jquery.fancybox.min.js') }}"></script>
     <script src="{{ asset('js/jquery.flexslider.js') }}"></script>
     <script src="{{ asset('js/jquery.star-rating-svg.min.js') }}"></script>
     <script src="{{ asset('js/ofi.min.js') }}"></script>

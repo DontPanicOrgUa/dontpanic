@@ -24,7 +24,6 @@ class RoomController extends Controller
         if (!$room) {
             throw $this->createNotFoundException('The room does not exist');
         }
-        $this->denyAccessUnlessGranted('view', $room);
         $scheduleBuilder = new ScheduleBuilder($room);
         $schedule = $scheduleBuilder->collect();
         if (empty($schedule)) {
