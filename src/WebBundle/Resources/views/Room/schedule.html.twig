@@ -138,27 +138,26 @@
                     </div>
                     <div class="col-sm-4 text-center">
                         <div>
-                            <input type="text" name="name" id="name" required placeholder="{{ 'Name'|trans }}*">
+                            <input type="text" name="name" required placeholder="{{ 'Name'|trans }}*">
                         </div>
                         <div>
-                            <input type="text" name="lastName" id="lastName" required
+                            <input type="text" name="lastName" required
                                    placeholder="{{ 'Last Name'|trans }}*">
                         </div>
                         <div>
-                            <input type="email" name="email" id="email" required placeholder="Email*">
+                            <input type="email" name="email" required placeholder="Email*">
                         </div>
                         <div>
-                            <input type="tel" name="phone" id="phone" required
+                            <input type="tel" name="phone" required
                                    placeholder="{{ 'Phone'|trans }}*">
                         </div>
                         <div>
-                            <select required id="players">
+                            <select required name="players">
                                 <option disabled selected>{{ 'Players'|trans }}*</option>
-                                <option value="5">5</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <input type="text" name="discount" id="discount"
+                            <input type="text" name="discount"
                                    placeholder="{{ 'Discount'|trans }}">
                             <span class="input-group-btn">
                                         <button class="btn btn-warning" type="button">{{ 'Use discount' }}</button>
@@ -463,6 +462,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMugwAfvvSHxHNaQ3gdmEr0_cgSawCc48&callback=initMap"
             async defer></script>
     <script>
+        var playersTrans = '{{ 'Players'|trans }}*';
+
         var coordinates = '{{ room.coordinates }}'.split(' ');
 
         function initMap() {

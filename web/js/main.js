@@ -165,6 +165,7 @@ $(function () {
     var $greetingForm = $('.form-reservation .greeting-form');
     var $bookingForm = $('.form-reservation .booking-form');
     var $resultForm = $('.form-reservation .result-form');
+    var $submitFormBtn = $('.form-reservation button[type="submit"]');
 
     function resetVisibility() {
         $greetingForm.css('display', 'block');
@@ -175,10 +176,12 @@ $(function () {
     function resetBookingForm() {
         $bookingForm.find('#date').html(' --.--.---');
         $bookingForm.find('#time').html(' --:--');
-        $bookingForm.find('#price').html('0');
+        $bookingForm.find('#players').html('');
+        $bookingForm.find('#price').html('');
         $bookingForm.find('input').val('');
-        $bookingForm.find('#players').children('option:not(:first)').remove();
-        $bookingForm.find('#players').val('Players*');
+        $bookingForm.find('select[name=players]').children('option:not(:first)').remove();
+        $bookingForm.find('select[name=players]').val(playersTrans);
+        $bookingForm.find('.custom-danger').removeClass('custom-danger');
     }
 
     function scrollTo(target) {
@@ -191,7 +194,7 @@ $(function () {
         $bookingForm.find('#date').html(' ' + $target.data('date-time').split(' ')[0]);
         $bookingForm.find('#time').html(' ' + $target.data('date-time').split(' ')[1]);
         $.each($target.data('prices'), function () {
-            $bookingForm.find('#players').append($('<option>', {value: this.price, text: this.players}));
+            $bookingForm.find('select[name=players]').append($('<option>', {value: this.price, text: this.players}));
         });
 
         $('.form-reservation > div:visible').fadeOut(1000, function () {
@@ -209,10 +212,91 @@ $(function () {
         scrollTo($('section.form-reservation'));
     });
 
-    $bookingForm.find('#players').change(function () {
+    $bookingForm.find('select[name=players]').change(function () {
         $bookingForm.find('#price').html($(this).val());
     });
 
+    function collectBookingData() {
+        var booking = {
+            dateTime: $bookingForm.find('#date').html() + ' ' + $bookingForm.find('#time').html(),
+            price: $bookingForm.find('#price').html(),
+            name: $bookingForm.find('input[name=name]').val(),
+            lastName: $bookingForm.find('input[name=lastName]').val(),
+            email: $bookingForm.find('input[name=email]').val(),
+            phone: $bookingForm.find('input[name=phone]').val(),
+            players: $bookingForm.find('select[name=players] :selected').html(),
+            discount: $bookingForm.find('input[name=discount]').val(),
+            bookedBy: 0 // index 0 equals 'customer'
+        };
+        return booking;
+    }
 
+    function validateBookingForm(data) {
+        var hasError = false;
+        if (!data.dateTime) {
+            alert('Got no date, please try again later or contact the administrator.');
+            hasError = true;
+        }
+        if (!data.name) {
+            $bookingForm.find('input[name=name]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!data.lastName) {
+            $bookingForm.find('input[name=lastName]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!validateEmail(data.email)) {
+            $bookingForm.find('input[name=email]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!validatePhone(data.phone)) {
+            $bookingForm.find('input[name=phone]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!data.players || !data.price) {
+            $bookingForm.find('select[name=players]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        return hasError;
+    }
+
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    function validatePhone(phone) {
+        var re = /^\+[0-9\-\(\)]{3,21}$/;
+        return re.test(phone);
+    }
+
+    function sendNewGameData(bookingData) {
+        $.ajax({
+            type: "POST",
+            url: adminGamesAddRoute,
+            data: {bookingData}
+        }).done(function () {
+            // resetBookingModal();
+            window.location.replace(adminRoomsScheduleRoute);
+        }).fail(function () {
+            alert('Something went wrong, please contact the administrator.')
+        });
+    }
+
+    $submitFormBtn.click(function (e) {
+        e.preventDefault();
+        $bookingForm.find('.custom-danger').removeClass('custom-danger');
+        if (validateBookingForm(collectBookingData())) {
+            // send
+        }
+    });
+
+    $bookingForm.find('input').focusin(function () {
+        $(this).removeClass('custom-danger', 2000);
+    });
+
+    $bookingForm.find('select').focusin(function () {
+        $(this).removeClass('custom-danger', 2000);
+    })
 });
 

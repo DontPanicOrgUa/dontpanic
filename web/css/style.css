@@ -1094,6 +1094,10 @@ th:hover {
     margin-bottom: 32px;
 }
 
+#price {
+    font-weight: bold;
+}
+
 /* form-reservation end */
 
 /* ROOM end*/
@@ -1498,5 +1502,17 @@ th:hover {
 
 .price-l {
     background-color: #75ae88;
+}
+
+.custom-danger {
+    color: red !important;
+    border-color: red !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+}
+
+.custom-success {
+    color: green !important;
+    border-color: green !important;
+    background: rgba(0, 255, 0, 0.1) !important;
 }
 
