@@ -1098,6 +1098,10 @@ th:hover {
     font-weight: bold;
 }
 
+#result-form-price {
+    font-weight: bold;
+}
+
 /* form-reservation end */
 
 /* ROOM end*/

@@ -165,13 +165,6 @@ $(function () {
     var $greetingForm = $('.form-reservation .greeting-form');
     var $bookingForm = $('.form-reservation .booking-form');
     var $resultForm = $('.form-reservation .result-form');
-    var $submitFormBtn = $('.form-reservation button[type="submit"]');
-
-    function resetVisibility() {
-        $greetingForm.css('display', 'block');
-        $bookingForm.css('display', 'none');
-        $resultForm.css('display', 'none');
-    }
 
     function resetBookingForm() {
         $bookingForm.find('#date').html(' --.--.---');
@@ -184,6 +177,13 @@ $(function () {
         $bookingForm.find('.custom-danger').removeClass('custom-danger');
     }
 
+    function resetResultForm() {
+        $resultForm.find('#result-form-date').html('');
+        $resultForm.find('#result-form-time').html('');
+        $resultForm.find('#result-form-players').html('');
+        $resultForm.find('#result-form-price').html('');
+    }
+
     function scrollTo(target) {
         $('html, body').animate({
             scrollTop: target.offset().top
@@ -191,30 +191,12 @@ $(function () {
     }
 
     function buildBookingForm($target) {
-        $bookingForm.find('#date').html(' ' + $target.data('date-time').split(' ')[0]);
-        $bookingForm.find('#time').html(' ' + $target.data('date-time').split(' ')[1]);
+        $bookingForm.find('#date').html($target.data('date-time').split(' ')[0]);
+        $bookingForm.find('#time').html($target.data('date-time').split(' ')[1]);
         $.each($target.data('prices'), function () {
             $bookingForm.find('select[name=players]').append($('<option>', {value: this.price, text: this.players}));
         });
-
-        $('.form-reservation > div:visible').fadeOut(1000, function () {
-            $bookingForm.fadeIn(1000);
-        });
     }
-
-    $('.cell').closest('td').click(function (e) {
-        e.preventDefault();
-        if ($(this).find('.cell').hasClass('cell-expired')) {
-            return;
-        }
-        resetBookingForm();
-        buildBookingForm($(this));
-        scrollTo($('section.form-reservation'));
-    });
-
-    $bookingForm.find('select[name=players]').change(function () {
-        $bookingForm.find('#price').html($(this).val());
-    });
 
     function collectBookingData() {
         var booking = {
@@ -270,26 +252,24 @@ $(function () {
         return re.test(phone);
     }
 
+    function showThe($element) {
+        $('.form-reservation > div:visible').fadeOut(1000, function () {
+            $element.fadeIn(1000);
+        });
+    }
+
     function sendNewGameData(bookingData) {
         $.ajax({
             type: "POST",
-            url: adminGamesAddRoute,
+            url: gamesAddRoute,
             data: {bookingData}
         }).done(function () {
-            // resetBookingModal();
-            window.location.replace(adminRoomsScheduleRoute);
+            showResultForm();
+            // makeGameCellBusy();
         }).fail(function () {
             alert('Something went wrong, please contact the administrator.')
         });
     }
-
-    $submitFormBtn.click(function (e) {
-        e.preventDefault();
-        $bookingForm.find('.custom-danger').removeClass('custom-danger');
-        if (validateBookingForm(collectBookingData())) {
-            // send
-        }
-    });
 
     $bookingForm.find('input').focusin(function () {
         $(this).removeClass('custom-danger', 2000);
@@ -297,6 +277,52 @@ $(function () {
 
     $bookingForm.find('select').focusin(function () {
         $(this).removeClass('custom-danger', 2000);
-    })
+    });
+    
+    function buildResultForm(bookingData) {
+        $resultForm.find('#result-form-date').html(bookingData.dateTime.split(' ')[0]);
+        $resultForm.find('#result-form-time').html(bookingData.dateTime.split(' ')[1]);
+        $resultForm.find('#result-form-players').html(bookingData.players);
+        $resultForm.find('#result-form-price').html(bookingData.price);
+    }
+
+    ///////////////////////////////
+    // Game cell clicked //////////
+    ///////////////////////////////
+    $('.cell').closest('td').click(function (e) {
+        e.preventDefault();
+        if ($(this).find('.cell').hasClass('cell-expired')) {
+            return;
+        }
+        resetBookingForm();
+        buildBookingForm($(this));
+        showThe($bookingForm);
+        scrollTo($('section.form-reservation'));
+    });
+
+    ///////////////////////////////
+    // Number of players clicked //
+    ///////////////////////////////
+    $bookingForm.find('select[name=players]').change(function () {
+        $bookingForm.find('#price').html($(this).val());
+    });
+
+    ///////////////////////////////
+    // Booking submit clicked /////
+    ///////////////////////////////
+    $bookingForm.find('button[type="submit"]').click(function (e) {
+        e.preventDefault();
+        $bookingForm.find('.custom-danger').removeClass('custom-danger');
+        var bookingData = collectBookingData();
+        if (validateBookingForm(bookingData)) {
+            return;
+        }
+        resetResultForm();
+        buildResultForm(bookingData);
+        // getLiqPayButton();
+        showThe($resultForm);
+        // makeGameCellBusy();
+        
+    });
 });
 

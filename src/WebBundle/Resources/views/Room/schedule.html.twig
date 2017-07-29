@@ -120,19 +120,19 @@
                             </li>
                             <li>
                                 <i class="li-ico fa fa-calendar"></i>
-                                <span id="date">--.--.----</span>
+                                 <span id="date">--.--.----</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-clock-o"></i>
-                                <span id="time">--:--</span>
+                                 <span id="time">--:--</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-money"></i>
-                                <span id="price">0</span> {{ room.currency }}
+                                 <span id="price">0</span> {{ room.currency }}
                             </li>
                             <li>
                                 <i class="li-ico fa fa-exclamation"></i>
-                                <span class="font-s">{{ 'Pre-booking is required'|trans }}.</span>
+                                 <span class="font-s">{{ 'Pre-booking is required'|trans }}.</span>
                             </li>
                         </ul>
                     </div>
@@ -175,8 +175,8 @@
                 <div class="col-sm-4">
                     <h3 class="text-center">{{ 'Congratulations'|trans }}!</h3>
                     <p class="color-orange text-center">{{ 'You have successfuly booked the game'|trans }}</p>
-                    <p>Мы свяжемся с Вами ближайшее время, по указанному Вами номеру телефона</p>:
-                    <p>Все детали Вашего заказа мы отправили на</p>:
+                    <p>{{ 'Мы свяжемся с Вами ближайшее время, по указанному Вами номеру телефона'|trans }}: <span id="result-form-phone"></span></p>
+                    <p>{{ 'Все детали Вашего заказа мы отправили на'|trans }}: <span id="result-form-email"></span></p>
                 </div>
                 <div class="col-sm-4 form-middle">
                     <h3 class="text-center">{{ 'Your order'|trans }}:</h3>
@@ -184,17 +184,25 @@
                     <ul>
                         <li>
                             <i class="fa fa-map-marker"></i>
-                            <span>{{ room.address }}</span>
+                            {{ 'Place'|trans }}: <span>{{ room.address }}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-calendar"></i>
+                            {{ 'Date'|trans }}: <span id="result-form-date"></span>
+                        </li>
+                        <li>
+                            <i class="fa fa-clock-o"></i>
+                            {{ 'Time'|trans }}: <span id="result-form-time"></span>
                         </li>
                         <li>
                             <i class="fa fa-user"></i>
-                            <span>players</span>
+                            {{ 'Players'|trans }}: <span id="result-form-players"></span>
                         </li>
                     </ul>
                 </div>
                 <div class="col-sm-4">
                     <h3 class="text-center">{{ 'Price'|trans }}</h3>
-                    <p class="text-center"><span>800</span> {{ room.currency }}</p>
+                    <p class="text-center"><span class="font-xxl color-orange" id="result-form-price"></span> {{ room.currency }}</p>
                     <p>{{ 'Our contacts'|trans }}:</p>
                     <ul>
                         <li>
@@ -463,6 +471,7 @@
             async defer></script>
     <script>
         var playersTrans = '{{ 'Players'|trans }}*';
+        var gamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
 
         var coordinates = '{{ room.coordinates }}'.split(' ');
 
