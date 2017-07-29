@@ -4,6 +4,7 @@ namespace WebBundle\Service;
 
 
 use LiqPay;
+use Symfony\Component\Translation\Translator;
 
 class Payment
 {
@@ -13,11 +14,14 @@ class Payment
 
     private $private_key;
 
-    public function __construct($public_key, $private_key)
+    private $translator;
+
+    public function __construct($public_key, $private_key, Translator $translator)
     {
         $this->public_key = $public_key;
         $this->private_key = $private_key;
         $this->liqpay = new LiqPay($this->public_key, $this->private_key);
+        $this->translator = $translator;
     }
 
     /**
@@ -73,7 +77,7 @@ class Payment
      * |                 |        |          | Работает для action= auth.                                              |
      * -----------------------------------------------------------------------------------------------------------------
      *
-     * $this->get('payment')->getBill([
+     * $this->get('payment')->getButton([
      *     'order_id' => uniqid(),
      *     'amount' => 1,
      *     'currency' => 'UAH',
@@ -85,16 +89,41 @@ class Payment
      * @param array $options
      * @return string
      */
-    public function getBill(array $options)
+    public function getButton(array $options)
     {
         $options['action'] = 'pay';
         $options['version'] = '3';
 
         $html = $this->liqpay->cnb_form($options);
-        return $html;
+        return $this->prettifyButton($html);
     }
 
-    public function getStatus($orderId)
+    private function prettifyButton($html, $styled = true)
+    {
+        $oldBtn = '/<input type="image" src=".+" name="btn_text" \/>/';
+        $btnText = $this->translator->trans('Pay online and get 5% discount');
+        $btnStyles = '';
+        if ($styled) {
+            $btnStyles = 'style="
+                height: 50px;
+                width: 200px;
+                color: white;
+                font-size: medium;
+                font-weight: bold;
+                background-color: #6ca91c;
+                border-left: 0px;
+                border-right: 0px;
+                border-top: 0px;
+                border-bottom: 4px solid #4c7714;
+                border-radius: 6px;
+            "';
+        }
+        $newBtn = '<button type="submit" ' . $btnStyles . '>' . $this->translator->trans($btnText) . '</button>';
+        return preg_replace($oldBtn, $newBtn, $html);
+    }
+
+    public
+    function getStatus($orderId)
     {
         return $this->liqpay->api("request", [
             'action' => 'status',

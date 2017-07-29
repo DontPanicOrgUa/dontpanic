@@ -27,7 +27,7 @@ abstract class NotificationMarkup
             ],
             [
                 substr($bookingData['name'], 0, 10),
-                substr($bookingData['secondName'], 0, 10),
+                substr($bookingData['lastName'], 0, 10),
                 $bookingData['email'],
                 preg_replace("/[^0-9]/", '', $bookingData['phone']),
                 explode(' ', $bookingData['dateTime'])[0],

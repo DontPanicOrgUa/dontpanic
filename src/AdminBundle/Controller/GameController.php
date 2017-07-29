@@ -92,7 +92,7 @@ class GameController extends Controller
         if (!$customer) {
             $customer = new Customer();
             $customer->setName($bookingData['name']);
-            $customer->setSecondname($bookingData['secondName']);
+            $customer->setLastName($bookingData['lastName']);
             $customer->setEmail($bookingData['email']);
             $customer->setPhone($bookingData['phone']);
         }

@@ -263,10 +263,12 @@ $(function () {
             type: "POST",
             url: gamesAddRoute,
             data: {bookingData}
-        }).done(function () {
-            showResultForm();
+        }).done(function (r) {
+            console.log(r);
+            resetResultForm();
+            buildResultForm(bookingData);
             // makeGameCellBusy();
-        }).fail(function () {
+        }).fail(function (r) {
             alert('Something went wrong, please contact the administrator.')
         });
     }
@@ -278,7 +280,7 @@ $(function () {
     $bookingForm.find('select').focusin(function () {
         $(this).removeClass('custom-danger', 2000);
     });
-    
+
     function buildResultForm(bookingData) {
         $resultForm.find('#result-form-date').html(bookingData.dateTime.split(' ')[0]);
         $resultForm.find('#result-form-time').html(bookingData.dateTime.split(' ')[1]);
@@ -317,12 +319,11 @@ $(function () {
         if (validateBookingForm(bookingData)) {
             return;
         }
-        resetResultForm();
-        buildResultForm(bookingData);
+        sendNewGameData(bookingData);
         // getLiqPayButton();
         showThe($resultForm);
         // makeGameCellBusy();
-        
+
     });
 });
 

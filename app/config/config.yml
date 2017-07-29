@@ -11,8 +11,7 @@ parameters:
     locale: de
     uploads_rooms_path: '%kernel.root_dir%/../web/uploads/rooms'
     sms: true
-    liqpay:
-        snadbox: true
+    liqpay.sandbox: true
 
 framework:
     #esi: ~

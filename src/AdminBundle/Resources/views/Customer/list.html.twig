@@ -8,7 +8,7 @@
             <tr>
                 <th>{{ knp_pagination_sortable(customers, '#', 't0.id') }}</th>
                 <th>{{ knp_pagination_sortable(customers, 'Name', 't0.name') }}</th>
-                <th>{{ knp_pagination_sortable(customers, 'Second Name', 't0.secondname') }}</th>
+                <th>{{ knp_pagination_sortable(customers, 'Last Name', 't0.lastName') }}</th>
                 <th>{{ knp_pagination_sortable(customers, 'Email', 't0.email') }}</th>
                 <th>{{ knp_pagination_sortable(customers, 'Phone', 't0.phone') }}</th>
                 <th>More..</th>
@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ customer.id }}</td>
                     <td>{{ customer.name }}</td>
-                    <td>{{ customer.secondname }}</td>
+                    <td>{{ customer.lastName }}</td>
                     <td>{{ customer.email }}</td>
                     <td>{{ customer.phone }}</td>
                     <td>

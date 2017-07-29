@@ -35,7 +35,7 @@ class GameController extends Controller
         if (!$customer) {
             $customer = new Customer();
             $customer->setName($bookingData['name']);
-            $customer->setSecondname($bookingData['lastName']);
+            $customer->setLastName($bookingData['lastName']);
             $customer->setEmail($bookingData['email']);
             $customer->setPhone($bookingData['phone']);
         }
@@ -68,6 +68,20 @@ class GameController extends Controller
         return new JsonResponse([
             'success' => true,
             'data' => $bookingData,
+            'liqPayBtn' => $this->getLiqPayButton(1,1,'UAH', 'uk', 'test d')
         ], 201);
+    }
+
+
+    public function getLiqPayButton($orderId, $amount, $currency, $language, $description)
+    {
+        return $this->get('payment')->getButton([
+            'order_id' => $orderId,
+            'amount' => $amount,
+            'currency' => $currency,
+            'language' => $language,
+            'description' => $description,
+            'sandbox' => $this->getParameter('liqpay.sandbox') ? 1 : 0
+        ]);
     }
 }

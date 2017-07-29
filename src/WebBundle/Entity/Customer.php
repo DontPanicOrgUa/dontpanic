@@ -28,7 +28,7 @@ class Customer
     /**
      * @ORM\Column(type="string")
      */
-    private $secondname;
+    private $lastName;
 
     /**
      * @ORM\Column(type="string")
@@ -88,17 +88,17 @@ class Customer
     /**
      * @return mixed
      */
-    public function getSecondname()
+    public function getLastName()
     {
-        return $this->secondname;
+        return $this->lastName;
     }
 
     /**
-     * @param mixed $secondname
+     * @param mixed $lastName
      */
-    public function setSecondname($secondname)
+    public function setLastName($lastName)
     {
-        $this->secondname = $secondname;
+        $this->lastName = $lastName;
     }
 
     /**

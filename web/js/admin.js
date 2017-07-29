@@ -45,7 +45,7 @@ $(function () {
             players: '',
             price: '',
             name: bookingModal.find('input[name=name]').val(),
-            secondName: bookingModal.find('input[name=secondName]').val(),
+            lastName: bookingModal.find('input[name=lastName]').val(),
             email: bookingModal.find('input[name=email]').val(),
             phone: bookingModal.find('input[name=phone]').val(),
             discount: bookingModal.find('input[name=discount]').val(),
@@ -73,8 +73,8 @@ $(function () {
             bookingModal.find('.input-group').has('input[name=name]').addClass('has-error', 1000);
             hasError = true;
         }
-        if (!data.secondName) {
-            bookingModal.find('.input-group').has('input[name=secondName]').addClass('has-error', 1000);
+        if (!data.lastName) {
+            bookingModal.find('.input-group').has('input[name=lastName]').addClass('has-error', 1000);
             hasError = true;
         }
         if (!data.email) {

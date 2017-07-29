@@ -47,7 +47,7 @@
                 <th>{{ knp_pagination_sortable(games, '#', 'g.id') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'DateTime', 'g.datetime') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'Customer Name', 'gc.name') }}</th>
-                <th>{{ knp_pagination_sortable(games, 'Customer Last Name', 'gc.secondname') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'Customer Last Name', 'gc.lastName') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'Customer Phone', 'gc.phone') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'Customer Email', 'gc.email') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'Room', 'gr.titleEn') }}</th>
@@ -60,7 +60,7 @@
                     <td>{{ game.id }}</td>
                     <td>{{ game.datetime | date('d.m.Y H:i') }}</td>
                     <td>{{ game.customer.name }}</td>
-                    <td>{{ game.customer.secondname }}</td>
+                    <td>{{ game.customer.lastName }}</td>
                     <td>{{ game.customer.phone }}</td>
                     <td>{{ game.customer.email }}</td>
                     <td>{{ game.room.title }}</td>

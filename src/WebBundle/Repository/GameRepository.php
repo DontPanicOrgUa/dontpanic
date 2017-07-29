@@ -67,7 +67,7 @@ class GameRepository extends EntityRepository
             ->orWhere('gr.titleEn LIKE :s')
             ->innerJoin('g.customer', 'gc')
             ->orWhere('gc.name LIKE :s')
-            ->orWhere('gc.secondname LIKE :s')
+            ->orWhere('gc.lastName LIKE :s')
             ->orWhere('gc.phone LIKE :s')
             ->orWhere('gc.email LIKE :s')
             ->setParameter('s', '%' . $search . '%')
