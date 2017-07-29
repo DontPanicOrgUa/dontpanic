@@ -3,6 +3,7 @@
 namespace WebBundle\Service;
 
 
+use AdminBundle\Service\Uuid;
 use LiqPay;
 use Symfony\Component\Translation\Translator;
 
@@ -14,14 +15,20 @@ class Payment
 
     private $private_key;
 
+    private $sandBox;
+
     private $translator;
 
-    public function __construct($public_key, $private_key, Translator $translator)
+    private $uuid;
+
+    public function __construct($public_key, $private_key, $sandbox, Translator $translator, Uuid $uuid)
     {
         $this->public_key = $public_key;
         $this->private_key = $private_key;
         $this->liqpay = new LiqPay($this->public_key, $this->private_key);
         $this->translator = $translator;
+        $this->uuid = $uuid;
+        $this->sandBox = $sandbox;
     }
 
     /**
@@ -94,6 +101,10 @@ class Payment
         $options['action'] = 'pay';
         $options['version'] = '3';
 
+        if (!isset($options['language']) || ($options['language'] != 'ru' && $options['language'] != 'en')) {
+            $options['language'] = 'en';
+        }
+
         $html = $this->liqpay->cnb_form($options);
         return $this->prettifyButton($html);
     }
@@ -104,32 +115,47 @@ class Payment
         $btnText = $this->translator->trans('Pay online and get 5% discount');
         $btnStyles = '';
         if ($styled) {
-            $btnStyles = 'style="
-                height: 50px;
-                width: 200px;
-                color: white;
-                font-size: medium;
-                font-weight: bold;
-                background-color: #6ca91c;
-                border-left: 0px;
-                border-right: 0px;
-                border-top: 0px;
-                border-bottom: 4px solid #4c7714;
-                border-radius: 6px;
-            "';
+            $btnStyles = 'style="'
+                . 'height: 50px;'
+                . 'width: 200px;'
+                . 'color: white;'
+                . 'font-size: medium;'
+                . 'font-weight: bold;'
+                . 'background-color: #6ca91c;'
+                . 'border-left: 0px;'
+                . 'border-right: 0px;'
+                . 'border-top: 0px;'
+                . 'border-bottom: 4px solid #4c7714;'
+                . 'border-radius: 6px;'
+                . 'outline: none;'
+                . '"';
         }
         $newBtn = '<button type="submit" ' . $btnStyles . '>' . $this->translator->trans($btnText) . '</button>';
         return preg_replace($oldBtn, $newBtn, $html);
     }
 
-    public
-    function getStatus($orderId)
+    public function getStatus($orderId)
     {
         return $this->liqpay->api("request", [
             'action' => 'status',
             'version' => '3',
             'order_id' => $orderId
         ]);
+    }
+
+    public function getBill($bookingData)
+    {
+        $options = [
+            'order_id' => $this->uuid->generate('bill_', 12),
+            'amount' => round($bookingData['price'] * 0.95, 2),
+            'currency' => $bookingData['currency'],
+            'language' => $bookingData['language'],
+            'sandbox' => (int)$this->sandBox
+        ];
+        return [
+            'options' => $options,
+            'button' => $this->getButton($options)
+        ];
     }
 
 }

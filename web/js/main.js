@@ -264,10 +264,10 @@ $(function () {
             url: gamesAddRoute,
             data: {bookingData}
         }).done(function (r) {
-            console.log(r);
+            bookingData.liqPayBtn = r.liqPayBtn;
             resetResultForm();
             buildResultForm(bookingData);
-            // makeGameCellBusy();
+            showThe($resultForm);
         }).fail(function (r) {
             alert('Something went wrong, please contact the administrator.')
         });
@@ -286,6 +286,7 @@ $(function () {
         $resultForm.find('#result-form-time').html(bookingData.dateTime.split(' ')[1]);
         $resultForm.find('#result-form-players').html(bookingData.players);
         $resultForm.find('#result-form-price').html(bookingData.price);
+        $resultForm.find('#result-form-buttons').html(bookingData.liqPayBtn);
     }
 
     ///////////////////////////////
@@ -321,7 +322,6 @@ $(function () {
         }
         sendNewGameData(bookingData);
         // getLiqPayButton();
-        showThe($resultForm);
         // makeGameCellBusy();
 
     });

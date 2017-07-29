@@ -24,7 +24,7 @@ services:
 
     payment:
         class: WebBundle\Service\Payment
-        arguments: ['%liqpay_public_key%', '%liqpay_private_key%', '@translator.default']
+        arguments: ['%liqpay_public_key%', '%liqpay_private_key%', '%liqpay.sandbox%', '@translator.default', '@uuid']
 
     room_voter:
         class: AdminBundle\Security\RoomVoter

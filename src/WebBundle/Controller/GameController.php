@@ -1,4 +1,5 @@
 <?php
+
 namespace WebBundle\Controller;
 
 
@@ -30,7 +31,7 @@ class GameController extends Controller
 
         $customer = $em
             ->getRepository('WebBundle:Customer')
-            ->findOneBy(['phone' => $bookingData['phone']]);
+            ->findOneBy(['phone' => preg_replace("/[^0-9]/", '', $bookingData['phone'])]);
 
         if (!$customer) {
             $customer = new Customer();
@@ -65,23 +66,14 @@ class GameController extends Controller
             $this->get('turbosms_sender')->send($bookingData, $room);
         }
 
+        $bookingData['currency'] = $room->getCurrency()->getCurrency();
+        $bookingData['language'] = $request->getLocale();
+        $billData = $this->get('payment')->getBill($bookingData);
+
         return new JsonResponse([
             'success' => true,
             'data' => $bookingData,
-            'liqPayBtn' => $this->getLiqPayButton(1,1,'UAH', 'uk', 'test d')
+            'liqPayBtn' => $billData['button']
         ], 201);
-    }
-
-
-    public function getLiqPayButton($orderId, $amount, $currency, $language, $description)
-    {
-        return $this->get('payment')->getButton([
-            'order_id' => $orderId,
-            'amount' => $amount,
-            'currency' => $currency,
-            'language' => $language,
-            'description' => $description,
-            'sandbox' => $this->getParameter('liqpay.sandbox') ? 1 : 0
-        ]);
     }
 }
