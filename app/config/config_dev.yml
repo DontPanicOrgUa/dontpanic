@@ -3,6 +3,8 @@ imports:
 
 parameters:
     sms: false
+    liqpay:
+        snadbox: true
 
 framework:
     router:
