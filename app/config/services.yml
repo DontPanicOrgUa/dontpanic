@@ -22,6 +22,10 @@ services:
     uuid:
         class: AdminBundle\Service\Uuid
 
+    payment:
+        class: WebBundle\Service\Payment
+        arguments: ['%liqpay_public_key%', '%liqpay_private_key%']
+
     room_voter:
         class: AdminBundle\Security\RoomVoter
         tags:

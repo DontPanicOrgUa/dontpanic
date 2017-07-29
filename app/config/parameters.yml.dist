@@ -19,3 +19,7 @@ parameters:
     turbosms_name: users
     turbosms_user: null
     turbosms_pass: null
+
+# LiqPay keys
+    liqpay_public_key: null
+    liqpay_private_key: null
