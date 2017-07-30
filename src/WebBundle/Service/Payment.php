@@ -150,6 +150,7 @@ class Payment
             'amount' => round($bookingData['price'] * 0.95, 2),
             'currency' => $bookingData['currency'],
             'language' => $bookingData['language'],
+            'description' => $bookingData['description'],
             'sandbox' => (int)$this->sandBox
         ];
         return [

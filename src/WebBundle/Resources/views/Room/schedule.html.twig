@@ -116,19 +116,23 @@
                         <ul>
                             <li>
                                 <i class="li-ico fa fa-map-marker"></i>
-                                <span>{{ room.address }}</span>
+                                <span class="color-orange">{{ 'Place'|trans }}:</span> <span>{{ room.address }}</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-calendar"></i>
-                                 <span id="date">--.--.----</span>
+                                <span class="color-orange">{{ 'Date'|trans }}:</span> <span id="date">--.--.----</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-clock-o"></i>
-                                 <span id="time">--:--</span>
+                                <span class="color-orange">{{ 'Time'|trans }}:</span> <span id="time">--:--</span>
+                            </li>
+                            <li>
+                                <i class="li-ico fa fa-user"></i>
+                                <span class="color-orange">{{ 'Players'|trans }}:</span> <span id="players">0</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-money"></i>
-                                 <span id="price">0</span> {{ room.currency }}
+                                <span class="color-orange">{{ 'Price'|trans }}:</span> <span id="price">0</span> {{ room.currency }}
                             </li>
                             <li>
                                 <i class="li-ico fa fa-exclamation"></i>
@@ -167,6 +171,7 @@
                 </div>
                 <div class="row">
                     <div class="text-center btn-wrap">
+                        <span class="fa fa-2x fa-spinner fa-pulse"></span>
                         <button type="submit" class="btn btn-warning">{{ 'Book game'|trans }}</button>
                     </div>
                 </div>
@@ -184,19 +189,19 @@
                     <ul>
                         <li>
                             <i class="fa fa-map-marker"></i>
-                            {{ 'Place'|trans }}: <span>{{ room.address }}</span>
+                            <span class="color-orange">{{ 'Place'|trans }}:</span> <span>{{ room.address }}</span>
                         </li>
                         <li>
                             <i class="fa fa-calendar"></i>
-                            {{ 'Date'|trans }}: <span id="result-form-date"></span>
+                            <span class="color-orange">{{ 'Date'|trans }}:</span> <span id="result-form-date"></span>
                         </li>
                         <li>
                             <i class="fa fa-clock-o"></i>
-                            {{ 'Time'|trans }}: <span id="result-form-time"></span>
+                            <span class="color-orange">{{ 'Time'|trans }}:</span> <span id="result-form-time"></span>
                         </li>
                         <li>
                             <i class="fa fa-user"></i>
-                            {{ 'Players'|trans }}: <span id="result-form-players"></span>
+                            <span class="color-orange">{{ 'Players'|trans }}:</span> <span id="result-form-players"></span>
                         </li>
                     </ul>
                 </div>

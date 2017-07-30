@@ -14,11 +14,11 @@ $(function () {
         e.preventDefault();
         if (menu.css('right') === '-300px') {
             menu.animate({right: 0}, 500);
-            $('.open-menu').css('display', 'block');
+            $('.open-menu').show();
             $('.cmn-toggle-switch').addClass('active');
         } else {
             menu.animate({right: '-300px'}, 500);
-            $('.open-menu').css('display', 'none');
+            $('.open-menu').hide();
             $('.cmn-toggle-switch').removeClass('active');
         }
     });
@@ -27,7 +27,7 @@ $(function () {
     $(document).mouseup(function (e) {
         if (menu.css('right') === '0px' && !menu.is(e.target) && menu.has(e.target).length === 0) {
             menu.animate({right: '-300px'}, 500);
-            $('.open-menu').css('display', 'none');
+            $('.open-menu').hide();
             $('.cmn-toggle-switch').removeClass('active');
         }
     });
@@ -162,6 +162,7 @@ $(function () {
     // booking ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////
 
+    var bookingAllowed = true;
     var $greetingForm = $('.form-reservation .greeting-form');
     var $bookingForm = $('.form-reservation .booking-form');
     var $resultForm = $('.form-reservation .result-form');
@@ -169,12 +170,15 @@ $(function () {
     function resetBookingForm() {
         $bookingForm.find('#date').html(' --.--.---');
         $bookingForm.find('#time').html(' --:--');
-        $bookingForm.find('#players').html('');
-        $bookingForm.find('#price').html('');
+        $bookingForm.find('#players').html('0');
+        $bookingForm.find('#price').html('0');
         $bookingForm.find('input').val('');
         $bookingForm.find('select[name=players]').children('option:not(:first)').remove();
         $bookingForm.find('select[name=players]').val(playersTrans);
         $bookingForm.find('.custom-danger').removeClass('custom-danger');
+        $bookingForm.find('.btn-wrap span.fa-spinner').hide();
+        $bookingForm.find('.btn-wrap button').show();
+        $bookingForm.find('[disabled]').attr('disabled', false);
     }
 
     function resetResultForm() {
@@ -190,10 +194,10 @@ $(function () {
         }, 1000);
     }
 
-    function buildBookingForm($target) {
-        $bookingForm.find('#date').html($target.data('date-time').split(' ')[0]);
-        $bookingForm.find('#time').html($target.data('date-time').split(' ')[1]);
-        $.each($target.data('prices'), function () {
+    function buildBookingForm($form) {
+        $bookingForm.find('#date').html($form.data('date-time').split(' ')[0]);
+        $bookingForm.find('#time').html($form.data('date-time').split(' ')[1]);
+        $.each($form.data('prices'), function () {
             $bookingForm.find('select[name=players]').append($('<option>', {value: this.price, text: this.players}));
         });
     }
@@ -255,10 +259,21 @@ $(function () {
     function showThe($element) {
         $('.form-reservation > div:visible').fadeOut(1000, function () {
             $element.fadeIn(1000);
+            bookingAllowed = true;
         });
     }
 
+    function disableBookingForm() {
+        $bookingForm.find('.btn-wrap span.fa-spinner').show();
+        $bookingForm.find('.btn-wrap button').hide();
+        $bookingForm.find('input').attr('disabled', true);
+        $bookingForm.find('select').attr('disabled', true);
+        $bookingForm.find('button').attr('disabled', true);
+    }
+
     function sendNewGameData(bookingData) {
+        disableBookingForm();
+        bookingAllowed = false;
         $.ajax({
             type: "POST",
             url: gamesAddRoute,
@@ -297,6 +312,9 @@ $(function () {
         if ($(this).find('.cell').hasClass('cell-expired')) {
             return;
         }
+        if (!bookingAllowed) {
+            return;
+        }
         resetBookingForm();
         buildBookingForm($(this));
         showThe($bookingForm);
@@ -307,6 +325,7 @@ $(function () {
     // Number of players clicked //
     ///////////////////////////////
     $bookingForm.find('select[name=players]').change(function () {
+        $bookingForm.find('#players').html($(this).find(':selected').text());
         $bookingForm.find('#price').html($(this).val());
     });
 
@@ -321,9 +340,6 @@ $(function () {
             return;
         }
         sendNewGameData(bookingData);
-        // getLiqPayButton();
-        // makeGameCellBusy();
-
     });
 });
 
