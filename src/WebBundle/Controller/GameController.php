@@ -70,7 +70,7 @@ class GameController extends Controller
         $bookingData['language'] = $request->getLocale();
         $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
         $billData = $this->get('payment')->getBill($bookingData);
-sleep(20);
+
         return new JsonResponse([
             'success' => true,
             'data' => $bookingData,

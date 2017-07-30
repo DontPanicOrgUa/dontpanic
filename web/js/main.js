@@ -203,7 +203,7 @@ $(function () {
     }
 
     function collectBookingData() {
-        var booking = {
+        return {
             dateTime: $bookingForm.find('#date').html() + ' ' + $bookingForm.find('#time').html(),
             price: $bookingForm.find('#price').html(),
             name: $bookingForm.find('input[name=name]').val(),
@@ -214,7 +214,6 @@ $(function () {
             discount: $bookingForm.find('input[name=discount]').val(),
             bookedBy: 0 // index 0 equals 'customer'
         };
-        return booking;
     }
 
     function validateBookingForm(data) {
@@ -264,6 +263,7 @@ $(function () {
     }
 
     function disableBookingForm() {
+        bookingAllowed = false;
         $bookingForm.find('.btn-wrap span.fa-spinner').show();
         $bookingForm.find('.btn-wrap button').hide();
         $bookingForm.find('input').attr('disabled', true);
@@ -271,9 +271,14 @@ $(function () {
         $bookingForm.find('button').attr('disabled', true);
     }
 
+    function setGameBooked(bookingData) {
+        var $game = $('td[data-date-time="'+bookingData.dateTime+'"]');
+        $game.find('.cell').removeClass('price-xs price-s price-m price-l');
+        $game.find('.cell').addClass('cell-expired');
+    }
+
     function sendNewGameData(bookingData) {
         disableBookingForm();
-        bookingAllowed = false;
         $.ajax({
             type: "POST",
             url: gamesAddRoute,
@@ -283,6 +288,7 @@ $(function () {
             resetResultForm();
             buildResultForm(bookingData);
             showThe($resultForm);
+            setGameBooked(bookingData);
         }).fail(function (r) {
             alert('Something went wrong, please contact the administrator.')
         });
