@@ -132,11 +132,12 @@
                             </li>
                             <li>
                                 <i class="li-ico fa fa-money"></i>
-                                <span class="color-orange">{{ 'Price'|trans }}:</span> <span id="price">0</span> {{ room.currency }}
+                                <span class="color-orange">{{ 'Price'|trans }}:</span> <span
+                                        id="price">0</span> {{ room.currency }}
                             </li>
                             <li>
                                 <i class="li-ico fa fa-exclamation"></i>
-                                 <span class="font-s">{{ 'Pre-booking is required'|trans }}.</span>
+                                <span class="font-s">{{ 'Pre-booking is required'|trans }}.</span>
                             </li>
                         </ul>
                     </div>
@@ -180,7 +181,8 @@
                 <div class="col-sm-4">
                     <h3 class="text-center">{{ 'Congratulations'|trans }}!</h3>
                     <p class="color-orange text-center">{{ 'You have successfuly booked the game'|trans }}</p>
-                    <p>{{ 'Мы свяжемся с Вами ближайшее время, по указанному Вами номеру телефона'|trans }}: <span id="result-form-phone"></span></p>
+                    <p>{{ 'Мы свяжемся с Вами ближайшее время, по указанному Вами номеру телефона'|trans }}: <span
+                                id="result-form-phone"></span></p>
                     <p>{{ 'Все детали Вашего заказа мы отправили на'|trans }}: <span id="result-form-email"></span></p>
                 </div>
                 <div class="col-sm-4 form-middle">
@@ -201,13 +203,15 @@
                         </li>
                         <li>
                             <i class="fa fa-user"></i>
-                            <span class="color-orange">{{ 'Players'|trans }}:</span> <span id="result-form-players"></span>
+                            <span class="color-orange">{{ 'Players'|trans }}:</span> <span
+                                    id="result-form-players"></span>
                         </li>
                     </ul>
                 </div>
                 <div class="col-sm-4">
                     <h3 class="text-center">{{ 'Price'|trans }}</h3>
-                    <p class="text-center"><span class="font-xxl color-orange" id="result-form-price"></span> {{ room.currency }}</p>
+                    <p class="text-center"><span class="font-xxl color-orange"
+                                                 id="result-form-price"></span> {{ room.currency }}</p>
                     <p>{{ 'Our contacts'|trans }}:</p>
                     <ul>
                         <li>
@@ -475,6 +479,7 @@
     {{ parent() }}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMugwAfvvSHxHNaQ3gdmEr0_cgSawCc48&callback=initMap"
             async defer></script>
+    <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     <script>
         var playersTrans = '{{ 'Players'|trans }}*';
         var gamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
@@ -496,5 +501,10 @@
                 icon: '/img/panic-marker.png'
             });
         }
+
+        $(function () {
+            $.mask.definitions['n'] = '[0-9-() ]';
+            $('input[name="phone"]').mask('+nnnnn?nnnnnnnnnnnnnnnnnnnn');
+        });
     </script>
 {% endblock %}
