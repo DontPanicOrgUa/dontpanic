@@ -23,7 +23,8 @@ abstract class NotificationMarkup
                 '[room_city]',
                 '[room_address]',
                 '[room_phone]',
-                '[room_email]'
+                '[room_email]',
+                '[liqpay_btn]'
             ],
             [
                 substr($bookingData['name'], 0, 10),
@@ -38,7 +39,8 @@ abstract class NotificationMarkup
                 $room->getCity()->getName(),
                 $room->getAddress(),
                 $room->getPhone(),
-                $room->getEmail()
+                $room->getEmail(),
+                $bookingData['liqPayBtn']
             ],
             $text
         );

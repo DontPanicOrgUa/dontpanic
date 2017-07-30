@@ -61,20 +61,21 @@ class GameController extends Controller
         $em->persist($game);
         $em->flush();
 
+        $bookingData['currency'] = $room->getCurrency()->getCurrency();
+        $bookingData['language'] = $request->getLocale();
+        $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
+        $bookingData['liqPayBtn'] = $this->get('payment')->getBill($bookingData)['button'];
+
         $this->get('mail_sender')->sendBookedGame($bookingData, $room);
         if ($this->getParameter('sms')) {
             $this->get('turbosms_sender')->send($bookingData, $room);
         }
 
-        $bookingData['currency'] = $room->getCurrency()->getCurrency();
-        $bookingData['language'] = $request->getLocale();
-        $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
-        $billData = $this->get('payment')->getBill($bookingData);
+
 
         return new JsonResponse([
             'success' => true,
-            'data' => $bookingData,
-            'liqPayBtn' => $billData['button']
+            'data' => $bookingData
         ], 201);
     }
 }

@@ -128,6 +128,7 @@ class Payment
                 . 'border-bottom: 4px solid #4c7714;'
                 . 'border-radius: 6px;'
                 . 'outline: none;'
+                . 'cursor: pointer;'
                 . '"';
         }
         $newBtn = '<button type="submit" ' . $btnStyles . '>' . $this->translator->trans($btnText) . '</button>';
