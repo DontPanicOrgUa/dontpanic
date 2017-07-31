@@ -28,20 +28,16 @@ class PaymentController extends Controller
             $data .
             $this->getParameter('liqpay_private_key')
             , 1));
-        mail('mp091689@gmail.com', 'testPay', json_encode([
-            'data' => $data,
-            'signature' => $signature,
-            'sign' => $sign
-        ]));
-//        if ($sign != $signature) {
-//            return new JsonResponse([
-//                'status' => 'failure',
-//                'message' => 'invalid signature'
-//            ],400);
-//        }
+
+        if ($sign != $signature) {
+            return new JsonResponse([
+                'status' => 'failure',
+                'message' => 'invalid signature'
+            ],400);
+        }
 
         $jsonData = base64_decode($data);
-        $arrayData = json_decode($jsonData);
+        $objectData = json_decode($jsonData);
 
         $em = $this->getDoctrine()->getManager();
         $bill = $em->getRepository('WebBundle:Bill')
@@ -50,8 +46,8 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->setBill($bill);
         $payment->setData($jsonData);
-        $payment->setOrderId($arrayData['order_id']);
-        $payment->setAmount($arrayData['amount']);
+        $payment->setOrderId($objectData->order_id);
+        $payment->setAmount($objectData->amount);
 
         $em->persist($payment);
 
