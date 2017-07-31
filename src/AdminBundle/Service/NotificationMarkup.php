@@ -40,7 +40,7 @@ abstract class NotificationMarkup
                 $room->getAddress(),
                 $room->getPhone(),
                 $room->getEmail(),
-                $bookingData['liqPayBtn']
+                $bookingData['liqPay']['button']
             ],
             $text
         );

@@ -284,7 +284,7 @@ $(function () {
             url: gamesAddRoute,
             data: {bookingData}
         }).done(function (r) {
-            bookingData.liqPayBtn = r.data.liqPayBtn;
+            bookingData.liqPayBtn = r.data.liqPay['button'];
             resetResultForm();
             buildResultForm(bookingData);
             showThe($resultForm);

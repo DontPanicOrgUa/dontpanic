@@ -72,7 +72,7 @@ class RoomRepository extends EntityRepository
                 'c',
                 'WITH',
                 'c.datetime > :now')
-            ->leftJoin('g.payment', 'gp')
+//            ->leftJoin('g.payment', 'gp')
             ->setParameter('slug', $slug)
             ->setParameter('dateTimeTo', $dateTimeTo)
             ->setParameter('now', $now)
@@ -82,7 +82,7 @@ class RoomRepository extends EntityRepository
             ->addSelect('t')
             ->addSelect('c')
             ->addSelect('cu')
-            ->addSelect('gp')
+//            ->addSelect('gp')
             ->orderBy('b.time', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();

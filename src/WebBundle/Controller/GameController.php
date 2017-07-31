@@ -5,6 +5,7 @@ namespace WebBundle\Controller;
 
 use DateTime;
 use DateTimeZone;
+use WebBundle\Entity\Bill;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Game;
 use WebBundle\Entity\Customer;
@@ -57,21 +58,26 @@ class GameController extends Controller
             )
         );
 
-        $em->persist($customer);
-        $em->persist($game);
-        $em->flush();
-
         $bookingData['currency'] = $room->getCurrency()->getCurrency();
         $bookingData['language'] = $request->getLocale();
         $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
-        $bookingData['liqPayBtn'] = $this->get('payment')->getBill($bookingData)['button'];
+        $bookingData['liqPay'] = $this->get('payment')->getBill($bookingData);
+
+        $bill = new Bill();
+        $bill->setGame($game);
+        $bill->setOrderId($bookingData['liqPay']['options']['order_id']);
+        $bill->setAmount($bookingData['liqPay']['options']['amount']);
+        $bill->setData(json_encode($bookingData['liqPay']['options']));
+
+        $em->persist($customer);
+        $em->persist($game);
+        $em->persist($bill);
+        $em->flush();
 
         $this->get('mail_sender')->sendBookedGame($bookingData, $room);
         if ($this->getParameter('sms')) {
             $this->get('turbosms_sender')->send($bookingData, $room);
         }
-
-
 
         return new JsonResponse([
             'success' => true,
