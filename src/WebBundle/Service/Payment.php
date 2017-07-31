@@ -146,15 +146,15 @@ class Payment
 
     public function getBill($bookingData)
     {
+        $orderId = $this->uuid->generate('bill_', 12);
         $options = [
-            'order_id' => $this->uuid->generate('bill_', 12),
+            'order_id' => $orderId,
             'amount' => round($bookingData['price'] * 0.95, 2),
             'currency' => $bookingData['currency'],
             'language' => $bookingData['language'],
             'description' => $bookingData['description'],
             'sandbox' => (int)$this->sandBox,
-            'server_url' => '',
-            'result_url' => ''
+            'server_url' => 'http://dev.dontpanic.mp091689.com.ua/payment/' . $orderId . '/add'
         ];
         return [
             'options' => $options,

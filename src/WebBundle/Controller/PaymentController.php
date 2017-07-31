@@ -12,14 +12,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PaymentController extends Controller
 {
     /**
-     * @Route("/bill/{id}/payment/add")
-     * @param Bill $bill
+     * @Route("/payment/{orderId}/add", name="web_payment_add")
+     * @param $orderId
      * @param Request $request
      * @return bool
      */
-    public function addAction(Bill $bill, Request $request)
+    public function addAction($orderId, Request $request)
     {
         $data = $request->request->get('data');
+        mail('mp091689@gmail.com', 'testPay', $data);
         $signature = $request->request->get('signature');
         $sign = base64_encode(sha1(
             $this->getParameter('liqpay_private_key') .
@@ -33,13 +34,16 @@ class PaymentController extends Controller
         $jsonData = base64_decode($data);
         $arrayData = json_decode($jsonData);
 
+        $em = $this->getDoctrine()->getManager();
+        $bill = $em->getRepository('WebBundle:Bill')
+            ->findOneBy(['order_id' => $orderId]);
+
         $payment = new Payment();
         $payment->setBill($bill);
         $payment->setData($jsonData);
         $payment->setOrderId($arrayData['order_id']);
         $payment->setAmount($arrayData['amount']);
 
-        $em = $this->getDoctrine()->getManager();
         $em->persist($payment);
         $em->flush();
 
