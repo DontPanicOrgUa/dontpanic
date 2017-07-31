@@ -152,7 +152,9 @@ class Payment
             'currency' => $bookingData['currency'],
             'language' => $bookingData['language'],
             'description' => $bookingData['description'],
-            'sandbox' => (int)$this->sandBox
+            'sandbox' => (int)$this->sandBox,
+            'server_url' => '',
+            'result_url' => ''
         ];
         return [
             'options' => $options,
