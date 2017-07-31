@@ -22,19 +22,21 @@ class PaymentController extends Controller
     public function addAction($orderId, Request $request)
     {
         $data = $request->request->get('data');
-        mail('mp091689@gmail.com', 'testPay', $data);
         $signature = $request->request->get('signature');
+        mail('mp091689@gmail.com', 'testPay', $data);
+        mail('mp091689@gmail.com', 'testPay', $signature);
         $sign = base64_encode(sha1(
             $this->getParameter('liqpay_private_key') .
             $data .
             $this->getParameter('liqpay_private_key')
             , 1));
-        if ($sign != $signature) {
-            return new JsonResponse([
-                'status' => 'failure',
-                'message' => 'invalid signature'
-            ],400);
-        }
+        mail('mp091689@gmail.com', 'testPay', $sign);
+//        if ($sign != $signature) {
+//            return new JsonResponse([
+//                'status' => 'failure',
+//                'message' => 'invalid signature'
+//            ],400);
+//        }
 
         $jsonData = base64_decode($data);
         $arrayData = json_decode($jsonData);
@@ -50,6 +52,8 @@ class PaymentController extends Controller
         $payment->setAmount($arrayData['amount']);
 
         $em->persist($payment);
+        mail('mp091689@gmail.com', 'testPay', serialize($payment));
+
         $em->flush();
 
         return new JsonResponse([
