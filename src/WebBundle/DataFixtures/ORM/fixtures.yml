@@ -116,6 +116,13 @@ WebBundle\Entity\Room:
         playersMax: 4
         ageMin: <numberBetween(12, 16)>
         enabled: true
+        client_mail_notification: true
+        client_sms_notification: true
+        client_sms_reminder: true
+        manager_mail_notification: true
+        manager_sms_notification: true
+        manager_sms_reminder: true
+
 
 AdminBundle\Entity\User:
     user_1:
