@@ -154,7 +154,7 @@ class Payment
             'language' => $bookingData['language'],
             'description' => $bookingData['description'],
             'sandbox' => (int)$this->sandBox,
-            'server_url' => $bookingData['server_url']
+            'server_url' => 'http://dev.dontpanic.mp091689.com.ua/payment/' . $orderId . '/add'
         ];
         return [
             'options' => $options,
