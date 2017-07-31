@@ -61,9 +61,7 @@ class GameController extends Controller
         $bookingData['currency'] = $room->getCurrency()->getCurrency();
         $bookingData['language'] = $request->getLocale();
         $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
-        $bookingData['server_url'] = $this->get('router')->generate('room_schedule', [
-
-        ]);
+        $bookingData['server_url'] = 'http://dev.dontpanic.mp091689.com.ua/payment/' . $orderId . '/add';
         $bookingData['liqPay'] = $this->get('payment')->getBill($bookingData);
 
         $bill = new Bill();
