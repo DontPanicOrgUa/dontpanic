@@ -3,6 +3,7 @@ namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -53,9 +54,9 @@ class Game
     private $customer;
 
     /**
-     * @ORM\OneToOne(targetEntity="WebBundle\Entity\Payment", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Bill", mappedBy="game")
      */
-    private $payment;
+    private $bills;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -69,6 +70,11 @@ class Game
      * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createdAt;
+
+    public function __construct()
+    {
+        $this->bills = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -177,17 +183,17 @@ class Game
     /**
      * @return mixed
      */
-    public function getPayment()
+    public function getBills()
     {
-        return $this->payment;
+        return $this->bills;
     }
 
     /**
-     * @param mixed $payment
+     * @param mixed $bills
      */
-    public function setPayment($payment)
+    public function setBills($bills)
     {
-        $this->payment = $payment;
+        $this->bills = $bills;
     }
 
     /**

@@ -5,12 +5,13 @@ namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Table(name="payments")
- * @ORM\Entity(repositoryClass="WebBundle\Repository\PaymentRepository")
+ * @ORM\Table(name="bills")
+ * @ORM\Entity(repositoryClass="WebBundle\Repository\BillRepository")
  */
-class Payment
+class Bill
 {
 
     /**
@@ -23,7 +24,7 @@ class Payment
     /**
      * @ORM\Column(type="string")
      */
-    private $order_id;
+    private $orderId;
 
     /**
      * @ORM\Column(type="float")
@@ -36,9 +37,14 @@ class Payment
     private $data;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Bill", inversedBy="payments")
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Game", inversedBy="bills")
      */
-    private $bill;
+    private $game;
+
+    /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Payment", mappedBy="bill")
+     */
+    private $payments;
 
     /**
      * @var \DateTime $createdAt
@@ -46,6 +52,11 @@ class Payment
      * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createdAt;
+
+    public function __construct()
+    {
+        $this->payments = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -60,15 +71,15 @@ class Payment
      */
     public function getOrderId()
     {
-        return $this->order_id;
+        return $this->orderId;
     }
 
     /**
-     * @param mixed $order_id
+     * @param mixed $orderId
      */
-    public function setOrderId($order_id)
+    public function setOrderId($orderId)
     {
-        $this->order_id = $order_id;
+        $this->orderId = $orderId;
     }
 
     /**
@@ -104,27 +115,44 @@ class Payment
     }
 
     /**
-     * @return mixed
-     */
-    public function getBill()
-    {
-        return $this->bill;
-    }
-
-    /**
-     * @param mixed $bill
-     */
-    public function setBill($bill)
-    {
-        $this->bill = $bill;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param mixed $game
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
+
+    /**
+     * @param mixed $payments
+     */
+    public function setPayments($payments)
+    {
+        $this->payments = $payments;
+    }
+
 }
 
