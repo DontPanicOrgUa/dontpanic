@@ -13,21 +13,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PaymentController extends Controller
 {
     /**
-     * @Route("/payment/{orderId}/add", name="web_payment_add")
+     * @Route("/payment/add", name="web_payment_add")
      * @Method("POST")
-     * @param $orderId
      * @param Request $request
      * @return JsonResponse
      */
-    public function addAction($orderId, Request $request)
+    public function addAction(Request $request)
     {
         $data = $request->request->get('data');
         $signature = $request->request->get('signature');
         $sign = base64_encode(sha1(
             $this->getParameter('liqpay_private_key') .
             $data .
-            $this->getParameter('liqpay_private_key')
-            , 1));
+            $this->getParameter('liqpay_private_key'),
+            1)
+        );
 
         if ($sign != $signature) {
             return new JsonResponse([
@@ -41,7 +41,7 @@ class PaymentController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $bill = $em->getRepository('WebBundle:Bill')
-            ->findOneBy(['orderId' => $orderId]);
+            ->findOneBy(['orderId' => $objectData->order_id]);
 
         $payment = new Payment();
         $payment->setBill($bill);
