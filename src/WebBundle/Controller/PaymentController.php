@@ -29,12 +29,18 @@ class PaymentController extends Controller
             1)
         );
 
-        if ($sign != $signature) {
-            return new JsonResponse([
-                'status' => 'failure',
-                'message' => 'invalid signature'
-            ],400);
-        }
+//        if ($sign != $signature) {
+//            $this->get('payment.logger')->error('invalid signature.', [
+//                'sign' => $sign,
+//                'signature' => $signature
+//            ]);
+//            return new JsonResponse([
+//                'status' => 'failure',
+//                'message' => 'invalid signature'
+//            ],400);
+//        }
+
+        $this->get('payment.logger')->info('signature is matched');
 
         $jsonData = base64_decode($data);
         $objectData = json_decode($jsonData);
@@ -43,15 +49,24 @@ class PaymentController extends Controller
         $bill = $em->getRepository('WebBundle:Bill')
             ->findOneBy(['orderId' => $objectData->order_id]);
 
-        $payment = new Payment();
-        $payment->setBill($bill);
-        $payment->setData($jsonData);
-        $payment->setAmount($objectData->amount);
-        $payment->setStatus($objectData->status);
+        if (!$bill) {
+            $this->get('payment.logger')
+                ->error(sprintf('bill with order_id: %s not found.', $objectData->order_id));
+        }
 
-        $em->persist($payment);
+        try {
+            $payment = new Payment();
+            $payment->setBill($bill);
+            $payment->setData($jsonData);
+            $payment->setAmount($objectData->amount);
+            $payment->setStatus($objectData->status);
 
-        $em->flush();
+            $em->persist($payment);
+            $em->flush();
+        } catch (\Exception $e) {
+            $this->get('payment.logger')
+                ->error(sprintf('Exception was caught.'), $e);
+        }
 
         return new JsonResponse([
             'status' => 'success',

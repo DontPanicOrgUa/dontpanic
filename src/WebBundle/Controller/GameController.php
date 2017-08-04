@@ -64,6 +64,7 @@ class GameController extends Controller
 
         $bill = new Bill();
         $bill->setGame($game);
+        $bill->setOrderId($bookingData['liqPay']['options']['order_id']);
         $bill->setData(json_encode($bookingData['liqPay']['options']));
 
         $em->persist($customer);

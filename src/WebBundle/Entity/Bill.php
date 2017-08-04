@@ -22,6 +22,11 @@ class Bill
     private $id;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $orderId;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $data;
@@ -112,5 +117,20 @@ class Bill
         $this->payments = $payments;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @param mixed $orderId
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+    }
 }
 

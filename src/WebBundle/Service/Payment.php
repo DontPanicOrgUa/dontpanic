@@ -3,8 +3,9 @@
 namespace WebBundle\Service;
 
 
-use AdminBundle\Service\Uuid;
 use LiqPay;
+use AdminBundle\Service\Uuid;
+use Symfony\Component\Routing\Router;
 use Symfony\Component\Translation\Translator;
 
 class Payment
@@ -21,7 +22,9 @@ class Payment
 
     private $uuid;
 
-    public function __construct($public_key, $private_key, $sandbox, Translator $translator, Uuid $uuid)
+    private $router;
+
+    public function __construct($public_key, $private_key, $sandbox, Translator $translator, Uuid $uuid, Router $router)
     {
         $this->public_key = $public_key;
         $this->private_key = $private_key;
@@ -29,6 +32,7 @@ class Payment
         $this->translator = $translator;
         $this->uuid = $uuid;
         $this->sandBox = $sandbox;
+        $this->router = $router;
     }
 
     /**
@@ -146,6 +150,10 @@ class Payment
 
     public function getBill($bookingData)
     {
+        $host = $this->router->getContext()->getHost();
+        if ($host == 'dontpanic.local') {
+            $host = 'dev.dontpanic.mp091689.com.ua';
+        }
         $orderId = $this->uuid->generate('liqpay_', 12);
         $options = [
             'order_id' => $orderId,
@@ -154,7 +162,7 @@ class Payment
             'language' => $bookingData['language'],
             'description' => $bookingData['description'],
             'sandbox' => (int)$this->sandBox,
-            'server_url' => 'http://dev.dontpanic.mp091689.com.ua/en/payment/add'
+            'server_url' => sprintf('%s/en/payment/add', $host)
         ];
         return [
             'options' => $options,

@@ -17,6 +17,11 @@ web_profiler:
 
 monolog:
     handlers:
+        payment_channel:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%-payment_channel.log'
+            level: debug
+            channels: ['payment_channel']
         main:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'

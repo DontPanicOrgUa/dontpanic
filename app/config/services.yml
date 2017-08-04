@@ -24,9 +24,22 @@ services:
 
     payment:
         class: WebBundle\Service\Payment
-        arguments: ['%liqpay_public_key%', '%liqpay_private_key%', '%liqpay.sandbox%', '@translator.default', '@uuid']
+        arguments:
+            - '%liqpay_public_key%'
+            - '%liqpay_private_key%'
+            - '%liqpay.sandbox%'
+            - '@translator.default'
+            - '@uuid'
+            - '@router'
 
     room_voter:
         class: AdminBundle\Security\RoomVoter
         tags:
             - { name: security.voter }
+
+    payment.logger:
+        class: WebBundle\Service\PaymentLogger
+        arguments:
+            - '@logger'
+        tags:
+            - { name: monolog.logger, channel: 'payment_channel' }
