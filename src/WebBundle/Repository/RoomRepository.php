@@ -116,4 +116,18 @@ class RoomRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getGamesWithCustomersBillsPayments($slug, $search, $dateStart, $dateEnd)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->leftJoin('r.games', 'rg')
+            ->leftJoin('rg.bills', 'rgb')
+            ->leftJoin('rgb.payments', 'rgbp')
+            ->leftJoin('rg.customer', 'rgc')
+            ->addSelect('rg', 'rgb', 'rgbp', 'rgc')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

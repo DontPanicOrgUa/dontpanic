@@ -23,11 +23,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class GameController extends Controller
 {
     /**
-     * @Route("/games", name="admin_games_list")
+     * @Route("/rooms/{slug}/games", name="admin_games_list")
+     * @param $slug
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(Request $request)
+    public function listAction($slug, Request $request)
     {
         $search = $request->query->get('search');
 
@@ -35,12 +36,14 @@ class GameController extends Controller
         $dateEnd = $request->query->get('end');
 
         $em = $this->getDoctrine()->getManager();
-        $games = $em
-            ->getRepository('WebBundle:Game')
-            ->queryFindAllByUserRights($search, $dateStart, $dateEnd, $this->getUser());
+        /** @var Room $room */
+        $room = $em
+            ->getRepository('WebBundle:Room')
+            ->getGamesWithCustomersBillsPayments($slug, $search, $dateStart, $dateEnd);
+//        dump($room->getGames()[0]->getBookingData());die;
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
-            $games,
+            $room->getGames(),
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range'))
         );
@@ -129,17 +132,16 @@ class GameController extends Controller
     }
 
     /**
-     * @Route("/rooms/{slug}/games/{id}/delete", name="admin_games_delete")
-     * @param $slug
+     * @Route("/games/{id}/delete", name="admin_games_delete")
      * @param Game $game
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($slug, Game $game)
+    public function deleteAction(Game $game)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($game);
         $em->flush();
         $this->addFlash('success', 'Game is deleted.');
-        return $this->redirectToRoute('admin_rooms_schedule', ['slug' => $slug]);
+        return $this->redirectToRoute('admin_games_list');
     }
 }

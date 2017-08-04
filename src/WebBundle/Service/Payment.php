@@ -146,7 +146,7 @@ class Payment
 
     public function getBill($bookingData)
     {
-        $orderId = $this->uuid->generate('bill_', 12);
+        $orderId = $this->uuid->generate('liqpay_', 12);
         $options = [
             'order_id' => $orderId,
             'amount' => round($bookingData['price'] * 0.95, 2),

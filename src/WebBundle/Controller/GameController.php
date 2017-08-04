@@ -33,7 +33,6 @@ class GameController extends Controller
         $customer = $em
             ->getRepository('WebBundle:Customer')
             ->findOneBy(['phone' => preg_replace("/[^0-9]/", '', $bookingData['phone'])]);
-
         if (!$customer) {
             $customer = new Customer();
             $customer->setName($bookingData['name']);
@@ -46,7 +45,7 @@ class GameController extends Controller
         $game->setRoom($room);
         $game->setCustomer($customer);
         $game->setBookedBy($bookingData['bookedBy']);
-        $game->setBookingData(serialize([
+        $game->setBookingData(json_encode([
             'players' => $bookingData['players'],
             'price' => $bookingData['price'],
             'discount' => $bookingData['discount']
@@ -65,8 +64,6 @@ class GameController extends Controller
 
         $bill = new Bill();
         $bill->setGame($game);
-        $bill->setOrderId($bookingData['liqPay']['options']['order_id']);
-        $bill->setAmount($bookingData['liqPay']['options']['amount']);
         $bill->setData(json_encode($bookingData['liqPay']['options']));
 
         $em->persist($customer);

@@ -6,7 +6,7 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-6">
-                    <form action="{{ path('admin_games_list') }}" method="get">
+                    <form action="{{ path('admin_games_list', {slug: games[0].room.slug}) }}" method="get">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="col-sm-12">
@@ -50,7 +50,9 @@
                 <th>{{ knp_pagination_sortable(games, 'Customer Last Name', 'gc.lastName') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'Customer Phone', 'gc.phone') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'Customer Email', 'gc.email') }}</th>
-                <th>{{ knp_pagination_sortable(games, 'Room', 'gr.titleEn') }}</th>
+                <th>Price</th>
+                <th>Bill</th>
+                <th>Payed</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -63,10 +65,23 @@
                     <td>{{ game.customer.lastName }}</td>
                     <td>{{ game.customer.phone }}</td>
                     <td>{{ game.customer.email }}</td>
-                    <td>{{ game.room.title }}</td>
+                    <td>{{ game.bookingData.price }}</td>
+                    <td>
+                        {% for bill in game.bills %}
+                            {{ bill.data.amount }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for bill in game.bills %}
+                            {% for payment in bill.payments %}
+                                {{ payment.data.amount }} - {{ payment.data.status }}
+                            {% endfor %}
+                        {% endfor %}
+                    </td>
                     <td>
                         <a class="btn btn-xs btn-warning" href="">edit <span class=" fa fa-pencil"></span></a>
-                        <a class="btn btn-xs btn-danger" href="">delete <span class=" fa fa-close"></span></a>
+                        <a class="btn btn-xs btn-danger" href="{{ path('admin_games_delete', {id: game.id}) }}">delete
+                            <span class=" fa fa-close"></span></a>
                     </td>
                 </tr>
             {% endfor %}

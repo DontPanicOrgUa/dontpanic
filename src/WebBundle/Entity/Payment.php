@@ -21,14 +21,14 @@ class Payment
     private $id;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    private $order_id;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $amount;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
 
     /**
      * @ORM\Column(type="text")
@@ -58,22 +58,6 @@ class Payment
     /**
      * @return mixed
      */
-    public function getOrderId()
-    {
-        return $this->order_id;
-    }
-
-    /**
-     * @param mixed $order_id
-     */
-    public function setOrderId($order_id)
-    {
-        $this->order_id = $order_id;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getAmount()
     {
         return $this->amount;
@@ -90,9 +74,25 @@ class Payment
     /**
      * @return mixed
      */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getData()
     {
-        return $this->data;
+        return json_decode($this->data);
     }
 
     /**
@@ -126,5 +126,6 @@ class Payment
     {
         return $this->createdAt;
     }
+
 }
 

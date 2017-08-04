@@ -22,16 +22,6 @@ class Bill
     private $id;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    private $orderId;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $amount;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $data;
@@ -69,41 +59,9 @@ class Bill
     /**
      * @return mixed
      */
-    public function getOrderId()
-    {
-        return $this->orderId;
-    }
-
-    /**
-     * @param mixed $orderId
-     */
-    public function setOrderId($orderId)
-    {
-        $this->orderId = $orderId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
-    /**
-     * @param mixed $amount
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getData()
     {
-        return $this->data;
+        return json_decode($this->data);
     }
 
     /**

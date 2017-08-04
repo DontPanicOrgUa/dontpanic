@@ -105,7 +105,7 @@ class Game
      */
     public function getBookingData()
     {
-        return $this->bookingData;
+        return json_decode($this->bookingData);
     }
 
     /**

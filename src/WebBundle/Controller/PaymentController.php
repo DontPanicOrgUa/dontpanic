@@ -46,8 +46,8 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->setBill($bill);
         $payment->setData($jsonData);
-        $payment->setOrderId($objectData->order_id);
         $payment->setAmount($objectData->amount);
+        $payment->setStatus($objectData->status);
 
         $em->persist($payment);
 
