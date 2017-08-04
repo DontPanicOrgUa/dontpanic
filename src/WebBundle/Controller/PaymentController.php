@@ -29,16 +29,16 @@ class PaymentController extends Controller
             1)
         );
 
-//        if ($sign != $signature) {
-//            $this->get('payment.logger')->error('invalid signature.', [
-//                'sign' => $sign,
-//                'signature' => $signature
-//            ]);
-//            return new JsonResponse([
-//                'status' => 'failure',
-//                'message' => 'invalid signature'
-//            ],400);
-//        }
+        if ($sign != $signature) {
+            $this->get('payment.logger')->error('invalid signature.', [
+                'sign' => $sign,
+                'signature' => $signature
+            ]);
+            return new JsonResponse([
+                'status' => 'failure',
+                'message' => 'invalid signature'
+            ],400);
+        }
 
         $this->get('payment.logger')->info('signature is matched');
 
