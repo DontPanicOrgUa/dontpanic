@@ -179,6 +179,7 @@ $(function () {
         $bookingForm.find('.btn-wrap span.fa-spinner').hide();
         $bookingForm.find('.btn-wrap button').show();
         $bookingForm.find('[disabled]').attr('disabled', false);
+        $bookingForm.find('select[name=players]').children('option:first').attr('disabled', true);
     }
 
     function resetResultForm() {
