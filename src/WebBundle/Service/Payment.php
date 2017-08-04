@@ -162,7 +162,7 @@ class Payment
             'language' => $bookingData['language'],
             'description' => $bookingData['description'],
             'sandbox' => (int)$this->sandBox,
-            'server_url' => sprintf('%s/en/payment/add', $host)
+            'server_url' => sprintf('http://%s/en/payment/add', $host)
         ];
         return [
             'options' => $options,
