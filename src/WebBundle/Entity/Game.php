@@ -32,6 +32,11 @@ class Game
      */
     private $bookingData;
 
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="boolean", options={"default"="0"})
+     */
+    private $is_paid;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -59,7 +64,7 @@ class Game
     private $bills;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $bookedBy;
 
@@ -74,6 +79,7 @@ class Game
     public function __construct()
     {
         $this->bills = new ArrayCollection();
+        $this->is_paid = false;
     }
 
     /**
@@ -105,7 +111,7 @@ class Game
      */
     public function getBookingData()
     {
-        return json_decode($this->bookingData);
+        return json_decode($this->bookingData, 1);
     }
 
     /**
@@ -218,6 +224,22 @@ class Game
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisPaid()
+    {
+        return $this->is_paid;
+    }
+
+    /**
+     * @param mixed $is_paid
+     */
+    public function setIsPaid($is_paid)
+    {
+        $this->is_paid = $is_paid;
     }
 
 }

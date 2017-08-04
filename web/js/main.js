@@ -213,7 +213,7 @@ $(function () {
             phone: $bookingForm.find('input[name=phone]').val(),
             players: $bookingForm.find('select[name=players] :selected').html(),
             discount: $bookingForm.find('input[name=discount]').val(),
-            bookedBy: 0 // index 0 equals 'customer'
+            bookedBy: 'customer' // index 0 equals 'customer'
         };
     }
 

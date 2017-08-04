@@ -49,7 +49,7 @@ $(function () {
             email: bookingModal.find('input[name=email]').val(),
             phone: bookingModal.find('input[name=phone]').val(),
             discount: bookingModal.find('input[name=discount]').val(),
-            bookedBy: userRole // index 1 equals 'admin', 2 equals 'manager'
+            bookedBy: userRole
         };
         var priceJSON = bookingModal.find('input[name=price]:checked').val();
         if (priceJSON) {
@@ -93,10 +93,10 @@ $(function () {
             type: "POST",
             url: adminGamesAddRoute,
             data: {bookingData}
-        }).done(function () {
+        }).done(function (data) {
             // resetBookingModal();
             window.location.replace(adminRoomsScheduleRoute);
-        }).fail(function () {
+        }).fail(function (data) {
             alert('Something went wrong, please contact the administrator.')
         });
     }
@@ -210,6 +210,16 @@ $(function () {
 
     $('[data-target="#previewModal"]').click(function () {
         $('#previewModal .modal-body .row div').html($(this).closest('div').find('textarea').val());
+    });
+
+    ////////////////////////////////////////////////////////////////////////
+    //////////////// toggle game info //////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+
+    $(function () {
+        $('.more').click(function () {
+            $(this).next('div').slideToggle();
+        });
     });
 });
 

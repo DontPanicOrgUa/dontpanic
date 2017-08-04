@@ -7,6 +7,17 @@ use Doctrine\ORM\EntityRepository;
 
 class GameRepository extends EntityRepository
 {
+    public function getAllGamesByRoom($slug)
+    {
+        return $this->createQueryBuilder('g')
+            ->leftJoin('g.customer', 'gc')
+            ->leftJoin('g.bills', 'gb')
+            ->leftJoin('gb.payments', 'gbp')
+            ->innerJoin('g.room', 'gr', 'WHERE', 'gr.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->addSelect('gc', 'gb', 'gbp', 'gr')
+            ->getQuery();
+    }
 //    public function findByIdWithRelatedData($id)
 //    {
 //        return $this->createQueryBuilder('g')

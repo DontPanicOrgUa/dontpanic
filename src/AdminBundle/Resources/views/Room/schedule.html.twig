@@ -18,6 +18,13 @@
     <span class="label label-danger">corrective</span>
 
     <div class="table-responsive">
+        {% set btnColors = [] %}
+        {% set btnColors = btnColors|merge({
+            customer: 'success',
+            admin: 'info',
+            manager: 'warning',
+            api: 'primary'
+        }) %}
         {% for sevenDays in schedule %}
             <h3>Week {{ loop.index }}</h3>
             <table class="table table-striped">
@@ -42,7 +49,6 @@
                                 data-prices="{{ game.prices|json_encode }}">
                                 {% if game.busy %}
                                     {% if game.busy.id is defined %}
-                                        {% set btnColors = ['success', 'info', 'warning', 'primary'] %}
                                         <div class="btn-group">
                                             <button type="button"
                                                     class="btn btn-{{ btnColors[game.busy.bookedBy] }} dropdown-toggle"
@@ -211,10 +217,11 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        var adminGamesAddRoute = '{{ path('admin_games_add', {slug: room.slug}) }}';
+        {#var adminGamesAddRoute = '{{ path('admin_games_add', {slug: room.slug}) }}';#}
+        var adminGamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
         var adminCorrectivesRoute = '{{ path('admin_correctives_add', {slug: room.slug}) }}';
         var adminRoomsScheduleRoute = '{{ path('admin_rooms_schedule', {slug: room.slug}) }}';
-        var userRole = '{{ is_granted('ROLE_ADMIN') ? '1' : '2' }}';
+        var userRole = '{{ is_granted('ROLE_ADMIN') ? 'admin' : 'manager' }}';
     </script>
 {% endblock %}
 

@@ -45,14 +45,12 @@
             <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(games, '#', 'g.id') }}</th>
-                <th>{{ knp_pagination_sortable(games, 'DateTime', 'g.datetime') }}</th>
-                <th>{{ knp_pagination_sortable(games, 'Customer Name', 'gc.name') }}</th>
-                <th>{{ knp_pagination_sortable(games, 'Customer Last Name', 'gc.lastName') }}</th>
-                <th>{{ knp_pagination_sortable(games, 'Customer Phone', 'gc.phone') }}</th>
-                <th>{{ knp_pagination_sortable(games, 'Customer Email', 'gc.email') }}</th>
-                <th>Price</th>
-                <th>Bill</th>
-                <th>Payed</th>
+                <th>{{ knp_pagination_sortable(games, 'date time', 'g.datetime') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'customer name', 'gc.name') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'customer last name', 'gc.lastName') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'customer phone', 'gc.phone') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'customer email', 'gc.email') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'is paid', 'g.isPaid') }}</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -60,24 +58,12 @@
             {% for game in games %}
                 <tr>
                     <td>{{ game.id }}</td>
-                    <td>{{ game.datetime | date('d.m.Y H:i') }}</td>
+                    <td><a href="{{ path('admin_games_show', {slug: game.room.slug, id: game.id}) }}">{{ game.datetime | date('d.m.Y H:i') }}</a></td>
                     <td>{{ game.customer.name }}</td>
                     <td>{{ game.customer.lastName }}</td>
                     <td>{{ game.customer.phone }}</td>
                     <td>{{ game.customer.email }}</td>
-                    <td>{{ game.bookingData.price }}</td>
-                    <td>
-                        {% for bill in game.bills %}
-                            {{ bill.data.amount }}<br>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for bill in game.bills %}
-                            {% for payment in bill.payments %}
-                                {{ payment.data.amount }} - {{ payment.data.status }}
-                            {% endfor %}
-                        {% endfor %}
-                    </td>
+                    <td>{{ game.isPaid ? 'paid' : 'no' }}</td>
                     <td>
                         <a class="btn btn-xs btn-warning" href="">edit <span class=" fa fa-pencil"></span></a>
                         <a class="btn btn-xs btn-danger" href="{{ path('admin_games_delete', {id: game.id}) }}">delete

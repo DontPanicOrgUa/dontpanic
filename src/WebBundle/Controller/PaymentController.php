@@ -3,6 +3,7 @@
 namespace WebBundle\Controller;
 
 
+use WebBundle\Entity\Game;
 use WebBundle\Entity\Payment;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -55,6 +56,13 @@ class PaymentController extends Controller
         }
 
         try {
+            if ($objectData->status == 'success') {
+                /** @var Game $game */
+                $game = $bill->getGame();
+                $game->setIsPaid(true);
+                $em->persist($game);
+            }
+
             $payment = new Payment();
             $payment->setBill($bill);
             $payment->setData($jsonData);

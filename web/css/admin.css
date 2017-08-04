@@ -29,3 +29,8 @@ div.table-responsive table tbody tr td a.btn {
 .info {
     color: gray;
 }
+
+.more {
+    color: #2a62bc;
+    cursor: pointer;
+}
