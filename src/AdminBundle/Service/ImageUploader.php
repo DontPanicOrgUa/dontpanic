@@ -18,7 +18,9 @@ class ImageUploader
     {
         $image = $this->load($file);
         if ($image['type'] == IMAGETYPE_PNG) {
-            return $this->save($image['image'], $image['type']);
+            $name = md5(uniqid()) . '.png';
+            $file->move($this->targetDir, $name);
+            return $name;
         }
         $newImage = $this->crop($image);
         return $this->save($newImage, $image['type']);
