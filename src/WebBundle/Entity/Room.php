@@ -76,6 +76,10 @@ class Room
 
     /**
      * @ORM\Column(type="array", nullable=true)
+     * @Assert\Count(max = “5”)
+     * @Assert\All({
+     *      @Assert\File(mimeTypes={ "image/jpeg" })
+     * })
      */
     private $slides;
 
