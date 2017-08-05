@@ -17,8 +17,11 @@ class ImageUploader
     public function upload(UploadedFile $file)
     {
         $image = $this->load($file);
+        if ($image['type'] == IMAGETYPE_PNG) {
+            return $this->save($image['image'], $image['type']);
+        }
         $newImage = $this->crop($image);
-        dump($this->save($newImage, $image['type']));die;
+        return $this->save($newImage, $image['type']);
     }
 
     private function load($file)
