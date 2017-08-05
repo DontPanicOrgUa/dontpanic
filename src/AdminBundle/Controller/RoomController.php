@@ -64,14 +64,22 @@ class RoomController extends Controller
             $room = $form->getData();
 
 
-            if ($logoFile = $room->getLogo()) {
-                $logoUploaded = $this->get('image_uploader')->upload($logoFile);
-                $room->setLogo($logoUploaded);
+            if ($file = $room->getLogo()) {
+                $uploaded = $this->get('image_uploader')->upload($file);
+                $room->setLogo($uploaded);
             }
 
-            if ($bgFile = $room->getBackground()) {
-                $bgUploaded = $this->get('image_uploader')->upload($bgFile);
-                $room->setBackground($bgUploaded);
+            if ($file = $room->getThumbnail()) {
+                $uploaded = $this->get('image_uploader')->upload($file);
+                $room->setThumbnail($uploaded);
+            }
+
+            if ($files = $room->getSlides()) {
+                $uploads = [];
+                foreach ($files as $file) {
+                    $uploads[] = $this->get('image_uploader')->upload($file);
+                }
+                $room->setSlides($uploads);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -100,17 +108,26 @@ class RoomController extends Controller
     public function editAction(Request $request, Room $room)
     {
         $logo = $room->getLogo();
-        $background = $room->getBackground();
+        $thumbnail = $room->getThumbnail();
+        $slides = $room->getSlides();
+
         if (is_file($this->getParameter('uploads_rooms_path') . '/' . $logo)) {
             $room->setLogo(
                 new File($this->getParameter('uploads_rooms_path') . '/' . $logo)
             );
         }
-        if (is_file($this->getParameter('uploads_rooms_path') . '/' . $background)) {
-            $room->setBackground(
-                new File($this->getParameter('uploads_rooms_path') . '/' . $background)
+        if (is_file($this->getParameter('uploads_rooms_path') . '/' . $thumbnail)) {
+            $room->setThumbnail(
+                new File($this->getParameter('uploads_rooms_path') . '/' . $thumbnail)
             );
         }
+        $checkedSlides = [];
+        foreach ($slides as $slide) {
+            if (is_file($this->getParameter('uploads_rooms_path') . '/' . $slide)) {
+                $checkedSlides[] = new File($this->getParameter('uploads_rooms_path') . '/' . $slide);
+            }
+        }
+        $room->setSlides($checkedSlides);
 
         $form = $this->createForm(RoomFormType::class, $room);
 
@@ -125,12 +142,21 @@ class RoomController extends Controller
             } else {
                 $room->setLogo($logo);
             }
-
-            if ($bgFile = $room->getBackground()) {
-                $bgUploaded = $this->get('image_uploader')->upload($bgFile);
-                $room->setBackground($bgUploaded);
+            if ($thumbnailFile = $room->getThumbnail()) {
+                $thumbnailUploaded = $this->get('image_uploader')->upload($thumbnailFile);
+                $room->setThumbnail($thumbnailUploaded);
             } else {
-                $room->setBackground($background);
+                $room->setThumbnail($thumbnail);
+            }
+
+            if ($slideFiles = $room->getSlides()) {
+                $slidesUploaded = [];
+                foreach ($slideFiles as $slideFile) {
+                    $slidesUploaded[] = $this->get('image_uploader')->upload($slideFile);
+                }
+                $room->setSlides($slidesUploaded);
+            } else {
+                $room->setSlides($slides);
             }
 
             $em = $this->getDoctrine()->getManager();

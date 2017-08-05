@@ -1,3 +1,5 @@
+{{ dump(roomForm) }}
+
 {{ form_start(roomForm) }}
     {{ form_row(roomForm._token) }}
 <div class="panel panel-default">
@@ -37,8 +39,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">Images</div>
     <div class="panel-body">
-        <div class="col-sm-6">{{ form_row(roomForm.logo) }}</div>
-        <div class="col-sm-6">{{ form_row(roomForm.background) }}</div>
+        <div class="col-sm-4">{{ form_row(roomForm.logo) }}</div>
+        <div class="col-sm-4">{{ form_row(roomForm.thumbnail) }}</div>
+        <div class="col-sm-4">{{ form_row(roomForm.slides) }}</div>
     </div>
 </div>
 <div class="panel panel-default">

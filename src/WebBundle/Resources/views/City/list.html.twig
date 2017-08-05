@@ -41,8 +41,8 @@
                     {% for room in rooms %}
                         <div class="col-sm-6 col-md-4 gallery-item">
                             <div class="gallery-img-container">
-                                {% set background = room.background ?: 'default_background.jpg' %}
-                                <img src="{{ asset('uploads/rooms/'~background) }}"
+                                {% set thumbnail = room.thumbnail ?: 'default_thumbnail.jpg' %}
+                                <img src="{{ asset('uploads/rooms/'~thumbnail) }}"
                                      alt="{{ room.title(app.request.locale) }}" class="img-responsive zoom">
                                 {% set logo = room.logo ?: 'default_logo.png' %}
                                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="" class="game-logo">

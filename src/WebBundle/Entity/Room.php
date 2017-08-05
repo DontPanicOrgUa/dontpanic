@@ -72,7 +72,12 @@ class Room
      * @ORM\Column(type="string", nullable=true)
      * @Assert\File(mimeTypes={ "image/jpeg" })
      */
-    private $background;
+    private $thumbnail;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $slides;
 
     /**
      * @Assert\NotBlank()
@@ -427,17 +432,17 @@ class Room
     /**
      * @return mixed
      */
-    public function getBackground()
+    public function getSlides()
     {
-        return $this->background;
+        return $this->slides;
     }
 
     /**
-     * @param mixed $background
+     * @param mixed $slides
      */
-    public function setBackground($background)
+    public function setSlides($slides)
     {
-        $this->background = $background;
+        $this->slides = $slides;
     }
 
     /**
@@ -915,5 +920,20 @@ class Room
         $this->managerSMSReminder = $managerSMSReminder;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * @param mixed $thumbnail
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+    }
 }
 

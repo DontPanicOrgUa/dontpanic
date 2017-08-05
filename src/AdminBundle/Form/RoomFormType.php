@@ -58,9 +58,17 @@ class RoomFormType extends AbstractType
                     'accept' => 'image/png'
                 ]
             ])
-            ->add('background', FileType::class, [
-                'label' => 'Background *.jpg',
+            ->add('thumbnail', FileType::class, [
+                'label' => 'thumbnail *.jpg',
                 'data_class' => null,
+                'attr' => [
+                    'accept' => 'image/jpeg'
+                ]
+            ])
+            ->add('slides', FileType::class, [
+                'label' => 'slides *.jpg',
+                'data_class' => null,
+                'multiple' => true,
                 'attr' => [
                     'accept' => 'image/jpeg'
                 ]

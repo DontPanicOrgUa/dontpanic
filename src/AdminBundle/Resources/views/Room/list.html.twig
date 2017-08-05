@@ -11,14 +11,14 @@
             <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(rooms, '#', 'r.id') }}</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Title', 'r.titleEn') }}</th>
-                <th>Logo</th>
-                <th>Background</th>
-                <th>{{ knp_pagination_sortable(rooms, 'Address', 'c.nameEn') }}</th>
-                <th>Managers</th>
-                <th>{{ knp_pagination_sortable(rooms, 'IsActive', 'r.enabled') }}</th>
+                <th>{{ knp_pagination_sortable(rooms, 'title', 'r.titleEn') }}</th>
+                <th>logo</th>
+                <th>thumbnail</th>
+                <th>{{ knp_pagination_sortable(rooms, 'address', 'c.nameEn') }}</th>
+                <th>managers</th>
+                <th>{{ knp_pagination_sortable(rooms, 'is_active', 'r.enabled') }}</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Actions</th>
+                    <th>actions</th>
                 {% endif %}
             </tr>
             </thead>
@@ -27,9 +27,9 @@
                 <tr>
                     <td>{{ room.id }}</td>
                     <td><a href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}">{{ room.titleEn }}</a></td>
-                    <td>{% if room.logo %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.logo) }}"
+                    <td>{% if room.logo %}<img width="60" src="{{ asset('uploads/rooms/' ~ room.logo) }}"
                                                alt="">{% else %}No image{% endif %}</td>
-                    <td>{% if room.background %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.background) }}"
+                    <td>{% if room.thumbnail %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.thumbnail) }}"
                                                      alt="">{% else %}No image{% endif %}</td>
                     <td>{{ room.city.nameEn }}<br>{{ room.address }}<br>{{ room.phone }}<br>{{ room.email }}</td>
                     <td>
