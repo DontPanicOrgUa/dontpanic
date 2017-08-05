@@ -65,12 +65,12 @@ class RoomController extends Controller
 
 
             if ($logoFile = $room->getLogo()) {
-                $logoUploaded = $this->get('admin.file_uploader')->upload($logoFile);
+                $logoUploaded = $this->get('image_uploader')->upload($logoFile);
                 $room->setLogo($logoUploaded);
             }
 
             if ($bgFile = $room->getBackground()) {
-                $bgUploaded = $this->get('admin.file_uploader')->upload($bgFile);
+                $bgUploaded = $this->get('image_uploader')->upload($bgFile);
                 $room->setBackground($bgUploaded);
             }
 
@@ -120,14 +120,14 @@ class RoomController extends Controller
             $room = $form->getData();
 
             if ($logoFile = $room->getLogo()) {
-                $logoUploaded = $this->get('admin.file_uploader')->upload($logoFile);
+                $logoUploaded = $this->get('image_uploader')->upload($logoFile);
                 $room->setLogo($logoUploaded);
             } else {
                 $room->setLogo($logo);
             }
 
             if ($bgFile = $room->getBackground()) {
-                $bgUploaded = $this->get('admin.file_uploader')->upload($bgFile);
+                $bgUploaded = $this->get('image_uploader')->upload($bgFile);
                 $room->setBackground($bgUploaded);
             } else {
                 $room->setBackground($background);
