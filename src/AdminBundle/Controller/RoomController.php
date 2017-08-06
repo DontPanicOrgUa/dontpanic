@@ -196,7 +196,7 @@ class RoomController extends Controller
         $em = $this->getDoctrine()->getManager();
         $room = $em
             ->getRepository('WebBundle:Room')
-            ->findBySlugWithActualGamesAndCorrectives($slug);
+            ->findBySlugForWeb($slug);
         if (!$room) {
             throw $this->createNotFoundException('The room does not exist');
         }

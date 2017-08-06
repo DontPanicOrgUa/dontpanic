@@ -1,0 +1,56 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Go to.. <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: feedbacks[0].room.slug}) }}"> Room schedule</a></li>
+            <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: feedbacks[0].room.slug}) }}"> List rooms</a></li>
+        </ul>
+    </div>
+    <h1 class="page-header">Feedbacks</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(feedbacks, 'careated_at', 'f.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'name', 'f.name') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'email', 'f.email') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'phone', 'f.phone') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'passed', 'f.time') }}</th>
+                <th>comment</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'atmosphere', 'f.atmosphere') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'story', 'f.story') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'service', 'f.service') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'is_active', 'f.isActive') }}</th>
+                <th>action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for feedback in feedbacks %}
+                <tr>
+                    <td>{{ feedback.createdAt|date('d.m.Y H:i') }}</td>
+                    <td>{{ feedback.name }}</td>
+                    <td>{{ feedback.email }}</td>
+                    <td>{{ feedback.phone }}</td>
+                    <td>{{ feedback.time }}</td>
+                    <td><span data-comment="{{ feedback.comment|nl2br }}" data-toggle="modal" data-target="#modal-comment" style="color: #337ab7; cursor: pointer;">view..</span></td>
+                    <td>{{ feedback.atmosphere }}</td>
+                    <td>{{ feedback.story }}</td>
+                    <td>{{ feedback.service }}</td>
+                    <td><a href="{{ path('admin_feedbacks_activate', {id: feedback.id}) }}">{{ feedback.isActive ? 'yes' : 'no' }}</a></td>
+                    <td><a class="btn btn-danger btn-xs" href="{{ path('admin_feedbacks_delete', {id: feedback.id}) }}">delete <span class="fa fa-close"></span></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(feedbacks) }}
+        </div>
+    </div>
+
+    {% include 'AdminBundle:Feedback:modal-comment.html.twig' %}
+
+{% endblock %}

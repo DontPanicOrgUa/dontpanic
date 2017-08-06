@@ -42,14 +42,18 @@
                     <td>{{ room.enabled ? 'yes' : 'no' }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>
-                            <a class="btn btn-xs btn-warning" href="{{ path('admin_rooms_edit', {slug: room.slug}) }}">edit room
-                                <span class="fa fa-pencil"></span></a><br>
-                            <a class="btn btn-xs btn-warning" href="{{ path('admin_blanks_list', {slug: room.slug}) }}">edit template
-                                <span class="fa fa-calendar"></span></a><br>
-                            <a class="btn btn-xs btn-info" href="{{ path('admin_games_list', {slug: room.slug}) }}">games list
-                                <span class="fa fa-list-ul"></span></a><br>
-                            <a class="btn btn-xs btn-danger" href="{{ path('admin_rooms_delete', {slug: room.slug}) }}">delete delete
-                                <span class="fa fa-close"></span></a><br>
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="fa fa-pencil" href="{{ path('admin_rooms_edit', {slug: room.slug}) }}"> edit room</a></li>
+                                    <li><a class="fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> edit template</a></li>
+                                    <li><a class="fa fa-list" href="{{ path('admin_games_list', {slug: room.slug}) }}"> view games</a></li>
+                                    <li><a class="fa fa-list" href="{{ path('admin_feedbacks_list', {slug: room.slug}) }}"> view feedbacks</a></li>
+                                    <li><a class="fa fa-close" href="{{ path('admin_rooms_delete', {slug: room.slug}) }}"> delete room</a></li>
+                                </ul>
+                            </div>
                         </td>
                     {% endif %}
                 </tr>
