@@ -1272,7 +1272,7 @@ th:hover {
 }
 
 .atmosphere-rating,
-.plot-rating,
+.story-rating,
 .service-rating {
     position: relative;
     top: -3px;
@@ -1520,3 +1520,16 @@ th:hover {
     background: rgba(0, 255, 0, 0.1) !important;
 }
 
+.block-layer {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+}
+
+.block-layer span.fa {
+    margin-top: 45%;
+    text-align: center;
+}

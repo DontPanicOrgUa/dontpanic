@@ -114,50 +114,6 @@ $(function () {
     //галерея
     $('.fancy').fancybox();
 
-    //звезды рейтинга
-    $(".atmosphere").starRating({
-        totalStars: 10,
-        starSize: 16,
-        useFullStars: true,
-        useGradient: false,
-        activeColor: 'orange',
-        disableAfterRate: false,
-        onHover: function (currentIndex, currentRating, $el) {
-            $('.atmosphere-rating').text(currentIndex);
-        },
-        onLeave: function (currentIndex, currentRating, $el) {
-            $('.atmosphere-rating').text(currentRating);
-        }
-    });
-    $(".plot").starRating({
-        totalStars: 10,
-        starSize: 16,
-        useFullStars: true,
-        useGradient: false,
-        activeColor: 'orange',
-        disableAfterRate: false,
-        onHover: function (currentIndex, currentRating, $el) {
-            $('.plot-rating').text(currentIndex);
-        },
-        onLeave: function (currentIndex, currentRating, $el) {
-            $('.plot-rating').text(currentRating);
-        }
-    });
-    $(".service").starRating({
-        totalStars: 10,
-        starSize: 16,
-        useFullStars: true,
-        useGradient: false,
-        activeColor: 'orange',
-        disableAfterRate: false,
-        onHover: function (currentIndex, currentRating, $el) {
-            $('.service-rating').text(currentIndex);
-        },
-        onLeave: function (currentIndex, currentRating, $el) {
-            $('.service-rating').text(currentRating);
-        }
-    });
-
     //////////////////////////////////////////////////////////////////////////////////////
     // booking ///////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////
@@ -273,7 +229,7 @@ $(function () {
     }
 
     function setGameBooked(bookingData) {
-        var $game = $('td[data-date-time="'+bookingData.dateTime+'"]');
+        var $game = $('td[data-date-time="' + bookingData.dateTime + '"]');
         $game.find('.cell').removeClass('price-xs price-s price-m price-l');
         $game.find('.cell').addClass('cell-expired');
     }
@@ -291,16 +247,17 @@ $(function () {
             showThe($resultForm);
             setGameBooked(bookingData);
         }).fail(function (r) {
-            alert('Something went wrong, please contact the administrator.')
+            alert(someThingWrongMessage);
+            window.location.reload();
         });
     }
 
     $bookingForm.find('input').focusin(function () {
-        $(this).removeClass('custom-danger', 2000);
+        $(this).removeClass('custom-danger');
     });
 
     $bookingForm.find('select').focusin(function () {
-        $(this).removeClass('custom-danger', 2000);
+        $(this).removeClass('custom-danger');
     });
 
     function buildResultForm(bookingData) {
@@ -348,5 +305,137 @@ $(function () {
         }
         sendNewGameData(bookingData);
     });
+
+    //////////////////////////////////////////////////////////////////////
+    /////////////////// feedback /////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
+    var $feedbackFrom = $('#feedback-form');
+
+    function initStarRating(ratingClass) {
+        $feedbackFrom.find(ratingClass).starRating({
+            totalStars: 10,
+            starSize: 16,
+            useFullStars: true,
+            useGradient: false,
+            activeColor: 'orange',
+            disableAfterRate: false,
+            onHover: function (currentIndex, currentRating, $el) {
+                $(ratingClass + '-rating').text(currentIndex);
+                $(ratingClass + '-rating').closest('.custom-danger').removeClass('custom-danger');
+            },
+            onLeave: function (currentIndex, currentRating, $el) {
+                $(ratingClass + '-rating').text(currentRating);
+            }
+        });
+        $feedbackFrom.find(ratingClass).starRating('setRating', 0);
+    }
+
+    function collectFeedbackData() {
+        return {
+            name: $feedbackFrom.find('input[name=name]').val(),
+            email: $feedbackFrom.find('input[name=email]').val(),
+            phone: $feedbackFrom.find('input[name=phone]').val(),
+            comment: $feedbackFrom.find('textarea[name=comment]').val(),
+            time: $feedbackFrom.find('input[name=time]').val(),
+            atmosphere: $feedbackFrom.find('.atmosphere-rating').text(),
+            story: $feedbackFrom.find('.story-rating').text(),
+            service: $feedbackFrom.find('.service-rating').text(),
+        };
+    }
+
+    function validateFeedbackForm(data) {
+        var hasError = false;
+        if (!data.name) {
+            $feedbackFrom.find('input[name=name]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!validateEmail(data.email)) {
+            $feedbackFrom.find('input[name=email]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!validatePhone(data.phone)) {
+            $feedbackFrom.find('input[name=phone]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!data.comment) {
+            $feedbackFrom.find('textarea[name=comment]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!validateMinutes(data.time)) {
+            $feedbackFrom.find('input[name=time]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (data.atmosphere === '0') {
+            $feedbackFrom.find('.atmosphere').closest('.rating-title').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (data.story === '0') {
+            $feedbackFrom.find('.story').closest('.rating-title').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (data.service === '0') {
+            $feedbackFrom.find('.service').closest('.rating-title').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        return hasError;
+    }
+
+    function validateMinutes(minutes) {
+        var re = /^[0-9]{1,7}$/;
+        return re.test(minutes);
+    }
+
+    function resetFeedbackForm() {
+        $feedbackFrom.find('input[name=name]').val('');
+        $feedbackFrom.find('input[name=email]').val('');
+        $feedbackFrom.find('input[name=phone]').val('');
+        $feedbackFrom.find('textarea[name=comment]').val('');
+        $feedbackFrom.find('input[name=time]').val('');
+        $feedbackFrom.find('.atmosphere-rating').html('0');
+        $feedbackFrom.find('.story-rating').html('0');
+        $feedbackFrom.find('.service-rating').html('0');
+        $feedbackFrom.find('.custom-danger').removeClass('custom-danger');
+        $feedbackFrom.find('.block-layer').hide();
+    }
+
+    $feedbackFrom.find('input').focusin(function () {
+        $(this).removeClass('custom-danger');
+    });
+
+    $feedbackFrom.find('textarea').focusin(function () {
+        $(this).removeClass('custom-danger');
+    });
+
+    function sendNewFeedbackData(data) {
+        $feedbackFrom.find('.block-layer').show();
+        $.ajax({
+            type: "POST",
+            url: feedbacksAddRoute,
+            data: {data}
+        }).done(function (r) {
+            resetFeedbackForm();
+            $feedbackFrom.modal('hide');
+        }).fail(function (r) {
+            alert(someThingWrongMessage);
+            window.location.reload();
+        });
+    }
+
+    $('a[data-target="#feedback-form"]').click(function () {
+        resetFeedbackForm();
+        initStarRating('.atmosphere');
+        initStarRating('.story');
+        initStarRating('.service');
+    });
+
+    $feedbackFrom.submit(function (e) {
+        e.preventDefault();
+        var data = collectFeedbackData();
+        if (validateFeedbackForm(data)) {
+            return;
+        }
+        sendNewFeedbackData(data);
+    });
+
 });
 

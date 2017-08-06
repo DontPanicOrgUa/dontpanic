@@ -1,0 +1,57 @@
+<form class="modal fade review-modal" tabindex="-1" role="dialog" id="feedback-form" novalidate>
+    <div class="modal-dialog" role="document">
+        <div class="block-layer">
+            <span class="fa fa-spinner fa-pulse fa-3x fa-fw"></span>
+        </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{ 'Evaluate the quest'|trans }}</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="review-input-wrap">
+                    <input name="name" required placeholder="{{ 'Name'|trans }}*">
+                </div>
+                <div class="review-input-wrap">
+                    <input type="email" name="email" required placeholder="{{ 'Email'|trans }}*">
+                </div>
+                <div class="review-input-wrap">
+                    <input type="tel" name="phone" required placeholder="{{ 'Phone'|trans }}*">
+                </div>
+                <div>
+                    <textarea name="comment" cols="30" rows="2" placeholder="{{ 'Your comment'|trans }}*"></textarea>
+                </div>
+
+                <div>
+                    <input type="number" name="time" placeholder="{{ 'Passed time'|trans }}">
+                </div>
+
+                <p>{{ 'How many stars will you give to the quest'|trans }}</p>
+
+                <div class="rating-title">{{ 'Atmosphere'|trans }}
+                    <div>
+                        <span class="atmosphere"></span><span class="atmosphere-rating">0</span>
+                    </div>
+                </div>
+
+                <div class="rating-title">{{ 'Story'|trans }}
+                    <div>
+                        <span class="story"></span><span class="story-rating">0</span>
+                    </div>
+                </div>
+
+                <div class="rating-title">{{ 'Service'|trans }}
+                    <div>
+                        <span class="service"></span><span class="service-rating">0</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning">{{ 'Estimate'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</form>

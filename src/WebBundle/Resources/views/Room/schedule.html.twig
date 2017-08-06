@@ -410,65 +410,9 @@
             </div>
 
             <a href="#" class="btn btn-warning show-results" data-toggle="modal"
-               data-target="#writeReview">{{ 'Leave feedback'|trans }}</a>
+               data-target="#feedback-form">{{ 'Leave feedback'|trans }}</a>
 
-            <form class="modal fade review-modal" tabindex="-1" role="dialog" id="writeReview">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Оцените квест</h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="review-input-wrap">
-                                <input type="text" name="userName" id="userName" required placeholder="Имя*">
-                            </div>
-                            <div class="review-input-wrap">
-                                <input type="email" name="userEmail" id="userEmail" required placeholder="Email*">
-                            </div>
-                            <div class="review-input-wrap">
-                                <input type="tel" name="userPhone" id="userPhone" required placeholder="Телефон*">
-                            </div>
-                            <div>
-                                <textarea name="reviewComment" id="reviewComment" cols="30" rows="2"
-                                          placeholder="Комментарий*"></textarea>
-                            </div>
-
-                            <p>Сколько звезд Вы дадите квесту</p>
-
-                            <div class="rating-title">Атмосферность
-                                <div>
-                                    <span class="atmosphere"></span><span class="atmosphere-rating">0.0</span>
-                                </div>
-                            </div>
-
-                            <div class="rating-title">Сюжет
-                                <div>
-                                    <span class="plot"></span><span class="plot-rating">0.0</span>
-                                </div>
-                            </div>
-
-                            <div class="rating-title">Обслуживание
-                                <div>
-                                    <span class="service"></span><span class="service-rating">0.0</span>
-                                </div>
-                            </div>
-
-                            <div class="rating-title">Время прохождения
-                                <div>
-                                    <input type="number" name="" id="">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning">Оценить</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            {% include 'WebBundle:Room:feedback-form.thml.twig' %}
 
         </section>
     </div>
@@ -481,11 +425,16 @@
             async defer></script>
     <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     <script>
-        var playersTrans = '{{ 'Players'|trans }}*';
+        var playersTrans = '{{ "Players"|trans }}*';
         var gamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
+        var feedbacksAddRoute = '{{ path('web_feedbacks_add', {slug: room.slug}) }}';
+        var someThingWrongMessage = "{{ 'Whoops,\\nsomething went wrong..\\nUnexpected Error.\\nPage will be reloaded, \\nafter you can try again\\nor contact the administrator.'|trans }}";
 
+
+        /////////////////////////////////////////////////////////
+        /////////////// google maps /////////////////////////////
+        /////////////////////////////////////////////////////////
         var coordinates = '{{ room.coordinates }}'.split(' ');
-
         function initMap() {
             var myLatLng = {lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])};
 
@@ -502,9 +451,13 @@
             });
         }
 
+        ///////////////////////////////////////////////////////////
+        /////////////// masked input validation ///////////////////
+        ///////////////////////////////////////////////////////////
         $(function () {
             $.mask.definitions['n'] = '[0-9-() ]';
             $('input[name="phone"]').mask('+nnnnn?nnnnnnnnnnnnnnnnnnnn');
         });
+
     </script>
 {% endblock %}

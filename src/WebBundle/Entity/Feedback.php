@@ -2,7 +2,9 @@
 
 namespace WebBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -46,7 +48,7 @@ class Feedback
     /**
      * @ORM\Column(type="integer")
      */
-    private $atmospheric;
+    private $atmosphere;
 
     /**
      * @ORM\Column(type="integer")
@@ -65,14 +67,14 @@ class Feedback
     private $time;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0})
+     * @ORM\Column(type="boolean", options={"default":0}, nullable=true)
      */
     private $isActive;
 
     /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room")
      */
-    private $rooms;
+    private $room;
 
     /**
      * @var \DateTime $createdAt
@@ -162,17 +164,17 @@ class Feedback
     /**
      * @return mixed
      */
-    public function getAtmospheric()
+    public function getAtmosphere()
     {
-        return $this->atmospheric;
+        return $this->atmosphere;
     }
 
     /**
-     * @param mixed $atmospheric
+     * @param mixed $atmosphere
      */
-    public function setAtmospheric($atmospheric)
+    public function setAtmosphere($atmosphere)
     {
-        $this->atmospheric = $atmospheric;
+        $this->atmosphere = $atmosphere;
     }
 
     /**
@@ -242,17 +244,17 @@ class Feedback
     /**
      * @return mixed
      */
-    public function getRooms()
+    public function getRoom()
     {
-        return $this->rooms;
+        return $this->room;
     }
 
     /**
-     * @param mixed $rooms
+     * @param mixed $room
      */
-    public function setRooms($rooms)
+    public function setRoom($room)
     {
-        $this->rooms = $rooms;
+        $this->room = $room;
     }
 
     /**
