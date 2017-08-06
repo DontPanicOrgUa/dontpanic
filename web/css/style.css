@@ -1533,3 +1533,11 @@ th:hover {
     margin-top: 45%;
     text-align: center;
 }
+
+.flash-modal-error {
+    background-color: #f04e4e;
+}
+
+.flash-modal-success {
+    background-color: #57d452;
+}

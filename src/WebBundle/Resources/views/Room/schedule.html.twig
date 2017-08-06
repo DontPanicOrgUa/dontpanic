@@ -299,20 +299,26 @@
 
         </section>
     </div>
+
+    {% include 'WebBundle:Room:flash-modal.thml.twig' %}
+
     <!--  CONTENT end -->
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMugwAfvvSHxHNaQ3gdmEr0_cgSawCc48&callback=initMap"
-            async defer></script>
-    <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
+    async defer></script>
     <script>
         var playersTrans = '{{ "Players"|trans }}*';
         var gamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
         var feedbacksAddRoute = '{{ path('web_feedbacks_add', {slug: room.slug}) }}';
-        var someThingWrongMessage = "{{ 'Whoops,\\nsomething went wrong..\\nUnexpected Error.\\nPage will be reloaded, \\nafter you can try again\\nor contact the administrator.'|trans }}";
-
+        var transSuccess = "{{ 'Success'|trans }}";
+        var transError = "{{ 'Error'|trans }}";
+        var transSuccessFeedback = "{{ 'success feedback'|trans }}";
+        var transErrorFeedback = "{{ 'error feedback'|trans }}";
+        var transSuccessBooking = "{{ 'success booking'|trans }}";
+        var transErrorBooking = "{{ 'error booking'|trans }}";
 
         /////////////////////////////////////////////////////////
         /////////////// google maps /////////////////////////////
@@ -344,4 +350,5 @@
         });
 
     </script>
+    <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
 {% endblock %}

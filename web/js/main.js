@@ -247,8 +247,7 @@ $(function () {
             showThe($resultForm);
             setGameBooked(bookingData);
         }).fail(function (r) {
-            alert(someThingWrongMessage);
-            window.location.reload();
+            flashModal('error', 'booking');
         });
     }
 
@@ -415,9 +414,9 @@ $(function () {
         }).done(function (r) {
             resetFeedbackForm();
             $feedbackFrom.modal('hide');
+            flashModal('success', 'feedback');
         }).fail(function (r) {
-            alert(someThingWrongMessage);
-            window.location.reload();
+            flashModal('error', 'feedback');
         });
     }
 
@@ -435,6 +434,41 @@ $(function () {
             return;
         }
         sendNewFeedbackData(data);
+    });
+
+    function flashModal(status, event) {
+        var $modal = $('#flash-modal');
+        if (status === 'success') {
+            $modal.find('.modal-title').text(transSuccess);
+            $modal.find('.modal-header').addClass('flash-modal-success');
+            if (event === 'booking') {
+                $modal.find('.modal-body').text(transSuccessBooking);
+            } else if (event === 'feedback') {
+                $modal.find('.modal-body').text(transSuccessFeedback);
+            }
+        } else {
+            $modal.find('.modal-title').text(transError);
+            $modal.find('.modal-header').addClass('flash-modal-error');
+            if (event === 'booking') {
+                $modal.find('.modal-body').text(transErrorBooking);
+            } else if (event === 'feedback') {
+                $modal.find('.modal-body').text(transErrorFeedback);
+            }
+        }
+        setTimeout(function () {
+            $modal.modal('show');
+        }, 400);
+        // setTimeout(function () {
+        //     $modal.modal('hide');
+        // }, 10000);
+    }
+
+    $('#flash-modal').on('hidden.bs.modal', function () {
+        $(this).find('.flash-modal-success').removeClass('flash-modal-success');
+        if ($(this).find('.modal-header').hasClass('flash-modal-error')) {
+            $(this).find('.flash-modal-error').removeClass('flash-modal-error');
+            window.location.reload();
+        }
     });
 
 });
