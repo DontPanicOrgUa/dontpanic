@@ -3,13 +3,11 @@
 namespace AdminBundle\Controller;
 
 
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use WebBundle\Entity\Feedback;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use WebBundle\Entity\Feedback;
 
 /**
  * Class CityController
@@ -30,6 +28,11 @@ class FeedbackController extends Controller
         $feedbacks = $em->getRepository('WebBundle:Feedback')
             ->findAllFeedbacksByRoom($slug);
 
+        if (empty($feedbacks)) {
+            $this->addFlash('errors', ['No feedbacks for "' . $room->getTitle() . '.']);
+            return $this->redirectToRoute('admin_rooms_list');
+        }
+
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $feedbacks,
@@ -39,31 +42,6 @@ class FeedbackController extends Controller
 
         return $this->render('AdminBundle:Feedback:list.html.twig', [
             'feedbacks' => $result
-        ]);
-    }
-
-    /**
-     * @Route("/cities/add", name="admin_cities_add")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function addAction(Request $request)
-    {
-        $form = $this->createForm(CityFormType::class);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $city = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($city);
-            $em->flush();
-            $this->addFlash('success', 'New city is added.');
-            return $this->redirectToRoute('admin_cities_list');
-        }
-
-        return $this->render('AdminBundle:City:add.html.twig', [
-            'cityForm' => $form->createView()
         ]);
     }
 

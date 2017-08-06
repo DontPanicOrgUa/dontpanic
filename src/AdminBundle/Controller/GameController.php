@@ -39,6 +39,7 @@ class GameController extends Controller
         $games = $em
             ->getRepository('WebBundle:Game')
             ->getAllGamesByRoom($slug);
+
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $games,

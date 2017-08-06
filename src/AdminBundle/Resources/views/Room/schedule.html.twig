@@ -1,13 +1,18 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block content %}
-    <div class="pull-right">
-        <a class="btn btn-info fa fa-list" href="{{ path('admin_rooms_list') }}"> Back to rooms</a>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-info fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> Edit
-                template</a>
-        {% endif %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            Go to .. <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="fa fa-calendar" href="{{ path('admin_blanks_list', {slug: room.slug}) }}"> edit template</a>
+            </li>
+            <li><a class="fa fa-list" href="{{ path('admin_rooms_list') }}"> list rooms</a></li>
+        </ul>
     </div>
+
     <h1 class="page-header">{{ room.title }}</h1>
 
     <span class="label label-default">free</span>
@@ -20,10 +25,10 @@
     <div class="table-responsive">
         {% set btnColors = [] %}
         {% set btnColors = btnColors|merge({
-            customer: 'success',
-            admin: 'info',
-            manager: 'warning',
-            api: 'primary'
+        customer: 'success',
+        admin: 'info',
+        manager: 'warning',
+        api: 'primary'
         }) %}
         {% for sevenDays in schedule %}
             <h3>Week {{ loop.index }}</h3>

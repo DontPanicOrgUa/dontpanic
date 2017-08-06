@@ -191,7 +191,7 @@ class RoomController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_USER')")
      */
-    public function showScheduleAction($slug)
+    public function scheduleAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
         $room = $em
@@ -204,7 +204,7 @@ class RoomController extends Controller
         $scheduleBuilder = new ScheduleBuilder($room);
         $schedule = $scheduleBuilder->collect();
         if (empty($schedule)) {
-            $this->addFlash('errors', ['No schedule for "' . $room->getTitle() . '".']);
+            $this->addFlash('errors', ['Schedule for "' . $room->getTitle() . '" is not ready.']);
             return $this->redirectToRoute('admin_rooms_list');
         }
         return $this->render('AdminBundle:Room:schedule.html.twig', [

@@ -79,6 +79,11 @@ class ScheduleBuilder
             }
             $sevenDays[] = $times;
         }
+        foreach ($sevenDays as $days) {
+            if (empty($days)) {
+                return [];
+            }
+        }
         return $sevenDays;
     }
 

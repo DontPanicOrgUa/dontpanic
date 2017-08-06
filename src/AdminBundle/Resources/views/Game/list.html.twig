@@ -6,36 +6,38 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-6">
-                    <form action="{{ path('admin_games_list', {slug: games[0].room.slug}) }}" method="get">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <label for="search">Search..</label>
-                                    <input id="search" name="search" type="text" class="form-control"
-                                           placeholder="Search for..."
-                                           value="{{ app.request.get('search') }}">
+                    {% if games[0] is defined %}
+                        <form action="{{ path('admin_games_list', {slug: games[0].room.slug}) }}" method="get">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <label for="search">Search..</label>
+                                        <input id="search" name="search" type="text" class="form-control"
+                                               placeholder="Search for..."
+                                               value="{{ app.request.get('search') }}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group" id="daterangepicker">
-                                <div class="col-sm-6">
-                                    <label for="daterange1">DateTime start</label>
-                                    <input id="daterange1" name="start" type="text" class="form-control"
-                                           value="{{ app.request.get('start') }}">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="daterange2">DateTime end</label>
-                                    <input id="daterange2" name="end" type="text" class="form-control"
-                                           value="{{ app.request.get('end') }}">
+                            <div class="col-sm-12">
+                                <div class="form-group" id="daterangepicker">
+                                    <div class="col-sm-6">
+                                        <label for="daterange1">DateTime start</label>
+                                        <input id="daterange1" name="start" type="text" class="form-control"
+                                               value="{{ app.request.get('start') }}">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="daterange2">DateTime end</label>
+                                        <input id="daterange2" name="end" type="text" class="form-control"
+                                               value="{{ app.request.get('end') }}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <br>
-                            <button class="btn btn-default pull-right" type="submit">Search!</button>
-                        </div>
-                    </form>
+                            <div class="col-sm-12">
+                                <br>
+                                <button class="btn btn-default pull-right" type="submit">Search!</button>
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -58,7 +60,9 @@
             {% for game in games %}
                 <tr>
                     <td>{{ game.id }}</td>
-                    <td><a href="{{ path('admin_games_show', {slug: game.room.slug, id: game.id}) }}">{{ game.datetime | date('d.m.Y H:i') }}</a></td>
+                    <td>
+                        <a href="{{ path('admin_games_show', {slug: game.room.slug, id: game.id}) }}">{{ game.datetime | date('d.m.Y H:i') }}</a>
+                    </td>
                     <td>{{ game.customer.name }}</td>
                     <td>{{ game.customer.lastName }}</td>
                     <td>{{ game.customer.phone }}</td>
