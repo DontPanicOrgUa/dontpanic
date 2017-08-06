@@ -51,7 +51,7 @@ class RoomRepository extends EntityRepository
             ->getSingleResult();
     }
 
-    public function findBySlugWithActualGamesAndCorrectives($slug)
+    public function findBySlugForWeb($slug)
     {
         $now = new DateTime('now');
         $dateTimeTo = new DateTime('now + 30 days');
@@ -72,17 +72,23 @@ class RoomRepository extends EntityRepository
                 'c',
                 'WITH',
                 'c.datetime > :now')
-//            ->leftJoin('g.payment', 'gp')
+            ->leftJoin(
+                'r.feedbacks',
+                'rf',
+                'WITH',
+                'rf.isActive = :isActive'
+            )
             ->setParameter('slug', $slug)
             ->setParameter('dateTimeTo', $dateTimeTo)
             ->setParameter('now', $now)
+            ->setParameter('isActive', true)
             ->addSelect('g')
             ->addSelect('b')
             ->addSelect('p')
             ->addSelect('t')
             ->addSelect('c')
             ->addSelect('cu')
-//            ->addSelect('gp')
+            ->addSelect('rf')
             ->orderBy('b.time', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();

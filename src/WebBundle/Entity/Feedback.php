@@ -67,12 +67,12 @@ class Feedback
     private $time;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0}, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isActive;
+    private $isActive = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room")
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="feedbacks")
      */
     private $room;
 

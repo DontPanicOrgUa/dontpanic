@@ -218,6 +218,12 @@ class Room
     private $correctives;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Feedback", mappedBy="room", cascade={"remove"})
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    private $feedbacks;
+
+    /**
      * @ORM\Column(type="boolean", options={"default": true})
      */
     private $clientMailNotification;
@@ -267,6 +273,8 @@ class Room
     {
         $this->blanks = new ArrayCollection();
         $this->roomManagers = new ArrayCollection();
+        $this->feedbacks = new ArrayCollection();
+        $this->correctives = new ArrayCollection();
     }
 
     /**
@@ -939,5 +947,22 @@ class Room
     {
         $this->thumbnail = $thumbnail;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFeedbacks()
+    {
+        return $this->feedbacks;
+    }
+
+    /**
+     * @param mixed $feedbacks
+     */
+    public function setFeedbacks($feedbacks)
+    {
+        $this->feedbacks = $feedbacks;
+    }
+
 }
 
