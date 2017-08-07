@@ -63,21 +63,23 @@ class RoomController extends Controller
             /** @var Room $room */
             $room = $form->getData();
 
-
             if ($file = $room->getLogo()) {
-                $uploaded = $this->get('image_uploader')->upload($file);
+                $uploaded = $this->get('image_uploader')
+                    ->upload($file, $this->getParameter('uploads_rooms_path'));
                 $room->setLogo($uploaded);
             }
 
             if ($file = $room->getThumbnail()) {
-                $uploaded = $this->get('image_uploader')->upload($file);
+                $uploaded = $this->get('image_uploader')
+                    ->upload($file, $this->getParameter('uploads_rooms_path'));
                 $room->setThumbnail($uploaded);
             }
 
             if ($files = $room->getSlides()) {
                 $uploads = [];
                 foreach ($files as $file) {
-                    $uploads[] = $this->get('image_uploader')->upload($file);
+                    $uploads[] = $this->get('image_uploader')
+                        ->upload($file, $this->getParameter('uploads_rooms_path'));
                 }
                 $room->setSlides($uploads);
             }
@@ -137,13 +139,15 @@ class RoomController extends Controller
             $room = $form->getData();
 
             if ($logoFile = $room->getLogo()) {
-                $logoUploaded = $this->get('image_uploader')->upload($logoFile);
+                $logoUploaded = $this->get('image_uploader')
+                    ->upload($logoFile, $this->getParameter('uploads_rooms_path'));
                 $room->setLogo($logoUploaded);
             } else {
                 $room->setLogo($logo);
             }
             if ($thumbnailFile = $room->getThumbnail()) {
-                $thumbnailUploaded = $this->get('image_uploader')->upload($thumbnailFile);
+                $thumbnailUploaded = $this->get('image_uploader')
+                    ->upload($thumbnailFile, $this->getParameter('uploads_rooms_path'));
                 $room->setThumbnail($thumbnailUploaded);
             } else {
                 $room->setThumbnail($thumbnail);
@@ -152,7 +156,8 @@ class RoomController extends Controller
             if ($slideFiles = $room->getSlides()) {
                 $slidesUploaded = [];
                 foreach ($slideFiles as $slideFile) {
-                    $slidesUploaded[] = $this->get('image_uploader')->upload($slideFile);
+                    $slidesUploaded[] = $this->get('image_uploader')
+                        ->upload($slideFile, $this->getParameter('uploads_rooms_path'));
                 }
                 $room->setSlides($slidesUploaded);
             } else {

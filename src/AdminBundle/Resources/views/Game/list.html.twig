@@ -81,12 +81,12 @@
                     <td>{{ game.result }}</td>
                     <td>
                         {% if game.photo %}
-                            <span data-comment="{{ game.photo }}" data-toggle="modal" data-target="#modal-photo"
+                            <span data-photo="{{ asset('uploads/customers/' ~ game.photo) }}" data-toggle="modal" data-target="#modal-photo"
                                   style="color: #337ab7; cursor: pointer;">view..</span>
                         {% endif %}
                     </td>
                     <td>
-                        <a class="btn btn-xs btn-warning" href="">edit <span class=" fa fa-pencil"></span></a>
+                        <a class="btn btn-xs btn-warning" href="{{ path('admin_games_edit', {slug: game.room.slug, id: game.id}) }}">edit <span class=" fa fa-pencil"></span></a>
                         <a class="btn btn-xs btn-danger" href="{{ path('admin_games_delete', {id: game.id}) }}">delete
                             <span class=" fa fa-close"></span></a>
                     </td>
@@ -112,6 +112,8 @@
     <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('daterangepicker/jquery.daterangepicker.min.js') }}"></script>
     <script>
+        {#var uploadsCustomersPath = '{{ uploads_customers_path }}';#}
+
         $('#daterangepicker').dateRangePicker({
             autoClose: false,
             format: 'DD.MM.YYYY HH:mm',

@@ -20,20 +20,17 @@ class Game
     private $id;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $datetime;
 
     /**
      * Storing price, currency, players, discount
-     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=false)
      */
     private $bookingData;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="boolean", options={"default"="0"})
      */
     private $is_paid;

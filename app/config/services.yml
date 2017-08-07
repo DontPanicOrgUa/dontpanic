@@ -9,7 +9,6 @@ services:
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
     image_uploader:
         class: AdminBundle\Service\ImageUploader
-        arguments: ['%uploads_rooms_path%']
 
     mail_sender:
         class: AdminBundle\Service\MailSender

@@ -9,16 +9,12 @@
 namespace AdminBundle\Controller;
 
 
-use DateTime;
-use DateTimeZone;
 use WebBundle\Entity\Game;
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Customer;
+use AdminBundle\Form\GameFormType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class GameController extends Controller
 {
@@ -55,8 +51,6 @@ class GameController extends Controller
      * @Route("/rooms/{slug}/games/{id}", name="admin_games_show")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
-     * @internal param $slug
-     * @internal param Game $game
      */
     public function showAction($id)
     {
@@ -68,6 +62,48 @@ class GameController extends Controller
         }
         return $this->render('AdminBundle:Game:show.html.twig', [
             'game' => $game
+        ]);
+    }
+
+    /**
+     * @Route("/rooms/{slug}/games/{id}/edit", name="admin_games_edit")
+     * @param Request $request
+     * @param $slug
+     * @param Game $game
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request, $slug, Game $game)
+    {
+        $photo = $game->getPhoto();
+
+        if (is_file($this->getParameter('uploads_customers_path') . '/' . $photo)) {
+            $game->setPhoto(
+                new File($this->getParameter('uploads_rooms_path') . '/' . $photo)
+            );
+        }
+
+        $form = $this->createForm(GameFormType::class, $game);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $game = $form->getData();
+            if ($photoFile = $game->getPhoto()) {
+                $photoUploaded = $this->get('image_uploader')
+                    ->upload($photoFile, $this->getParameter('uploads_customers_path'));
+                $game->setPhoto($photoUploaded);
+            } else {
+                $game->setPhoto($photo);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($game);
+            $em->flush();
+            $this->addFlash('success', 'Game is edited.');
+            return $this->redirectToRoute('admin_games_list', [
+                'slug' => $slug
+            ]);
+        }
+
+        return $this->render('AdminBundle:Game:edit.html.twig', [
+            'gameForm' => $form->createView()
         ]);
     }
 

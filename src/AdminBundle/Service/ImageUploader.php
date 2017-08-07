@@ -7,23 +7,16 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageUploader
 {
-    private $targetDir;
-
-    public function __construct($targetDir)
-    {
-        $this->targetDir = $targetDir;
-    }
-
-    public function upload(UploadedFile $file)
+    public function upload(UploadedFile $file, $targetDir)
     {
         $image = $this->load($file);
         if ($image['type'] == IMAGETYPE_PNG) {
             $name = md5(uniqid()) . '.png';
-            $file->move($this->targetDir, $name);
+            $file->move($targetDir, $name);
             return $name;
         }
         $newImage = $this->crop($image);
-        return $this->save($newImage, $image['type']);
+        return $this->save($newImage, $image['type'], $targetDir);
     }
 
     private function load($file)
@@ -45,14 +38,14 @@ class ImageUploader
         ];
     }
 
-    private function save($image, $type, $compression = 75)
+    private function save($image, $type, $targetDir)
     {
         if ($type == IMAGETYPE_JPEG) {
             $fileName = md5(uniqid()) . '.jpg';
-            imagejpeg($image, $this->targetDir . '/' . $fileName, $compression);
+            imagejpeg($image, $targetDir . '/' . $fileName, 75);
         } elseif ($type == IMAGETYPE_PNG) {
             $fileName = md5(uniqid()) . '.png';
-            imagepng($image, $this->targetDir . '/' . $fileName);
+            imagepng($image, $targetDir . '/' . $fileName);
         } else {
             throw new \Exception('Wrong image type.');
         }
