@@ -57,29 +57,35 @@
                                                 <td class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} cell-today{% endif %}"
                                                     data-date-time="{{ game.date }} {{ row.time }}"
                                                     data-prices="{{ game.prices|json_encode }}">
-                                                    {% if game.busy %}
+                                                    {% if game.prices is empty %}
                                                         <div class="cell cell-expired">
-                                                            <span class="game-time">{{ row.time }}</span>
-                                                            - {{ 'from'|trans }}
-                                                            <br>
-                                                            <span class="game-price">{{ game.prices|first.price }}</span> {{ room.currency }}
+                                                            {{ 'No'|trans }}<br>{{ 'game'|trans }}
                                                         </div>
                                                     {% else %}
-                                                        {% if game.prices|first.price < 600 %}
-                                                            {% set priceClass = 'price-xs' %}
-                                                        {% elseif game.prices|first.price >= 600 and game.prices|first.price < 700 %}
-                                                            {% set priceClass = 'price-s' %}
-                                                        {% elseif game.prices|first.price >= 700 and game.prices|first.price < 800 %}
-                                                            {% set priceClass = 'price-m' %}
-                                                        {% elseif game.prices|first.price >= 800 %}
-                                                            {% set priceClass = 'price-l' %}
+                                                        {% if game.busy %}
+                                                            <div class="cell cell-expired">
+                                                                <span class="game-time">{{ row.time }}</span>
+                                                                - {{ 'from'|trans }}
+                                                                <br>
+                                                                <span class="game-price">{{ game.prices|first.price }}</span> {{ room.currency }}
+                                                            </div>
+                                                        {% else %}
+                                                            {% if game.prices|first.price < 600 %}
+                                                                {% set priceClass = 'price-xs' %}
+                                                            {% elseif game.prices|first.price >= 600 and game.prices|first.price < 700 %}
+                                                                {% set priceClass = 'price-s' %}
+                                                            {% elseif game.prices|first.price >= 700 and game.prices|first.price < 800 %}
+                                                                {% set priceClass = 'price-m' %}
+                                                            {% elseif game.prices|first.price >= 800 %}
+                                                                {% set priceClass = 'price-l' %}
+                                                            {% endif %}
+                                                            <div class="cell {{ priceClass }}">
+                                                                <span class="game-time">{{ row.time }}</span>
+                                                                - {{ 'from'|trans }}
+                                                                <br>
+                                                                <span class="game-price">{{ game.prices|first.price }}</span> {{ room.currency }}
+                                                            </div>
                                                         {% endif %}
-                                                        <div class="cell {{ priceClass }}">
-                                                            <span class="game-time">{{ row.time }}</span>
-                                                            - {{ 'from'|trans }}
-                                                            <br>
-                                                            <span class="game-price">{{ game.prices|first.price }}</span> {{ room.currency }}
-                                                        </div>
                                                     {% endif %}
                                                 </td>
                                             {% endfor %}
@@ -308,7 +314,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMugwAfvvSHxHNaQ3gdmEr0_cgSawCc48&callback=initMap"
-    async defer></script>
+            async defer></script>
     <script>
         var playersTrans = '{{ "Players"|trans }}*';
         var gamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
