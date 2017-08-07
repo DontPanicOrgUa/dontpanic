@@ -30,15 +30,15 @@ class GameController extends Controller
      */
     public function listAction($slug, Request $request)
     {
-//        $search = $request->query->get('search');
-//
-//        $dateStart = $request->query->get('start');
-//        $dateEnd = $request->query->get('end');
-//
+        $search = $request->query->get('search');
+
+        $dateStart = $request->query->get('start');
+        $dateEnd = $request->query->get('end');
+
         $em = $this->getDoctrine()->getManager();
         $games = $em
             ->getRepository('WebBundle:Game')
-            ->getAllGamesByRoom($slug);
+            ->getAllGamesByRoom($slug, $search, $dateStart, $dateEnd);
 
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(

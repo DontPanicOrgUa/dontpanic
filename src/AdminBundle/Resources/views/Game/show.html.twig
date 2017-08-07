@@ -1,9 +1,16 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block content %}
-    <a class="btn btn-info pull-right" href="{{ path('admin_games_list', {slug: game.room.slug}) }}">To games list
-        <span class="fa fa-list"></span>
-    </a>
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Go to .. <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="fa fa-list" href="{{ path('admin_games_list', {slug: game.room.slug}) }}"> list games</a></li>
+            <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: game.room.slug}) }}"> list rooms</a></li>
+            <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}"> room schedule</a></li>
+        </ul>
+    </div>
 
     <h3>Booking info</h3>
     <span class="more">more..</span>

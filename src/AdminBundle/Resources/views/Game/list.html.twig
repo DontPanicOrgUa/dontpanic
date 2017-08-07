@@ -1,43 +1,53 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block content %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            Go to .. <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: games.params.slug}) }}"> list rooms</a>
+            </li>
+            <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: games.params.slug}) }}"> room
+                    schedule</a></li>
+        </ul>
+    </div>
     <h1 class="page-header">Games</h1>
     <div class="row">
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-6">
-                    {% if games[0] is defined %}
-                        <form action="{{ path('admin_games_list', {slug: games[0].room.slug}) }}" method="get">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="search">Search..</label>
-                                        <input id="search" name="search" type="text" class="form-control"
-                                               placeholder="Search for..."
-                                               value="{{ app.request.get('search') }}">
-                                    </div>
+                    <form action="{{ path('admin_games_list', {slug: games.params.slug}) }}" method="get">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label for="search">Search..</label>
+                                    <input id="search" name="search" type="text" class="form-control"
+                                           placeholder="Search for..."
+                                           value="{{ app.request.get('search') }}">
                                 </div>
                             </div>
-                            <div class="col-sm-12">
-                                <div class="form-group" id="daterangepicker">
-                                    <div class="col-sm-6">
-                                        <label for="daterange1">DateTime start</label>
-                                        <input id="daterange1" name="start" type="text" class="form-control"
-                                               value="{{ app.request.get('start') }}">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="daterange2">DateTime end</label>
-                                        <input id="daterange2" name="end" type="text" class="form-control"
-                                               value="{{ app.request.get('end') }}">
-                                    </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group" id="daterangepicker">
+                                <div class="col-sm-6">
+                                    <label for="daterange1">DateTime start</label>
+                                    <input id="daterange1" name="start" type="text" class="form-control"
+                                           value="{{ app.request.get('start') }}">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="daterange2">DateTime end</label>
+                                    <input id="daterange2" name="end" type="text" class="form-control"
+                                           value="{{ app.request.get('end') }}">
                                 </div>
                             </div>
-                            <div class="col-sm-12">
-                                <br>
-                                <button class="btn btn-default pull-right" type="submit">Search!</button>
-                            </div>
-                        </form>
-                    {% endif %}
+                        </div>
+                        <div class="col-sm-12">
+                            <br>
+                            <button class="btn btn-default pull-right" type="submit">Search!</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -46,20 +56,20 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(games, '#', 'g.id') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'date time', 'g.datetime') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'customer name', 'gc.name') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'customer last name', 'gc.lastName') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'customer phone', 'gc.phone') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'customer email', 'gc.email') }}</th>
                 <th>{{ knp_pagination_sortable(games, 'is paid', 'g.isPaid') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'result', 'g.result') }}</th>
+                <th>{{ knp_pagination_sortable(games, 'photo', 'g.photo') }}</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for game in games %}
                 <tr>
-                    <td>{{ game.id }}</td>
                     <td>
                         <a href="{{ path('admin_games_show', {slug: game.room.slug, id: game.id}) }}">{{ game.datetime | date('d.m.Y H:i') }}</a>
                     </td>
@@ -68,6 +78,13 @@
                     <td>{{ game.customer.phone }}</td>
                     <td>{{ game.customer.email }}</td>
                     <td>{{ game.isPaid ? 'paid' : 'no' }}</td>
+                    <td>{{ game.result }}</td>
+                    <td>
+                        {% if game.photo %}
+                            <span data-comment="{{ game.photo }}" data-toggle="modal" data-target="#modal-photo"
+                                  style="color: #337ab7; cursor: pointer;">view..</span>
+                        {% endif %}
+                    </td>
                     <td>
                         <a class="btn btn-xs btn-warning" href="">edit <span class=" fa fa-pencil"></span></a>
                         <a class="btn btn-xs btn-danger" href="{{ path('admin_games_delete', {id: game.id}) }}">delete
@@ -81,6 +98,8 @@
             {{ knp_pagination_render(games) }}
         </div>
     </div>
+
+    {% include 'AdminBundle:Game:modal-photo.html.twig' %}
 {% endblock %}
 
 {% block stylesheets %}
