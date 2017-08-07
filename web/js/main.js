@@ -5,7 +5,32 @@ $(function () {
     // подключение слайдера
     $('.flexslider').flexslider({
         animation: "slide",
-        directionNav: false
+        directionNav: false,
+    });
+
+    // подключение слайдера расписания
+    $('.schedule-slider').flexslider({
+        animation: 'slide',
+        directionNav: false,
+        slideshow: false,
+        animationLoop: false,
+        touch: false,
+        keyboard: false,
+        prevText: "Previous 7 days",
+        nextText: "Next 7 days",
+        controlNav: true,
+        manualControls: ".schedule .custom-controls li"
+    });
+
+    // room photo-slides
+    $('.room-slides').flexslider({
+        animation: "slide",
+        directionNav: false,
+        keyboard: false,
+        slideshow: true,
+        randomize: true,
+        controlNav: false,
+
     });
 
     // меню
@@ -69,16 +94,6 @@ $(function () {
     var today = new Date();
     var year = today.getFullYear();
     $('.year').text(year);
-
-    // подключение слайдера расписания
-    $('.shedule-slider').flexslider({
-        animation: 'slide',
-        controlNav: false,
-        directionNav: true,
-        slideshow: false,
-        animationLoop: false,
-        touch: false
-    });
 
     //сортировка
     var sortList = $('.sort-list');

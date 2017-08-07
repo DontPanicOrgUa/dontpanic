@@ -46,7 +46,6 @@ body {
 .clearfix:after {
     display: table;
     clear: both;
-
     content: "";
 }
 
@@ -384,9 +383,8 @@ header {
     margin-bottom: 50px;
 }
 
-.slides {
-    margin-top: 50px;
-
+.schedule-slider .slides {
+    /*margin-top: 50px;*/
     color: #fff;
 }
 
@@ -803,9 +801,26 @@ footer a {
 
 /* ROOM */
 
-.schedule {
+.schedule-slider .schedule {
     margin-top: 50px;
     margin-bottom: 50px;
+}
+
+.schedule .custom-controls ul {
+    margin-top: 30px;
+}
+
+.schedule .custom-controls li {
+    cursor: pointer;
+    margin: 4px 10px;
+}
+
+.schedule .custom-controls li.flex-active {
+    color: #ec971f;
+}
+
+.schedule .custom-controls li:hover{
+    text-decoration: underline;
 }
 
 td,
@@ -840,6 +855,11 @@ th:hover {
     position: absolute;
     top: 20px;
     left: 20px;
+}
+
+.room-left-panel img{
+    max-height: 180px;
+    max-width: 180px;
 }
 
 .room-left-panel h3 {
@@ -883,81 +903,81 @@ th:hover {
     height: auto;
 }
 
-.shedule-slider {
+.schedule-slider {
     position: relative;
 
     background: none;
 }
 
-.shedule-slider .flex-direction-nav a {
-    position: absolute;
-    z-index: 10;
-    top: 10px;
+/*.schedule-slider .flex-direction-nav a {*/
+    /*position: absolute;*/
+    /*z-index: 10;*/
+    /*top: 10px;*/
 
-    display: block;
-    overflow: hidden;
+    /*display: block;*/
+    /*overflow: hidden;*/
 
-    width: 40px;
-    height: 40px;
-    margin: -20px 0 0;
+    /*width: 40px;*/
+    /*height: 40px;*/
+    /*margin: -20px 0 0;*/
 
-    font-weight: bold;
+    /*font-weight: bold;*/
 
-    cursor: pointer;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    text-decoration: none;
+    /*cursor: pointer;*/
+    /*-webkit-transition: all 0.3s ease-in-out;*/
+    /*transition: all 0.3s ease-in-out;*/
+    /*text-decoration: none;*/
 
-    opacity: 1;
-    color: #fff;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
-}
+    /*opacity: 1;*/
+    /*color: #fff;*/
+    /*text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/
+/*}*/
 
-.shedule-slider .flex-direction-nav a:before {
-    display: inline-block;
+/*.schedule-slider .flex-direction-nav a:before {*/
+    /*display: inline-block;*/
 
-    font-family: "flexslider-icon";
-    font-size: 40px;
+    /*font-family: "flexslider-icon";*/
+    /*font-size: 40px;*/
 
-    content: "<";
-}
+    /*!*content: "<";*!*/
+/*}*/
 
-.shedule-slider .flex-direction-nav a.flex-next:before {
-    content: ">";
-}
+/*.schedule-slider .flex-direction-nav a.flex-next:before {*/
+    /*!*content: ">";*!*/
+/*}*/
 
-.shedule-slider .flex-direction-nav .flex-prev {
-    top: -36px;
-    left: 10%;
-}
+/*.schedule-slider .flex-direction-nav .flex-prev {*/
+    /*top: -36px;*/
+    /*left: 10%;*/
+/*}*/
 
-.shedule-slider .flex-direction-nav .flex-next {
-    top: -36px;
-    right: 10%;
+/*.schedule-slider .flex-direction-nav .flex-next {*/
+    /*top: -36px;*/
+    /*right: 10%;*/
 
-    text-align: right;
-}
+    /*text-align: right;*/
+/*}*/
 
-.shedule-slider .flex-direction-nav .flex-prev:focus,
-.shedule-slider .flex-direction-nav .flex-next:focus {
-    outline: none;
-}
+/*.schedule-slider .flex-direction-nav .flex-prev:focus,*/
+/*.schedule-slider .flex-direction-nav .flex-next:focus {*/
+    /*outline: none;*/
+/*}*/
 
-.shedule-slider .flexslider:hover .flex-direction-nav .flex-prev {
-    opacity: 1;
-}
+/*.schedule-slider .flexslider:hover .flex-direction-nav .flex-prev {*/
+    /*opacity: 1;*/
+/*}*/
 
-.shedule-slider:hover .flex-direction-nav .flex-prev:hover {
-    opacity: 1;
-}
+/*.schedule-slider:hover .flex-direction-nav .flex-prev:hover {*/
+    /*opacity: 1;*/
+/*}*/
 
-.shedule-slider:hover .flex-direction-nav .flex-next {
-    opacity: 1;
-}
+/*.schedule-slider:hover .flex-direction-nav .flex-next {*/
+    /*opacity: 1;*/
+/*}*/
 
-.shedule-slider .flexslider:hover .flex-direction-nav .flex-next:hover {
-    opacity: 1;
-}
+/*.schedule-slider .flexslider:hover .flex-direction-nav .flex-next:hover {*/
+    /*opacity: 1;*/
+/*}*/
 
 .review {
     text-align: left;
@@ -1045,6 +1065,8 @@ th:hover {
 
 .form-reservation img {
     margin: 32px 0;
+    max-height: 180px;
+    max-width: 180px;
 }
 
 .form-reservation .greeting-form {
@@ -1118,6 +1140,10 @@ th:hover {
 
 .schedule h2 a {
     color: #fff;
+}
+
+.schedule .room-slides ul.slides {
+    margin-top: 0;
 }
 
 /* SCHEDULE end */
@@ -1399,13 +1425,13 @@ th:hover {
         max-height: 50px;
     }
 
-    .shedule-slider .flex-direction-nav .flex-prev {
-        top: 0;
-    }
+    /*.schedule-slider .flex-direction-nav .flex-prev {*/
+        /*top: 0;*/
+    /*}*/
 
-    .shedule-slider .flex-direction-nav .flex-next {
-        top: 0;
-    }
+    /*.schedule-slider .flex-direction-nav .flex-next {*/
+        /*top: 0;*/
+    /*}*/
 }
 
 @media only screen and (max-width: 480px) {

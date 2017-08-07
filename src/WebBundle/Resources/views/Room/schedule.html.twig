@@ -5,10 +5,26 @@
     <div class="content container-fluid">
 
         <div class="row room genesis">
-            <img src="{{ asset('img/genesis-img.jpg') }}" alt="{{ room.title }}" class="room-images">
+            <div class="room-slides room-images">
+                <ul class="slides">
+                    {% if room.slides is empty %}
+                        {% set slide = room.thumbnail ?: 'default_thumbnail.jpg' %}
+                        <li>
+                            <img src="{{ asset('uploads/rooms/'~slide) }}" alt="{{ room.title }}" class="room-images">
+                        </li>
+                    {% endif %}
+                    {% for slide in room.slides %}
+                        <li>
+                            <img src="{{ asset('uploads/rooms/'~slide) }}" alt="{{ room.title }}" class="room-images">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {#<img src="{{ asset('uploads/rooms/'~room.thumbnail) }}" alt="{{ room.title }}" class="room-images">#}
 
             <div class="room-left-panel">
-                <img src="{{ asset('img/genesis-logo.png') }}" alt="{{ room.title }}" class="room-logo">
+                {% set logo = room.logo ?: 'default_logo.png' %}
+                <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
                 <h3 class="room-title">{{ room.title }}</h3>
                 <p class="room-complexity">{{ 'Complexity'|trans }} 3</p>
                 <div class="room-description">{{ room.description|raw }}</div>
@@ -29,7 +45,18 @@
 
         <section class="schedule">
             <h2 class="text-center">{{ 'Quest schedule'|trans }}</h2>
-            <div class="shedule-slider">
+            <div class="schedule-slider">
+                <div class="custom-controls text-center">
+                    <ul class="list-inline">
+                        {% for sevenDays in schedule %}
+                            <li>
+                                {{ sevenDays[0].dates[0].date|date('j') }} {{ sevenDays[0].dates[0].date|date('F')|trans }}
+                                <br>
+                                {{ sevenDays[0].dates[6].date|date('j') }} {{ sevenDays[0].dates[6].date|date('F')|trans }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 <ul class="slides">
                     {% for sevenDays in schedule %}
                         <li>
@@ -42,7 +69,7 @@
                                             <th class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} th-today cell-today{% endif %}{% if game.date|date('l') in ['Saturday', 'Sunday'] %} th-weekend{% endif %}">
                                                 <span class="font-s">{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %}{{ 'Today'|trans }}{% endif %}</span>
                                                 <br>
-                                                {{ game.date|date('d') }} {{ game.date|date('F')|trans }}
+                                                {{ game.date|date('j') }} {{ game.date|date('F')|trans }}
                                                 <br>
                                                 <span class="font-s">{{ game.date|date('l')|trans }}</span>
                                             </th>
@@ -105,7 +132,7 @@
             <div class="row greeting-form">
                 <div class="col-sm-12 text-center">
                     <h3>{{ room.title }}</h3>
-                    <img src="{{ asset('img/genesis-logo.png') }}" alt="{{ room.title }}" class="room-logo">
+                    <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
                     <p>
                         <i class="li-ico fa fa-exclamation"></i>
                         <span>{{ 'Please, select a game'|trans }}.</span>
@@ -116,7 +143,7 @@
                 <div class="row">
                     <div class="col-sm-4 text-center">
                         <h3>{{ room.title }}</h3>
-                        <img src="{{ asset('img/genesis-logo.png') }}" alt="{{ room.title }}" class="room-logo">
+                        <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
                     </div>
                     <div class="col-sm-4">
                         <ul>
