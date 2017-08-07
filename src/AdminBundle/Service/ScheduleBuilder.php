@@ -43,7 +43,7 @@ class ScheduleBuilder
 
                 for (
                     $date = new DateTime('now + ' . ($sd * 7 - 7) . ' days', $this->timeZone);
-                    $date < new DateTime('now + ' . ($sd * 7 - 1) . ' days', $this->timeZone);
+                    $date <= new DateTime('now + ' . ($sd * 7 - 1) . ' days', $this->timeZone);
                     $date->modify('+1 days')
                 ) {
 
