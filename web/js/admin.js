@@ -229,5 +229,37 @@ $(function () {
     $('[data-target="#modal-comment"]').click(function () {
         $modalComment.find('.modal-body').html($(this).data('comment'));
     });
+
+    ////////////////////////////////////////////////////////////////////////
+    //////////////// preview image /////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+    var $inputFiles = $('input[type="file"]');
+
+    function cleanPreviews(input) {
+        $(input).closest('div').find('div.previews').remove();
+    }
+
+    function buildPreviews(input) {
+        if (input.files) {
+            $(input).closest('div').append($('<div>', {class: 'previews'}));
+            $.each(input.files, function (k, v) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(input).closest('div').find('.previews').append(
+                        $('<img>', {src: e.target.result})
+                            .css('max-width', '120px')
+                            .css('max-height', '100px')
+                            .css('margin-top', '7px')
+                    );
+                }
+                reader.readAsDataURL(v);
+            });
+        }
+    }
+
+    $inputFiles.change(function () {
+        cleanPreviews(this);
+        buildPreviews(this);
+    });
 });
 
