@@ -52,7 +52,7 @@
                             <li>
                                 {{ sevenDays[0].dates[0].date|date('j') }} {{ sevenDays[0].dates[0].date|date('F')|trans }}
                                 <br>
-                                {{ sevenDays[0].dates[6].date|date('j') }} {{ sevenDays[0].dates[6].date|date('F')|trans }}
+                                {{ sevenDays[0].dates|last.date|date('j') }} {{ sevenDays[0].dates|last.date|date('F')|trans }}
                             </li>
                         {% endfor %}
                     </ul>
