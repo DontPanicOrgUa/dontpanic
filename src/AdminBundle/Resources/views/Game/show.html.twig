@@ -6,6 +6,7 @@
             Go to .. <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
+            <li><a class="fa fa-pencil" href="{{ path('admin_games_edit', {slug: game.room.slug, id: game.id}) }}"> edit game</a></li>
             <li><a class="fa fa-list" href="{{ path('admin_games_list', {slug: game.room.slug}) }}"> list games</a></li>
             <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: game.room.slug}) }}"> list rooms</a></li>
             <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}"> room schedule</a></li>
@@ -13,7 +14,7 @@
     </div>
 
     <h3>Booking info</h3>
-    <span class="likn-like">more..</span>
+    <span class="link-like more">more..</span>
     <div class="table-responsive" style="display: none;">
         <table class="table table-striped">
             <thead>
@@ -58,7 +59,7 @@
     </div>
 
     <h3>Customer info</h3>
-    <span class="link-like">more..</span>
+    <span class="link-like more">more..</span>
     <div class="table-responsive" style="display: none;">
         <table class="table table-striped">
             <thead>
@@ -97,7 +98,7 @@
                     <b>{{ payment.data.amount }} {{ payment.data.currency }}</b> -
                     {{ payment.data.status }}
                 </li>
-                <span class="link-like">more..</span>
+                <span class="link-like more">more..</span>
                 <div class="table-responsive" style="display: none;">
                     <table class="table table-striped">
                         <thead>
@@ -126,7 +127,7 @@
                 {{ bill.data.order_id }}:
                 {{ bill.data.amount }} {{ bill.data.currency }}
             </li>
-            <span class="link-like">more..</span>
+            <span class="link-like more">more..</span>
             <div class="table-responsive" style="display: none;">
                 <table class="table table-striped">
                     <thead>

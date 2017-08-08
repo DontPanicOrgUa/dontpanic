@@ -10,12 +10,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class GameFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('datetime', DateTimeType::class, [
+                'widget' => 'choice',
+                'date_format' => \IntlDateFormatter::MEDIUM,
+            ])
             ->add('result', IntegerType::class, [
                 'label' => 'Result',
                 'attr' => [
