@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Table(name="rooms")
  * @ORM\Entity(repositoryClass="WebBundle\Repository\RoomRepository")
+ * @UniqueEntity(fields={"apiKey"})
  * @UniqueEntity(fields={"titleRu"})
  * @UniqueEntity(fields={"titleEn"})
  * @UniqueEntity(fields={"titleDe"})
@@ -25,6 +26,11 @@ class Room
      * @ORM\Column(name="id", type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, unique=true)
+     */
+    private $apiKey;
 
     /**
      * @Assert\NotBlank()
@@ -962,6 +968,22 @@ class Room
     public function setFeedbacks($feedbacks)
     {
         $this->feedbacks = $feedbacks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param mixed $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
     }
 
 }

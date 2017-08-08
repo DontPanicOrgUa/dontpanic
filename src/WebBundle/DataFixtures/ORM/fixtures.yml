@@ -97,6 +97,7 @@ WebBundle\Entity\Room:
         city: '@city_2'
         currency: '@currency_2'
         timezone: '@zone_305'
+        apiKey (unique): <uuid()>
         titleRu: Тестовая комната
         titleEn: Test room
         titleDe: Testraum
