@@ -5,9 +5,13 @@ namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @ORM\Table(name="shares")
+ * @ORM\Entity(repositoryClass="WebBundle\Repository\ShareRepository")
+ */
 class Share
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
