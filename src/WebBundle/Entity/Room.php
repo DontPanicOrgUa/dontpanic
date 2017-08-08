@@ -82,7 +82,7 @@ class Room
 
     /**
      * @ORM\Column(type="array", nullable=true)
-     * @Assert\Count(max="5")
+     * @Assert\Count(max="10")
      * @Assert\All({
      *      @Assert\File(mimeTypes={ "image/jpeg" })
      * })
