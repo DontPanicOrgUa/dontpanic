@@ -130,7 +130,7 @@ $(function () {
             correctiveModal.find('table tbody').append(
                 '<tr>' +
                 '<td><input type="text" class="form-control players" value="' + this.players + '"></td>' +
-                '<td><input type="text" class="form-control price" value="' + this.price + '"></td>' +
+                '<td><input type="number" class="form-control price" value="' + this.price + '"></td>' +
                 '</tr>'
             );
         })
