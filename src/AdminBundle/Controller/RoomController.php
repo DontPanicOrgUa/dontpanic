@@ -124,9 +124,11 @@ class RoomController extends Controller
             );
         }
         $checkedSlides = [];
-        foreach ($slides as $slide) {
-            if (is_file($this->getParameter('uploads_rooms_path') . '/' . $slide)) {
-                $checkedSlides[] = new File($this->getParameter('uploads_rooms_path') . '/' . $slide);
+        if ($slides) {
+            foreach ($slides as $slide) {
+                if (is_file($this->getParameter('uploads_rooms_path') . '/' . $slide)) {
+                    $checkedSlides[] = new File($this->getParameter('uploads_rooms_path') . '/' . $slide);
+                }
             }
         }
         $room->setSlides($checkedSlides);

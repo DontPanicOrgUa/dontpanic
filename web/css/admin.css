@@ -30,7 +30,13 @@ div.table-responsive table tbody tr td a.btn {
     color: gray;
 }
 
-.more {
-    color: #2a62bc;
+.link-like {
+    color: #337ab7;
     cursor: pointer;
+}
+
+.link-like:hover {
+    color: #2b6398;
+    cursor: pointer;
+    text-decoration: underline;
 }

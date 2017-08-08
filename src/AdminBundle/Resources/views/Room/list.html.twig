@@ -12,8 +12,7 @@
             <tr>
                 <th>{{ knp_pagination_sortable(rooms, '#', 'r.id') }}</th>
                 <th>{{ knp_pagination_sortable(rooms, 'title', 'r.titleEn') }}</th>
-                <th>logo</th>
-                <th>thumbnail</th>
+                <th>images</th>
                 <th>{{ knp_pagination_sortable(rooms, 'address', 'c.nameEn') }}</th>
                 <th>managers</th>
                 <th>{{ knp_pagination_sortable(rooms, 'is_active', 'r.enabled') }}</th>
@@ -27,10 +26,17 @@
                 <tr>
                     <td>{{ room.id }}</td>
                     <td><a href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}">{{ room.titleEn }}</a></td>
-                    <td>{% if room.logo %}<img width="60" src="{{ asset('uploads/rooms/' ~ room.logo) }}"
-                                               alt="">{% else %}No image{% endif %}</td>
-                    <td>{% if room.thumbnail %}<img width="80" src="{{ asset('uploads/rooms/' ~ room.thumbnail) }}"
-                                                     alt="">{% else %}No image{% endif %}</td>
+                    <td>
+                        <span class="link-like" data-src="{{ asset('uploads/rooms/'~room.logo) }}"  data-toggle="modal" data-target="#modal-view-images">logo..</span>
+                        <br>
+                        <span class="link-like" data-src="{{ asset('uploads/rooms/'~room.thumbnail) }}"  data-toggle="modal" data-target="#modal-view-images">thumbnail..</span>
+                        <br>
+                        {% set slides = [] %}
+                        {% for slide in room.slides %}
+                            {% set slides = slides|merge([asset('uploads/rooms/'~slide)]) %}
+                        {% endfor %}
+                        <span class="link-like" data-src="{{ slides|json_encode }}"  data-toggle="modal" data-target="#modal-view-images">slides..</span>
+                    </td>
                     <td>{{ room.city.nameEn }}<br>{{ room.address }}<br>{{ room.phone }}<br>{{ room.email }}</td>
                     <td>
                         <ul>
@@ -64,4 +70,5 @@
             {{ knp_pagination_render(rooms) }}
         </div>
     </div>
+    {% include 'AdminBundle:Room:modal-view-imges.html.twig' %}
 {% endblock %}

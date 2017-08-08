@@ -240,6 +240,31 @@ $(function () {
     });
 
     ////////////////////////////////////////////////////////////////////////
+    //////////////// modal-view-images /////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+    var $modalViewImages = $('#modal-view-images');
+
+    $('[data-target="#modal-view-images"]').click(function () {
+        var image = $(this).data('src');
+        if ($.isArray(image)) {
+            $.each(image, function (k, v) {
+                $modalViewImages.find('.modal-body').append(
+                    '<img src="' + v + '" style="max-width: 400px;">'
+                );
+            })
+        } else {
+            $modalViewImages.find('.modal-body').append(
+                '<img src="' + image + '" style="max-width: 400px;">'
+            );
+        }
+        // $modalViewImages.find('.modal-body');
+    });
+
+    $modalViewImages.on('hide.bs.modal', function () {
+        $modalViewImages.find('img').remove();
+    });
+
+    ////////////////////////////////////////////////////////////////////////
     //////////////// preview image /////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////
     var $inputFiles = $('input[type="file"]');
