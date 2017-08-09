@@ -69,9 +69,8 @@ class Notification
      * @param string $locale
      * @return string
      */
-    public function getMessage($locale = null)
+    public function getMessage($locale)
     {
-        $locale = !empty($locale) ? $locale : Locale::getDefault();
         $messageLocale = 'message' . ucfirst($locale);
         return $this->$messageLocale;
     }
@@ -80,9 +79,8 @@ class Notification
      * @param string $message
      * @param null $locale
      */
-    public function setMessage($message, $locale = null)
+    public function setMessage($message, $locale)
     {
-        $locale = !empty($locale) ? $locale : Locale::getDefault();
         $messageLocale = 'message' . ucfirst($locale);
         $this->$messageLocale = $message;
     }
@@ -91,9 +89,8 @@ class Notification
      * @param string $locale
      * @return string
      */
-    public function getTitle($locale = null)
+    public function getTitle($locale)
     {
-        $locale = !empty($locale) ? $locale : Locale::getDefault();
         $titleLocale = 'title' . ucfirst($locale);
         return $this->$titleLocale;
     }
@@ -102,9 +99,8 @@ class Notification
      * @param $title
      * @param null $locale
      */
-    public function setTitle($title, $locale = null)
+    public function setTitle($title, $locale)
     {
-        $locale = !empty($locale) ? $locale : Locale::getDefault();
         $titleLocale = 'title' . ucfirst($locale);
         $this->$titleLocale = $title;
     }

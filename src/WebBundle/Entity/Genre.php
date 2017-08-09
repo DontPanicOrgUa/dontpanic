@@ -50,20 +50,18 @@ class Genre
      * @param string $locale
      * @return string
      */
-    public function getName($locale = null)
+    public function getName($locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $nameLocale = 'name' . ucfirst($locale);
         return $this->$nameLocale;
     }
 
     /**
      * @param string $name
-     * @param null $locale
+     * @param string $locale
      */
-    public function setName($name, $locale = null)
+    public function setName($name, $locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $nameLocale = 'name' . ucfirst($locale);
         $this->$nameLocale = $name;
     }

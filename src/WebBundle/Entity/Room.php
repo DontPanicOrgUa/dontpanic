@@ -295,20 +295,18 @@ class Room
      * @param string $locale
      * @return string
      */
-    public function getTitle($locale = null)
+    public function getTitle($locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $titleLocale = 'title' . ucfirst($locale);
         return $this->$titleLocale;
     }
 
     /**
      * @param string $title
-     * @param null $locale
+     * @param string $locale
      */
-    public function setTitle($title, $locale = null)
+    public function setTitle($title, $locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $titleLocale = 'title' . ucfirst($locale);
         $this->$titleLocale = $title;
     }
@@ -365,20 +363,18 @@ class Room
      * @param string $locale
      * @return string
      */
-    public function getDescription($locale = null)
+    public function getDescription($locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $descriptionLocale = 'description' . ucfirst($locale);
         return $this->$descriptionLocale;
     }
 
     /**
      * @param string $description
-     * @param null $locale
+     * @param string $locale
      */
-    public function setDescription($description, $locale = null)
+    public function setDescription($description, $locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $descriptionLocale = 'description' . ucfirst($locale);
         $this->$descriptionLocale = $description;
     }
@@ -483,20 +479,18 @@ class Room
      * @param string $locale
      * @return string
      */
-    public function getAddress($locale = null)
+    public function getAddress($locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $addressLocale = 'address' . ucfirst($locale);
         return $this->$addressLocale;
     }
 
     /**
      * @param string $address
-     * @param null $locale
+     * @param string $locale
      */
-    public function setAddress($address, $locale = null)
+    public function setAddress($address, $locale)
     {
-        $locale = !empty($locale) ? $locale : \Locale::getDefault();
         $addressLocale = 'description' . ucfirst($locale);
         $this->$addressLocale = $address;
     }

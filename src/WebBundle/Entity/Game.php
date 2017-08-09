@@ -226,7 +226,7 @@ class Game
     /**
      * @return mixed
      */
-    public function getisPaid()
+    public function getIsPaid()
     {
         return $this->is_paid;
     }

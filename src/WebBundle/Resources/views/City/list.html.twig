@@ -43,17 +43,17 @@
                         <div class="col-sm-6 col-md-4 gallery-item">
                             <div class="gallery-img-container">
                                 {% set thumbnail = room.thumbnail ?: 'default_thumbnail.jpg' %}
-                                <img src="{{ asset('uploads/rooms/'~thumbnail) }}" alt="{{ room.title }}"
+                                <img src="{{ asset('uploads/rooms/'~thumbnail) }}" alt="{{ room.title(app.request.locale) }}"
                                      class="img-responsive zoom">
                                 {% set logo = room.logo ?: 'default_logo.png' %}
                                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="" class="game-logo">
                                 <div class="game-title">
-                                    <p>{{ room.title }}</p>
+                                    <p>{{ room.title(app.request.locale) }}</p>
                                 </div>
                                 <div class="img-hover"></div>
                                 <a href="{{ path('room_schedule', {slug: room.slug}) }}" class="hover-text">
                                     <div class="game-title-hover">
-                                        <p>{{ room.title }}</p>
+                                        <p>{{ room.title(app.request.locale) }}</p>
                                     </div>
                                     <div class="game-img">
                                         <img src="{{ asset('uploads/rooms/'~logo) }}" alt="">

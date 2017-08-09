@@ -13,7 +13,7 @@
         </ul>
     </div>
 
-    <h1 class="page-header">{{ room.title }}</h1>
+    <h1 class="page-header">{{ room.title(app.request.locale) }}</h1>
 
     <span class="label label-default">free</span>
     <span class="label label-success">by client</span>
@@ -111,7 +111,7 @@
             <tbody>
             <tr>
                 <td>title</td>
-                <td>{{ room.title }}</td>
+                <td>{{ room.title(app.request.locale) }}</td>
             </tr>
             <tr>
                 <td>slug</td>
@@ -119,7 +119,7 @@
             </tr>
             <tr>
                 <td>description</td>
-                <td>{{ room.description }}</td>
+                <td>{{ room.description(app.request.locale) }}</td>
             </tr>
             <tr>
                 <td>logo</td>
@@ -136,7 +136,7 @@
             </tr>
             <tr>
                 <td>city</td>
-                <td>{{ room.city.name }}</td>
+                <td>{{ room.city.name(app.request.locale) }}</td>
             </tr>
             <tr>
                 <td>timezone</td>
@@ -144,7 +144,7 @@
             </tr>
             <tr>
                 <td>address</td>
-                <td>{{ room.address }}</td>
+                <td>{{ room.address(app.request.locale) }}</td>
             </tr>
             <tr>
                 <td>phone</td>

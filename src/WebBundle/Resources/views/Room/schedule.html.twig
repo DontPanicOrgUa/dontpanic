@@ -10,24 +10,24 @@
                     {% if room.slides is empty %}
                         {% set slide = room.thumbnail ?: 'default_thumbnail.jpg' %}
                         <li>
-                            <img src="{{ asset('uploads/rooms/'~slide) }}" alt="{{ room.title }}" class="room-images">
+                            <img src="{{ asset('uploads/rooms/'~slide) }}" alt="{{ room.title(app.request.locale) }}" class="room-images">
                         </li>
                     {% endif %}
                     {% for slide in room.slides %}
                         <li>
-                            <img src="{{ asset('uploads/rooms/'~slide) }}" alt="{{ room.title }}" class="room-images">
+                            <img src="{{ asset('uploads/rooms/'~slide) }}" alt="{{ room.title(app.request.locale) }}" class="room-images">
                         </li>
                     {% endfor %}
                 </ul>
             </div>
-            {#<img src="{{ asset('uploads/rooms/'~room.thumbnail) }}" alt="{{ room.title }}" class="room-images">#}
+            {#<img src="{{ asset('uploads/rooms/'~room.thumbnail) }}" alt="{{ room.title(app.request.locale) }}" class="room-images">#}
 
             <div class="room-left-panel">
                 {% set logo = room.logo ?: 'default_logo.png' %}
-                <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
-                <h3 class="room-title">{{ room.title }}</h3>
+                <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title(app.request.locale) }}" class="room-logo">
+                <h3 class="room-title">{{ room.title(app.request.locale) }}</h3>
                 <p class="room-complexity">{{ 'complexity'|trans }} 3</p>
-                <div class="room-description">{{ room.description|raw }}</div>
+                <div class="room-description">{{ room.description(app.request.locale)|raw }}</div>
                 <p class="team">{{ 'players'|trans }} {{ room.playersMin }}-{{ room.playersMax }}</p>
                 <p class="time-to-play">{{ room.timeMax }} {{ 'minutes'|trans }}</p>
             </div>
@@ -39,7 +39,7 @@
             <div class="room-right-panel">
                 <p><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> &nbsp;{{ room.phone }}</p>
                 <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> &nbsp;{{ room.email }}</p>
-                <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ room.address }}</p>
+                <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ room.address(app.request.locale) }}</p>
             </div>
         </div>
 
@@ -131,8 +131,8 @@
             <h2 class="text-center">{{ 'book.game'|trans }}</h2>
             <div class="row greeting-form">
                 <div class="col-sm-12 text-center">
-                    <h3>{{ room.title }}</h3>
-                    <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
+                    <h3>{{ room.title(app.request.locale) }}</h3>
+                    <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title(app.request.locale) }}" class="room-logo">
                     <p>
                         <i class="li-ico fa fa-exclamation"></i>
                         <span>{{ 'select.game'|trans }}.</span>
@@ -142,14 +142,14 @@
             <div class="booking-form">
                 <div class="row">
                     <div class="col-sm-4 text-center">
-                        <h3>{{ room.title }}</h3>
-                        <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
+                        <h3>{{ room.title(app.request.locale) }}</h3>
+                        <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title(app.request.locale) }}" class="room-logo">
                     </div>
                     <div class="col-sm-4">
                         <ul>
                             <li>
                                 <i class="li-ico fa fa-map-marker"></i>
-                                <span class="color-orange">{{ 'place'|trans }}:</span> <span>{{ room.address }}</span>
+                                <span class="color-orange">{{ 'place'|trans }}:</span> <span>{{ room.address(app.request.locale) }}</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-calendar"></i>
@@ -220,11 +220,11 @@
                 </div>
                 <div class="col-sm-4 form-middle">
                     <h3 class="text-center">{{ 'your.order'|trans }}:</h3>
-                    <p class="color-orange text-center">{{ 'quest'|trans }} - {{ room.title }}</p>
+                    <p class="color-orange text-center">{{ 'quest'|trans }} - {{ room.title(app.request.locale) }}</p>
                     <ul>
                         <li>
                             <i class="fa fa-map-marker"></i>
-                            <span class="color-orange">{{ 'place'|trans }}:</span> <span>{{ room.address }}</span>
+                            <span class="color-orange">{{ 'place'|trans }}:</span> <span>{{ room.address(app.request.locale) }}</span>
                         </li>
                         <li>
                             <i class="fa fa-calendar"></i>

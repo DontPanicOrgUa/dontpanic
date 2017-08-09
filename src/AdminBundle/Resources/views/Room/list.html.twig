@@ -25,7 +25,7 @@
             {% for room in rooms %}
                 <tr>
                     <td>{{ room.id }}</td>
-                    <td><a href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}">{{ room.titleEn }}</a></td>
+                    <td><a href="{{ path('admin_rooms_schedule', {slug: room.slug}) }}">{{ room.title(app.request.locale) }}</a></td>
                     <td>
                         <span class="link-like" data-src="{{ asset('uploads/rooms/'~room.logo) }}"  data-toggle="modal" data-target="#modal-view-images">logo..</span>
                         <br>
@@ -37,7 +37,7 @@
                         {% endfor %}
                         <span class="link-like" data-src="{{ slides|json_encode }}"  data-toggle="modal" data-target="#modal-view-images">slides..</span>
                     </td>
-                    <td>{{ room.city.nameEn }}<br>{{ room.address }}<br>{{ room.phone }}<br>{{ room.email }}</td>
+                    <td>{{ room.city.nameEn }}<br>{{ room.address(app.request.locale) }}<br>{{ room.phone }}<br>{{ room.email }}</td>
                     <td>
                         <ul>
                             {% for roomManager in room.roomManagers %}
