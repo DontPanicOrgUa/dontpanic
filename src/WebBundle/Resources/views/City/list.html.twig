@@ -14,19 +14,19 @@
             <div class="row">
                 <div class="col-xs-12 servise-btn">
 
-                    <a href="http://tamtamlg.github.io/dontpanic/schedule" class="btn btn-link calendar">
-                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{ 'Schedule'|trans }}
-                    </a>
+                    {#<a href="http://tamtamlg.github.io/dontpanic/schedule" class="btn btn-link calendar">#}
+                    {#<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{ 'Schedule'|trans }}#}
+                    {#</a>#}
 
-                    <div class="sort-wrapper">
-                        <span class="sort-text">{{ 'By complexity'|trans }}</span>
-                        <span class="caret"></span>
-                        <ul class="sort-list">
-                            <li><a href="#">{{ 'By complexity'|trans }}</a></li>
-                            <li><a href="#">{{ 'By players number'|trans }}</a></li>
-                            <li><a href="#">{{ 'By rating'|trans }}</a></li>
-                        </ul>
-                    </div>
+                    {#<div class="sort-wrapper">#}
+                    {#<span class="sort-text">{{ 'By complexity'|trans }}</span>#}
+                    {#<span class="caret"></span>#}
+                    {#<ul class="sort-list">#}
+                    {#<li><a href="#">{{ 'By complexity'|trans }}</a></li>#}
+                    {#<li><a href="#">{{ 'By players number'|trans }}</a></li>#}
+                    {#<li><a href="#">{{ 'By rating'|trans }}</a></li>#}
+                    {#</ul>#}
+                    {#</div>#}
 
                 </div>
             </div>
@@ -70,7 +70,8 @@
                                     </div>
                                     <div class="game-complexity">
                                         <span class="game-complexity-img">
-                                            <span class="game-complexity-full" style="width: {{ room.difficulty }}0%"></span>
+                                            <span class="game-complexity-full"
+                                                  style="width: {{ room.difficulty }}0%"></span>
                                         </span>{{ 'Difficulty'|trans }}:
                                     </div>
                                 </a>
@@ -88,4 +89,19 @@
         </section>
     </div>
     <!--  CONTENT end -->
+
+    {% include 'WebBundle:layouts/includes:flash-modal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            $('#flash-modal').modal('show');
+            $('#flash-modal .modal-title').html('{{ "Attention"|trans }}!');
+            $('#flash-modal .modal-body')
+                .addClass('text-center')
+                .html('{{ "Service under construction.<br>All booked games will be void.<br>Sorry for the inconvenience."|trans|raw }}');
+        });
+    </script>
 {% endblock %}
