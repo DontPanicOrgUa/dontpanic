@@ -6,8 +6,14 @@ use Symfony\Component\HttpFoundation\Request;
 $loader = require __DIR__.'/../app/autoload.php';
 include_once __DIR__.'/../var/bootstrap.php.cache';
 
-$kernel = new AppKernel('prod', false);
-//$kernel = new AppKernel('dev', true);
+$environment = 'prod';
+$debug = false;
+
+if (strpos( $_SERVER['HTTP_HOST'], 'dev.' ) !== false ){
+    $environment = 'dev';
+    $debug = true;
+}
+$kernel = new AppKernel($environment, $debug);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 
