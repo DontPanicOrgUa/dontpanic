@@ -194,11 +194,12 @@ class RoomController extends Controller
 
     /**
      * @Route("/rooms/{slug}", name="admin_rooms_schedule")
+     * @param Request $request
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      * @Security("has_role('ROLE_USER')")
      */
-    public function scheduleAction($slug)
+    public function scheduleAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $room = $em
@@ -211,7 +212,7 @@ class RoomController extends Controller
         $scheduleBuilder = new ScheduleBuilder($room);
         $schedule = $scheduleBuilder->collect();
         if (empty($schedule)) {
-            $this->addFlash('errors', ['Schedule for "' . $room->getTitle() . '" is not ready.']);
+            $this->addFlash('errors', ['Schedule for "' . $room->getTitle($request->getLocale()) . '" is not ready.']);
             return $this->redirectToRoute('admin_rooms_list');
         }
         return $this->render('AdminBundle:Room:schedule.html.twig', [

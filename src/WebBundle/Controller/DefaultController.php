@@ -24,7 +24,7 @@ class DefaultController extends Controller
         $currentCity = $this->get('translator')->trans('all.cities');
         /** @var $rooms Room[] */
         if ($cityName && $rooms) {
-            $currentCity = $rooms[0]->getCity()->getName();
+            $currentCity = $rooms[0]->getCity()->getName($request->getLocale());
         }
         return $this->render('WebBundle:City:list.html.twig', [
             'cities' => $cities,

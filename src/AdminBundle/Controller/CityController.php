@@ -93,10 +93,11 @@ class CityController extends Controller
 
     /**
      * @Route("/cities/{id}/delete", name="admin_cities_delete")
+     * @param Request $request
      * @param City $city
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(City $city)
+    public function deleteAction(Request $request, City $city)
     {
         try {
             $em = $this->getDoctrine()->getManager();
@@ -105,8 +106,8 @@ class CityController extends Controller
             $this->addFlash('success', 'City is deleted.');
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash('errors', [
-                'Can not delete ' . $city->getName() . '.',
-                'There are registered rooms in ' . $city->getName() . '.'
+                'Can not delete ' . $city->getName($request->getLocale()) . '.',
+                'There are registered rooms in ' . $city->getName($request->getLocale()) . '.'
             ]);
         }
         return $this->redirectToRoute('admin_cities_list');

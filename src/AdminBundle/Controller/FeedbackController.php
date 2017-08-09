@@ -29,7 +29,7 @@ class FeedbackController extends Controller
             ->findAllFeedbacksByRoom($slug);
 
         if (empty($feedbacks)) {
-            $this->addFlash('errors', ['No feedbacks for "' . $room->getTitle() . '.']);
+            $this->addFlash('errors', ['No feedbacks for "' . $room->getTitle($request->getLocale()) . '.']);
             return $this->redirectToRoute('admin_rooms_list');
         }
 
