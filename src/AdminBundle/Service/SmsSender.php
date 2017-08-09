@@ -6,17 +6,23 @@ namespace AdminBundle\Service;
 use WebBundle\Entity\Room;
 use Doctrine\ORM\EntityManager;
 use Mp091689\TurboSms\TurboSms;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class SmsSender
 {
+    use NotificationMarkup;
+
     private $em;
 
     private $sender;
 
-    public function __construct($host, $db_name, $user, $password, EntityManager $em)
+    private $locale;
+
+    public function __construct($host, $db_name, $user, $password, EntityManager $em, RequestStack $request)
     {
         $this->em = $em;
         $this->sender = new TurboSms($host, $db_name, $user, $password);
+        $this->locale = $request->getCurrentRequest()->getLocale();
     }
 
     public function send($bookingData, Room $room)
@@ -38,14 +44,14 @@ class SmsSender
     public function sendToCustomer($bookingData, Room $room)
     {
         $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = NotificationMarkup::convert($template->getMessage(), $bookingData, $room);
+        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
         return $this->sender->send($bookingData['phone'], $message);
     }
 
     public function sendToManagers($bookingData, Room $room)
     {
         $template = $this->getTemplate('sms', 'booked', 'manager');
-        $message = NotificationMarkup::convert($template->getMessage(), $bookingData, $room);
+        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
         foreach ($room->getRoomManagers() as $manager) {
             $this->sender->send($manager->getPhone(), $message);
         }
@@ -54,7 +60,7 @@ class SmsSender
     public function sendRemindToCustomer($bookingData, Room $room)
     {
         $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = NotificationMarkup::convert($template->getMessage(), $bookingData, $room);
+        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
         $remindTime = $this->getRemindTime($bookingData['dateTime'], $room);
         return $this->sender->send($bookingData['phone'], $message, 'Msg', $remindTime);
     }
@@ -62,7 +68,7 @@ class SmsSender
     public function sendRemindToManagers($bookingData, Room $room)
     {
         $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = NotificationMarkup::convert($template->getMessage(), $bookingData, $room);
+        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
         $remindTime = $this->getRemindTime($bookingData['dateTime'], $room);
         foreach ($room->getRoomManagers() as $manager) {
             $this->sender->send($manager->getPhone(), $message, 'Msg', $remindTime);

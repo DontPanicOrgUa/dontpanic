@@ -64,8 +64,6 @@ class City
      */
     public function getName($locale)
     {
-        $locale = Locale::getDefault();
-        dump($locale);
         $nameLocale = 'name' . ucfirst($locale);
         return $this->$nameLocale;
     }

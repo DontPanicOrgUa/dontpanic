@@ -5,9 +5,10 @@ namespace AdminBundle\Service;
 
 use WebBundle\Entity\Room;
 
-abstract class NotificationMarkup
+trait NotificationMarkup
 {
-    static public function convert($text, $bookingData, Room $room)
+
+    protected function markup($text, $bookingData, Room $room)
     {
         return str_replace(
             [
@@ -35,9 +36,9 @@ abstract class NotificationMarkup
                 explode(' ', $bookingData['dateTime'])[1],
                 $bookingData['price'],
                 $room->getCurrency()->getCurrency(),
-                $room->getTitle(),
-                $room->getCity()->getName(),
-                $room->getAddress(),
+                $room->getTitle($this->locale),
+                $room->getCity()->getName($this->locale),
+                $room->getAddress($this->locale),
                 $room->getPhone(),
                 $room->getEmail(),
                 $bookingData['liqPay']['button']

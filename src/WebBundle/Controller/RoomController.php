@@ -3,6 +3,7 @@
 namespace WebBundle\Controller;
 
 
+use Symfony\Component\HttpFoundation\Request;
 use WebBundle\Entity\City;
 use AdminBundle\Service\ScheduleBuilder;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,10 +13,11 @@ class RoomController extends Controller
 {
     /**
      * @Route("/room/{slug}", name="room_schedule")
+     * @param Request $request
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function scheduleAction($slug)
+    public function scheduleAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $room = $em
@@ -27,7 +29,7 @@ class RoomController extends Controller
         $scheduleBuilder = new ScheduleBuilder($room);
         $schedule = $scheduleBuilder->collect();
         if (empty($schedule)) {
-            $this->addFlash('errors', ['No schedule for "' . $room->getTitle() . '".']);
+            $this->addFlash('errors', ['No schedule for "' . $room->getTitle($request->getLocale()) . '".']);
             return $this->redirectToRoute('admin_rooms_list');
         }
         return $this->render('WebBundle:Room:schedule.html.twig', [

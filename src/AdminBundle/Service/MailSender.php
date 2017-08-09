@@ -7,20 +7,27 @@ use Swift_Mailer;
 use WebBundle\Entity\Room;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class MailSender
 {
+
+    use NotificationMarkup;
+
     private $em;
 
     private $mailer;
 
     private $templating;
 
-    public function __construct(Swift_Mailer $mailer, TwigEngine $templating, EntityManager $em)
+    private $locale;
+
+    public function __construct(Swift_Mailer $mailer, TwigEngine $templating, EntityManager $em, RequestStack $request)
     {
         $this->em = $em;
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->locale = $request->getCurrentRequest()->getLocale();
     }
 
     public function sendBookedGame($bookingData, Room $room)
@@ -43,8 +50,8 @@ class MailSender
                 'recipient' => 'customer'
             ]);
 
-        $title = NotificationMarkup::convert($template->getTitle(), $bookingData, $room);
-        $message = NotificationMarkup::convert($template->getMessage(), $bookingData, $room);
+        $title = $this->markup($template->getTitle($this->locale), $bookingData, $room);
+        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
 
         $swiftMessage = (new \Swift_Message($title))
             ->setFrom('dontpanic@gmail.com', 'Don\'t Panic')
@@ -72,8 +79,8 @@ class MailSender
             $to[] = $manager->getEmail();
         }
 
-        $title = NotificationMarkup::convert($template->getTitle(), $bookingData, $room);
-        $message = NotificationMarkup::convert($template->getMessage(), $bookingData, $room);
+        $title = $this->markup($template->getTitle($this->locale), $bookingData, $room);
+        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
 
         $swiftMessage = (new \Swift_Message($title))
             ->setFrom('dontpanic@gmail.com', 'Don\'t Panic')
