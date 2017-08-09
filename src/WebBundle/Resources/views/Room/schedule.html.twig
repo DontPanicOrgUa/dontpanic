@@ -348,10 +348,10 @@
         var feedbacksAddRoute = '{{ path('web_feedbacks_add', {slug: room.slug}) }}';
         var transSuccess = "{{ 'success'|trans }}";
         var transError = "{{ 'error'|trans }}";
-        var transSuccessFeedback = "{{ 'feedback.success'|trans }}";
-        var transErrorFeedback = "{{ 'fatal'|trans }}";
-        var transSuccessBooking = "{{ 'booking.success'|trans }}";
-        var transErrorBooking = "{{ 'fatal'|trans }}";
+        var transSuccessFeedback = "{{ 'feedback.success'|trans|raw }}";
+        var transErrorFeedback = "{{ 'fatal'|trans|raw }}";
+        var transSuccessBooking = "{{ 'booking.success'|trans|raw }}";
+        var transErrorBooking = "{{ 'fatal'|trans|raw }}";
 
         /////////////////////////////////////////////////////////
         /////////////// google maps /////////////////////////////

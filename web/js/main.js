@@ -454,20 +454,20 @@ $(function () {
     function flashModal(status, event) {
         var $modal = $('#flash-modal');
         if (status === 'success') {
-            $modal.find('.modal-title').text(transSuccess);
+            $modal.find('.modal-title').html(transSuccess);
             $modal.find('.modal-header').addClass('flash-modal-success');
             if (event === 'booking') {
-                $modal.find('.modal-body').text(transSuccessBooking);
+                $modal.find('.modal-body').html(transSuccessBooking);
             } else if (event === 'feedback') {
-                $modal.find('.modal-body').text(transSuccessFeedback);
+                $modal.find('.modal-body').html(transSuccessFeedback);
             }
         } else {
-            $modal.find('.modal-title').text(transError);
+            $modal.find('.modal-title').html(transError);
             $modal.find('.modal-header').addClass('flash-modal-error');
             if (event === 'booking') {
-                $modal.find('.modal-body').text(transErrorBooking);
+                $modal.find('.modal-body').html(transErrorBooking);
             } else if (event === 'feedback') {
-                $modal.find('.modal-body').text(transErrorFeedback);
+                $modal.find('.modal-body').html(transErrorFeedback);
             }
         }
         setTimeout(function () {
