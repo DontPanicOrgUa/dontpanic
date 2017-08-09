@@ -61,7 +61,7 @@
                                     <div class="game-time"><span
                                                 class="game-time-img"></span>{{ room.timeMax }} {{ 'minutes'|trans }}
                                     </div>
-                                    <div class="game-man">{{ 'Number of players'|trans }}:
+                                    <div class="game-man">{{ 'players'|trans|capitalize }}:
                                         {% set playersMax = room.playersMax * 13 %}
                                         {% set playersMin = room.playersMin * 13 %}
                                         <span class="game-man-img" style="width: {{ playersMax }}px">
@@ -72,7 +72,7 @@
                                         <span class="game-complexity-img">
                                             <span class="game-complexity-full"
                                                   style="width: {{ room.difficulty }}0%"></span>
-                                        </span>{{ 'Difficulty'|trans }}:
+                                        </span>{{ 'complexity'|trans|capitalize }}:
                                     </div>
                                 </a>
                             </div>
@@ -85,7 +85,7 @@
         <!--    gallery end -->
 
         <section class="info">
-            <p>{{ 'About escape room'|trans }}</p>
+            <p>{{ 'alias.about'|trans }}</p>
         </section>
     </div>
     <!--  CONTENT end -->
@@ -98,10 +98,10 @@
     <script>
         $(function () {
             $('#flash-modal').modal('show');
-            $('#flash-modal .modal-title').html('{{ "Attention"|trans }}!');
+            $('#flash-modal .modal-title').html('{{ "attention"|trans|capitalize }}!');
             $('#flash-modal .modal-body')
                 .addClass('text-center')
-                .html('{{ "Service under construction.<br>All booked games will be void.<br>Sorry for the inconvenience."|trans|raw }}');
+                .html('{{ "service.under.construction"|trans|raw }}');
         });
     </script>
 {% endblock %}

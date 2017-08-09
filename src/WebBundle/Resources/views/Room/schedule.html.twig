@@ -26,13 +26,13 @@
                 {% set logo = room.logo ?: 'default_logo.png' %}
                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
                 <h3 class="room-title">{{ room.title }}</h3>
-                <p class="room-complexity">{{ 'Complexity'|trans }} 3</p>
+                <p class="room-complexity">{{ 'complexity'|trans }} 3</p>
                 <div class="room-description">{{ room.description|raw }}</div>
-                <p class="team">{{ 'Players'|trans }} {{ room.playersMin }}-{{ room.playersMax }}</p>
-                <p class="time-to-play">{{ room.timeMax }} {{ 'minutes' }}</p>
+                <p class="team">{{ 'players'|trans }} {{ room.playersMin }}-{{ room.playersMax }}</p>
+                <p class="time-to-play">{{ room.timeMax }} {{ 'minutes'|trans }}</p>
             </div>
 
-            <a href="#" class="team-results">{{ 'Team results'|trans }}</a>
+            <a href="#" class="team-results">{{ 'team.results'|trans }}</a>
 
             {#<p class="average-time">{{ 'Average time' }} <span></span> {{ 'minutes'|trans }}</p>#}
 
@@ -44,15 +44,15 @@
         </div>
 
         <section class="schedule">
-            <h2 class="text-center">{{ 'Quest schedule'|trans }}</h2>
+            <h2 class="text-center">{{ 'quest.schedule'|trans }}</h2>
             <div class="schedule-slider">
                 <div class="custom-controls text-center">
                     <ul class="list-inline">
                         {% for sevenDays in schedule %}
                             <li>
-                                {{ sevenDays[0].dates[0].date|date('j') }} {{ sevenDays[0].dates[0].date|date('F')|trans }}
+                                {{ sevenDays[0].dates[0].date|date('j') }} {{ sevenDays[0].dates[0].date|date('F')|lower|trans }}
                                 <br>
-                                {{ sevenDays[0].dates|last.date|date('j') }} {{ sevenDays[0].dates|last.date|date('F')|trans }}
+                                {{ sevenDays[0].dates|last.date|date('j') }} {{ sevenDays[0].dates|last.date|date('F')|lower|trans }}
                             </li>
                         {% endfor %}
                     </ul>
@@ -67,11 +67,11 @@
                                         <th></th>
                                         {% for game in sevenDays[0]['dates'] %}
                                             <th class="{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %} th-today cell-today{% endif %}{% if game.date|date('l') in ['Saturday', 'Sunday'] %} th-weekend{% endif %}">
-                                                <span class="font-s">{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %}{{ 'Today'|trans }}{% endif %}</span>
+                                                <span class="font-s">{% if 'now'|date('d.m.Y') == game.date|date('d.m.Y') %}{{ 'today'|trans }}{% endif %}</span>
                                                 <br>
-                                                {{ game.date|date('j') }} {{ game.date|date('F')|trans }}
+                                                {{ game.date|date('j') }} {{ game.date|date('F')|lower|trans }}
                                                 <br>
-                                                <span class="font-s">{{ game.date|date('l')|trans }}</span>
+                                                <span class="font-s">{{ game.date|date('l')|lower|trans }}</span>
                                             </th>
                                         {% endfor %}
                                     </tr>
@@ -86,7 +86,7 @@
                                                     data-prices="{{ game.prices|json_encode }}">
                                                     {% if game.prices is empty %}
                                                         <div class="cell cell-expired">
-                                                            {{ 'No'|trans }}<br>{{ 'game'|trans }}
+                                                            {{ 'not'|trans }}<br>{{ 'available'|trans }}
                                                         </div>
                                                     {% else %}
                                                         {% if game.busy %}
@@ -128,14 +128,14 @@
         </section>
 
         <section class="form-reservation">
-            <h2 class="text-center">{{ 'Book game'|trans }}</h2>
+            <h2 class="text-center">{{ 'book.game'|trans }}</h2>
             <div class="row greeting-form">
                 <div class="col-sm-12 text-center">
                     <h3>{{ room.title }}</h3>
                     <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title }}" class="room-logo">
                     <p>
                         <i class="li-ico fa fa-exclamation"></i>
-                        <span>{{ 'Please, select a game'|trans }}.</span>
+                        <span>{{ 'select.game'|trans }}.</span>
                     </p>
                 </div>
             </div>
@@ -149,56 +149,56 @@
                         <ul>
                             <li>
                                 <i class="li-ico fa fa-map-marker"></i>
-                                <span class="color-orange">{{ 'Place'|trans }}:</span> <span>{{ room.address }}</span>
+                                <span class="color-orange">{{ 'place'|trans }}:</span> <span>{{ room.address }}</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-calendar"></i>
-                                <span class="color-orange">{{ 'Date'|trans }}:</span> <span id="date">--.--.----</span>
+                                <span class="color-orange">{{ 'date'|trans }}:</span> <span id="date">--.--.----</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-clock-o"></i>
-                                <span class="color-orange">{{ 'Time'|trans }}:</span> <span id="time">--:--</span>
+                                <span class="color-orange">{{ 'time'|trans }}:</span> <span id="time">--:--</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-users"></i>
-                                <span class="color-orange">{{ 'Players'|trans }}:</span> <span id="players">0</span>
+                                <span class="color-orange">{{ 'players'|trans }}:</span> <span id="players">0</span>
                             </li>
                             <li>
                                 <i class="li-ico fa fa-money"></i>
-                                <span class="color-orange">{{ 'Price'|trans }}:</span> <span
+                                <span class="color-orange">{{ 'price'|trans }}:</span> <span
                                         id="price">0</span> {{ room.currency }}
                             </li>
                             <li>
                                 <i class="li-ico fa fa-exclamation"></i>
-                                <span class="font-s">{{ 'Pre-booking is required'|trans }}.</span>
+                                <span class="font-s">{{ 'prebooking.required'|trans }}.</span>
                             </li>
                         </ul>
                     </div>
                     <div class="col-sm-4 text-center">
                         <div>
-                            <input type="text" name="name" required placeholder="{{ 'Name'|trans }}*">
+                            <input type="text" name="name" required placeholder="{{ 'name'|trans }}*">
                         </div>
                         <div>
                             <input type="text" name="lastName" required
-                                   placeholder="{{ 'Last Name'|trans }}*">
+                                   placeholder="{{ 'last.name'|trans }}*">
                         </div>
                         <div>
                             <input type="email" name="email" required placeholder="Email*">
                         </div>
                         <div>
                             <input type="tel" name="phone" required
-                                   placeholder="{{ 'Phone'|trans }}*">
+                                   placeholder="{{ 'phone'|trans }}*">
                         </div>
                         <div>
                             <select required name="players">
-                                <option disabled selected>{{ 'Players'|trans }}*</option>
+                                <option disabled selected>{{ 'players'|trans }}*</option>
                             </select>
                         </div>
                         <div class="input-group">
                             <input type="text" name="discount"
-                                   placeholder="{{ 'Discount'|trans }}">
+                                   placeholder="{{ 'discount'|trans }}">
                             <span class="input-group-btn">
-                                        <button class="btn btn-warning" type="button">{{ 'Use discount' }}</button>
+                                        <button class="btn btn-warning" type="button">{{ 'use.discount'|trans }}</button>
                                     </span>
                         </div>
                     </div>
@@ -206,46 +206,46 @@
                 <div class="row">
                     <div class="text-center btn-wrap">
                         <span class="fa fa-2x fa-spinner fa-pulse"></span>
-                        <button type="submit" class="btn btn-warning">{{ 'Book game'|trans }}</button>
+                        <button type="submit" class="btn btn-warning">{{ 'book.game'|trans }}</button>
                     </div>
                 </div>
             </div>
             <div class="row result-form">
                 <div class="col-sm-4">
-                    <h3 class="text-center">{{ 'Congratulations'|trans }}!</h3>
-                    <p class="color-orange text-center">{{ 'You have successfuly booked the game'|trans }}</p>
-                    <p>{{ 'Мы свяжемся с Вами ближайшее время, по указанному Вами номеру телефона'|trans }}: <span
+                    <h3 class="text-center">{{ 'congratulations'|trans }}!</h3>
+                    <p class="color-orange text-center">{{ 'booking.success'|trans }}</p>
+                    <p>{{ 'we.will.contact.you'|trans }}: <span
                                 id="result-form-phone"></span></p>
-                    <p>{{ 'Все детали Вашего заказа мы отправили на'|trans }}: <span id="result-form-email"></span></p>
+                    <p>{{ 'details.sent'|trans }}: <span id="result-form-email"></span></p>
                 </div>
                 <div class="col-sm-4 form-middle">
-                    <h3 class="text-center">{{ 'Your order'|trans }}:</h3>
-                    <p class="color-orange text-center">{{ 'Quest'|trans }} - {{ room.title }}</p>
+                    <h3 class="text-center">{{ 'your.order'|trans }}:</h3>
+                    <p class="color-orange text-center">{{ 'quest'|trans }} - {{ room.title }}</p>
                     <ul>
                         <li>
                             <i class="fa fa-map-marker"></i>
-                            <span class="color-orange">{{ 'Place'|trans }}:</span> <span>{{ room.address }}</span>
+                            <span class="color-orange">{{ 'place'|trans }}:</span> <span>{{ room.address }}</span>
                         </li>
                         <li>
                             <i class="fa fa-calendar"></i>
-                            <span class="color-orange">{{ 'Date'|trans }}:</span> <span id="result-form-date"></span>
+                            <span class="color-orange">{{ 'date'|trans }}:</span> <span id="result-form-date"></span>
                         </li>
                         <li>
                             <i class="fa fa-clock-o"></i>
-                            <span class="color-orange">{{ 'Time'|trans }}:</span> <span id="result-form-time"></span>
+                            <span class="color-orange">{{ 'time'|trans }}:</span> <span id="result-form-time"></span>
                         </li>
                         <li>
                             <i class="fa fa-user"></i>
-                            <span class="color-orange">{{ 'Players'|trans }}:</span> <span
+                            <span class="color-orange">{{ 'players'|trans }}:</span> <span
                                     id="result-form-players"></span>
                         </li>
                     </ul>
                 </div>
                 <div class="col-sm-4">
-                    <h3 class="text-center">{{ 'Price'|trans }}</h3>
+                    <h3 class="text-center">{{ 'price'|trans }}</h3>
                     <p class="text-center"><span class="font-xxl color-orange"
                                                  id="result-form-price"></span> {{ room.currency }}</p>
-                    <p>{{ 'Our contacts'|trans }}:</p>
+                    <p>{{ 'our.contacts'|trans }}:</p>
                     <ul>
                         <li>
                             <i class="fa fa-phone"></i>
@@ -268,7 +268,7 @@
         </div>
 
         <section class="feedbacks">
-            <h2 class="text-center">{{ 'Feedbacks'|trans }}</h2>
+            <h2 class="text-center">{{ 'feedbacks'|trans }}</h2>
 
             {% for feedback in room.feedbacks %}
                 <div class="media review">
@@ -282,7 +282,7 @@
                         </h4>
                         <p>{{ feedback.comment|nl2br }}</p>
                         <div class="review-rating">
-                            <div class="star-block">{{ 'Atmosphere'|trans }}
+                            <div class="star-block">{{ 'atmosphere'|trans }}
                                 <span class="star">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
@@ -292,7 +292,7 @@
               </span>
                                 <span>{{ feedback.atmosphere }}</span>
                             </div>
-                            <div class="star-block">{{ 'Story'|trans }}
+                            <div class="star-block">{{ 'story'|trans }}
                                 <span class="star">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
@@ -302,7 +302,7 @@
               </span>
                                 <span>{{ feedback.story }}</span>
                             </div>
-                            <div class="star-block">{{ 'Service'|trans }}
+                            <div class="star-block">{{ 'service'|trans }}
                                 <span class="star">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
@@ -312,21 +312,21 @@
               </span>
                                 <span>{{ feedback.service }}</span>
                             </div>
-                            <div class="star-block">{{ 'Pass time'|trans }}:
+                            <div class="star-block">{{ 'passed.time'|trans }}:
                                 <span class="time">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="12"
                      width="12" viewBox="0 0 12 12">
                   <path fill="#ec971f" fill-rule="evenodd"
                         d="M 6 12 C 2.69 12 0 9.32 0 6 C 0 2.69 2.69 0.01 6 0.01 C 9.32 0.01 12 2.69 12 6 C 12 9.32 9.32 12 6 12 Z M 7.97 2.22 C 7.97 2.22 6.7 1.79 6.7 1.79 C 6.7 1.79 5.37 5.79 5.37 5.79 C 5.37 5.79 5.38 5.79 5.38 5.79 C 5.35 5.86 5.34 5.93 5.34 6 C 5.34 6.3 5.53 6.54 5.79 6.63 C 5.79 6.63 5.79 6.64 5.79 6.64 C 5.79 6.64 9.79 7.97 9.79 7.97 C 9.79 7.97 10.21 6.7 10.21 6.7 C 10.21 6.7 6.85 5.58 6.85 5.58 C 6.85 5.58 7.97 2.22 7.97 2.22 Z"/>
                 </svg>
-              </span> <span>{{ feedback.time }} {{ 'min'|trans }}.</span></div>
+              </span> <span>{{ feedback.time }} {{ 'minutes'|trans }}</span></div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
 
             <a href="#" class="btn btn-warning show-results" data-toggle="modal"
-               data-target="#feedback-form">{{ 'Leave feedback'|trans }}</a>
+               data-target="#feedback-form">{{ 'leave.feedback'|trans }}</a>
 
             {% include 'WebBundle:Room:feedback-form.thml.twig' %}
 
@@ -343,15 +343,15 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMugwAfvvSHxHNaQ3gdmEr0_cgSawCc48&callback=initMap"
             async defer></script>
     <script>
-        var playersTrans = '{{ "Players"|trans }}*';
+        var playersTrans = '{{ "players"|trans }}*';
         var gamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
         var feedbacksAddRoute = '{{ path('web_feedbacks_add', {slug: room.slug}) }}';
-        var transSuccess = "{{ 'Success'|trans }}";
-        var transError = "{{ 'Error'|trans }}";
-        var transSuccessFeedback = "{{ 'success feedback'|trans }}";
-        var transErrorFeedback = "{{ 'error feedback'|trans }}";
-        var transSuccessBooking = "{{ 'success booking'|trans }}";
-        var transErrorBooking = "{{ 'error booking'|trans }}";
+        var transSuccess = "{{ 'success'|trans }}";
+        var transError = "{{ 'error'|trans }}";
+        var transSuccessFeedback = "{{ 'feedback.success'|trans }}";
+        var transErrorFeedback = "{{ 'fatal'|trans }}";
+        var transSuccessBooking = "{{ 'booking.success'|trans }}";
+        var transErrorBooking = "{{ 'fatal'|trans }}";
 
         /////////////////////////////////////////////////////////
         /////////////// google maps /////////////////////////////

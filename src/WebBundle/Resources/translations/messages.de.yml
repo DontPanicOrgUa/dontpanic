@@ -1,33 +1,90 @@
-Callback: Rückrufen
-Schedule: Zeitplan
-Complexity: Schwierigkeit
-By complexity: Durch Komplexität
-By players number: Von Spielernummer
-By rating: Nach Bewertung
-All cities: Alle städte
-Escape rooms in: Escape Zimmer in
-About escape room: "Sicher hörten Sie etwas über solches populäre Genre der Unterhaltungen, wie \"aus dem Zimmer\", \"Escape the Room\" oder \"Quest in der Realität\". Deshalb werden wir hier nicht beschreiben, dass allen weiß. Bleibt nur eines zu sagen: Wir sind überzeugt, dass unsere Zimmer die besten sind! Manchmal, Sie können das vergessen, dass Sie sind immer noch in Kiew, wenn Sie in ganz andere Welt tauchen. Probieren Sie es einfach aus und Don't Panic!"
-Quest schedule: Suche Zeitplan
+today: Heute
 
-Today: Heute
+january: Januar
+february: Februar
+march: Marc
+april: April
+may: Mai
+june: Juni
+july: Juli
+august: August
+september: September
+october: Oktober
+november: November
+december: Dezember
 
-January: Januar
-February: Februar
-March: Marz
-April: April
-May: Mai
-June: Juni
-July: Juli
-August: August
-September: September
-October: Oktober
-November: November
-December: Dezember
+monday: Montag
+tuesday: Dienstag
+wednesday: Mittwoch
+thursday: Donnerstag
+friday: Freitag
+saturday: Samstag
+sunday: Sonntag
 
-Monday: Montag
-Tuesday: Dienstag
-Wednesday: Mittwoch
-Thursday: Donnerstag
-Friday: Freitag
-Saturday: Samstag
-Sunday: Sonntag
+name: Name
+date: Datum
+time: Zeit
+from: von
+story: Geschichte
+phone: Telefon
+email: Email
+error: Fehler
+price: Preis
+place: Ort
+rules: Regeln
+quest: Quest
+shares: Aktien
+success: Erfolg
+players: Spieler
+service: Bedienung
+minutes: Minuten
+schedule: Zeitplan
+estimate: Schätzen
+discount: Rabatt
+callback: Rückrufen
+feedbacks: Feedback
+attention: Aufmerksamkeit
+atmosphere: Atmosphäre
+complexity: Komplexität
+partnership: Partnerschaft
+congratulations: Glückwünsche
+
+booking:
+    success: Sie haben das Spiel erfolgreich gebucht.
+    busy: Entschuldigung.<br>Ausgewähltes Spiel ist bereits gebucht.
+
+feedback:
+    success: Ihr Feedback wird nach der Bestätigung veröffentlicht. Vielen Dank.
+
+by:
+    rating: Nach Bewertung
+    complexity: Durch Komplexität
+    players number: Nach Spielernummer
+
+your:
+    order: Deine Bestellung
+    comment: Ihr Kommentar
+
+alias:
+    phone: "+38 (098) 000-80-77"
+    email: "dontpanic.org.ua@gmail.com"
+    about: "Sicher hörten Sie etwas über solches populäre Genre der Unterhaltungen, wie \"aus dem Zimmer\", \"Escape the Room\" oder \"Quest in der Realität\". Deshalb werden wir hier nicht beschreiben, dass allen weiß. Bleibt nur eines zu sagen: Wir sind überzeugt, dass unsere Zimmer die besten sind! Manchmal, Sie können das vergessen, dass Sie sind immer noch in Kiew, wenn Sie in ganz andere Welt tauchen. Probieren Sie es einfach aus und Don't Panic!"
+
+last.name: Nachname
+all.cities: Alle Städte
+passed.time: Zeit vergeht
+book.game: Buchen Sie das Spiel
+use.discount: Verwenden Sie Rabatt
+team.results: Team Ergebnisse
+our.contacts: Unsere Kontakte
+quest.schedule: Quest Zeitplan
+leave.feedback: Hinterlasse feedback
+about.company: Über das Unternehmen
+evaluate.quest: Bewerte die Quest
+select.game: Bitte wählen Sie ein Spiel aus
+prebooking.required: Voranmeldung ist erforderlich
+details.sent: Alle Details Ihrer Bestellung wurden gesendet
+how.many.stars: Wie viele Sterne wirst du der Quest geben?
+we.will.contact.you: Wir werden Sie bei Ihrer Telefonnummer erreichen
+fatal: Whoops!<br>Etwas ging schief,<br>die Seite wird neu geladen,<br>und du kannst es nochmal versuchen.
+service.under.construction: Service im Bau.<br>Alle gebuchten Spiele sind ungültig.<br>Entschuldigen Sie die Unannehmlichkeiten.

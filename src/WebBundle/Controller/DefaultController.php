@@ -21,7 +21,7 @@ class DefaultController extends Controller
         $cityName = $request->query->get('city');
         $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
         $rooms = $em->getRepository('WebBundle:Room')->findAllByCity($cityName);
-        $currentCity = $this->get('translator')->trans('All cities');
+        $currentCity = $this->get('translator')->trans('all.cities');
         /** @var $rooms Room[] */
         if ($cityName && $rooms) {
             $currentCity = $rooms[0]->getCity()->getName();

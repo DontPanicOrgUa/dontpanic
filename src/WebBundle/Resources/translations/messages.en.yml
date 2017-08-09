@@ -1,33 +1,90 @@
-Callback: Callback
-Schedule: Schedule
-Complexity: Complexity
-By complexity: By complexity
-By players number: By players nuber
-By rating: By rating
-All cities: All cities
-Escape rooms in: Escape room in
-About escape room: "You certainly heard something about one of the most popular kinds of entertainment  as \"escape the room\" or quest in reality. That's why we are not going to talk about the things you already know. We just have one thing to say: we are sure our rooms are the best! And sometimes diving into a totally different world you can even forget you are still in Kyiv! Just try it and Don'd Panic!"
-Quest schedule: Quest schedule
+today: Today
 
-Today: Today
+january: January
+february: February
+march: March
+april: April
+may: May
+june: June
+july: July
+august: August
+september: September
+october: October
+november: November
+december: December
 
-January: January
-February: February
-March: March
-April: April
-May: May
-June: June
-July: July
-August: August
-September: September
-October: October
-November: November
-December: December
+monday: Monday
+tuesday: Tuesday
+wednesday: Wednesday
+thursday: Thursday
+friday: Friday
+saturday: Saturday
+sunday: Sunday
 
-Monday: Monday
-Tuesday: Tuesday
-Wednesday: Wednesday
-Thursday: Thursday
-Friday: Friday
-Saturday: Saturday
-Sunday: Sunday
+name: Name
+date: Date
+time: Time
+from: from
+story: Story
+phone: Phone
+email: Email
+error: Error
+price: Price
+place: Place
+rules: Rules
+quest: Quest
+shares: Shares
+success: Success
+players: Players
+service: Service
+minutes: minutes
+schedule: Schedule
+estimate: Estimate
+discount: Discount
+callback: Callback
+feedbacks: Feedback
+attention: Attention
+atmosphere: Atmosphere
+complexity: Complexity
+partnership: Partnership
+congratulations: Congratulations
+
+booking:
+    success: You have successfully booked the game.
+    busy: Sorry.<br>Chosen game is already booked.
+
+feedback:
+    success: Your feedback will be published after verification.<br>Thank you.
+
+by:
+    rating: By rating
+    complexity: By complexity
+    players number: By players number
+
+your:
+    order: Your order
+    comment: Your comment
+
+alias:
+    phone: "+38 (098) 000-80-77"
+    email: "dontpanic.org.ua@gmail.com"
+    about: "You certainly heard something about one of the most popular kinds of entertainment  as \"escape the room\" or quest in reality. That's why we are not going to talk about the things you already know. We just have one thing to say: we are sure our rooms are the best! And sometimes diving into a totally different world you can even forget you are still in Kyiv! Just try it and Don'd Panic!"
+
+last.name: Last Name
+all.cities: All cities
+passed.time: Passed time
+book.game: Book the game
+use.discount: Use discount
+team.results: Team results
+our.contacts: Our contacts
+quest.schedule: Quest schedule
+leave.feedback: Leave feedback
+about.company: About the company
+evaluate.quest: Evaluate the quest
+select.game: Please, select a game
+prebooking.required: Pre-booking is required
+details.sent: All the details of your order have been sent to
+how.many.stars: How many stars will you give to the quest?
+we.will.contact.you: We will contact you at your specified phone number
+fatal: Whoops!<br>Some thing went wrong,<br>page will be reloaded,<br>and you can try again.
+service.under.construction: Service under construction.<br>All booked games will be void.<br>Sorry for the inconvenience.
