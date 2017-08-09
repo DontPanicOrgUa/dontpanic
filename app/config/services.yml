@@ -12,11 +12,11 @@ services:
 
     mail_sender:
         class: AdminBundle\Service\MailSender
-        arguments: ['@mailer', '@templating', '@doctrine.orm.entity_manager']
+        arguments: ['@mailer', '@templating', '@doctrine.orm.entity_manager', '@request_stack']
 
     turbosms_sender:
         class: AdminBundle\Service\SmsSender
-        arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%', '@doctrine.orm.entity_manager']
+        arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%', '@doctrine.orm.entity_manager', '@request_stack']
 
     uuid:
         class: AdminBundle\Service\Uuid
