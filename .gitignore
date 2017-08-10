@@ -17,7 +17,7 @@
 /.idea/
 deploy.php
 /web/uploads/rooms/*
-/web/uploads/customers/*
+/web/uploads/games/*
 /web/uploads/shares/*
 !/web/uploads/rooms/default_thumbnail.jpg
 !/web/uploads/rooms/default_logo.png

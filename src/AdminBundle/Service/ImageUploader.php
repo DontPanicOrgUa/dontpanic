@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageUploader
 {
-    public function upload(UploadedFile $file, $targetDir)
+    public function upload(UploadedFile $file, string $targetDir, float $ratio = 1.6)
     {
         $image = $this->load($file);
         if ($image['type'] == IMAGETYPE_PNG) {
@@ -15,7 +15,7 @@ class ImageUploader
             $file->move($targetDir, $name);
             return $name;
         }
-        $newImage = $this->crop($image);
+        $newImage = $this->crop($image, $ratio);
         return $this->save($newImage, $image['type'], $targetDir);
     }
 
@@ -52,10 +52,10 @@ class ImageUploader
         return $fileName;
     }
 
-    private function crop($image)
+    private function crop($image, $ratio)
     {
-        $newHeight = round($image['width'] / 1.6);
-        $newWidth = round($image['height'] * 1.6);
+        $newHeight = round($image['width'] / $ratio);
+        $newWidth = round($image['height'] * $ratio);
         if ($newHeight <= $image['height']) {
             $newImage = imagecreatetruecolor($image['width'], $newHeight);
             imagecopyresampled(

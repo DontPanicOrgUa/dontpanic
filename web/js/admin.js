@@ -249,12 +249,12 @@ $(function () {
         if ($.isArray(image)) {
             $.each(image, function (k, v) {
                 $modalViewImages.find('.modal-body').append(
-                    '<img src="' + v + '" style="max-width: 400px;">'
+                    '<img src="' + v + '" style="max-width: 400px; max-height: 400px;">'
                 );
             })
         } else {
             $modalViewImages.find('.modal-body').append(
-                '<img src="' + image + '" style="max-width: 400px;">'
+                '<img src="' + image + '" style="max-width: 400px; max-height: 400px;">'
             );
         }
         // $modalViewImages.find('.modal-body');
@@ -283,17 +283,57 @@ $(function () {
                         $('<img>', {src: e.target.result})
                             .css('max-width', '120px')
                             .css('max-height', '100px')
-                            .css('margin-top', '7px')
+                            .css('margin', '4px')
                     );
-                }
+                };
                 reader.readAsDataURL(v);
             });
         }
     }
 
+    function validateImages(input) {
+        var error = '';
+        if (input.files) {
+            if (input.files.length > 10) {
+                return '\nMax number of files uploaded 10';
+            }
+            $.each(input.files, function (k, v) {
+                var imageType = 'JPG';
+                var maxSize = 1024 * 1024 * 2;
+                if ($(input).attr('accept') === 'image/png') {
+                    imageType = 'PNG';
+                    maxSize = 1024 * 1024;
+                }
+                if (v.type !== $(input).attr('accept')) {
+                    error += '\nFile: ' + v.name + ' ' + (v.size / 1024 / 1024).toFixed(2) + 'MB';
+                    error += '\n - type should be ' + imageType;
+                    $(input).closest('div.col-sm-4').find('p:eq(0)').addClass('custom-error');
+                }
+                if (v.size >= maxSize) {
+                    error += '\nFile: ' + v.name + ' ' + (v.size / 1024 / 1024).toFixed(2) + 'MB';
+                    error += '\n - size should be less than ' + (maxSize / 1024 / 1024) + 'MB';
+                    $(input).closest('div.col-sm-4').find('p:eq(1)').addClass('custom-error');
+                }
+            });
+        }
+        return error;
+    }
+
+    function cleanErrors(input) {
+        $(input).closest('div.col-sm-4').find('.custom-error').removeClass('custom-error');
+    }
+
     $inputFiles.change(function () {
         cleanPreviews(this);
-        buildPreviews(this);
+        cleanErrors(this);
+        var error = validateImages(this);
+        if (error) {
+            $(this).val('');
+            alert(error);
+        } else {
+            buildPreviews(this);
+        }
     });
-});
+})
+;
 

@@ -10,7 +10,7 @@ imports:
 parameters:
     locale: de
     uploads_rooms_path: '%kernel.root_dir%/../web/uploads/rooms'
-    uploads_customers_path: '%kernel.root_dir%/../web/uploads/customers'
+    uploads_games_path: '%kernel.root_dir%/../web/uploads/customers'
     uploads_shares_path: '%kernel.root_dir%/../web/uploads/shares'
     sms: true
     liqpay.sandbox: true
@@ -49,7 +49,7 @@ twig:
         - bootstrap_3_layout.html.twig
     globals:
         uploads_rooms_path: '%uploads_rooms_path%'
-        uploads_customers_path: '%uploads_customers_path%'
+        uploads_gamse_path: '%uploads_games_path%'
         uploads_shares_path: '%uploads_shares_path%'
 
 # Doctrine Configuration

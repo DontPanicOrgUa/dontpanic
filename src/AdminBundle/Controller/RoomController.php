@@ -59,27 +59,27 @@ class RoomController extends Controller
 
         $form->handleRequest($request);
 
+        $imageUploader = $this->get('image_uploader');
+        $uploadsRoomsPath = $this->getParameter('uploads_rooms_path');
+
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Room $room */
             $room = $form->getData();
 
             if ($file = $room->getLogo()) {
-                $uploaded = $this->get('image_uploader')
-                    ->upload($file, $this->getParameter('uploads_rooms_path'));
+                $uploaded = $imageUploader->upload($file, $uploadsRoomsPath);
                 $room->setLogo($uploaded);
             }
 
             if ($file = $room->getThumbnail()) {
-                $uploaded = $this->get('image_uploader')
-                    ->upload($file, $this->getParameter('uploads_rooms_path'));
+                $uploaded = $imageUploader->upload($file, $uploadsRoomsPath);
                 $room->setThumbnail($uploaded);
             }
 
             if ($files = $room->getSlides()) {
                 $uploads = [];
                 foreach ($files as $file) {
-                    $uploads[] = $this->get('image_uploader')
-                        ->upload($file, $this->getParameter('uploads_rooms_path'));
+                    $uploads[] = $imageUploader->upload($file, $uploadsRoomsPath);
                 }
                 $room->setSlides($uploads);
             }
@@ -112,22 +112,20 @@ class RoomController extends Controller
         $logo = $room->getLogo();
         $thumbnail = $room->getThumbnail();
         $slides = $room->getSlides();
+        $uploadsRoomsPath = $this->getParameter('uploads_rooms_path');
+        $imageUploader = $this->get('image_uploader');
 
-        if (is_file($this->getParameter('uploads_rooms_path') . '/' . $logo)) {
-            $room->setLogo(
-                new File($this->getParameter('uploads_rooms_path') . '/' . $logo)
-            );
+        if (is_file($uploadsRoomsPath . '/' . $logo)) {
+            $room->setLogo(new File($uploadsRoomsPath . '/' . $logo));
         }
-        if (is_file($this->getParameter('uploads_rooms_path') . '/' . $thumbnail)) {
-            $room->setThumbnail(
-                new File($this->getParameter('uploads_rooms_path') . '/' . $thumbnail)
-            );
+        if (is_file($uploadsRoomsPath . '/' . $thumbnail)) {
+            $room->setThumbnail(new File($uploadsRoomsPath . '/' . $thumbnail));
         }
         $checkedSlides = [];
         if ($slides) {
             foreach ($slides as $slide) {
-                if (is_file($this->getParameter('uploads_rooms_path') . '/' . $slide)) {
-                    $checkedSlides[] = new File($this->getParameter('uploads_rooms_path') . '/' . $slide);
+                if (is_file($uploadsRoomsPath . '/' . $slide)) {
+                    $checkedSlides[] = new File($uploadsRoomsPath . '/' . $slide);
                 }
             }
         }
@@ -141,15 +139,14 @@ class RoomController extends Controller
             $room = $form->getData();
 
             if ($logoFile = $room->getLogo()) {
-                $logoUploaded = $this->get('image_uploader')
-                    ->upload($logoFile, $this->getParameter('uploads_rooms_path'));
+                $logoUploaded = $imageUploader->upload($logoFile, $uploadsRoomsPath);
                 $room->setLogo($logoUploaded);
             } else {
                 $room->setLogo($logo);
             }
+
             if ($thumbnailFile = $room->getThumbnail()) {
-                $thumbnailUploaded = $this->get('image_uploader')
-                    ->upload($thumbnailFile, $this->getParameter('uploads_rooms_path'));
+                $thumbnailUploaded = $imageUploader->upload($thumbnailFile, $uploadsRoomsPath);
                 $room->setThumbnail($thumbnailUploaded);
             } else {
                 $room->setThumbnail($thumbnail);
@@ -158,8 +155,7 @@ class RoomController extends Controller
             if ($slideFiles = $room->getSlides()) {
                 $slidesUploaded = [];
                 foreach ($slideFiles as $slideFile) {
-                    $slidesUploaded[] = $this->get('image_uploader')
-                        ->upload($slideFile, $this->getParameter('uploads_rooms_path'));
+                    $slidesUploaded[] = $imageUploader->upload($slideFile, $uploadsRoomsPath);
                 }
                 $room->setSlides($slidesUploaded);
             } else {

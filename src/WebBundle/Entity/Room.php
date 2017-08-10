@@ -70,21 +70,30 @@ class Room
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Assert\File(mimeTypes={ "image/png" })
+     * @Assert\File(
+     *     maxSize = "1M",
+     *     mimeTypes={ "image/png" }
+     * )
      */
-    private $logo;
+    private $logo = 'default_logo.png';
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Assert\File(mimeTypes={ "image/jpeg" })
+     * @Assert\File(
+     *     maxSize = "2M",
+     *     mimeTypes={ "image/jpeg" }
+     * )
      */
-    private $thumbnail;
+    private $thumbnail = 'default_thumbnail.jpg';
 
     /**
      * @ORM\Column(type="array", nullable=true)
      * @Assert\Count(max="10")
      * @Assert\All({
-     *      @Assert\File(mimeTypes={ "image/jpeg" })
+     *     @Assert\File(
+     *         maxSize = "2M",
+     *         mimeTypes={ "image/jpeg" }
+     *     )
      * })
      */
     private $slides;

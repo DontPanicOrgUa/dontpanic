@@ -76,7 +76,7 @@ class GameController extends Controller
     {
         $photo = $game->getPhoto();
 
-        if (is_file($this->getParameter('uploads_customers_path') . '/' . $photo)) {
+        if (is_file($this->getParameter('uploads_games_path') . '/' . $photo)) {
             $game->setPhoto(
                 new File($this->getParameter('uploads_rooms_path') . '/' . $photo)
             );
@@ -88,7 +88,7 @@ class GameController extends Controller
             $game = $form->getData();
             if ($photoFile = $game->getPhoto()) {
                 $photoUploaded = $this->get('image_uploader')
-                    ->upload($photoFile, $this->getParameter('uploads_customers_path'));
+                    ->upload($photoFile, $this->getParameter('uploads_games_path'));
                 $game->setPhoto($photoUploaded);
             } else {
                 $game->setPhoto($photo);

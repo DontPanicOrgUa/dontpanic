@@ -40,3 +40,16 @@ div.table-responsive table tbody tr td a.btn {
     cursor: pointer;
     text-decoration: underline;
 }
+
+.form-group .fa.fa-upload {
+    cursor: pointer;
+}
+
+.form-group input[type="file"] {
+    display: none;
+}
+
+.custom-error {
+    color: red;
+}
+

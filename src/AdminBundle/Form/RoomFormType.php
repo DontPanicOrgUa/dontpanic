@@ -52,21 +52,30 @@ class RoomFormType extends AbstractType
                 ]
             ])
             ->add('logo', FileType::class, [
-                'label' => 'Logo *.png',
+                'label' => ' upload *.png',
+                'label_attr' => [
+                    'class' => 'fa fa-upload fa-2x'
+                ],
                 'data_class' => null,
                 'attr' => [
                     'accept' => 'image/png'
                 ]
             ])
             ->add('thumbnail', FileType::class, [
-                'label' => 'thumbnail *.jpg',
+                'label' => ' upload *.jpg',
+                'label_attr' => [
+                    'class' => 'fa fa-upload  fa-2x'
+                ],
                 'data_class' => null,
                 'attr' => [
                     'accept' => 'image/jpeg'
                 ]
             ])
             ->add('slides', FileType::class, [
-                'label' => 'slides *.jpg',
+                'label' => ' upload *.jpg',
+                'label_attr' => [
+                    'class' => 'fa fa-upload  fa-2x'
+                ],
                 'data_class' => null,
                 'multiple' => true,
                 'attr' => [
