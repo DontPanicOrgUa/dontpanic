@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class GameController extends Controller
 {
     /**
-     * @Route("/room/{slug}/games", name="web_games_add")
+     * @Route("/rooms/{slug}/games", name="web_games_add")
      * @Method("POST")
      * @param Request $request
      * @param $room
@@ -81,5 +81,19 @@ class GameController extends Controller
             'success' => true,
             'data' => $bookingData
         ], 201);
+    }
+
+    /**
+     * @Route("/rooms/{slug}/results", name="web_games_view")
+     * @Method("GET")
+     * @param Request $request
+     * @param $room
+     * @return JsonResponse
+     */
+    public function viewAction(Request $request, Room $room)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $games = $em->getRepository('WebBundle:Game')->getAllGamesByRoom($room->getSlug());
+        dump($games);die;
     }
 }

@@ -150,10 +150,6 @@ class Payment
 
     public function getBill($bookingData)
     {
-        $host = $this->router->getContext()->getHost();
-        if ($host == 'dontpanic.local') {
-            $host = 'dev.dontpanic.mp091689.com.ua';
-        }
         $orderId = $this->uuid->generate('liqpay_', 12);
         $options = [
             'order_id' => $orderId,
@@ -162,7 +158,7 @@ class Payment
             'language' => $bookingData['language'],
             'description' => $bookingData['description'],
             'sandbox' => (int)$this->sandBox,
-            'server_url' => sprintf('http://%s/en/payment/add', $host)
+            'server_url' => $this->router->generate('web_payments_add')
         ];
         return [
             'options' => $options,

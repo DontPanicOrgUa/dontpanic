@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PaymentController extends Controller
 {
     /**
-     * @Route("/payment/add", name="web_payment_add")
+     * @Route("/payments/add", name="web_payments_add")
      * @Method("POST")
      * @param Request $request
      * @return JsonResponse

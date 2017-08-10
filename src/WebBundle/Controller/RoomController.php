@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class RoomController extends Controller
 {
     /**
-     * @Route("/room/{slug}", name="room_schedule")
+     * @Route("/rooms/{slug}", name="web_rooms_schedule")
      * @param Request $request
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response

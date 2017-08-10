@@ -20,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class FeedbackController extends Controller
 {
     /**
-     * @Route("/room/{slug}/feedbacks", name="web_feedbacks_add")
+     * @Route("/rooms/{slug}/feedbacks", name="web_feedbacks_add")
      * @Method("POST")
      * @param Request $request
      * @param $room
