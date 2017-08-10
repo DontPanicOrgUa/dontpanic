@@ -37,21 +37,21 @@
 <div class="panel panel-default">
     <div class="panel-heading">Logo</div>
     <div class="panel-body">
-        <div class="col-sm-4">
+        <div class="col-sm-4 file-container">
             <h4>Images</h4>
             <p class="fa fa-exclamation"> accepts only PNG files</p><br>
             <p class="fa fa-exclamation"> max size 1MB</p><br>
             <p class="fa fa-exclamation"> saves origin ratio</p>
             {{ form_row(roomForm.logo) }}
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 file-container">
             <h4>Thumbnail</h4>
             <p class="fa fa-exclamation"> accepts only JPG files</p><br>
             <p class="fa fa-exclamation"> max size 2MB</p><br>
             <p class="fa fa-exclamation"> images will be cropped with a ratio of 8:5</p>
             {{ form_row(roomForm.thumbnail) }}
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 file-container">
             <h4>Slides</h4>
             <p class="fa fa-exclamation"> accepts only JPG files</p><br>
             <p class="fa fa-exclamation"> max size 2MB</p><br>

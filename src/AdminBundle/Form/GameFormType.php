@@ -28,7 +28,10 @@ class GameFormType extends AbstractType
                 ]
             ])
             ->add('photo', FileType::class, [
-                'label' => 'Photo *.jpg',
+                'label' => ' upload *.jpg',
+                'label_attr' => [
+                    'class' => 'fa fa-upload  fa-2x'
+                ],
                 'data_class' => null,
                 'attr' => [
                     'accept' => 'image/jpeg'

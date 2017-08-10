@@ -76,10 +76,11 @@ class GameController extends Controller
     {
         $photo = $game->getPhoto();
 
-        if (is_file($this->getParameter('uploads_games_path') . '/' . $photo)) {
-            $game->setPhoto(
-                new File($this->getParameter('uploads_rooms_path') . '/' . $photo)
-            );
+        $imageUploader = $this->get('image_uploader');
+        $uploadsGamesPath = $this->getParameter('uploads_games_path');
+
+        if (is_file($uploadsGamesPath . '/' . $photo)) {
+            $game->setPhoto(new File($uploadsGamesPath . '/' . $photo));
         }
 
         $form = $this->createForm(GameFormType::class, $game);
@@ -87,8 +88,7 @@ class GameController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $game = $form->getData();
             if ($photoFile = $game->getPhoto()) {
-                $photoUploaded = $this->get('image_uploader')
-                    ->upload($photoFile, $this->getParameter('uploads_games_path'));
+                $photoUploaded = $imageUploader->upload($photoFile, $uploadsGamesPath, 1.333);
                 $game->setPhoto($photoUploaded);
             } else {
                 $game->setPhoto($photo);

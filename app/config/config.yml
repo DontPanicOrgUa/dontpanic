@@ -10,7 +10,7 @@ imports:
 parameters:
     locale: de
     uploads_rooms_path: '%kernel.root_dir%/../web/uploads/rooms'
-    uploads_games_path: '%kernel.root_dir%/../web/uploads/customers'
+    uploads_games_path: '%kernel.root_dir%/../web/uploads/games'
     uploads_shares_path: '%kernel.root_dir%/../web/uploads/shares'
     sms: true
     liqpay.sandbox: true

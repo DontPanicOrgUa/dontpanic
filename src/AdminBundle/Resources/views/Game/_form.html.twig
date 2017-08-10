@@ -1,3 +1,21 @@
 {{ form_start(gameForm) }}
-{{ form_widget(gameForm) }}
+<div class="row">
+    <div class="col-sm-12">
+        {{ form_row(gameForm.datetime) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        {{ form_row(gameForm.result) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 file-container">
+        <h4>Team photo</h4>
+        <p class="fa fa-exclamation"> accepts only JPG files</p><br>
+        <p class="fa fa-exclamation"> max size 2MB</p><br>
+        <p class="fa fa-exclamation"> images will be cropped with a ratio of 4:3</p>
+        {{ form_row(gameForm.photo) }}
+    </div>
+</div>
 {{ form_end(gameForm) }}

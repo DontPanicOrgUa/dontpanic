@@ -67,19 +67,19 @@ class RoomController extends Controller
             $room = $form->getData();
 
             if ($file = $room->getLogo()) {
-                $uploaded = $imageUploader->upload($file, $uploadsRoomsPath);
+                $uploaded = $imageUploader->upload($file, $uploadsRoomsPath, 1.6);
                 $room->setLogo($uploaded);
             }
 
             if ($file = $room->getThumbnail()) {
-                $uploaded = $imageUploader->upload($file, $uploadsRoomsPath);
+                $uploaded = $imageUploader->upload($file, $uploadsRoomsPath, 1.6);
                 $room->setThumbnail($uploaded);
             }
 
             if ($files = $room->getSlides()) {
                 $uploads = [];
                 foreach ($files as $file) {
-                    $uploads[] = $imageUploader->upload($file, $uploadsRoomsPath);
+                    $uploads[] = $imageUploader->upload($file, $uploadsRoomsPath, 1.6);
                 }
                 $room->setSlides($uploads);
             }
@@ -139,14 +139,14 @@ class RoomController extends Controller
             $room = $form->getData();
 
             if ($logoFile = $room->getLogo()) {
-                $logoUploaded = $imageUploader->upload($logoFile, $uploadsRoomsPath);
+                $logoUploaded = $imageUploader->upload($logoFile, $uploadsRoomsPath, 1.6);
                 $room->setLogo($logoUploaded);
             } else {
                 $room->setLogo($logo);
             }
 
             if ($thumbnailFile = $room->getThumbnail()) {
-                $thumbnailUploaded = $imageUploader->upload($thumbnailFile, $uploadsRoomsPath);
+                $thumbnailUploaded = $imageUploader->upload($thumbnailFile, $uploadsRoomsPath, 1.6);
                 $room->setThumbnail($thumbnailUploaded);
             } else {
                 $room->setThumbnail($thumbnail);
@@ -155,7 +155,7 @@ class RoomController extends Controller
             if ($slideFiles = $room->getSlides()) {
                 $slidesUploaded = [];
                 foreach ($slideFiles as $slideFile) {
-                    $slidesUploaded[] = $imageUploader->upload($slideFile, $uploadsRoomsPath);
+                    $slidesUploaded[] = $imageUploader->upload($slideFile, $uploadsRoomsPath, 1.6);
                 }
                 $room->setSlides($slidesUploaded);
             } else {

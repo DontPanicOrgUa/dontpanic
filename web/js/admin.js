@@ -307,12 +307,12 @@ $(function () {
                 if (v.type !== $(input).attr('accept')) {
                     error += '\nFile: ' + v.name + ' ' + (v.size / 1024 / 1024).toFixed(2) + 'MB';
                     error += '\n - type should be ' + imageType;
-                    $(input).closest('div.col-sm-4').find('p:eq(0)').addClass('custom-error');
+                    $(input).closest('div.file-container').find('p:eq(0)').addClass('custom-error');
                 }
                 if (v.size >= maxSize) {
                     error += '\nFile: ' + v.name + ' ' + (v.size / 1024 / 1024).toFixed(2) + 'MB';
                     error += '\n - size should be less than ' + (maxSize / 1024 / 1024) + 'MB';
-                    $(input).closest('div.col-sm-4').find('p:eq(1)').addClass('custom-error');
+                    $(input).closest('div.file-container').find('p:eq(1)').addClass('custom-error');
                 }
             });
         }
@@ -320,7 +320,7 @@ $(function () {
     }
 
     function cleanErrors(input) {
-        $(input).closest('div.col-sm-4').find('.custom-error').removeClass('custom-error');
+        $(input).closest('div.file-container').find('.custom-error').removeClass('custom-error');
     }
 
     $inputFiles.change(function () {

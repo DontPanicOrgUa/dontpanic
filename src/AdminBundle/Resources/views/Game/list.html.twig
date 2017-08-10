@@ -78,10 +78,10 @@
                     <td>{{ game.customer.phone }}</td>
                     <td>{{ game.customer.email }}</td>
                     <td>{{ game.isPaid ? 'paid' : 'no' }}</td>
-                    <td>{{ game.result }}</td>
+                    <td>{{ game.result }} min</td>
                     <td>
                         {% if game.photo %}
-                            <span data-photo="{{ asset('uploads/customers/' ~ game.photo) }}" data-toggle="modal" data-target="#modal-photo"
+                            <span data-photo="{{ asset('uploads/games/' ~ game.photo) }}" data-toggle="modal" data-target="#modal-photo"
                                   style="color: #337ab7; cursor: pointer;">view..</span>
                         {% endif %}
                     </td>
