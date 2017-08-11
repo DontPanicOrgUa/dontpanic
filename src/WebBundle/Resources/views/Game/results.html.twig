@@ -6,43 +6,59 @@
         <h1 class="text-center">{{ 'winners.of.game'|trans }} {{ room.title(app.request.locale) }}</h1>
 
         <div class="results-pagination text-center">
-            {% set year = app.request.query.get('year') ?: 'now'|date('Y') %}
-            {% set yearNext = year + 1 %}
-            {% set yearPrev = year - 1 %}
-            <ul class="results-years list-inline">
-                <li class="results-year">
-                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, year: yearPrev})) }}"><b>&lt;</b></a>
-                </li>
-                <li>{{ year }}</li>
-                <li>
-                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, year: yearNext})) }}"><b>&gt;</b></a>
-                </li>
-            </ul>
-            <div class="results-months row">
+            <div class="row results-years">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4 bordered">
+                    <ul class="swing list-inline">
+                        <li>
+                            <a href="{{ pagination.prevYear }}" class="{{ pagination.prevYear ? '' : 'disable' }}"><b>&lt;</b></a>
+                        </li>
+                        <li>{{ pagination.queryDate|date('Y') }}</li>
+                        <li>
+                            <a href="{{ pagination.nextYear }}" class="{{ pagination.nextYear ? '' : 'disable' }}"><b>&gt;</b></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+            <div class="row results-months hidden-xs">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-10">
-                    <span>choose</span>
-                    {% for i in 01..12 %}
-                        <div class="col-sm-1 hidden-sm hidden-md month-cell">
-                            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, month: (i > 9 ? i : '0' ~ i)})) }}" class="">
+                {% dump(pagination) %}
+                <div class="col-sm-10 bordered hidden-xs hidden-sm hidden-md">
+                    {% for i in 1..12 %}
+                        <div class="col-sm-1 {{ (pagination.queryDate|date('m')) == i ? 'active' }}">
+                            <a href="{{ pagination.months[i] }}" class="{{ pagination.months[i] ? '' : 'disable' }}">
                                 <span class="">{{ (i > 9 ? 'month.'~i : 'month.0'~i)|trans }}</span>
                             </a>
                         </div>
                     {% endfor %}
-                    {% for i in 01..12 %}
-                        <div class="col-sm-1 hidden-xs hidden-lg month-cell">
-                            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, month: (i > 9 ? i : '0' ~ i)})) }}" class="">
+                </div>
+                <div class="col-sm-10 bordered hidden-xs hidden-lg">
+                    {% for i in 1..12 %}
+                        <div class="col-sm-1 {{ (pagination.queryDate|date('m')) == i ? 'active' }}">
+                            <a href="{{ pagination.months[i] }}" class="{{ pagination.months[i] ? '' : 'disable' }}">
                                 <span class="">{{ (i > 9 ? 'month.'~i : 'month.0'~i)|trans[:3] }}</span>
                             </a>
                         </div>
                     {% endfor %}
-
                 </div>
                 <div class="col-sm-1"></div>
             </div>
-            {#<ul class="results-monthes list-inline">#}
-
-            {#</ul>#}
+            <div class="row hidden-sm hidden-md hidden-lg results-months">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4 bordered">
+                    <ul class="swing list-inline">
+                        <li>
+                            <a href="{{ pagination.prevMonth }}" class="{{ pagination.prevMonth ? '' : 'disable' }}"><b>&lt;</b></a>
+                        </li>
+                        <li>{{ ('month.'~pagination.queryDate|date('m'))|trans }}</li>
+                        <li>
+                            <a href="{{ pagination.nextMonth }}" class="{{ pagination.nextMonth ? '' : 'disable' }}"><b>&gt;</b></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
         </div>
 
     </div>

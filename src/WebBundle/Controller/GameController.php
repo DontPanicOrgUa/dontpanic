@@ -107,10 +107,87 @@ class GameController extends Controller
         $games = $em->getRepository('WebBundle:Game')
             ->getGamesWithResultsByRoom($room->getSlug(), $start, $end);
 
+        $pagination = $this->calendarPaginator($request, $room);
+
         return $this->render('WebBundle:Game:results.html.twig', [
             'cities' => $cities,
             'games' => $games,
-            'room' => $room
+            'room' => $room,
+            'pagination' => $pagination
         ]);
+    }
+
+    private function calendarPaginator(Request $request, Room $room)
+    {
+        $tz = new DateTimeZone($room->getTimezone());
+        $now = new DateTime('now', $tz);
+        $year = $request->query->get('year') ?: $now->format('Y');
+        $month = $request->query->get('month') ?: $now->format('m');
+        $current = DateTime::createFromFormat('m.Y', $month . '.' . $year, $tz);
+        $nextYear = DateTime::createFromFormat('m.Y', $month . '.' . $year, $tz)->modify('+ 1 year');
+        $prevYear = DateTime::createFromFormat('m.Y', $month . '.' . $year, $tz)->modify('- 1 year');
+        $nextMonth = DateTime::createFromFormat('m.Y', $month . '.' . $year, $tz)->modify('+ 1 month');
+        $prevMonth = DateTime::createFromFormat('m.Y', $month . '.' . $year, $tz)->modify('- 1 month');
+        $roomCreatedAt = $room->getCreatedAt();
+
+        $nextYearUrl = $this->generateUrl('web_games_view', [
+            'slug' => $room->getSlug(),
+            'year' => $nextYear->format('Y'),
+            'month' => '01'
+        ]);
+        $prevYearUrl = $this->generateUrl('web_games_view', [
+            'slug' => $room->getSlug(),
+            'year' => $prevYear->format('Y'),
+            'month' => '12'
+        ]);
+        if ($nextYear->modify('first day of January') > $now) {
+            $nextYearUrl = null;
+        }
+        if ($prevYear->modify('last day of December') < $roomCreatedAt) {
+            $prevYearUrl = null;
+        }
+
+        $nextMonthUrl = $this->generateUrl('web_games_view', [
+            'slug' => $room->getSlug(),
+            'year' => $nextMonth->format('Y'),
+            'month' => $nextMonth->format('m')
+        ]);
+        $prevMonthUrl = $this->generateUrl('web_games_view', [
+            'slug' => $room->getSlug(),
+            'year' => $prevMonth->format('Y'),
+            'month' => $prevMonth->format('m')
+        ]);
+        if ($nextMonth > $now) {
+            $nextMonthUrl = null;
+        }
+        if ($prevMonth < $roomCreatedAt) {
+            $prevMonthUrl = null;
+        }
+
+        $checkDate = DateTime::createFromFormat('m.Y', '01.' . $year, $tz);
+        $months = [];
+        for ($i = 1; $i <= 12; $i++) {
+            if ($checkDate->format('mY') !== $now->format('mY') && $checkDate < $roomCreatedAt || $checkDate > $now) {
+                $months[$i] = null;
+                $checkDate->modify('+ 1 month');
+                continue;
+            }
+            $months[$i] = $this->generateUrl(
+                'web_games_view',
+                array_merge(
+                    $request->query->all(), ['slug' => $room->getSlug(), 'month' => $i < 10 ? '0' . $i : $i]
+                )
+            );
+            $checkDate->modify('+ 1 month');
+        }
+
+        return [
+            'queryDate' => $current,
+            'nextYear' => $nextYearUrl,
+            'prevYear' => $prevYearUrl,
+            'nextMonth' => $nextMonthUrl,
+            'prevMonth' => $prevMonthUrl,
+            'months' => $months
+        ];
     }
 }
