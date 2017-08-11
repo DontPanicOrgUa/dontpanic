@@ -129,7 +129,7 @@ AdminBundle\Entity\User:
     user_1:
         userName: admin
         email: mp091689@gmail.com
-        plainPassword: 123456789
+        plainPassword: JtR&k;u!zSBa89fP
         enabled: true
         roles: ['ROLE_ADMIN']
         phone: '0507095075'
