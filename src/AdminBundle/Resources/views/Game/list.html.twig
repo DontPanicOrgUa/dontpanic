@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-8 col-sm-12">
                     <form action="{{ path('admin_games_list', {slug: games.params.slug}) }}" method="get">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -109,7 +109,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script type="text/javascript" src="{{ asset('daterangepicker/jquery.daterangepicker.min.js') }}"></script>
     <script>
         {#var uploadsCustomersPath = '{{ uploads_games_path }}';#}
