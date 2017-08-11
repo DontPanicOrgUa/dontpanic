@@ -1,0 +1,55 @@
+{% extends 'WebBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <!--  CONTENT -->
+    <div class="content container-fluid">
+        <h1 class="text-center">{{ 'winners.of.game'|trans }} {{ room.title(app.request.locale) }}</h1>
+
+        <div class="results-pagination text-center">
+            {% set year = app.request.query.get('year') ?: 'now'|date('Y') %}
+            {% set yearNext = year + 1 %}
+            {% set yearPrev = year - 1 %}
+            <ul class="results-years list-inline">
+                <li class="results-year">
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, year: yearPrev})) }}"><b>&lt;</b></a>
+                </li>
+                <li>{{ year }}</li>
+                <li>
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, year: yearNext})) }}"><b>&gt;</b></a>
+                </li>
+            </ul>
+            <div class="results-months row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+                    <span>choose</span>
+                    {% for i in 01..12 %}
+                        <div class="col-sm-1 hidden-sm hidden-md month-cell">
+                            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, month: (i > 9 ? i : '0' ~ i)})) }}" class="">
+                                <span class="">{{ (i > 9 ? 'month.'~i : 'month.0'~i)|trans }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    {% for i in 01..12 %}
+                        <div class="col-sm-1 hidden-xs hidden-lg month-cell">
+                            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({slug: room.slug, month: (i > 9 ? i : '0' ~ i)})) }}" class="">
+                                <span class="">{{ (i > 9 ? 'month.'~i : 'month.0'~i)|trans[:3] }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+            {#<ul class="results-monthes list-inline">#}
+
+            {#</ul>#}
+        </div>
+
+    </div>
+    <!--  CONTENT end -->
+    {#{% include 'WebBundle:layouts/includes:flash-modal.html.twig' %}#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -231,7 +231,7 @@ header {
 
     text-align: left;
 
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .city-list a:hover,
@@ -333,7 +333,7 @@ header {
     height: 100%;
     padding-top: 146px;
 
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .main-menu a:hover {
@@ -465,7 +465,7 @@ header {
 
     text-align: left;
 
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .sort-list a:hover,
@@ -1566,4 +1566,17 @@ th:hover {
 
 .flash-modal-success {
     background-color: #57d452;
+}
+
+.results-pagination ul {
+
+}
+
+.results-pagination li:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.results-pagination .results-months a {
+    text-decoration: none;
+    font-size: 15px;
 }

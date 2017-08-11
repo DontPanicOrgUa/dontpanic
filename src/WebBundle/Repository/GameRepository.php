@@ -48,4 +48,29 @@ class GameRepository extends EntityRepository
             ->orderBy('g.datetime', 'DESC')
             ->getQuery();
     }
+
+    public function getGamesWithResultsByRoom($slug, $dateStart = null, $dateEnd = null)
+    {
+        $builder = $this
+            ->createQueryBuilder('g')
+            ->where('g.result IS NOT NULL')
+            ->innerJoin('g.room', 'gr', 'WITH', 'gr.slug = :slug')
+            ->setParameter('slug', $slug);
+
+        if ($dateStart) {
+            $builder
+                ->andWhere('g.datetime > :start')
+                ->setParameter('start', $dateStart, Type::DATETIME);
+        }
+        if ($dateEnd) {
+            $builder
+                ->andWhere('g.datetime < :end')
+                ->setParameter('end', $dateEnd, Type::DATETIME);
+        }
+
+        return $builder->addSelect('gr')
+            ->orderBy('g.datetime', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

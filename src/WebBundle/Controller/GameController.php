@@ -88,12 +88,29 @@ class GameController extends Controller
      * @Method("GET")
      * @param Request $request
      * @param $room
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewAction(Request $request, Room $room)
     {
+        $year = $request->query->get('year') ?: date('Y');
+        $month = $request->query->get('month') ?: date('m');
+        $timeZone = new DateTimeZone($room->getTimezone());
+        $start = DateTime::createFromFormat('d.m.Y', '01.' . $month . '.' . $year, $timeZone);
+        $end = DateTime::createFromFormat('d.m.Y', '01.' . $month . '.' . $year, $timeZone)
+            ->modify('+ 1 month')
+            ->modify('- 1 day');
+
         $em = $this->getDoctrine()->getManager();
-        $games = $em->getRepository('WebBundle:Game')->getAllGamesByRoom($room->getSlug());
-        dump($games);die;
+
+        $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+
+        $games = $em->getRepository('WebBundle:Game')
+            ->getGamesWithResultsByRoom($room->getSlug(), $start, $end);
+
+        return $this->render('WebBundle:Game:results.html.twig', [
+            'cities' => $cities,
+            'games' => $games,
+            'room' => $room
+        ]);
     }
 }
