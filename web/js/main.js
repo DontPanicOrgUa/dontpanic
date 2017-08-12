@@ -25,6 +25,7 @@ $(function () {
     // room photo-slides
     $('.room-slides').flexslider({
         animation: "slide",
+        animationLoop: true,
         directionNav: false,
         keyboard: false,
         slideshow: true,

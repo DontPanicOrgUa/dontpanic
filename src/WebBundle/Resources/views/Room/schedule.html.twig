@@ -356,7 +356,7 @@
         /////////////////////////////////////////////////////////
         /////////////// google maps /////////////////////////////
         /////////////////////////////////////////////////////////
-        var coordinates = '{{ room.coordinates }}'.split(' ');
+        var coordinates = '{{ room.coordinates }}'.split(',');
 
         function initMap() {
             var myLatLng = {lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])};

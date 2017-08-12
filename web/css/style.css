@@ -796,17 +796,13 @@ th:hover {
 
 .room {
     position: relative;
+    text-shadow: 0 0 3px black;
 }
 
 .room-left-panel {
     position: absolute;
     top: 20px;
     left: 20px;
-}
-
-.room-left-panel img {
-    max-height: 180px;
-    max-width: 180px;
 }
 
 .room-left-panel h3 {
@@ -1171,6 +1167,7 @@ th:hover {
     list-style: none;
     font-weight: bold;
     color: #fff;
+    text-shadow: 0 0 3px black;
 }
 
 .star-block {
@@ -1258,6 +1255,15 @@ th:hover {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.room-logo {
+    max-width: 180px;
+    max-height: 180px;
+}
+
+.room-description {
+    max-width: 50%;
+}
 
 @media only screen and (max-width: 1200px) {
     .callback {
