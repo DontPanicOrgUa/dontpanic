@@ -1519,10 +1519,6 @@ th:hover {
     background: #f0ad4e;
 }
 
-.results-pagination .bordered .active:hover {
-    background: #ff9f23;
-}
-
 .results-pagination .swing a {
     font-size: 18px;
     font-weight: bold;
@@ -1532,7 +1528,7 @@ th:hover {
 .results-pagination .swing a:hover {
     font-size: 18px;
     font-weight: bold;
-    color: #ff9f23;
+    color: #ec971f;
 }
 
 .results-pagination .swing a.disable {
@@ -1570,5 +1566,5 @@ h1 a {
 }
 
 h1 a:hover {
-    color: #f0ad4e;
+    color: #ec971f;
 }
