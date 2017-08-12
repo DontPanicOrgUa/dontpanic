@@ -26,20 +26,37 @@
                 {% set logo = room.logo ?: 'default_logo.png' %}
                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="{{ room.title(app.request.locale) }}" class="room-logo">
                 <h3 class="room-title">{{ room.title(app.request.locale) }}</h3>
-                <p class="room-complexity">{{ 'complexity'|trans }} 3</p>
+                <div class="game-complexity">
+                    <span class="game-complexity-img">
+                        <span class="game-complexity-full" style="width: {{ room.difficulty }}0%"></span>
+                    </span>{{ 'complexity'|trans|capitalize }}
+                </div>
                 <div class="room-description">{{ room.description(app.request.locale)|raw }}</div>
-                <p class="team">{{ 'players'|trans }} {{ room.playersMin }}-{{ room.playersMax }}</p>
-                <p class="time-to-play">{{ room.timeMax }} {{ 'minutes'|trans }}</p>
             </div>
-
-            <a href="{{ path('web_games_view', {slug: room.slug}) }}" class="team-results">{{ 'team.results'|trans }}</a>
+            <div class="room-options">
+                <div class="game-man">
+                    {% set playersMax = room.playersMax * 13 %}
+                    {% set playersMin = room.playersMin * 13 %}
+                    <span class="game-man-img" style="width: {{ playersMax }}px">
+                        <span class="game-man-full" style="width: {{ playersMin }}px"></span>
+                    </span>
+                    <span class="game-man-text" style="margin-left: {{ playersMax + 18 }}px;">{{ 'players'|trans|capitalize }}: {{ room.playersMin }}-{{ room.playersMax }}</span>
+                </div>
+                <div class="game-time">
+                    <span class="game-time-img"></span>
+                    <span class="game-time-text">{{ room.timeMax }} {{ 'minutes'|trans }}</span>
+                </div>
+                <div class="team-results">
+                    <a href="{{ path('web_games_view', {slug: room.slug}) }}">{{ 'team.results'|trans }}</a>
+                </div>
+            </div>
 
             {#<p class="average-time">{{ 'Average time' }} <span></span> {{ 'minutes'|trans }}</p>#}
 
             <div class="room-right-panel">
-                <p><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> &nbsp;{{ room.phone }}</p>
-                <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> &nbsp;{{ room.email }}</p>
-                <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ room.address(app.request.locale) }}</p>
+                <p><span class="glyphicon glyphicon-phone color-orange left" aria-hidden="true"></span> {{ room.phone }} <span class="glyphicon glyphicon-phone color-orange right"></span></p>
+                <p><span class="glyphicon glyphicon-envelope color-orange left"></span> {{ room.email }} <span class="glyphicon glyphicon-envelope color-orange right"></span></p>
+                <p><span class="glyphicon glyphicon-map-marker color-orange left"></span> {{ room.address(app.request.locale) }} <span class="glyphicon glyphicon-map-marker color-orange right"></span></p>
             </div>
         </div>
 

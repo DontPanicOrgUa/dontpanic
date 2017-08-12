@@ -23,3 +23,13 @@ deploy.php
 !/web/uploads/rooms/default_logo.png
 /app/spool
 /web/robots.txt
+.directory
+!/web/uploads/rooms/genesis_slide_1.jpg
+!/web/uploads/rooms/genesis_slide_2.jpg
+!/web/uploads/rooms/genesis_slide_3.jpg
+!/web/uploads/rooms/genesis_thumbnail.jpg
+!/web/uploads/rooms/genesis_logo.png
+!/web/uploads/rooms/thief_1.jpg
+!/web/uploads/rooms/thief_2.jpg
+!/web/uploads/rooms/thief_logo.png
+
