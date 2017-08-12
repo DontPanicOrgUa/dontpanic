@@ -54,6 +54,7 @@ class GameRepository extends EntityRepository
         $builder = $this
             ->createQueryBuilder('g')
             ->where('g.result IS NOT NULL')
+            ->andWhere('g.photo IS NOT NULL')
             ->innerJoin('g.room', 'gr', 'WITH', 'gr.slug = :slug')
             ->setParameter('slug', $slug);
 

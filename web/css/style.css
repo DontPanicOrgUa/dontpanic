@@ -481,6 +481,11 @@ header {
     margin-bottom: 25px;
 }
 
+.photo-gallery-item img{
+    width: 240px;
+    height: 180px;
+}
+
 .gallery-item .zoom {
     transition: all 0.5s ease-out;
 }
@@ -1157,6 +1162,8 @@ th:hover {
 }
 
 .photo-gallery-info {
+    padding: 0;
+    margin: 4px 12px;
     position: absolute;
     z-index: 1;
     bottom: 0;
@@ -1555,5 +1562,13 @@ th:hover {
 
 .results-pagination .bordered > div:hover {
     background: rgba(255, 255, 255, 0.1);
+    color: #f0ad4e;
+}
+
+h1 a {
+    color:  white;
+}
+
+h1 a:hover {
     color: #f0ad4e;
 }

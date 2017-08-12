@@ -32,7 +32,7 @@
                 <p class="time-to-play">{{ room.timeMax }} {{ 'minutes'|trans }}</p>
             </div>
 
-            <a href="#" class="team-results">{{ 'team.results'|trans }}</a>
+            <a href="{{ path('web_games_view', {slug: room.slug}) }}" class="team-results">{{ 'team.results'|trans }}</a>
 
             {#<p class="average-time">{{ 'Average time' }} <span></span> {{ 'minutes'|trans }}</p>#}
 

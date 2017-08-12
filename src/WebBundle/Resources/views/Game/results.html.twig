@@ -1,9 +1,13 @@
 {% extends 'WebBundle:layouts:main.html.twig' %}
 
+{% block title %}
+    {{ 'winners.of.game'|trans }} {{ room.title(app.request.locale) }}
+{% endblock %}
+
 {% block content %}
     <!--  CONTENT -->
     <div class="content container-fluid">
-        <h1 class="text-center">{{ 'winners.of.game'|trans }} {{ room.title(app.request.locale) }}</h1>
+        <h1 class="text-center">{{ 'winners.of.game'|trans }} <a href="{{ path('web_rooms_schedule', {slug: room.slug}) }}">{{ room.title(app.request.locale) }}</a></h1>
 
         <div class="results-pagination text-center">
             <div class="row results-years">
@@ -23,7 +27,6 @@
             </div>
             <div class="row results-months hidden-xs">
                 <div class="col-sm-1"></div>
-                {% dump(pagination) %}
                 <div class="col-sm-10 bordered hidden-xs hidden-sm hidden-md">
                     {% for i in 1..12 %}
                         <div class="col-sm-1 {{ (pagination.queryDate|date('m')) == i ? 'active' }}">
@@ -61,9 +64,28 @@
             </div>
         </div>
 
+        <!--    photo-gallery start -->
+        <section class="photo-gallery container">
+            <div class="row d-flex-gallery">
+
+                {% for game in games %}
+                    <div class="photo-gallery-item">
+                        <a data-fancybox="gallery" href="{{ asset('uploads/games/'~game.photo) }}" class="fancy">
+                            <img src="{{ asset('uploads/games/'~game.photo) }}">
+                            <ul class="photo-gallery-info">
+                                <li><i class="fa fa-clock-o"></i> {{ game.result }}</li>
+                                <li><i class="fa fa-calendar"></i> {{ game.datetime|date('d.m.Y') }}</li>
+                            </ul>
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </section>
+        <!--    photo-gallery end -->
+
     </div>
     <!--  CONTENT end -->
-    {#{% include 'WebBundle:layouts/includes:flash-modal.html.twig' %}#}
 {% endblock %}
 
 {% block javascripts %}
