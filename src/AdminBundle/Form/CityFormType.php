@@ -3,8 +3,10 @@
 namespace AdminBundle\Form;
 
 use WebBundle\Entity\City;
+use WebBundle\Entity\TimeZone;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -31,6 +33,10 @@ class CityFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Kiew'
                 ]
+            ])
+            ->add('timezone', EntityType::class, [
+                'class' => TimeZone::class,
+                'placeholder' => 'Choose the TimeZone'
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Save City',

@@ -11,6 +11,7 @@
                 <th>{{ knp_pagination_sortable(cities, 'City[RU]', 't0.nameRu') }}</th>
                 <th>{{ knp_pagination_sortable(cities, 'City[EN]', 't0.nameEn') }}</th>
                 <th>{{ knp_pagination_sortable(cities, 'City[DE]', 't0.nameDe') }}</th>
+                <th>TimeZone</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -21,6 +22,7 @@
                     <td>{{ city.name('ru') }}</td>
                     <td>{{ city.name('en') }}</td>
                     <td>{{ city.name('de') }}</td>
+                    <td>{{ city.timezone }}</td>
                     <td>
                         <a class="btn btn-xs btn-warning" href="{{ path('admin_cities_edit', {id: city.id}) }}">edit <span class=" fa fa-pencil"></span></a>
                          <a class="btn btn-xs btn-danger" href="{{ path('admin_cities_delete', {id: city.id}) }}">delete <span class=" fa fa-close"></span></a>

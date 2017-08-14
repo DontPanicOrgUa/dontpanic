@@ -26,7 +26,7 @@ class ScheduleBuilder
     public function __construct(Room $room)
     {
         $this->room = $room;
-        $this->timeZone = new DateTimeZone($room->getTimezone());
+        $this->timeZone = new DateTimeZone($room->getCity()->getTimezone());
     }
 
     /**

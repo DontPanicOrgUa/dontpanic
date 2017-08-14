@@ -2,10 +2,9 @@
 
 namespace AdminBundle\Form;
 
-use AdminBundle\Entity\User;
 use WebBundle\Entity\City;
 use WebBundle\Entity\Room;
-use WebBundle\Entity\TimeZone;
+use AdminBundle\Entity\User;
 use WebBundle\Entity\Currency;
 use WebBundle\Repository\CityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -121,10 +120,6 @@ class RoomFormType extends AbstractType
                     '10' => 10
                 ],
                 'data' => 5
-            ])
-            ->add('timezone', EntityType::class, [
-                'class' => TimeZone::class,
-                'placeholder' => 'Choose the TimeZone'
             ])
             ->add('timeMax', IntegerType::class, [
                 'label' => 'Time max in minutes',

@@ -65,10 +65,12 @@ WebBundle\Entity\City:
         nameRu: Киев
         nameEn: Kiev
         nameDe: Kiew
+        timezone: '@zone_273'
     city_2:
         nameRu: Вена
         nameEn: Vienna
         nameDe: Wien
+        timezone: '@zone_305'
 
 WebBundle\Entity\Currency:
     currency_1:
@@ -96,7 +98,6 @@ WebBundle\Entity\Room:
     room_1:
         city: '@city_2'
         currency: '@currency_2'
-        timezone: '@zone_305'
         apiKey (unique): <uuid()>
         titleRu: "ПРОЕКТ: GENESIS"
         titleEn: "PROJECT: GENESIS"
@@ -129,7 +130,6 @@ WebBundle\Entity\Room:
     room_2:
         city: '@city_2'
         currency: '@currency_2'
-        timezone: '@zone_305'
         apiKey (unique): <uuid()>
         titleRu: "НЕ ПОЙМАН - НЕ ВОР"
         titleEn: "NOT CAUGHT, NOT A THIEF"

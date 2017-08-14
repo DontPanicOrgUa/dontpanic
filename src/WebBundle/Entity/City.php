@@ -48,6 +48,13 @@ class City
      */
     private $rooms;
 
+    /**
+     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\TimeZone")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $timezone;
+
     function __construct()
     {
         $this->rooms = new ArrayCollection();
@@ -139,5 +146,20 @@ class City
         return $this->getNameEn();
     }
 
+    /**
+     * @return string
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
+
+    /**
+     * @param string $timezone
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
 }
 

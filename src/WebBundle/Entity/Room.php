@@ -216,13 +216,6 @@ class Room
     private $slug;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\TimeZone")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $timezone;
-
-    /**
      * @ORM\ManyToMany(targetEntity="AdminBundle\Entity\User")
      */
     private $roomManagers;
@@ -774,22 +767,6 @@ class Room
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTimezone()
-    {
-        return $this->timezone;
-    }
-
-    /**
-     * @param string $timezone
-     */
-    public function setTimezone($timezone)
-    {
-        $this->timezone = $timezone;
     }
 
     public function addRoomManager(User $user)
