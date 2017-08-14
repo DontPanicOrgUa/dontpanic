@@ -10,32 +10,34 @@
             <a class="navbar-brand" href="/" target="_blank">EscapeRooms</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav nav-sidebar">
-                <li {% if ('rooms' in app.request.get('_route')) or ('blank' in app.request.get('_route')) %}class="active"{% endif %}>
-                    <a href="{{ path('admin_rooms_list') }}">Rooms</a></li>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li {% if 'cities' in app.request.get('_route') %}class="active"{% endif %}><a
-                                href="{{ path('admin_cities_list') }}">Cities</a></li>
-                    <li {% if 'genres' in app.request.get('_route') %}class="active"{% endif %}><a
-                                href="{{ path('admin_genres_list') }}">Genres</a></li>
-                    <li {% if 'notifications' in app.request.get('_route') %}class="active"{% endif %}><a
-                                href="{{ path('admin_notifications_list') }}">Notifications</a></li>
-                {% endif %}
-            </ul>
-            <ul class="nav nav-sidebar">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li {% if 'customers' in app.request.get('_route') %}class="active"{% endif %}><a
-                                href="{{ path('admin_customers_list') }}">Customers</a></li>
-                    <li {% if 'payments' in app.request.get('_route') %}class="active"{% endif %}><a
-                                href="{{ path('admin_payments_list') }}">Payments</a></li>
-                {% endif %}
-            </ul>
-            <ul class="nav nav-sidebar">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li {% if 'users' in app.request.get('_route') %}class="active"{% endif %}><a
-                                href="{{ path('admin_users_list') }}">Users</a></li>
-                {% endif %}
-            </ul>
+            <div class="hidden-lg hidden-md hidden-sm">
+                <ul class="nav navbar-nav navbar-right">
+                    <li {% if ('rooms' in app.request.get('_route')) or ('blank' in app.request.get('_route')) %}class="active"{% endif %}>
+                        <a href="{{ path('admin_rooms_list') }}">Rooms</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li {% if 'cities' in app.request.get('_route') %}class="active"{% endif %}><a
+                                    href="{{ path('admin_cities_list') }}">Cities</a></li>
+                        <li {% if 'genres' in app.request.get('_route') %}class="active"{% endif %}><a
+                                    href="{{ path('admin_genres_list') }}">Genres</a></li>
+                        <li {% if 'notifications' in app.request.get('_route') %}class="active"{% endif %}><a
+                                    href="{{ path('admin_notifications_list') }}">Notifications</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li {% if 'customers' in app.request.get('_route') %}class="active"{% endif %}><a
+                                    href="{{ path('admin_customers_list') }}">Customers</a></li>
+                        <li {% if 'payments' in app.request.get('_route') %}class="active"{% endif %}><a
+                                    href="{{ path('admin_payments_list') }}">Payments</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li {% if 'users' in app.request.get('_route') %}class="active"{% endif %}><a
+                                    href="{{ path('admin_users_list') }}">Users</a></li>
+                    {% endif %}
+                </ul>
+            </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('fos_user_security_logout') }}">Logout <span class="fa fa-sign-out"></span></a></li>
             </ul>
