@@ -54,7 +54,7 @@ class MailSender
         $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
 
         $swiftMessage = (new \Swift_Message($title))
-            ->setFrom('dontpanic@gmail.com', 'Don\'t Panic')
+            ->setFrom('info@escaperooms.at', 'EscapeRooms')
             ->setTo($bookingData['email'])
             ->setBody(
                 $this->templating->render('WebBundle:emails:booking.html.twig', [
@@ -83,7 +83,7 @@ class MailSender
         $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
 
         $swiftMessage = (new \Swift_Message($title))
-            ->setFrom('dontpanic@gmail.com', 'Don\'t Panic')
+            ->setFrom('info@escaperooms.com', 'EscapeRooms')
             ->setTo($to)
             ->setBody(
                 $this->templating->render('AdminBundle:emails:booking.html.twig', [

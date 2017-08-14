@@ -104,12 +104,12 @@ WebBundle\Entity\Room:
         descriptionRu: "<p>Исследуйте заброшенную военную лабораторию после мировой катастрофы. Обнаружьте все ее загадки, тайники и механизмы. Только так вы сможете выбраться из ловушки и возродить человечество.</p><p>Обращаем ваше внимание, что посещение данной комнаты запрещено людям с кардиостимуляторами и другими приборами для поддержания и обеспечения жизнедеятельности.</p>"
         descriptionEn: "<p>Explore an abandoned military laboratory after a world catastrophe. Discover all of its riddles, hiding places and mechanisms. Only in this way you can get out of the trap and revive humanity.</p><p>Please note that this room is not allowed to people with pacemakers and other devices to maintain and maintain life.</p>"
         descriptionDe: "<p>Entdecken Sie ein verlassenes Militärlabor nach einer Weltkatastrophe . Entdecken Sie alle seine Rätsel, Verstecke und Mechanismen. Nur auf diese Weise können Sie aus der Falle zu bekommen und die Menschheit wieder zu beleben.</p><p>Bitte beachten Sie, dass dieses Zimmer nicht für Menschen mit Herzschrittmachern und anderen Geräten erlaubt ist, aufrecht zu erhalten und Leben.</p>"
-        coordinates: 50.4328569,30.5431019
-        addressRu: "Панаса Мирного 3 (вход со двора)"
-        addressEn: "Panasa Myrnoho 3 (entrance from the yard)"
-        addressDe: "Panasa Myrnogo 3 (Eingang vom Hof)"
+        coordinates: 48.194907,16.333932
+        addressRu: "Zwölfergasse 9,1150"
+        addressEn: "Zwölfergasse 9,1150"
+        addressDe: "Zwölfergasse 9,1150"
         phone: "+38 (098) 000 80 77"
-        email: "dontpanic.org.ua@gmail.com"
+        email: "genesis@genesis.com"
         difficulty: 7
         roomManagers: ['@user_1']
         timeMax: 60
@@ -142,7 +142,7 @@ WebBundle\Entity\Room:
         addressEn: "Shota Rustaveli st. 3"
         addressDe: "Shota Rustaveli st. 3"
         phone: "+38 (098) 000 80 77"
-        email: "dontpanic.org.ua@gmail.com"
+        email: "thief@thrief.com"
         difficulty: 9
         roomManagers: ['@user_1']
         timeMax: 90
