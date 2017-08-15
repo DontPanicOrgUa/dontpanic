@@ -72,6 +72,15 @@ WebBundle\Entity\City:
         nameDe: Wien
         timezone: '@zone_305'
 
+WebBundle\Entity\Share:
+    share_1:
+        descriptionRu: "Оплати онлайн и получи скидку 5%."
+        descriptionEn: "Pay online and receive discount 5%."
+        descriptionDe: "Pay online and receive discount 5%."
+        imgRu: "pay_online_ru.jpg"
+        imgEn: "pay_online_en.jpg"
+        imgDe: "pay_online_de.jpg"
+
 WebBundle\Entity\Currency:
     currency_1:
         currency: UAH

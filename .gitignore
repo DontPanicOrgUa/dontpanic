@@ -22,6 +22,9 @@ deploy.php
 !/web/uploads/rooms
 !/web/uploads/games
 !/web/uploads/shares
+!/web/uploads/shares/pay_online_ru.jpg
+!/web/uploads/shares/pay_online_en.jpg
+!/web/uploads/shares/pay_online_de.jpg
 !/web/uploads/rooms/default_thumbnail.jpg
 !/web/uploads/rooms/default_logo.png
 /app/spool
