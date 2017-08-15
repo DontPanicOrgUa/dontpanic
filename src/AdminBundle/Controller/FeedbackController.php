@@ -28,11 +28,6 @@ class FeedbackController extends Controller
         $feedbacks = $em->getRepository('WebBundle:Feedback')
             ->findAllFeedbacksByRoom($slug);
 
-        if (empty($feedbacks)) {
-            $this->addFlash('errors', ['No feedbacks for "' . $room->getTitle($request->getLocale()) . '.']);
-            return $this->redirectToRoute('admin_rooms_list');
-        }
-
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $feedbacks,
@@ -41,7 +36,7 @@ class FeedbackController extends Controller
         );
 
         return $this->render('AdminBundle:Feedback:list.html.twig', [
-            'feedbacks' => $result
+            'feedbacks' => $result,
         ]);
     }
 

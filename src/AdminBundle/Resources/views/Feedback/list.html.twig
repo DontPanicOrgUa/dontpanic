@@ -5,9 +5,10 @@
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Go to .. <span class="caret"></span>
         </button>
+        {% dump(feedbacks) %}
         <ul class="dropdown-menu">
-            <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: feedbacks[0].room.slug}) }}"> room schedule</a></li>
-            <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: feedbacks[0].room.slug}) }}"> list rooms</a></li>
+            <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: feedbacks.params.slug}) }}"> room schedule</a></li>
+            <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: feedbacks.params.slug}) }}"> list rooms</a></li>
         </ul>
     </div>
     <h1 class="page-header">Feedbacks</h1>

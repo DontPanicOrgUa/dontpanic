@@ -1267,8 +1267,7 @@ th:hover {
 }
 
 .review-modal .modal-content input {
-    width: 185px;
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 20px;
 }
 
