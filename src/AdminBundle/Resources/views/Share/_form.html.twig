@@ -1,0 +1,33 @@
+{{ form_start(shareForm) }}
+<div class="panel panel-default">
+    <div class="panel-heading">Share [Ru]</div>
+    <div class="panel-body">
+        {{ form_row(shareForm.descriptionRu) }}
+        <p class="fa fa-exclamation"> accepts only JPG files</p><br>
+        <p class="fa fa-exclamation"> max size 2MB</p><br>
+        <p class="fa fa-exclamation"> 8:1 ratio</p>
+        {{ form_row(shareForm.imgRu) }}
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Share [En]</div>
+    <div class="panel-body">
+        {{ form_row(shareForm.descriptionEn) }}
+        <p class="fa fa-exclamation"> accepts only JPG files</p><br>
+        <p class="fa fa-exclamation"> max size 2MB</p><br>
+        <p class="fa fa-exclamation"> 8:1 ratio</p>
+        {{ form_row(shareForm.imgEn) }}
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Share [De]</div>
+    <div class="panel-body">
+        {{ form_row(shareForm.descriptionDe) }}
+        <p class="fa fa-exclamation"> accepts only JPG files</p><br>
+        <p class="fa fa-exclamation"> max size 2MB</p><br>
+        <p class="fa fa-exclamation"> 8:1 ratio</p>
+        {{ form_row(shareForm.imgDe) }}
+    </div>
+</div>
+<div class="row">{{ form_row(shareForm.save) }}</div>
+{{ form_end(shareForm) }}

@@ -20,6 +20,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cityName = $request->query->get('city');
         $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+        $shares = $em->getRepository('WebBundle:Share')->findAll();
         $rooms = $em->getRepository('WebBundle:Room')->findAllByCity($cityName);
         $currentCity = $this->get('translator')->trans('all.cities');
         /** @var $rooms Room[] */
@@ -28,6 +29,7 @@ class DefaultController extends Controller
         }
         return $this->render('WebBundle:City:list.html.twig', [
             'cities' => $cities,
+            'shares' => $shares,
             'currentCity' => $currentCity,
             'rooms' => $rooms
         ]);

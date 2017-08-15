@@ -249,12 +249,12 @@ $(function () {
         if ($.isArray(image)) {
             $.each(image, function (k, v) {
                 $modalViewImages.find('.modal-body').append(
-                    '<img src="' + v + '" style="max-width: 400px; max-height: 400px;">'
+                    '<img src="' + v + '" style="max-width: 100%; max-height: 400px;">'
                 );
             })
         } else {
             $modalViewImages.find('.modal-body').append(
-                '<img src="' + image + '" style="max-width: 400px; max-height: 400px;">'
+                '<img src="' + image + '" style="max-width: 100%; max-height: 400px;">'
             );
         }
         // $modalViewImages.find('.modal-body');

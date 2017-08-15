@@ -31,7 +31,37 @@ $(function () {
         slideshow: true,
         randomize: true,
         controlNav: false,
+    });
 
+    $('.room-slides .custom-navigation .flex-next').on('click', function(){
+        $('.room-slides').flexslider('next');
+        return false;
+    });
+    $('.room-slides .custom-navigation .flex-prev').on('click', function(){
+        $('.room-slides').flexslider('prev');
+        return false;
+    });
+
+    // shares slides
+    $('.shares-slider .flexslider').flexslider({
+        animation: "slide",
+        animationLoop: true,
+        keyboard: false,
+        slideshow: true,
+        randomize: true,
+        directionNav: false,
+        controlNav: false,
+        pauseOnAction: true,
+        pauseOnHover: true
+    });
+
+    $('.shares-slider .custom-navigation .flex-next').on('click', function(){
+        $('.shares-slider .flexslider').flexslider('next');
+        return false;
+    });
+    $('.shares-slider .custom-navigation .flex-prev').on('click', function(){
+        $('.shares-slider .flexslider').flexslider('prev');
+        return false;
     });
 
     // меню

@@ -1,0 +1,7 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <a class="btn btn-danger pull-right" href="{{ path('admin_shares_list') }}">Cancel</a>
+    <h1 class="page-header">Add Share</h1>
+    {{ include('AdminBundle:Share:_form.html.twig') }}
+{% endblock %}

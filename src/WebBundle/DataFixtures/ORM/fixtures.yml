@@ -31,7 +31,7 @@ WebBundle\Entity\Notification:
             messageDe: 'Das neue Spiel wurde gebucht.'
     notification_4:
             type: email
-            event: calnceled
+            event: canceled
             recipient: manager
             titleRu: Отмена брони
             titleEn: Cancel Reservation

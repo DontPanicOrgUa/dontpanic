@@ -4,8 +4,22 @@
     <!--  CONTENT -->
     <div class="content container-fluid">
         <!--    slider start -->
-        <section class="slider container-fluid">
-
+        <section class="container-fluid shares-slider hidden-xs hidden-sm">
+            {% if shares %}
+                <div class="flexslider">
+                    <ul class="slides">
+                        {% for share in shares %}
+                            <li>
+                                <img src="{{ asset('uploads/shares/'~share.img(app.request.locale)) }}" alt="{{ share.description(app.request.locale) }}">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="custom-navigation">
+                    <a href="#" class="flex-prev"></a>
+                    <a href="#" class="flex-next"></a>
+                </div>
+            {% endif %}
         </section>
         <!--    slider end -->
 

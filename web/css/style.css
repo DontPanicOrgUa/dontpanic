@@ -481,7 +481,7 @@ header {
     margin-bottom: 25px;
 }
 
-.photo-gallery-item img{
+.photo-gallery-item img {
     width: 240px;
     height: 180px;
 }
@@ -497,7 +497,7 @@ header {
     margin: 0;
 }
 
-.gallery-img-container .img-responsive{
+.gallery-img-container .img-responsive {
     width: 100%;
 }
 
@@ -867,7 +867,7 @@ th:hover {
     margin-left: 45px;
 }
 
-@media only screen and (min-width: 570px){
+@media only screen and (min-width: 570px) {
 
     .room-options .team-results {
         margin-left: 8px;
@@ -877,6 +877,7 @@ th:hover {
     .room-right-panel .glyphicon.right {
         display: inline-block;
     }
+
     .room-right-panel .glyphicon.left {
         display: none;
     }
@@ -915,76 +916,6 @@ th:hover {
     position: relative;
     background: none;
 }
-
-/*.schedule-slider .flex-direction-nav a {*/
-/*position: absolute;*/
-/*z-index: 10;*/
-/*top: 10px;*/
-
-/*display: block;*/
-/*overflow: hidden;*/
-
-/*width: 40px;*/
-/*height: 40px;*/
-/*margin: -20px 0 0;*/
-
-/*font-weight: bold;*/
-
-/*cursor: pointer;*/
-/*-webkit-transition: all 0.3s ease-in-out;*/
-/*transition: all 0.3s ease-in-out;*/
-/*text-decoration: none;*/
-
-/*opacity: 1;*/
-/*color: #fff;*/
-/*text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/
-/*}*/
-
-/*.schedule-slider .flex-direction-nav a:before {*/
-/*display: inline-block;*/
-
-/*font-family: "flexslider-icon";*/
-/*font-size: 40px;*/
-
-/*!*content: "<";*!*/
-/*}*/
-
-/*.schedule-slider .flex-direction-nav a.flex-next:before {*/
-/*!*content: ">";*!*/
-/*}*/
-
-/*.schedule-slider .flex-direction-nav .flex-prev {*/
-/*top: -36px;*/
-/*left: 10%;*/
-/*}*/
-
-/*.schedule-slider .flex-direction-nav .flex-next {*/
-/*top: -36px;*/
-/*right: 10%;*/
-
-/*text-align: right;*/
-/*}*/
-
-/*.schedule-slider .flex-direction-nav .flex-prev:focus,*/
-/*.schedule-slider .flex-direction-nav .flex-next:focus {*/
-/*outline: none;*/
-/*}*/
-
-/*.schedule-slider .flexslider:hover .flex-direction-nav .flex-prev {*/
-/*opacity: 1;*/
-/*}*/
-
-/*.schedule-slider:hover .flex-direction-nav .flex-prev:hover {*/
-/*opacity: 1;*/
-/*}*/
-
-/*.schedule-slider:hover .flex-direction-nav .flex-next {*/
-/*opacity: 1;*/
-/*}*/
-
-/*.schedule-slider .flexslider:hover .flex-direction-nav .flex-next:hover {*/
-/*opacity: 1;*/
-/*}*/
 
 .review {
     text-align: left;
@@ -1396,6 +1327,7 @@ th:hover {
     .room-right-panel .glyphicon.right {
         display: none;
     }
+
     .room-right-panel .glyphicon.left {
         display: inline-block;
     }
@@ -1424,7 +1356,7 @@ th:hover {
 
     .room-options .game-man-img,
     .room-options .game-time-img {
-        left: auto!important;
+        left: auto !important;
     }
 
     .time-to-play,
@@ -1655,9 +1587,61 @@ th:hover {
 }
 
 h1 a {
-    color:  white;
+    color: white;
 }
 
 h1 a:hover {
     color: #ec971f;
 }
+
+.shares-slider {
+    position: relative;
+    margin-top: 24px;
+}
+
+.shares-slider .flexslider {
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+
+.custom-navigation .flex-next {
+    right: 30px;
+}
+
+.custom-navigation .flex-prev {
+    left: 30px;
+}
+
+.custom-navigation a {
+    position: absolute;
+    top: 50%;
+    margin: -25px 0;
+    padding: 0;
+    height: 50px;
+    width: 50px;
+    z-index: 99;
+}
+
+.custom-navigation a.flex-next {
+    background: url("../img/nextCircle.png");
+    background-size: cover;
+}
+.custom-navigation a.flex-prev {
+    background: url("../img/prevCircle.png");
+    background-size: cover;
+}
+
+.custom-navigation a.flex-next:hover {
+    background: url("../img/next-circle-orange.png");
+    background-size: cover;
+}
+.custom-navigation a.flex-prev:hover {
+    background: url("../img/prev-circle-orange.png");
+    background-size: cover;
+}
+
+
+
+
