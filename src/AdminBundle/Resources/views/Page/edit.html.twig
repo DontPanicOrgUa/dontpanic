@@ -1,0 +1,7 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <a class="btn btn-danger pull-right" href="{{ path('admin_pages_list') }}">Cancel</a>
+    <h1 class="page-header">Edit Page</h1>
+    {{ include('AdminBundle:Page:_form.html.twig') }}
+{% endblock %}

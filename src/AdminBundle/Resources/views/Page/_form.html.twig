@@ -1,0 +1,25 @@
+{{ form_start(pageForm) }}
+<div class="panel panel-default">
+    <div class="panel-heading">Page [Ru]</div>
+    <div class="panel-body">
+        {{ form_row(pageForm.titleRu) }}
+        {{ form_row(pageForm.contentRu) }}
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Page [En]</div>
+    <div class="panel-body">
+        {{ form_row(pageForm.titleEn) }}
+        {{ form_row(pageForm.contentEn) }}
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Page [De]</div>
+    <div class="panel-body">
+        {{ form_row(pageForm.titleDe) }}
+        {{ form_row(pageForm.contentDe) }}
+    </div>
+</div>
+<div class="row">{{ form_row(pageForm.isInMenu) }}</div>
+<div class="row">{{ form_row(pageForm.save) }}</div>
+{{ form_end(pageForm) }}

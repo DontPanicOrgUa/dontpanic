@@ -1,0 +1,31 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <a class="btn btn-success pull-right" href="{{ path('admin_pages_add') }}">Create Page <span class="fa fa-plus"></span></a>
+    <h1 class="page-header">Pages</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>IsInMenu</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for page in pages %}
+                <tr>
+                    <td>{{ page.titleEn }}</td>
+                    <td>{{ page.slug }}</td>
+                    <td>{{ page.isInMenu ? 'yes' : 'no' }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-warning" href="{{ path('admin_pages_edit', {slug: page.slug}) }}">edit <span class=" fa fa-pencil"></span></a>
+                        <a class="btn btn-xs btn-danger" href="{{ path('admin_pages_delete', {slug: page.slug}) }}">delete <span class=" fa fa-close"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
