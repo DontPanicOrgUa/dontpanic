@@ -20,6 +20,15 @@
         {{ form_row(pageForm.contentDe) }}
     </div>
 </div>
+<div class="panel panel-default">
+    <div class="panel-heading">Meta Data</div>
+    <div class="panel-body">
+        {{ form_row(pageForm.metaTitle) }}
+        {{ form_row(pageForm.metaDescription) }}
+        <p>Set key words separated by commas.</p>
+        {{ form_row(pageForm.metaKeywords) }}
+    </div>
+</div>
 <div class="row">{{ form_row(pageForm.isInMenu) }}</div>
 <div class="row">{{ form_row(pageForm.save) }}</div>
 {{ form_end(pageForm) }}

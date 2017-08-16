@@ -1,0 +1,10 @@
+{% extends 'WebBundle:layouts:main.html.twig' %}
+
+{% block title %}{{ page.metaTitle ? page.metaTitle : page.title(app.request.locale) }}{% endblock %}
+
+{% block content %}
+    <!--  CONTENT -->
+    <div class="content container-fluid">
+        {{ page.content(app.request.locale) | raw }}
+    </div>
+{% endblock %}

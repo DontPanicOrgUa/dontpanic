@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PageFormType extends AbstractType
 {
@@ -52,6 +53,15 @@ class PageFormType extends AbstractType
                 'config' => [
                     'toolbar' => 'my_toolbar'
                 ]
+            ])
+            ->add('metaTitle', TextType::class, [
+                'label' => 'Meta Title',
+            ])
+            ->add('metaDescription', TextareaType::class, [
+                'label' => 'Meta Description',
+            ])
+            ->add('metaKeywords', TextType::class, [
+                'label' => 'Meta Key Words',
             ])
             ->add('isInMenu', ChoiceType::class, [
                 'label' => 'Show In Menu',

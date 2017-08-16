@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"titleRu"})
  * @UniqueEntity(fields={"titleEn"})
  * @UniqueEntity(fields={"titleDe"})
+ * @UniqueEntity(fields={"slug"})
  */
 class Page
 {
@@ -44,19 +45,19 @@ class Page
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $contentRu;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $contentEn;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $contentDe;
 
@@ -70,6 +71,21 @@ class Page
      * @Gedmo\Slug(fields={"titleEn"})
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $metaTitle;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $metaDescription;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $metaKeywords;
 
     public function getId()
     {
@@ -242,6 +258,54 @@ class Page
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetaTitle()
+    {
+        return $this->metaTitle;
+    }
+
+    /**
+     * @param mixed $metaTitle
+     */
+    public function setMetaTitle($metaTitle)
+    {
+        $this->metaTitle = $metaTitle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetaDescription()
+    {
+        return $this->metaDescription;
+    }
+
+    /**
+     * @param mixed $metaDescription
+     */
+    public function setMetaDescription($metaDescription)
+    {
+        $this->metaDescription = $metaDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetaKeywords()
+    {
+        return $this->metaKeywords;
+    }
+
+    /**
+     * @param mixed $metaKeywords
+     */
+    public function setMetaKeywords($metaKeywords)
+    {
+        $this->metaKeywords = $metaKeywords;
     }
 
 }
