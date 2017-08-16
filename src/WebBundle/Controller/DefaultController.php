@@ -20,6 +20,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cityName = $request->query->get('city');
         $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
         $shares = $em->getRepository('WebBundle:Share')->findAll();
         $rooms = $em->getRepository('WebBundle:Room')->findAllByCity($cityName);
         $currentCity = $this->get('translator')->trans('all.cities');
@@ -29,6 +30,7 @@ class DefaultController extends Controller
         }
         return $this->render('WebBundle:Default:list.html.twig', [
             'cities' => $cities,
+            'menu' => $menu,
             'shares' => $shares,
             'currentCity' => $currentCity,
             'rooms' => $rooms

@@ -17,8 +17,10 @@ class ShareController extends Controller
         $em = $this->getDoctrine()->getManager();
         $shares = $em->getRepository('WebBundle:Share')->findAll();
         $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
         return $this->render('WebBundle:Share:list.html.twig', [
             'shares' => $shares,
+            'menu' => $menu,
             'cities' => $cities
         ]);
     }

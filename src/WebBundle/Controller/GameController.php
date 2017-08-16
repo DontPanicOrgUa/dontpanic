@@ -103,6 +103,7 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
 
         $games = $em->getRepository('WebBundle:Game')
             ->getGamesWithResultsByRoom($room->getSlug(), $start, $end);
@@ -111,6 +112,7 @@ class GameController extends Controller
 
         return $this->render('WebBundle:Game:results.html.twig', [
             'cities' => $cities,
+            'menu' => $menu,
             'games' => $games,
             'room' => $room,
             'pagination' => $pagination

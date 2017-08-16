@@ -2,11 +2,10 @@
 <div class="open-menu"></div>
 <nav class="main-menu">
     <ul>
-        <li><a href="#">{{ 'about.company'|trans|capitalize }}</a></li>
-        <li><a href="#">{{ 'rules'|trans|capitalize }}</a></li>
+        {% for page in menu %}
+            <li><a href="{{ path('web_page_view', {slug: page.slug}) }}">{{ page.title(app.request.locale) }}</a></li>
+        {% endfor %}
         <li><a href="{{ path('web_shares_list') }}">{{ 'shares'|trans|capitalize }}</a></li>
-        <li><a href="#">{{ 'partnership'|trans|capitalize }}</a></li>
-        <li><a href="#">{{ 'schedule'|trans|capitalize }}</a></li>
     </ul>
     <div class="callback-menu text-center visible-sm-block visible-xs-block">
         <button class="btn btn-warning">{{ 'callback'|trans|capitalize }}</button>

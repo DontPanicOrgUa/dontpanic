@@ -26,6 +26,10 @@ class RoomController extends Controller
         if (!$room) {
             throw $this->createNotFoundException('The room does not exist');
         }
+
+        $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
+
         $scheduleBuilder = new ScheduleBuilder($room);
         $schedule = $scheduleBuilder->collect();
         if (empty($schedule)) {
@@ -33,7 +37,8 @@ class RoomController extends Controller
             return $this->redirectToRoute('admin_rooms_list');
         }
         return $this->render('WebBundle:Room:schedule.html.twig', [
-            'cities' => $this->getCities(),
+            'cities' => $cities,
+            'menu' => $menu,
             'room' => $room,
             'schedule' => $schedule
         ]);
