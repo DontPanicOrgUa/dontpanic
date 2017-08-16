@@ -53,7 +53,7 @@ class GameController extends Controller
         $game->setDatetime(
             new DateTime(
                 $bookingData['dateTime'],
-                new DateTimeZone($room->getTimezone())
+                new DateTimeZone($room->getCity()->getTimezone())
             )
         );
 
@@ -94,7 +94,7 @@ class GameController extends Controller
     {
         $year = $request->query->get('year') ?: date('Y');
         $month = $request->query->get('month') ?: date('m');
-        $timeZone = new DateTimeZone($room->getTimezone());
+        $timeZone = new DateTimeZone($room->getCity()->getTimezone());
         $start = DateTime::createFromFormat('d.m.Y', '01.' . $month . '.' . $year, $timeZone);
         $end = DateTime::createFromFormat('d.m.Y', '01.' . $month . '.' . $year, $timeZone)
             ->modify('+ 1 month')
@@ -119,7 +119,7 @@ class GameController extends Controller
 
     private function calendarPaginator(Request $request, Room $room)
     {
-        $tz = new DateTimeZone($room->getTimezone());
+        $tz = new DateTimeZone($room->getCity()->getTimezone());
         $now = new DateTime('now', $tz);
         $year = $request->query->get('year') ?: $now->format('Y');
         $month = $request->query->get('month') ?: $now->format('m');

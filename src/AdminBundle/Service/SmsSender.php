@@ -88,7 +88,7 @@ class SmsSender
 
     private function getRemindTime($dateTime, Room $room)
     {
-        $dt = new \DateTime($dateTime, new \DateTimeZone($room->getTimezone()));
+        $dt = new \DateTime($dateTime, new \DateTimeZone($room->getCity()->getTimezone()));
         return $dt
             ->setTimezone(new \DateTimeZone('Europe/Kiev'))
             ->modify('- 2 hours')

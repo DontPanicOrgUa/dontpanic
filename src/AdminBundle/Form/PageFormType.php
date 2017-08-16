@@ -62,6 +62,9 @@ class PageFormType extends AbstractType
             ])
             ->add('metaKeywords', TextType::class, [
                 'label' => 'Meta Key Words',
+                'attr' => [
+                    'placeholder' => 'keyword, second keyword, keyword 3'
+                ]
             ])
             ->add('isInMenu', ChoiceType::class, [
                 'label' => 'Show In Menu',

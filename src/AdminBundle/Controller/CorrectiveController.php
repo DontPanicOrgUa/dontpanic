@@ -30,7 +30,7 @@ class CorrectiveController extends Controller
      */
     public function addAction(Request $request, Room $room)
     {
-        $dateTime = new DateTime($request->request->get('dateTime'), new DateTimeZone($room->getTimezone()));
+        $dateTime = new DateTime($request->request->get('dateTime'), new DateTimeZone($room->getCity()->getTimezone()));
         $data = $request->request->get('data');
 
         $em = $this->getDoctrine()->getManager();

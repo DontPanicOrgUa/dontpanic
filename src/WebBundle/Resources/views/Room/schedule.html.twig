@@ -1,5 +1,9 @@
 {% extends 'WebBundle:layouts:main.html.twig' %}
 
+{% block title %}{{ room.title(app.request.locale) }}{% endblock %}
+{% block metaDescription %}{{ room.description(app.request.locale) | striptags }}{% endblock %}
+{% block metaKeywords %}quest room, escape room, escaperooms, quest in reality{% endblock %}
+
 {% block content %}
     <!--  CONTENT -->
     <div class="content container-fluid">
