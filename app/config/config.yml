@@ -116,3 +116,8 @@ doctrine_cache:
             type: file_system
             file_system:
                 directory: '%kernel.cache_dir%/doctrine/cache/file_system'
+
+ivory_ck_editor:
+    toolbars:
+        configs:
+            my_toolbar: [ ['Source', '-', 'Bold', 'Italic', 'Underline', 'Strike', '-', 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'Link', 'Unlink', 'Anchor'], '/', ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor', '-', 'Table', 'HorizontalRule', 'SpecialChar', 'Smiley',], '/', ['Maximize' ]]

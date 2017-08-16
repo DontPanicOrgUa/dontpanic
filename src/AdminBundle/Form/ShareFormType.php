@@ -5,34 +5,43 @@ namespace AdminBundle\Form;
 
 use WebBundle\Entity\Share;
 use Symfony\Component\Form\AbstractType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ShareFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('descriptionRu', TextareaType::class, [
+            ->add('descriptionRu', CKEditorType::class, [
                 'label' => 'Description [Ru]',
-                'attr' => [
-                    'rows' => '6'
+                'config' => [
+                    'toolbar' => 'my_toolbar'
                 ]
+//                'attr' => [
+//                    'rows' => '6'
+//                ]
             ])
-            ->add('descriptionEn', TextareaType::class, [
+            ->add('descriptionEn', CKEditorType::class, [
                 'label' => 'Description [En]',
-                'attr' => [
-                    'rows' => '6'
+                'config' => [
+                    'toolbar' => 'my_toolbar'
                 ]
+//                'attr' => [
+//                    'rows' => '6'
+//                ]
             ])
-            ->add('descriptionDe', TextareaType::class, [
+            ->add('descriptionDe', CKEditorType::class, [
                 'label' => 'Description [De]',
-                'attr' => [
-                    'rows' => '6'
+                'config' => [
+                    'toolbar' => 'my_toolbar'
                 ]
+//                'attr' => [
+//                    'rows' => '6'
+//                ]
             ])
             ->add('imgRu', FileType::class, [
                 'label' => ' upload *.jpg',
