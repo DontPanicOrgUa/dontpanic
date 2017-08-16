@@ -1597,6 +1597,7 @@ h1 a:hover {
 .shares-slider {
     position: relative;
     margin-top: 24px;
+    width: 85%
 }
 
 .shares-slider .flexslider {
@@ -1642,6 +1643,15 @@ h1 a:hover {
     background-size: cover;
 }
 
+.share-row {
+    margin-top: 24px;
+}
 
+.share-row .share-description {
+    margin: 12px auto 0 auto;
+}
 
-
+.share-row img,
+.share-row .share-description {
+    width: 85%;
+}

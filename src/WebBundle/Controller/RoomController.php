@@ -3,9 +3,9 @@
 namespace WebBundle\Controller;
 
 
-use Symfony\Component\HttpFoundation\Request;
 use WebBundle\Entity\City;
 use AdminBundle\Service\ScheduleBuilder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

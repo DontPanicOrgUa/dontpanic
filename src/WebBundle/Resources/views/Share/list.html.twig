@@ -1,0 +1,16 @@
+{% extends 'WebBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <!--  CONTENT -->
+    <div class="content container-fluid">
+        {% for share in shares %}
+            <div class="row share-row">
+                <div class="text-center">
+                    <img src="{{ asset('uploads/shares/'~share.img(app.request.locale)) }}" alt=""/>
+                </div>
+                <div class="share-description">{{ share.description(app.request.locale) | raw }}</div>
+            </div>
+            {{ loop.last ? '' : '<hr>' }}
+        {% endfor %}
+    </div>
+{% endblock %}
