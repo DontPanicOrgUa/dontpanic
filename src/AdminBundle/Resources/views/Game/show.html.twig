@@ -2,14 +2,17 @@
 
 {% block content %}
     <div class="btn-group pull-right">
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
             Go to .. <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a class="fa fa-pencil" href="{{ path('admin_games_edit', {slug: game.room.slug, id: game.id}) }}"> edit game</a></li>
+            <li><a class="fa fa-pencil" href="{{ path('admin_games_edit', {slug: game.room.slug, id: game.id}) }}"> edit
+                    game</a></li>
             <li><a class="fa fa-list" href="{{ path('admin_games_list', {slug: game.room.slug}) }}"> list games</a></li>
             <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: game.room.slug}) }}"> list rooms</a></li>
-            <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}"> room schedule</a></li>
+            <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}"> room
+                    schedule</a></li>
         </ul>
     </div>
 
@@ -26,7 +29,9 @@
             <tbody>
             <tr>
                 <td>room</td>
-                <td><a href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}">{{ game.room.title(app.request.locale) }}</a></td>
+                <td>
+                    <a href="{{ path('admin_rooms_schedule', {slug: game.room.slug}) }}">{{ game.room.title(app.request.locale) }}</a>
+                </td>
             </tr>
             <tr>
                 <td>booked by</td>
@@ -90,6 +95,9 @@
     </div>
 
     <h3>Payments</h3>
+    {% if game.isPaid == false %}
+        <a class="btn btn-success btn-xs" href="{{ path('admin_payment_add', {slug: game.room.slug, id: game.id}) }}">Add Payment</a>
+    {% endif %}
     {% for bill in game.bills %}
         <ul>
             {% for payment in bill.payments %}
@@ -97,6 +105,10 @@
                     {{ payment.data.order_id }}:
                     <b>{{ payment.data.amount }} {{ payment.data.currency }}</b> -
                     {{ payment.data.status }}
+                    {% if payment.data.order_id == 'cash' %}
+                        <a class="btn btn-xs btn-danger" href="{{ path('admin_payment_delete', {id: payment.id}) }}">delete
+                            <span class=" fa fa-close"></span></a>
+                    {% endif %}
                 </li>
                 <span class="link-like more">more..</span>
                 <div class="table-responsive" style="display: none;">
