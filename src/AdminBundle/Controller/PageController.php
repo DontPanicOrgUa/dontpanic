@@ -85,23 +85,15 @@ class PageController extends Controller
 
     /**
      * @Route("/pages/{slug}/delete", name="admin_pages_delete")
-     * @param Request $request
      * @param Page $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(Request $request, Page $page)
+    public function deleteAction(Page $page)
     {
-//        try {
-//            $em = $this->getDoctrine()->getManager();
-//            $em->remove($city);
-//            $em->flush();
-//            $this->addFlash('success', 'City is deleted.');
-//        } catch (ForeignKeyConstraintViolationException $e) {
-//            $this->addFlash('errors', [
-//                'Can not delete ' . $city->getName($request->getLocale()) . '.',
-//                'There are registered rooms in ' . $city->getName($request->getLocale()) . '.'
-//            ]);
-//        }
-//        return $this->redirectToRoute('admin_cities_list');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($page);
+        $em->flush();
+        $this->addFlash('success', 'Page is deleted.');
+        return $this->redirectToRoute('admin_pages_list');
     }
 }
