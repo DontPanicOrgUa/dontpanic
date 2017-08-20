@@ -2,6 +2,10 @@
 $(function () {
     'use strict';
 
+    function isFloat(n){
+        return Number(n) === n && n % 1 !== 0;
+    }
+
     // подключение слайдера
     $('.flexslider').flexslider({
         animation: "slide",
@@ -168,20 +172,25 @@ $(function () {
     var $greetingForm = $('.form-reservation .greeting-form');
     var $bookingForm = $('.form-reservation .booking-form');
     var $resultForm = $('.form-reservation .result-form');
+    var bookingDiscount = 0;
 
     function resetBookingForm() {
         $bookingForm.find('#date').html(' --.--.---');
         $bookingForm.find('#time').html(' --:--');
         $bookingForm.find('#players').html('0');
         $bookingForm.find('#price').html('0');
+        $bookingForm.find('#old-price').html('');
+        $bookingForm.find('#discount').html('0');
         $bookingForm.find('input').val('');
         $bookingForm.find('select[name=players]').children('option:not(:first)').remove();
         $bookingForm.find('select[name=players]').val(playersTrans);
         $bookingForm.find('.custom-danger').removeClass('custom-danger');
+        $bookingForm.find('.custom-success').removeClass('custom-success');
         $bookingForm.find('.btn-wrap span.fa-spinner').hide();
         $bookingForm.find('.btn-wrap button').show();
         $bookingForm.find('[disabled]').attr('disabled', false);
         $bookingForm.find('select[name=players]').children('option:first').attr('disabled', true);
+        bookingDiscount = 0;
     }
 
     function resetResultForm() {
@@ -317,31 +326,62 @@ $(function () {
         $resultForm.find('#result-form-date').html(bookingData.dateTime.split(' ')[0]);
         $resultForm.find('#result-form-time').html(bookingData.dateTime.split(' ')[1]);
         $resultForm.find('#result-form-players').html(bookingData.players);
-        $resultForm.find('#result-form-price').html(bookingData.price);
+        $resultForm.find('#result-form-price').html($("#price").html());
         $resultForm.find('#result-form-buttons').html(bookingData.liqPayBtn);
     }
 
     var typingTimer;
     var typingInterval = 1000;
 
-    $bookingForm.find('input[name=discount]').keyup(function () {
+    var $bookingDiscountInput = $bookingForm.find('input[name=discount]');
+    $bookingDiscountInput.keyup(function () {
         var discount = $(this).val();
         clearTimeout(typingTimer);
-        typingTimer = setTimeout(function () { checkDiscount(discount); }, typingInterval);
+        typingTimer = setTimeout(function () {
+            checkDiscount(discount);
+        }, typingInterval);
     });
 
     function checkDiscount(discount) {
         $.ajax({
             type: "POST",
-            url: checkDiscountRoute,
+            url: discountShowRoute,
             data: {
                 discount: discount
             }
-        }).done(function (r) {
-            console.log(r);
+        }).done(function (result) {
+            console.log(result.discount);
+            $bookingDiscountInput.removeClass('custom-danger');
+            $bookingDiscountInput.addClass('custom-success');
+            bookingDiscount = result.discount;
+            showPrice();
         }).fail(function (r) {
-            console.log(r)
+            $bookingDiscountInput.removeClass('custom-success');
+            $bookingDiscountInput.addClass('custom-danger');
+            bookingDiscount = 0;
+            showPrice();
         });
+    }
+    
+    function calculatePrice(price) {
+        var newPrice = (( ( 100 - bookingDiscount ) / 100 ) * price);
+        if (isFloat(newPrice)) {
+            return newPrice.toFixed(2);
+        }
+        return newPrice;
+    }
+
+    function showPrice() {
+        var price = $bookingForm.find('select[name=players]').find(':selected').val();
+        $bookingForm.find('#discount').html(bookingDiscount);
+        if (!isNaN(price)) {
+            $bookingForm.find('#price').html(calculatePrice(price));
+            if (bookingDiscount > 0) {
+                $bookingForm.find('#old-price').html(price);
+            } else {
+                $bookingForm.find('#old-price').html('');
+            }
+        }
     }
 
 ///////////////////////////////
@@ -366,7 +406,7 @@ $(function () {
 ///////////////////////////////
     $bookingForm.find('select[name=players]').change(function () {
         $bookingForm.find('#players').html($(this).find(':selected').text());
-        $bookingForm.find('#price').html($(this).val());
+        showPrice();
     });
 
 ///////////////////////////////
@@ -376,7 +416,6 @@ $(function () {
         e.preventDefault();
         $bookingForm.find('.custom-danger').removeClass('custom-danger');
         var bookingData = collectBookingData();
-        console.log(bookingData);
         if (validateBookingForm(bookingData)) {
             return;
         }
@@ -536,9 +575,6 @@ $(function () {
         setTimeout(function () {
             $modal.modal('show');
         }, 400);
-        // setTimeout(function () {
-        //     $modal.modal('hide');
-        // }, 10000);
     }
 
     $('#flash-modal').on('hidden.bs.modal', function () {

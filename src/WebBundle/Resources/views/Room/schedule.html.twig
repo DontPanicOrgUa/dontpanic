@@ -189,9 +189,14 @@
                                 <span class="color-orange">{{ 'players'|trans }}:</span> <span id="players">0</span>
                             </li>
                             <li>
-                                <i class="li-ico fa fa-money"></i>
-                                <span class="color-orange">{{ 'price'|trans }}:</span> <span
+                                <i class="li-ico fa fa-credit-card"></i>
+                                <span class="color-orange">{{ 'price'|trans }}:</span> <span id="old-price"></span> <span
                                         id="price">0</span> {{ room.currency }}
+                            </li>
+                            <li>
+                                <i class="li-ico fa fa-percent"></i>
+                                <span class="color-orange">{{ 'discount'|trans }}:</span> <span
+                                        id="discount">0</span> %
                             </li>
                             <li>
                                 <i class="li-ico fa fa-exclamation"></i>
@@ -367,6 +372,7 @@
         var playersTrans = '{{ "players"|trans }}*';
         var gamesAddRoute = '{{ path('web_games_add', {slug: room.slug}) }}';
         var feedbacksAddRoute = '{{ path('web_feedbacks_add', {slug: room.slug}) }}';
+        var discountShowRoute = '{{ path('web_discount_show') }}';
         var transSuccess = "{{ 'success'|trans }}";
         var transError = "{{ 'error'|trans }}";
         var transSuccessFeedback = "{{ 'feedback.success'|trans|raw }}";

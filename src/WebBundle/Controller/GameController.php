@@ -6,6 +6,7 @@ namespace WebBundle\Controller;
 use DateTime;
 use DateTimeZone;
 use WebBundle\Entity\Bill;
+use WebBundle\Entity\Discount;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Game;
 use WebBundle\Entity\Price;
@@ -33,10 +34,15 @@ class GameController extends Controller
 
         /** @var Price $price */
         $price = $em->getRepository('WebBundle:Price')->find($bookingData['priceId']);
-
         // if customer tried to change price on frontend, we will pass real price from database
         $bookingData['price'] = $price->getPrice();
         $bookingData['players'] = $price->getPlayers();
+
+        /** @var Discount $discount */
+        $discount = $em->getRepository('WebBundle:Discount')->findOneByCode($bookingData['discount']);
+        if ($discount) {
+            $bookingData['price'] = round(((100 - $discount['discount']) / 100) * $price->getPrice(), 2);
+        }
 
         $customer = $em
             ->getRepository('WebBundle:Customer')
