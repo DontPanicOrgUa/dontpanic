@@ -219,12 +219,8 @@
                                 <option disabled selected>{{ 'players'|trans }}*</option>
                             </select>
                         </div>
-                        <div class="input-group">
-                            <input type="text" name="discount"
-                                   placeholder="{{ 'discount'|trans }}">
-                            <span class="input-group-btn">
-                                        <button class="btn btn-warning" type="button">{{ 'use.discount'|trans }}</button>
-                                    </span>
+                        <div>
+                            <input type="text" name="discount" placeholder="{{ 'discount'|trans }}" maxlength="8">
                         </div>
                     </div>
                 </div>
@@ -403,8 +399,7 @@
         /////////////// masked input validation ///////////////////
         ///////////////////////////////////////////////////////////
         $(function () {
-            $.mask.definitions['n'] = '[0-9-() ]';
-            $('input[name="phone"]').mask('+nnnnn?nnnnnnnnnnnnnnnnnnnn');
+            $('input[name="phone"]').mask('+99999999?999999999');
         });
 
     </script>

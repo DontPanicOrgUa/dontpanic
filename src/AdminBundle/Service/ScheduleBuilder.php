@@ -7,6 +7,7 @@ use DateTime;
 use DateTimeZone;
 use WebBundle\Entity\Corrective;
 use WebBundle\Entity\Game;
+use WebBundle\Entity\Price;
 use WebBundle\Entity\Room;
 
 class ScheduleBuilder
@@ -52,7 +53,9 @@ class ScheduleBuilder
                     $prices = [];
                     $pricesCollection = $blank->getPricesByDayOfWeek(strtolower($date->format('l')));
                     foreach ($pricesCollection as $price) {
+                        /** @var Price $price */
                         $prices[] = [
+                            'id' => $price->getId(),
                             'players' => $price->getPlayers(),
                             'price' => $price->getPrice()
                         ];

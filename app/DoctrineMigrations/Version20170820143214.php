@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170814110053 extends AbstractMigration
+class Version20170820143214 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -25,10 +25,12 @@ class Version20170814110053 extends AbstractMigration
         $this->addSql('CREATE TABLE cities (id INT AUTO_INCREMENT NOT NULL, timezone_id INT NOT NULL, name_ru VARCHAR(255) NOT NULL, name_en VARCHAR(255) NOT NULL, name_de VARCHAR(255) NOT NULL, INDEX IDX_D95DB16B3FE997DE (timezone_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE feedbacks (id INT AUTO_INCREMENT NOT NULL, room_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, phone VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, comment LONGTEXT NOT NULL, atmosphere INT NOT NULL, story INT NOT NULL, service INT NOT NULL, time INT NOT NULL, is_active TINYINT(1) DEFAULT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_7E6C3F8954177093 (room_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE customers (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, phone VARCHAR(255) NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at DATETIME DEFAULT NULL, UNIQUE INDEX UNIQ_62534E21444F97DD (phone), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE shares (id INT AUTO_INCREMENT NOT NULL, img VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE shares (id INT AUTO_INCREMENT NOT NULL, img_ru VARCHAR(255) DEFAULT NULL, img_en VARCHAR(255) DEFAULT NULL, img_de VARCHAR(255) DEFAULT NULL, description_ru LONGTEXT NOT NULL, description_en LONGTEXT NOT NULL, description_de LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE timezones (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE notifications (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, event VARCHAR(255) NOT NULL, recipient VARCHAR(255) NOT NULL, title_ru VARCHAR(255) NOT NULL, title_en VARCHAR(255) NOT NULL, title_de VARCHAR(255) NOT NULL, message_ru LONGTEXT NOT NULL, message_en LONGTEXT NOT NULL, message_de LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE blanks (id INT AUTO_INCREMENT NOT NULL, room_id INT DEFAULT NULL, time TIME NOT NULL, INDEX IDX_26EA711854177093 (room_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE pages (id INT AUTO_INCREMENT NOT NULL, title_ru VARCHAR(255) NOT NULL, title_en VARCHAR(255) NOT NULL, title_de VARCHAR(255) NOT NULL, content_ru LONGTEXT NOT NULL, content_en LONGTEXT NOT NULL, content_de LONGTEXT NOT NULL, is_in_menu TINYINT(1) NOT NULL, slug VARCHAR(255) NOT NULL, meta_title VARCHAR(255) DEFAULT NULL, meta_description VARCHAR(255) DEFAULT NULL, meta_keywords VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_2074E575989D9B62 (slug), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE discounts (id INT AUTO_INCREMENT NOT NULL, customer_id INT DEFAULT NULL, code VARCHAR(255) NOT NULL, discount DOUBLE PRECISION NOT NULL, profit VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_FC5702B877153098 (code), INDEX IDX_FC5702B89395C3F3 (customer_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE correctives (id INT AUTO_INCREMENT NOT NULL, room_id INT DEFAULT NULL, datetime DATETIME NOT NULL, data VARCHAR(255) DEFAULT NULL, INDEX IDX_2E15282054177093 (room_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE games (id INT AUTO_INCREMENT NOT NULL, room_id INT DEFAULT NULL, customer_id INT DEFAULT NULL, datetime DATETIME NOT NULL, booking_data VARCHAR(255) NOT NULL, is_paid TINYINT(1) DEFAULT \'0\' NOT NULL, result INT DEFAULT NULL, photo VARCHAR(255) DEFAULT NULL, booked_by VARCHAR(255) NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, INDEX IDX_FF232B3154177093 (room_id), INDEX IDX_FF232B319395C3F3 (customer_id), UNIQUE INDEX unique_room_datetime (room_id, datetime), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE rooms (id INT AUTO_INCREMENT NOT NULL, city_id INT NOT NULL, currency_id INT NOT NULL, api_key VARCHAR(255) DEFAULT NULL, title_ru VARCHAR(255) NOT NULL, title_en VARCHAR(255) NOT NULL, title_de VARCHAR(255) NOT NULL, description_ru LONGTEXT NOT NULL, description_en LONGTEXT NOT NULL, description_de LONGTEXT NOT NULL, logo VARCHAR(255) DEFAULT NULL, thumbnail VARCHAR(255) DEFAULT NULL, slides LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\', coordinates VARCHAR(255) NOT NULL, address_ru VARCHAR(255) NOT NULL, address_en VARCHAR(255) NOT NULL, address_de VARCHAR(255) NOT NULL, phone VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, difficulty INT NOT NULL, time_max INT NOT NULL, players_min INT NOT NULL, players_max INT NOT NULL, age_min INT NOT NULL, enabled TINYINT(1) NOT NULL, slug VARCHAR(255) NOT NULL, client_mail_notification TINYINT(1) DEFAULT \'1\' NOT NULL, client_sms_notification TINYINT(1) DEFAULT \'1\' NOT NULL, client_sms_reminder TINYINT(1) DEFAULT \'1\' NOT NULL, manager_mail_notification TINYINT(1) DEFAULT \'1\' NOT NULL, manager_sms_notification TINYINT(1) DEFAULT \'1\' NOT NULL, manager_smsreminder TINYINT(1) DEFAULT \'1\' NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at DATETIME DEFAULT NULL, UNIQUE INDEX UNIQ_7CA11A96C912ED9D (api_key), UNIQUE INDEX UNIQ_7CA11A96989D9B62 (slug), INDEX IDX_7CA11A968BAC62AF (city_id), INDEX IDX_7CA11A9638248176 (currency_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -40,6 +42,7 @@ class Version20170814110053 extends AbstractMigration
         $this->addSql('ALTER TABLE cities ADD CONSTRAINT FK_D95DB16B3FE997DE FOREIGN KEY (timezone_id) REFERENCES timezones (id)');
         $this->addSql('ALTER TABLE feedbacks ADD CONSTRAINT FK_7E6C3F8954177093 FOREIGN KEY (room_id) REFERENCES rooms (id)');
         $this->addSql('ALTER TABLE blanks ADD CONSTRAINT FK_26EA711854177093 FOREIGN KEY (room_id) REFERENCES rooms (id)');
+        $this->addSql('ALTER TABLE discounts ADD CONSTRAINT FK_FC5702B89395C3F3 FOREIGN KEY (customer_id) REFERENCES customers (id)');
         $this->addSql('ALTER TABLE correctives ADD CONSTRAINT FK_2E15282054177093 FOREIGN KEY (room_id) REFERENCES rooms (id)');
         $this->addSql('ALTER TABLE games ADD CONSTRAINT FK_FF232B3154177093 FOREIGN KEY (room_id) REFERENCES rooms (id)');
         $this->addSql('ALTER TABLE games ADD CONSTRAINT FK_FF232B319395C3F3 FOREIGN KEY (customer_id) REFERENCES customers (id)');
@@ -61,6 +64,7 @@ class Version20170814110053 extends AbstractMigration
         $this->addSql('ALTER TABLE payments DROP FOREIGN KEY FK_65D29B321A8C12F5');
         $this->addSql('ALTER TABLE rooms DROP FOREIGN KEY FK_7CA11A9638248176');
         $this->addSql('ALTER TABLE rooms DROP FOREIGN KEY FK_7CA11A968BAC62AF');
+        $this->addSql('ALTER TABLE discounts DROP FOREIGN KEY FK_FC5702B89395C3F3');
         $this->addSql('ALTER TABLE games DROP FOREIGN KEY FK_FF232B319395C3F3');
         $this->addSql('ALTER TABLE cities DROP FOREIGN KEY FK_D95DB16B3FE997DE');
         $this->addSql('ALTER TABLE prices DROP FOREIGN KEY FK_E4CB6D592B7727CD');
@@ -82,6 +86,8 @@ class Version20170814110053 extends AbstractMigration
         $this->addSql('DROP TABLE timezones');
         $this->addSql('DROP TABLE notifications');
         $this->addSql('DROP TABLE blanks');
+        $this->addSql('DROP TABLE pages');
+        $this->addSql('DROP TABLE discounts');
         $this->addSql('DROP TABLE correctives');
         $this->addSql('DROP TABLE games');
         $this->addSql('DROP TABLE rooms');

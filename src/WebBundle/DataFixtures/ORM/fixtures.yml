@@ -1,3 +1,17 @@
+WebBundle\Entity\Discount:
+    discount_{0..10}:
+        customer: '@customer_1'
+        code (unique): '<( substr( md5( uniqid( rand(), true ) ) , 0, 8) )>'
+        discount: '<numberBetween(1, 99)>'
+        profit: '<numberBetween(1, 50)>'
+
+WebBundle\Entity\Customer:
+    customer_1:
+        name: Test
+        lastName: Test
+        email: test@test.com
+        phone: 380501234567
+
 WebBundle\Entity\Notification:
     notification_1:
             type: email

@@ -8,6 +8,7 @@ use DateTimeZone;
 use WebBundle\Entity\Bill;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Game;
+use WebBundle\Entity\Price;
 use WebBundle\Entity\Customer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,6 +30,13 @@ class GameController extends Controller
         $bookingData = $request->request->get('bookingData');
 
         $em = $this->getDoctrine()->getManager();
+
+        /** @var Price $price */
+        $price = $em->getRepository('WebBundle:Price')->find($bookingData['priceId']);
+
+        // if customer tried to change price on frontend, we will pass real price from database
+        $bookingData['price'] = $price->getPrice();
+        $bookingData['players'] = $price->getPlayers();
 
         $customer = $em
             ->getRepository('WebBundle:Customer')

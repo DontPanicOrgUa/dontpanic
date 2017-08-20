@@ -33,11 +33,11 @@ $(function () {
         controlNav: false,
     });
 
-    $('.room-slides .custom-navigation .flex-next').on('click', function(){
+    $('.room-slides .custom-navigation .flex-next').on('click', function () {
         $('.room-slides').flexslider('next');
         return false;
     });
-    $('.room-slides .custom-navigation .flex-prev').on('click', function(){
+    $('.room-slides .custom-navigation .flex-prev').on('click', function () {
         $('.room-slides').flexslider('prev');
         return false;
     });
@@ -55,11 +55,11 @@ $(function () {
         pauseOnHover: true
     });
 
-    $('.shares-slider .custom-navigation .flex-next').on('click', function(){
+    $('.shares-slider .custom-navigation .flex-next').on('click', function () {
         $('.shares-slider .flexslider').flexslider('next');
         return false;
     });
-    $('.shares-slider .custom-navigation .flex-prev').on('click', function(){
+    $('.shares-slider .custom-navigation .flex-prev').on('click', function () {
         $('.shares-slider .flexslider').flexslider('prev');
         return false;
     });
@@ -197,23 +197,31 @@ $(function () {
         }, 1000);
     }
 
-    function buildBookingForm($form) {
-        $bookingForm.find('#date').html($form.data('date-time').split(' ')[0]);
-        $bookingForm.find('#time').html($form.data('date-time').split(' ')[1]);
-        $.each($form.data('prices'), function () {
-            $bookingForm.find('select[name=players]').append($('<option>', {value: this.price, text: this.players}));
+    function buildBookingForm($cell) {
+        $bookingForm.find('#date').html($cell.data('date-time').split(' ')[0]);
+        $bookingForm.find('#time').html($cell.data('date-time').split(' ')[1]);
+        $.each($cell.data('prices'), function () {
+            $bookingForm.find('select[name=players]').append($('<option>', {
+                value: this.price,
+                text: this.players,
+                data: {
+                    priceId: this.id
+                }
+            }));
         });
     }
 
     function collectBookingData() {
         return {
             dateTime: $bookingForm.find('#date').html() + ' ' + $bookingForm.find('#time').html(),
-            price: $bookingForm.find('#price').html(),
+            // price: $bookingForm.find('#price').html(),
             name: $bookingForm.find('input[name=name]').val(),
             lastName: $bookingForm.find('input[name=lastName]').val(),
             email: $bookingForm.find('input[name=email]').val(),
             phone: $bookingForm.find('input[name=phone]').val(),
             players: $bookingForm.find('select[name=players] :selected').html(),
+            price: $bookingForm.find('select[name=players] :selected').val(),
+            priceId: $bookingForm.find('select[name=players] :selected').data('priceId'),
             discount: $bookingForm.find('input[name=discount]').val(),
             bookedBy: 'customer' // index 0 equals 'customer'
         };
@@ -241,7 +249,7 @@ $(function () {
             $bookingForm.find('input[name=phone]').addClass('custom-danger', 1000);
             hasError = true;
         }
-        if (!data.players || !data.price) {
+        if (!data.priceId) {
             $bookingForm.find('select[name=players]').addClass('custom-danger', 1000);
             hasError = true;
         }
@@ -254,7 +262,7 @@ $(function () {
     }
 
     function validatePhone(phone) {
-        var re = /^\+[0-9\-\(\)]{3,21}$/;
+        var re = /^\+[0-9]{9,18}$/;
         return re.test(phone);
     }
 
@@ -313,9 +321,32 @@ $(function () {
         $resultForm.find('#result-form-buttons').html(bookingData.liqPayBtn);
     }
 
-    ///////////////////////////////
-    // Game cell clicked //////////
-    ///////////////////////////////
+    var typingTimer;
+    var typingInterval = 1000;
+
+    $bookingForm.find('input[name=discount]').keyup(function () {
+        var discount = $(this).val();
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(function () { checkDiscount(discount); }, typingInterval);
+    });
+
+    function checkDiscount(discount) {
+        $.ajax({
+            type: "POST",
+            url: checkDiscountRoute,
+            data: {
+                discount: discount
+            }
+        }).done(function (r) {
+            console.log(r);
+        }).fail(function (r) {
+            console.log(r)
+        });
+    }
+
+///////////////////////////////
+// Game cell clicked //////////
+///////////////////////////////
     $('.cell').closest('td').click(function (e) {
         e.preventDefault();
         if ($(this).find('.cell').hasClass('cell-expired')) {
@@ -330,30 +361,31 @@ $(function () {
         scrollTo($('section.form-reservation'));
     });
 
-    ///////////////////////////////
-    // Number of players clicked //
-    ///////////////////////////////
+///////////////////////////////
+// Number of players clicked //
+///////////////////////////////
     $bookingForm.find('select[name=players]').change(function () {
         $bookingForm.find('#players').html($(this).find(':selected').text());
         $bookingForm.find('#price').html($(this).val());
     });
 
-    ///////////////////////////////
-    // Booking submit clicked /////
-    ///////////////////////////////
+///////////////////////////////
+// Booking submit clicked /////
+///////////////////////////////
     $bookingForm.find('button[type="submit"]').click(function (e) {
         e.preventDefault();
         $bookingForm.find('.custom-danger').removeClass('custom-danger');
         var bookingData = collectBookingData();
+        console.log(bookingData);
         if (validateBookingForm(bookingData)) {
             return;
         }
         sendNewGameData(bookingData);
     });
 
-    //////////////////////////////////////////////////////////////////////
-    /////////////////// feedback /////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+/////////////////// feedback /////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
     var $feedbackFrom = $('#feedback-form');
 
     function initStarRating(ratingClass) {
@@ -517,5 +549,6 @@ $(function () {
         }
     });
 
-});
+})
+;
 

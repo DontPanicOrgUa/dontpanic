@@ -3,6 +3,7 @@
 namespace WebBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -46,6 +47,11 @@ class Customer
     private $games;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Discount", mappedBy="customer")
+     */
+    private $discounts;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -60,6 +66,12 @@ class Customer
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    public function __construct()
+    {
+        $this->discounts = new ArrayCollection();
+        $this->games = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -164,6 +176,39 @@ class Customer
     {
         $this->updatedAt = $updatedAt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
+
+    /**
+     * @param mixed $games
+     */
+    public function setGames($games)
+    {
+        $this->games = $games;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiscounts()
+    {
+        return $this->discounts;
+    }
+
+    /**
+     * @param mixed $discounts
+     */
+    public function setDiscounts($discounts)
+    {
+        $this->discounts = $discounts;
+    }
+
 
 }
 
