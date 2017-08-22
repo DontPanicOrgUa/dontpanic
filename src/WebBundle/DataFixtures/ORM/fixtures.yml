@@ -3,7 +3,6 @@ WebBundle\Entity\Discount:
         customer: '@customer_1'
         code (unique): '<( substr( md5( uniqid( rand(), true ) ) , 0, 8) )>'
         discount: '<numberBetween(1, 99)>'
-        profit: '<numberBetween(1, 50)>'
 
 WebBundle\Entity\Customer:
     customer_1:

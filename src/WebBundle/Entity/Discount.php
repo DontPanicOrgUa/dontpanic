@@ -34,11 +34,6 @@ class Discount
     private $discount;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $profit;
-
-    /**
      * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Customer", inversedBy="discounts")
      */
     private $customer;
@@ -86,22 +81,6 @@ class Discount
     public function setDiscount($discount)
     {
         $this->discount = $discount;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProfit()
-    {
-        return $this->profit;
-    }
-
-    /**
-     * @param mixed $profit
-     */
-    public function setProfit($profit)
-    {
-        $this->profit = $profit;
     }
 
     /**
