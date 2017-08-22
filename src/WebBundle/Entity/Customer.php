@@ -57,6 +57,11 @@ class Customer
     private $rewards;
 
     /**
+     * @ORM\Column(type="integer",nullable=false)
+     */
+    private $percentage;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -229,5 +234,22 @@ class Customer
     {
         $this->rewards = $rewards;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPercentage()
+    {
+        return $this->percentage;
+    }
+
+    /**
+     * @param mixed $percentage
+     */
+    public function setPercentage($percentage)
+    {
+        $this->percentage = $percentage;
+    }
+
 }
 

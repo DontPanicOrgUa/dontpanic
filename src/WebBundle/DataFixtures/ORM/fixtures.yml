@@ -10,6 +10,7 @@ WebBundle\Entity\Customer:
         lastName: Test
         email: test@test.com
         phone: 380501234567
+        percentage: 5
 
 WebBundle\Entity\Notification:
     notification_1:

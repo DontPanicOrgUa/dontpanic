@@ -53,6 +53,7 @@ class GameController extends Controller
             $customer->setLastName($bookingData['lastName']);
             $customer->setEmail($bookingData['email']);
             $customer->setPhone($bookingData['phone']);
+            $customer->setPercentage($this->getParameter('discount')['reward']);
         }
 
         $game = new Game();
