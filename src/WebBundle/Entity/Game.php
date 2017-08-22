@@ -4,7 +4,6 @@ namespace WebBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="games", uniqueConstraints={@ORM\UniqueConstraint(name="unique_room_datetime", columns={"room_id", "datetime"})})
@@ -64,6 +63,11 @@ class Game
      * @ORM\Column(type="string", nullable=false)
      */
     private $bookedBy;
+
+    /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Reward", mappedBy="game", cascade={"remove"})
+     */
+    private $rewards;
 
     /**
      * @var \DateTime $createdAt
@@ -237,6 +241,22 @@ class Game
     public function setIsPaid($is_paid)
     {
         $this->is_paid = $is_paid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRewards()
+    {
+        return $this->rewards;
+    }
+
+    /**
+     * @param mixed $rewards
+     */
+    public function setRewards($rewards)
+    {
+        $this->rewards = $rewards;
     }
 
 }

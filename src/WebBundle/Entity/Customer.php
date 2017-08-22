@@ -52,6 +52,11 @@ class Customer
     private $discounts;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Reward", mappedBy="customer", cascade={"remove"})
+     */
+    private $rewards;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -209,6 +214,20 @@ class Customer
         $this->discounts = $discounts;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRewards()
+    {
+        return $this->rewards;
+    }
 
+    /**
+     * @param mixed $rewards
+     */
+    public function setRewards($rewards)
+    {
+        $this->rewards = $rewards;
+    }
 }
 

@@ -44,6 +44,11 @@ class Discount
     private $customer;
 
     /**
+     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Reward", mappedBy="discount");
+     */
+    private $rewards;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -113,6 +118,22 @@ class Discount
     public function setCustomer($customer)
     {
         $this->customer = $customer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRewards()
+    {
+        return $this->rewards;
+    }
+
+    /**
+     * @param mixed $rewards
+     */
+    public function setRewards($rewards)
+    {
+        $this->rewards = $rewards;
     }
 
 }
