@@ -1,19 +1,19 @@
 parameters:
     locale: de
     liqpay:
-        sandbox: false
+        sandbox: true
     sms:
         customerBooked: false
         customerRemind: false
         managerBooked: false
         managerRemind: false
     email:
-        customerBooked: false
-        customerFeedback: false
-        customerCallback: false
-        managerBooked: false
-        managerFeedback: false
-        managerCallback: false
+        customerBooked: true
+        customerFeedback: true
+        customerCallback: true
+        managerBooked: true
+        managerFeedback: true
+        managerCallback: true
     discount:
         discount: '5'
         reward: '5'

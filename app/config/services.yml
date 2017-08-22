@@ -8,10 +8,7 @@ services:
     mail_sender:
         class: AdminBundle\Service\MailSender
         arguments:
-            - '@mailer'
-            - '@templating'
-            - '@doctrine.orm.entity_manager'
-            - '@request_stack'
+            - '@service_container'
 
     turbosms_sender:
         class: AdminBundle\Service\SmsSender

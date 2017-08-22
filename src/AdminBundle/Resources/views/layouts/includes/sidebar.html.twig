@@ -24,6 +24,9 @@
             <li {% if 'users' in app.request.get('_route') %}class="active"{% endif %}>
                 <a href="{{ path('admin_users_list') }}">Users</a>
             </li>
+            <li {% if 'params' in app.request.get('_route') %}class="active"{% endif %}>
+                <a href="{{ path('admin_params_edit') }}">Parameters</a>
+            </li>
         {% endif %}
     </ul>
 </div>

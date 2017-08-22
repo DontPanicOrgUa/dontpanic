@@ -232,36 +232,6 @@ class Room
     private $feedbacks;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": true})
-     */
-    private $clientMailNotification;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default": true})
-     */
-    private $clientSmsNotification;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default": true})
-     */
-    private $clientSmsReminder;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default": true})
-     */
-    private $managerMailNotification;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default": true})
-     */
-    private $managerSmsNotification;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default": true})
-     */
-    private $managerSMSReminder;
-
-    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -820,102 +790,6 @@ class Room
     public function setCorrectives($correctives)
     {
         $this->correctives = $correctives;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClientMailNotification()
-    {
-        return $this->clientMailNotification;
-    }
-
-    /**
-     * @param mixed $clientMailNotification
-     */
-    public function setClientMailNotification($clientMailNotification)
-    {
-        $this->clientMailNotification = $clientMailNotification;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClientSmsNotification()
-    {
-        return $this->clientSmsNotification;
-    }
-
-    /**
-     * @param mixed $clientSmsNotification
-     */
-    public function setClientSmsNotification($clientSmsNotification)
-    {
-        $this->clientSmsNotification = $clientSmsNotification;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClientSmsReminder()
-    {
-        return $this->clientSmsReminder;
-    }
-
-    /**
-     * @param mixed $clientSmsReminder
-     */
-    public function setClientSmsReminder($clientSmsReminder)
-    {
-        $this->clientSmsReminder = $clientSmsReminder;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getManagerMailNotification()
-    {
-        return $this->managerMailNotification;
-    }
-
-    /**
-     * @param mixed $managerMailNotification
-     */
-    public function setManagerMailNotification($managerMailNotification)
-    {
-        $this->managerMailNotification = $managerMailNotification;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getManagerSmsNotification()
-    {
-        return $this->managerSmsNotification;
-    }
-
-    /**
-     * @param mixed $managerSmsNotification
-     */
-    public function setManagerSmsNotification($managerSmsNotification)
-    {
-        $this->managerSmsNotification = $managerSmsNotification;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getManagerSMSReminder()
-    {
-        return $this->managerSMSReminder;
-    }
-
-    /**
-     * @param mixed $managerSMSReminder
-     */
-    public function setManagerSMSReminder($managerSMSReminder)
-    {
-        $this->managerSMSReminder = $managerSMSReminder;
     }
 
     /**

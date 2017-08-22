@@ -3,16 +3,15 @@
 namespace AdminBundle\Service;
 
 
-use Swift_Mailer;
 use WebBundle\Entity\Room;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MailSender
 {
 
     use NotificationMarkup;
+
+    private $container;
 
     private $em;
 
@@ -22,20 +21,21 @@ class MailSender
 
     private $locale;
 
-    public function __construct(Swift_Mailer $mailer, TwigEngine $templating, EntityManager $em, RequestStack $request)
+    public function __construct(ContainerInterface $container)
     {
-        $this->em = $em;
-        $this->mailer = $mailer;
-        $this->templating = $templating;
-        $this->locale = $request->getCurrentRequest()->getLocale();
+        $this->container = $container;
+        $this->em = $container->get('doctrine.orm.entity_manager');
+        $this->mailer = $container->get('mailer');
+        $this->templating = $container->get('templating');
+        $this->locale = $container->get('request_stack')->getCurrentRequest()->getLocale();
     }
 
     public function sendBookedGame($bookingData, Room $room)
     {
-        if ($room->getClientMailNotification()) {
+        if ($this->container->getParameter('email')['customerBooked']) {
             $this->sendToCustomer($bookingData, $room);
         }
-        if ($room->getManagerMailNotification()) {
+        if ($this->container->getParameter('email')['managerBooked']) {
             $this->sendToManager($bookingData, $room);
         }
     }
