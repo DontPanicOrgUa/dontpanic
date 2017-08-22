@@ -3,6 +3,7 @@
 namespace WebBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -42,6 +43,11 @@ class Discount
      * @ORM\OneToMany(targetEntity="WebBundle\Entity\Reward", mappedBy="discount");
      */
     private $rewards;
+
+    public function __construct()
+    {
+        $this->rewards = new ArrayCollection();
+    }
 
     /**
      * @return mixed

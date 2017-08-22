@@ -80,6 +80,7 @@ class Game
     public function __construct()
     {
         $this->bills = new ArrayCollection();
+        $this->rewards = new ArrayCollection();
         $this->is_paid = false;
     }
 

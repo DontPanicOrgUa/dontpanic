@@ -20,7 +20,7 @@ class Reward
     private $id;
 
     /**
-     * @ORM\Column("float")
+     * @ORM\Column(type="float")
      */
     private $amount;
 

@@ -81,6 +81,7 @@ class Customer
     {
         $this->discounts = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->rewards = new ArrayCollection();
     }
 
     /**

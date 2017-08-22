@@ -23,7 +23,7 @@ class DiscountController extends Controller
         $em = $this->getDoctrine()->getManager();
         $discount = $em
             ->getRepository('WebBundle:Discount')
-            ->findOneByCode($code);
+            ->findOneByCodeArray($code);
         if ($discount) {
             $httpCode = 200;
             return new JsonResponse($discount, $httpCode);

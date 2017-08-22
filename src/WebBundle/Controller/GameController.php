@@ -7,6 +7,7 @@ use DateTime;
 use DateTimeZone;
 use WebBundle\Entity\Bill;
 use WebBundle\Entity\Discount;
+use WebBundle\Entity\Reward;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Game;
 use WebBundle\Entity\Price;
@@ -39,9 +40,11 @@ class GameController extends Controller
         $bookingData['players'] = $price->getPlayers();
 
         /** @var Discount $discount */
-        $discount = $em->getRepository('WebBundle:Discount')->findOneByCode($bookingData['discount']);
+        $discount = $em
+            ->getRepository('WebBundle:Discount')
+            ->findOneByCodeObject($bookingData['discount']);
         if ($discount) {
-            $bookingData['price'] = round(((100 - $discount['discount']) / 100) * $price->getPrice(), 2);
+            $bookingData['price'] = round(((100 - $discount->getDiscount()) / 100) * $price->getPrice(), 2);
         }
 
         $customer = $em
@@ -55,6 +58,11 @@ class GameController extends Controller
             $customer->setPhone($bookingData['phone']);
             $customer->setPercentage($this->getParameter('discount')['reward']);
         }
+
+        $newDiscount = new Discount();
+        $newDiscount->setCustomer($customer);
+        $newDiscount->setDiscount($this->getParameter('discount')['discount']);
+        $newDiscount->setCode(substr(md5(uniqid(rand(), true)), 0, 8));
 
         $game = new Game();
         $game->setRoom($room);
@@ -82,9 +90,20 @@ class GameController extends Controller
         $bill->setOrderId($bookingData['liqPay']['options']['order_id']);
         $bill->setData(json_encode($bookingData['liqPay']['options']));
 
+        if ($discount) {
+            $reward = new Reward();
+            $reward->setAmount($discount->getCustomer()->getPercentage() / 100 * $price->getPrice());
+            $reward->setCurrency($room->getCurrency());
+            $reward->setGame($game);
+            $reward->setDiscount($discount);
+            $reward->setCustomer($discount->getCustomer());
+        }
+
         $em->persist($customer);
         $em->persist($game);
+        $em->persist($newDiscount);
         $em->persist($bill);
+        $em->persist($reward);
         $em->flush();
 
         $this->get('mail_sender')->sendBookedGame($bookingData, $room);

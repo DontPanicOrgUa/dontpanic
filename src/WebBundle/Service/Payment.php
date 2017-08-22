@@ -27,8 +27,8 @@ class Payment
 
     public function __construct(ContainerInterface $container, Translator $translator, Uuid $uuid, Router $router)
     {
-        $this->public_key = $container->getParameter('public_key');
-        $this->private_key = $container->getParameter('private_key');
+        $this->public_key = $container->getParameter('liqpay_public_key');
+        $this->private_key = $container->getParameter('liqpay_private_key');
         $this->liqpay = new LiqPay($this->public_key, $this->private_key);
         $this->translator = $translator;
         $this->uuid = $uuid;

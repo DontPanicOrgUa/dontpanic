@@ -1,5 +1,5 @@
 parameters:
-    locale: en
+    locale: de
     liqpay:
         sandbox: false
     sms:
@@ -15,5 +15,5 @@ parameters:
         managerFeedback: false
         managerCallback: false
     discount:
-        discount: '1'
-        reward: '1'
+        discount: '5'
+        reward: '5'
