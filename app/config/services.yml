@@ -7,11 +7,21 @@ services:
 
     mail_sender:
         class: AdminBundle\Service\MailSender
-        arguments: ['@mailer', '@templating', '@doctrine.orm.entity_manager', '@request_stack']
+        arguments:
+            - '@mailer'
+            - '@templating'
+            - '@doctrine.orm.entity_manager'
+            - '@request_stack'
 
     turbosms_sender:
         class: AdminBundle\Service\SmsSender
-        arguments: ['%turbosms_host%', '%turbosms_name%', '%turbosms_user%', '%turbosms_pass%', '@doctrine.orm.entity_manager', '@request_stack']
+        arguments:
+            - '%turbosms_host%'
+            - '%turbosms_name%'
+            - '%turbosms_user%'
+            - '%turbosms_pass%'
+            - '@doctrine.orm.entity_manager'
+            - '@request_stack'
 
     uuid:
         class: AdminBundle\Service\Uuid
@@ -19,9 +29,7 @@ services:
     payment:
         class: WebBundle\Service\Payment
         arguments:
-            - '%liqpay_public_key%'
-            - '%liqpay_private_key%'
-            - '%liqpay.sandbox%'
+            - '@service_container'
             - '@translator.default'
             - '@uuid'
             - '@router'

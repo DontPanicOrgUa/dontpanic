@@ -1,0 +1,19 @@
+parameters:
+    locale: en
+    liqpay:
+        sandbox: false
+    sms:
+        customerBooked: false
+        customerRemind: false
+        managerBooked: false
+        managerRemind: false
+    email:
+        customerBooked: false
+        customerFeedback: false
+        customerCallback: false
+        managerBooked: false
+        managerFeedback: false
+        managerCallback: false
+    discount:
+        discount: '1'
+        reward: '1'

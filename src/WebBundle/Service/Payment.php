@@ -5,6 +5,7 @@ namespace WebBundle\Service;
 
 use LiqPay;
 use AdminBundle\Service\Uuid;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Translation\Translator;
 
@@ -24,14 +25,14 @@ class Payment
 
     private $router;
 
-    public function __construct($public_key, $private_key, $sandbox, Translator $translator, Uuid $uuid, Router $router)
+    public function __construct(ContainerInterface $container, Translator $translator, Uuid $uuid, Router $router)
     {
-        $this->public_key = $public_key;
-        $this->private_key = $private_key;
+        $this->public_key = $container->getParameter('public_key');
+        $this->private_key = $container->getParameter('private_key');
         $this->liqpay = new LiqPay($this->public_key, $this->private_key);
         $this->translator = $translator;
         $this->uuid = $uuid;
-        $this->sandBox = $sandbox;
+        $this->sandBox = $container->getParameter('liqpay')['sandbox'];
         $this->router = $router;
     }
 
