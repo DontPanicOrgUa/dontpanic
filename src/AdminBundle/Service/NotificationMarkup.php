@@ -5,11 +5,13 @@ namespace AdminBundle\Service;
 
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Reward;
+use WebBundle\Entity\Discount;
+use WebBundle\Entity\Feedback;
 
 trait NotificationMarkup
 {
 
-    protected function bookingMarkup($text, $bookingData, Room $room)
+    protected function bookingMarkup($text, $bookingData, Room $room, Discount $discount)
     {
         return str_replace(
             [
@@ -20,13 +22,14 @@ trait NotificationMarkup
                 '[game_date]',
                 '[game_time]',
                 '[game_price]',
-                '[room_currency]',
                 '[room_title]',
                 '[room_city]',
                 '[room_address]',
                 '[room_phone]',
                 '[room_email]',
-                '[liqpay_btn]'
+                '[liqpay_btn]',
+                '[new_discount_code]',
+                '[new_discount_percent]'
             ],
             [
                 substr($bookingData['name'], 0, 10),
@@ -35,14 +38,15 @@ trait NotificationMarkup
                 preg_replace("/[^0-9]/", '', $bookingData['phone']),
                 explode(' ', $bookingData['dateTime'])[0],
                 explode(' ', $bookingData['dateTime'])[1],
-                $bookingData['price'],
-                $room->getCurrency()->getCurrency(),
+                $bookingData['price'] . ' ' . $room->getCurrency()->getCurrency(),
                 $room->getTitle($this->locale),
                 $room->getCity()->getName($this->locale),
                 $room->getAddress($this->locale),
                 $room->getPhone(),
                 $room->getEmail(),
-                $bookingData['liqPay']['button']
+                $bookingData['liqPay']['button'],
+                $discount->getCode(),
+                $discount->getDiscount()
             ],
             $text
         );
@@ -52,22 +56,74 @@ trait NotificationMarkup
     {
         return str_replace(
             [
+                '[reward_id]',
+                '[reward_amount]',
                 '[customer_name]',
                 '[customer_last_name]',
                 '[customer_email]',
                 '[customer_phone]',
-                '[reward_id]',
-                '[reward_amount]',
-                '[reward_currency]',
+                '[customer_percentage]',
+                '[game_time]',
+                '[room_title]',
             ],
             [
+                $reward->getId(),
+                $reward->getAmount() . ' ' . $reward->getCurrency()->getCurrency(),
                 $reward->getCustomer()->getName(),
                 $reward->getCustomer()->getLastName(),
                 $reward->getCustomer()->getEmail(),
                 $reward->getCustomer()->getPhone(),
-                $reward->getId(),
-                $reward->getAmount(),
-                $reward->getCurrency()->getCurrency(),
+                $reward->getCustomer()->getPercentage(),
+                $reward->getGame()->getDatetime()->format('d.m.Y H:i'),
+                $reward->getGame()->getRoom()->getTitleEn(),
+            ],
+            $text
+        );
+    }
+
+//    protected function callbackMarkup($text, Callback $callback)
+//    {
+//        return str_replace(
+//            [
+//                '[customer_name]',
+//                '[customer_email]',
+//                '[customer_phone]',
+//                '[customer_comment]',
+//            ],
+//            [
+//                $callback->getName(),
+//                $callback->getEmail(),
+//                $callback->getPhone(),
+//                $callback->getComment()
+//            ],
+//            $text
+//        );
+//    }
+
+    protected function feedbackMarkup($text, Feedback $feedback, $title)
+    {
+        return str_replace(
+            [
+                '[customer_name]',
+                '[customer_email]',
+                '[customer_phone]',
+                '[customer_comment]',
+                '[game_result]',
+                '[game_atmosphere]',
+                '[game_story]',
+                '[game_service]',
+                '[room_title]'
+            ],
+            [
+                $feedback->getName(),
+                $feedback->getEmail(),
+                $feedback->getPhone(),
+                $feedback->getComment(),
+                $feedback->getTime(),
+                $feedback->getAtmosphere(),
+                $feedback->getStory(),
+                $feedback->getService(),
+                $title
             ],
             $text
         );

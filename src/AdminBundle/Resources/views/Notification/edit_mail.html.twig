@@ -36,6 +36,8 @@
                             <li>room phone: [room_phone]</li>
                             <li>room email: [room_email]</li>
                             <li>liqpay button: [liqpay_btn]</li>
+                            <li>new discount code: [new_discount_code]</li>
+                            <li>new discount percent: [new_discount_percent]</li>
                         </ul>
                     {% elseif form.vars.value.event == 'feedback' %}
                         <ul>
@@ -46,7 +48,7 @@
                             <li>game result: [game_result]</li>
                             <li>game atmosphere: [game_atmosphere]</li>
                             <li>game story: [game_story]</li>
-                            <li>game service: [room_service]</li>
+                            <li>game service: [game_service]</li>
                         </ul>
                     {% elseif form.vars.value.event == 'callback' %}
                         <ul>
@@ -57,6 +59,7 @@
                         </ul>
                     {% elseif form.vars.value.event == 'reward' %}
                         <ul>
+                            <li>reward id: [reward_id]</li>
                             <li>reward amount: [reward_amount]</li>
                             <li>customer name: [customer_name]</li>
                             <li>customer last name: [customer_last_name]</li>

@@ -46,10 +46,7 @@ class FeedbackController extends Controller
         $em->persist($feedback);
         $em->flush();
 
-//        $this->get('mail_sender')->sendBookedGame($bookingData, $room);
-//        if ($this->getParameter('sms')) {
-//            $this->get('turbosms_sender')->send($bookingData, $room);
-//        }
+        $this->get('mail_sender')->sendFeedback($feedback, $room);
 
         return new JsonResponse([
             'success' => true,

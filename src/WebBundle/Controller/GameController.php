@@ -34,10 +34,10 @@ class GameController extends Controller
         $bookingData['price'] = $price->getPrice(); // escaping injected price on frontend
         $discountedPrice = $this->getDiscountedPrice($bookingData);
         $bookingData['price'] = $discountedPrice['price'];
-        $reward = $this->createReward($discountedPrice['discount'], $price, $room);
         $customer = $this->findOrCreateCustomer($bookingData);
         $discount = $this->createDiscount($customer);
         $game = $this->createGame($bookingData, $room, $customer);
+        $reward = $this->createReward($discountedPrice['discount'], $price, $room, $game);
         $bookingData['currency'] = $room->getCurrency()->getCurrency();
         $bookingData['language'] = $request->getLocale();
         $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
@@ -54,7 +54,7 @@ class GameController extends Controller
         }
         $em->flush();
 
-        $this->get('mail_sender')->sendBooked($bookingData, $room);
+        $this->get('mail_sender')->sendBooked($bookingData, $room, $discount);
         if ($reward) {
             $this->get('mail_sender')->sendReward($reward, $room);
         }
@@ -147,7 +147,7 @@ class GameController extends Controller
         return $bill;
     }
 
-    private function createReward($discount, Price $price, Room $room)
+    private function createReward($discount, Price $price, Room $room, Game $game)
     {
         if (!$discount) {
             return null;
@@ -157,6 +157,7 @@ class GameController extends Controller
         $reward->setAmount($discount->getCustomer()->getPercentage() / 100 * $price->getPrice());
         $reward->setCurrency($room->getCurrency());
         $reward->setDiscount($discount);
+        $reward->setGame($game);
         $reward->setCustomer($discount->getCustomer());
         return $reward;
     }
