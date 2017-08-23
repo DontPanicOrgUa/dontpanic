@@ -14,65 +14,105 @@ WebBundle\Entity\Customer:
 
 WebBundle\Entity\Notification:
     notification_1:
-            type: email
-            event: booked
-            recipient: customer
-            titleRu: Бронь квесткмнаты
-            titleEn: Booking escape room
-            titleDe: Buchung Zimmer
-            messageRu: 'Ваша игра забронирована, администрация с вами свяжется в ближайшее время.'
-            messageEn: 'Your game is booked, the administration will contact you as soon as possible.'
-            messageDe: 'Ihr Spiel wird reserviert, die Verwaltung wird Ihnen in Verbindung setzen.'
+        type: sms
+        event: booked
+        recipient: customer
+        titleRu: Игра забронирована
+        titleEn: Game booked
+        titleDe: Spiel gebucht
+        messageRu: Новая игра
+        messageEn: New game
+        messageDe: Neues Spiel
     notification_2:
-            type: email
-            event: canceled
-            recipient: customer
-            titleRu: Отмена брони
-            titleEn: Cancel Reservation
-            titleDe: Stornierung
-            messageRu: 'Ваша игра была отменена.'
-            messageEn: 'Your game canceled.'
-            messageDe: 'Ihr Spiel wird abgebrochen.'
+        type: sms
+        event: booked
+        recipient: manager
+        titleRu: 'Новая игра'
+        titleEn: 'New game'
+        titleDe: 'Neues Spiel'
+        messageRu: 'Новая игра'
+        messageEn: 'New game'
+        messageDe: 'Neues Spiel'
     notification_3:
-            type: email
-            event: booked
-            recipient: manager
-            titleRu: Новая бронь
-            titleEn: New reservation
-            titleDe: Neue Reservierung
-            messageRu: 'Новая игра была забронирована.'
-            messageEn: 'The new game was booked.'
-            messageDe: 'Das neue Spiel wurde gebucht.'
+        type: email
+        event: booked
+        recipient: customer
+        titleRu: 'Игра забронирована'
+        titleEn: 'Game booked'
+        titleDe: 'Spiel gebucht'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
     notification_4:
-            type: email
-            event: canceled
-            recipient: manager
-            titleRu: Отмена брони
-            titleEn: Cancel Reservation
-            titleDe: Stornierung
-            messageRu: 'Игра была успешно отменена.'
-            messageEn: 'The game was successfully canceled.'
-            messageDe: 'Das Spiel wurde erfolgreich gelöscht.'
+        type: email
+        event: feedback
+        recipient: customer
+        titleRu: 'Отзыв принят'
+        titleEn: 'Feedback accepted'
+        titleDe: 'Rückmeldung akzeptiert'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
     notification_5:
-            type: sms
-            event: booked
-            recipient: customer
-            titleRu: Новая игра
-            titleEn: New game
-            titleDe: Neues Spiel
-            messageRu: Новая игра
-            messageEn: New game
-            messageDe: Neues Spiel
+        type: email
+        event: callback
+        recipient: customer
+        titleRu: 'Запрос принят'
+        titleEn: 'Callback accepted'
+        titleDe: 'Rückruf akzeptiert'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
     notification_6:
-            type: sms
-            event: booked
-            recipient: manager
-            titleRu: Новая игра
-            titleEn: New game
-            titleDe: Neues Spiel
-            messageRu: Новая игра
-            messageEn: New game
-            messageDe: Neues Spiel
+        type: email
+        event: reward
+        recipient: customer
+        titleRu: 'Вы заработали награду'
+        titleEn: 'You earned a reward'
+        titleDe: 'Du hast eine Belohnung verdient'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
+    notification_7:
+        type: email
+        event: booked
+        recipient: manager
+        titleRu: 'Новая бронь'
+        titleEn: 'New booking'
+        titleDe: 'Neue Buchung'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
+    notification_8:
+        type: email
+        event: feedback
+        recipient: manager
+        titleRu: 'Новый отзыв'
+        titleEn: 'New feedback'
+        titleDe: 'Neues Feedback'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
+    notification_9:
+        type: email
+        event: callback
+        recipient: manager
+        titleRu: 'Новый запрос'
+        titleEn: 'New callback'
+        titleDe: 'Neuer Rückruf'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
+    notification_10:
+        type: email
+        event: reward
+        recipient: manager
+        titleRu: 'Новая награда'
+        titleEn: 'New reward'
+        titleDe: 'Neue Belohnung'
+        messageRu: 'TO_DO'
+        messageEn: 'TO_DO'
+        messageDe: 'TO_DO'
 
 WebBundle\Entity\City:
     city_1:
@@ -144,12 +184,6 @@ WebBundle\Entity\Room:
         logo: "genesis_logo.png"
         thumbnail: "genesis_thumbnail.jpg"
         slides: ["genesis_slide_1.jpg","genesis_slide_2.jpg","genesis_slide_3.jpg"]
-        client_mail_notification: false
-        client_sms_notification: false
-        client_sms_reminder: false
-        manager_mail_notification: true
-        manager_sms_notification: true
-        manager_sms_reminder: true
     room_2:
         city: '@city_2'
         currency: '@currency_2'
@@ -176,12 +210,6 @@ WebBundle\Entity\Room:
         logo: "thief_logo.png"
         thumbnail: "thief_1.jpg"
         slides: ["thief_1.jpg","thief_2.jpg"]
-        client_mail_notification: false
-        client_sms_notification: false
-        client_sms_reminder: false
-        manager_mail_notification: true
-        manager_sms_notification: true
-        manager_sms_reminder: true
 
 AdminBundle\Entity\User:
     user_1:

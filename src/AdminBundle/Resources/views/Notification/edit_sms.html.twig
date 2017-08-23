@@ -1,6 +1,7 @@
 {% extends 'AdminBundle:layouts:main.html.twig' %}
 
 {% block content %}
+    <a class="btn btn-danger pull-right" href="{{ path('admin_notifications_list') }}">Cancel</a>
     <h1 class="page-header">Edit SMS notification template</h1>
     {{ form_start(form) }}
     {{ form_row(form._token) }}
@@ -90,7 +91,7 @@
                     <h3 style="font-size: 28px; color: #636363; padding-top: 20px;">Available options</h3>
                     <ul>
                         <li>customer name: [customer_name] - wil be truncated to 10 chars</li>
-                        <li>customer last name: [customer_second_name]  - wil be truncated to 10 chars</li>
+                        <li>customer last name: [customer_last_name]  - wil be truncated to 10 chars</li>
                         <li>customer email: [customer_email] - attention, value length is not trimmed</li>
                         <li>customer phone: [customer_phone] - will return clean phone number, digits only</li>
                         <li>game date: [game_date] - format DD.MM.YYYY</li>
@@ -111,19 +112,16 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="#" class="pull-right" data-toggle="modal" data-target="#previewModal">preview</a>
                     {{ form_row(form.messageRu) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="#" class="pull-right" data-toggle="modal" data-target="#previewModal">preview</a>
                     {{ form_row(form.messageEn) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="#" class="pull-right" data-toggle="modal" data-target="#previewModal">preview</a>
                     {{ form_row(form.messageDe) }}
                 </div>
             </div>
@@ -132,6 +130,5 @@
 
     <div class="row">{{ form_row(form.save) }}</div>
     {{ form_end(form) }}
-    {{ include('AdminBundle:Notification:modal_preview.html.twig') }}
 {% endblock %}
 

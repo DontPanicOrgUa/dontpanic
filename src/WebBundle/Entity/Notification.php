@@ -5,6 +5,7 @@ namespace WebBundle\Entity;
 
 use Locale;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="notifications")
@@ -36,31 +37,37 @@ class Notification
     private $recipient;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=false)
      */
     private $titleRu;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=false)
      */
     private $titleEn;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=false)
      */
     private $titleDe;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=false)
      */
     private $messageRu;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=false)
      */
     private $messageEn;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=false)
      */
     private $messageDe;

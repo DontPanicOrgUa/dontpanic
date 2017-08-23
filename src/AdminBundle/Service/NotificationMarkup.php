@@ -13,7 +13,7 @@ trait NotificationMarkup
         return str_replace(
             [
                 '[customer_name]',
-                '[customer_second_name]',
+                '[customer_last_name]',
                 '[customer_email]',
                 '[customer_phone]',
                 '[game_date]',
