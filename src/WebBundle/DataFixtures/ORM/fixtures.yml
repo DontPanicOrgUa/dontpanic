@@ -40,9 +40,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Игра забронирована'
         titleEn: 'Game booked'
         titleDe: 'Spiel gebucht'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game date: [game_date]</li> <li>game time: [game_time]</li> <li>game price: [game_price]</li> <li>room title: [room_title]</li> <li>room city: [room_city]</li> <li>room address: [room_address]</li> <li>room phone: [room_phone]</li> <li>room email: [room_email]</li> <li>liqpay button: [liqpay_btn]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game date: [game_date]</li> <li>game time: [game_time]</li> <li>game price: [game_price]</li> <li>room title: [room_title]</li> <li>room city: [room_city]</li> <li>room address: [room_address]</li> <li>room phone: [room_phone]</li> <li>room email: [room_email]</li> <li>liqpay button: [liqpay_btn]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game date: [game_date]</li> <li>game time: [game_time]</li> <li>game price: [game_price]</li> <li>room title: [room_title]</li> <li>room city: [room_city]</li> <li>room address: [room_address]</li> <li>room phone: [room_phone]</li> <li>room email: [room_email]</li> <li>liqpay button: [liqpay_btn]</li> </ul>'
     notification_4:
         type: email
         event: feedback
@@ -50,9 +50,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Отзыв принят'
         titleEn: 'Feedback accepted'
         titleDe: 'Rückmeldung akzeptiert'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> <li>game result: [game_result]</li> <li>game atmosphere: [game_atmosphere]</li> <li>game story: [game_story]</li> <li>game service: [game_service]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> <li>game result: [game_result]</li> <li>game atmosphere: [game_atmosphere]</li> <li>game story: [game_story]</li> <li>game service: [game_service]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> <li>game result: [game_result]</li> <li>game atmosphere: [game_atmosphere]</li> <li>game story: [game_story]</li> <li>game service: [game_service]</li> </ul>'
     notification_5:
         type: email
         event: callback
@@ -60,9 +60,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Запрос принят'
         titleEn: 'Callback accepted'
         titleDe: 'Rückruf akzeptiert'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> </ul>'
     notification_6:
         type: email
         event: reward
@@ -70,9 +70,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Вы заработали награду'
         titleEn: 'You earned a reward'
         titleDe: 'Du hast eine Belohnung verdient'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
     notification_7:
         type: email
         event: booked
@@ -80,9 +80,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Новая бронь'
         titleEn: 'New booking'
         titleDe: 'Neue Buchung'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game date: [game_date]</li> <li>game time: [game_time]</li> <li>game price: [game_price]</li> <li>room title: [room_title]</li> <li>room city: [room_city]</li> <li>room address: [room_address]</li> <li>room phone: [room_phone]</li> <li>room email: [room_email]</li> <li>liqpay button: [liqpay_btn]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game date: [game_date]</li> <li>game time: [game_time]</li> <li>game price: [game_price]</li> <li>room title: [room_title]</li> <li>room city: [room_city]</li> <li>room address: [room_address]</li> <li>room phone: [room_phone]</li> <li>room email: [room_email]</li> <li>liqpay button: [liqpay_btn]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game date: [game_date]</li> <li>game time: [game_time]</li> <li>game price: [game_price]</li> <li>room title: [room_title]</li> <li>room city: [room_city]</li> <li>room address: [room_address]</li> <li>room phone: [room_phone]</li> <li>room email: [room_email]</li> <li>liqpay button: [liqpay_btn]</li> </ul>'
     notification_8:
         type: email
         event: feedback
@@ -90,9 +90,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Новый отзыв'
         titleEn: 'New feedback'
         titleDe: 'Neues Feedback'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> <li>game result: [game_result]</li> <li>game atmosphere: [game_atmosphere]</li> <li>game story: [game_story]</li> <li>game service: [game_service]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> <li>game result: [game_result]</li> <li>game atmosphere: [game_atmosphere]</li> <li>game story: [game_story]</li> <li>game service: [game_service]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> <li>game result: [game_result]</li> <li>game atmosphere: [game_atmosphere]</li> <li>game story: [game_story]</li> <li>game service: [game_service]</li> </ul>'
     notification_9:
         type: email
         event: callback
@@ -100,9 +100,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Новый запрос'
         titleEn: 'New callback'
         titleDe: 'Neuer Rückruf'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>customer name: [customer_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer comment: [customer_comment]</li> </ul>'
     notification_10:
         type: email
         event: reward
@@ -110,9 +110,9 @@ WebBundle\Entity\Notification:
         titleRu: 'Новая награда'
         titleEn: 'New reward'
         titleDe: 'Neue Belohnung'
-        messageRu: 'TO_DO'
-        messageEn: 'TO_DO'
-        messageDe: 'TO_DO'
+        messageRu: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
 
 WebBundle\Entity\City:
     city_1:
