@@ -23,7 +23,7 @@
                     <td>{{ customer.email }}</td>
                     <td>{{ customer.phone }}</td>
                     <td>
-                        {#<a class="btn btn-xs btn-warning" href="{{ path('admin_games_view', {id: game.id}) }}">view game info <span class=" fa fa-pencil"></span></a>#}
+                        <a class="btn btn-xs btn-warning" href="{{ path('admin_customers_edit', {id: customer.id}) }}">edit <span class=" fa fa-pencil"></span></a>
                     </td>
                 </tr>
             {% endfor %}

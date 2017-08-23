@@ -3,13 +3,16 @@
 namespace WebBundle\Entity;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="customers")
  * @ORM\Entity(repositoryClass="WebBundle\Repository\CustomerRepository")
+ * @UniqueEntity("phone")
  */
 class Customer
 {
@@ -23,21 +26,25 @@ class Customer
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
      */
     private $phone;
 
@@ -58,6 +65,10 @@ class Customer
 
     /**
      * @ORM\Column(type="integer",nullable=false)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 99
+     * )
      */
     private $percentage;
 
