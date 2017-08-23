@@ -21,21 +21,52 @@
             <div class="row">
                 <div class="col-sm-12">
                     <p>Available options:</p>
-                    <ul>
-                        <li>customer name: [customer_name]</li>
-                        <li>customer last name: [customer_last_name]</li>
-                        <li>customer email: [customer_email]</li>
-                        <li>customer phone: [customer_phone]</li>
-                        <li>game date: [game_date]</li>
-                        <li>game time: [game_time]</li>
-                        <li>game price: [game_price]</li>
-                        <li>room title: [room_title]</li>
-                        <li>room city: [room_city]</li>
-                        <li>room address: [room_address]</li>
-                        <li>room phone: [room_phone]</li>
-                        <li>room email: [room_email]</li>
-                        <li>liqpay button: [liqpay_btn]</li>
-                    </ul>
+                    {% if form.vars.value.event == 'booked' %}
+                        <ul>
+                            <li>customer name: [customer_name]</li>
+                            <li>customer last name: [customer_last_name]</li>
+                            <li>customer email: [customer_email]</li>
+                            <li>customer phone: [customer_phone]</li>
+                            <li>game date: [game_date]</li>
+                            <li>game time: [game_time]</li>
+                            <li>game price: [game_price]</li>
+                            <li>room title: [room_title]</li>
+                            <li>room city: [room_city]</li>
+                            <li>room address: [room_address]</li>
+                            <li>room phone: [room_phone]</li>
+                            <li>room email: [room_email]</li>
+                            <li>liqpay button: [liqpay_btn]</li>
+                        </ul>
+                    {% elseif form.vars.value.event == 'feedback' %}
+                        <ul>
+                            <li>customer name: [customer_name]</li>
+                            <li>customer email: [customer_email]</li>
+                            <li>customer phone: [customer_phone]</li>
+                            <li>customer comment: [customer_comment]</li>
+                            <li>game result: [game_result]</li>
+                            <li>game atmosphere: [game_atmosphere]</li>
+                            <li>game story: [game_story]</li>
+                            <li>game service: [room_service]</li>
+                        </ul>
+                    {% elseif form.vars.value.event == 'callback' %}
+                        <ul>
+                            <li>customer name: [customer_name]</li>
+                            <li>customer email: [customer_email]</li>
+                            <li>customer phone: [customer_phone]</li>
+                            <li>customer comment: [customer_comment]</li>
+                        </ul>
+                    {% elseif form.vars.value.event == 'reward' %}
+                        <ul>
+                            <li>reward amount: [reward_amount]</li>
+                            <li>customer name: [customer_name]</li>
+                            <li>customer last name: [customer_last_name]</li>
+                            <li>customer email: [customer_email]</li>
+                            <li>customer phone: [customer_phone]</li>
+                            <li>customer percentage: [customer_percentage]</li>
+                            <li>game time: [game_time]</li>
+                            <li>room title: [room_title]</li>
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">

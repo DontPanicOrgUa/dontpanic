@@ -13,12 +13,7 @@ services:
     turbosms_sender:
         class: AdminBundle\Service\SmsSender
         arguments:
-            - '%turbosms_host%'
-            - '%turbosms_name%'
-            - '%turbosms_user%'
-            - '%turbosms_pass%'
-            - '@doctrine.orm.entity_manager'
-            - '@request_stack'
+            - '@service_container'
 
     uuid:
         class: AdminBundle\Service\Uuid
@@ -42,3 +37,10 @@ services:
             - '@logger'
         tags:
             - { name: monolog.logger, channel: 'payment_channel' }
+
+    debug.logger:
+        class: AdminBundle\Service\DebugLogger
+        arguments:
+            - '@logger'
+        tags:
+            - { name: monolog.logger, channel: 'custom_debug_channel' }

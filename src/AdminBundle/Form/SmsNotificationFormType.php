@@ -6,12 +6,12 @@ namespace AdminBundle\Form;
 use WebBundle\Entity\Notification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class NotificationFormType extends AbstractType
+class SmsNotificationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -34,22 +34,22 @@ class NotificationFormType extends AbstractType
                     'placeholder' => 'Buchung Zimmer'
                 ]
             ])
-            ->add('messageRu', CKEditorType::class, [
+            ->add('messageRu', TextareaType::class, [
                 'label' => '[RU]',
-                'config' => [
-                    'toolbar' => 'my_toolbar'
+                'attr' => [
+                    'rows' => '6'
                 ]
             ])
-            ->add('messageEn', CKEditorType::class, [
+            ->add('messageEn', TextareaType::class, [
                 'label' => '[En]',
-                'config' => [
-                    'toolbar' => 'my_toolbar'
+                'attr' => [
+                    'rows' => '6'
                 ]
             ])
-            ->add('messageDe', CKEditorType::class, [
+            ->add('messageDe', TextareaType::class, [
                 'label' => '[De]',
-                'config' => [
-                    'toolbar' => 'my_toolbar'
+                'attr' => [
+                    'rows' => '6'
                 ]
             ])
             ->add('save', SubmitType::class, [

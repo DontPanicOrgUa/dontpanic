@@ -218,7 +218,7 @@ AdminBundle\Entity\User:
         plainPassword: 123456789
         enabled: true
         roles: ['ROLE_ADMIN']
-        phone: '0507095075'
+        phone: '380507095075'
 
 WebBundle\Entity\Blank:
     blank_1_1:

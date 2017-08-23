@@ -4,9 +4,8 @@ namespace AdminBundle\Service;
 
 
 use WebBundle\Entity\Room;
-use Doctrine\ORM\EntityManager;
 use Mp091689\TurboSms\TurboSms;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SmsSender
 {
@@ -18,40 +17,49 @@ class SmsSender
 
     private $locale;
 
-    public function __construct($host, $db_name, $user, $password, EntityManager $em, RequestStack $request)
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
-        $this->em = $em;
-        $this->sender = new TurboSms($host, $db_name, $user, $password);
-        $this->locale = $request->getCurrentRequest()->getLocale();
+        $this->container = $container;
+        $this->em = $container->get('doctrine.orm.entity_manager');
+        $this->sender = new TurboSms(
+            $container->getParameter('turbosms_host'),
+            $container->getParameter('turbosms_name'),
+            $container->getParameter('turbosms_user'),
+            $container->getParameter('turbosms_pass')
+        );
+        $this->locale = $container->get('request_stack')->getCurrentRequest()->getLocale();
     }
 
     public function send($bookingData, Room $room)
     {
-        if ($room->getClientSmsNotification()) {
+        if ($this->container->getParameter('sms')['customerBooked']) {
             $this->sendToCustomer($bookingData, $room);
         }
-        if ($room->getClientSmsReminder()) {
+        if ($this->container->getParameter('sms')['customerRemind']) {
             $this->sendRemindToCustomer($bookingData, $room);
         }
-        if ($room->getManagerSmsNotification()) {
+        if ($this->container->getParameter('sms')['managerBooked']) {
             $this->sendToManagers($bookingData, $room);
         }
-        if ($room->getManagerSMSReminder()) {
+        if ($this->container->getParameter('sms')['managerRemind']) {
             $this->sendRemindToManagers($bookingData, $room);
         }
     }
 
     public function sendToCustomer($bookingData, Room $room)
     {
+        $this->container->get('debug.logger')->debug('called SmsSender/sendToCustomer method');
         $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
         return $this->sender->send($bookingData['phone'], $message);
     }
 
     public function sendToManagers($bookingData, Room $room)
     {
         $template = $this->getTemplate('sms', 'booked', 'manager');
-        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
         foreach ($room->getRoomManagers() as $manager) {
             $this->sender->send($manager->getPhone(), $message);
         }
@@ -60,15 +68,15 @@ class SmsSender
     public function sendRemindToCustomer($bookingData, Room $room)
     {
         $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
         $remindTime = $this->getRemindTime($bookingData['dateTime'], $room);
         return $this->sender->send($bookingData['phone'], $message, 'Msg', $remindTime);
     }
 
     public function sendRemindToManagers($bookingData, Room $room)
     {
-        $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
+        $template = $this->getTemplate('sms', 'booked', 'manager');
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
         $remindTime = $this->getRemindTime($bookingData['dateTime'], $room);
         foreach ($room->getRoomManagers() as $manager) {
             $this->sender->send($manager->getPhone(), $message, 'Msg', $remindTime);

@@ -6,12 +6,12 @@ namespace WebBundle\Controller;
 use DateTime;
 use DateTimeZone;
 use WebBundle\Entity\Bill;
-use WebBundle\Entity\Discount;
-use WebBundle\Entity\Reward;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Game;
 use WebBundle\Entity\Price;
+use WebBundle\Entity\Reward;
 use WebBundle\Entity\Customer;
+use WebBundle\Entity\Discount;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,40 +30,44 @@ class GameController extends Controller
     public function addAction(Request $request, Room $room)
     {
         $bookingData = $request->request->get('bookingData');
+        $price = $this->getPrice($bookingData['priceId']);
+        $bookingData['price'] = $price->getPrice(); // escaping injected price on frontend
+        $discountedPrice = $this->getDiscountedPrice($bookingData);
+        $bookingData['price'] = $discountedPrice['price'];
+        $reward = $this->createReward($discountedPrice['discount'], $price, $room);
+        $customer = $this->findOrCreateCustomer($bookingData);
+        $discount = $this->createDiscount($customer);
+        $game = $this->createGame($bookingData, $room, $customer);
+        $bookingData['currency'] = $room->getCurrency()->getCurrency();
+        $bookingData['language'] = $request->getLocale();
+        $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
+        $bookingData['liqPay'] = $this->get('payment')->getBill($bookingData);
+        $bill = $this->createBill($bookingData, $game);
 
         $em = $this->getDoctrine()->getManager();
-
-        /** @var Price $price */
-        $price = $em->getRepository('WebBundle:Price')->find($bookingData['priceId']);
-        // if customer tried to change price on frontend, we will pass real price from database
-        $bookingData['price'] = $price->getPrice();
-        $bookingData['players'] = $price->getPlayers();
-
-        /** @var Discount $discount */
-        $discount = $em
-            ->getRepository('WebBundle:Discount')
-            ->findOneByCodeObject($bookingData['discount']);
-        if ($discount) {
-            $bookingData['price'] = round(((100 - $discount->getDiscount()) / 100) * $price->getPrice(), 2);
+        $em->persist($customer);
+        $em->persist($game);
+        $em->persist($discount);
+        $em->persist($bill);
+        if ($reward) {
+            $em->persist($reward);
         }
+        $em->flush();
 
-        $customer = $em
-            ->getRepository('WebBundle:Customer')
-            ->findOneBy(['phone' => preg_replace("/[^0-9]/", '', $bookingData['phone'])]);
-        if (!$customer) {
-            $customer = new Customer();
-            $customer->setName($bookingData['name']);
-            $customer->setLastName($bookingData['lastName']);
-            $customer->setEmail($bookingData['email']);
-            $customer->setPhone($bookingData['phone']);
-            $customer->setPercentage($this->getParameter('discount')['reward']);
+        $this->get('mail_sender')->sendBooked($bookingData, $room);
+        if ($reward) {
+            $this->get('mail_sender')->sendReward($reward, $room);
         }
+        $this->get('turbosms_sender')->send($bookingData, $room);
 
-        $newDiscount = new Discount();
-        $newDiscount->setCustomer($customer);
-        $newDiscount->setDiscount($this->getParameter('discount')['discount']);
-        $newDiscount->setCode(substr(md5(uniqid(rand(), true)), 0, 8));
+        return new JsonResponse([
+            'success' => true,
+            'data' => $bookingData
+        ], 201);
+    }
 
+    private function createGame($bookingData, Room $room, Customer $customer): Game
+    {
         $game = new Game();
         $game->setRoom($room);
         $game->setCustomer($customer);
@@ -79,42 +83,82 @@ class GameController extends Controller
                 new DateTimeZone($room->getCity()->getTimezone())
             )
         );
+        return $game;
+    }
 
-        $bookingData['currency'] = $room->getCurrency()->getCurrency();
-        $bookingData['language'] = $request->getLocale();
-        $bookingData['description'] = $room->getTitleEn() . ' ' . $bookingData['dateTime'];
-        $bookingData['liqPay'] = $this->get('payment')->getBill($bookingData);
+    private function createDiscount(Customer $customer): Discount
+    {
+        $discount = new Discount();
+        $discount->setCustomer($customer);
+        $discount->setDiscount($this->getParameter('discount')['discount']);
+        $discount->setCode(substr(md5(uniqid(rand(), true)), 0, 8));
+        return $discount;
+    }
 
+    private function findOrCreateCustomer($bookingData): Customer
+    {
+        $em = $this->getDoctrine()->getManager();
+        $customer = $em
+            ->getRepository('WebBundle:Customer')
+            ->findOneBy(['phone' => preg_replace("/[^0-9]/", '', $bookingData['phone'])]);
+        if (!$customer) {
+            $customer = new Customer();
+            $customer->setName($bookingData['name']);
+            $customer->setLastName($bookingData['lastName']);
+            $customer->setEmail($bookingData['email']);
+            $customer->setPhone($bookingData['phone']);
+            $customer->setPercentage($this->getParameter('discount')['reward']);
+        }
+        return $customer;
+    }
+
+    private function getDiscountedPrice($bookingData)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $discount = $em
+            ->getRepository('WebBundle:Discount')
+            ->findOneByCodeObject($bookingData['discount']);
+        if ($discount) {
+            return [
+                'discount' => $discount,
+                'price' => round(((100 - $discount->getDiscount()) / 100) * $bookingData['price'], 2)
+            ];
+        }
+        return [
+            'discount' => $discount,
+            'price' => $bookingData['price']
+        ];
+    }
+
+    private function getPrice($priceId): Price
+    {
+        $em = $this->getDoctrine()->getManager();
+        return $em
+            ->getRepository('WebBundle:Price')
+            ->find($priceId);
+    }
+
+    private function createBill($bookingData, Game $game): Bill
+    {
         $bill = new Bill();
         $bill->setGame($game);
         $bill->setOrderId($bookingData['liqPay']['options']['order_id']);
         $bill->setData(json_encode($bookingData['liqPay']['options']));
+        return $bill;
+    }
 
-        if ($discount) {
-            $reward = new Reward();
-            $reward->setAmount($discount->getCustomer()->getPercentage() / 100 * $price->getPrice());
-            $reward->setCurrency($room->getCurrency());
-            $reward->setGame($game);
-            $reward->setDiscount($discount);
-            $reward->setCustomer($discount->getCustomer());
+    private function createReward($discount, Price $price, Room $room)
+    {
+        if (!$discount) {
+            return null;
         }
-
-        $em->persist($customer);
-        $em->persist($game);
-        $em->persist($newDiscount);
-        $em->persist($bill);
-        $em->persist($reward);
-        $em->flush();
-
-        $this->get('mail_sender')->sendBookedGame($bookingData, $room);
-        if ($this->getParameter('sms')) {
-            $this->get('turbosms_sender')->send($bookingData, $room);
-        }
-
-        return new JsonResponse([
-            'success' => true,
-            'data' => $bookingData
-        ], 201);
+        /** @var Discount $discount */
+        $reward = new Reward();
+        $reward->setAmount($discount->getCustomer()->getPercentage() / 100 * $price->getPrice());
+        $reward->setCurrency($room->getCurrency());
+        $reward->setDiscount($discount);
+        $reward->setCustomer($discount->getCustomer());
+        return $reward;
     }
 
     /**

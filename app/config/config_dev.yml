@@ -1,10 +1,6 @@
 imports:
     - { resource: config.yml }
 
-parameters:
-    sms: false
-#    liqpay.sandbox: true
-
 framework:
     router:
         resource: '%kernel.root_dir%/config/routing_dev.yml'
@@ -22,6 +18,11 @@ monolog:
             path: '%kernel.logs_dir%/%kernel.environment%-payment_channel.log'
             level: debug
             channels: ['payment_channel']
+        custom_debug_channel:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%-custom_debug_channel.log'
+            level: debug
+            channels: ['custom_debug_channel']
         main:
             type: stream
             path: '%kernel.logs_dir%/%kernel.environment%.log'

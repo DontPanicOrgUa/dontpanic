@@ -4,11 +4,12 @@ namespace AdminBundle\Service;
 
 
 use WebBundle\Entity\Room;
+use WebBundle\Entity\Reward;
 
 trait NotificationMarkup
 {
 
-    protected function markup($text, $bookingData, Room $room)
+    protected function bookingMarkup($text, $bookingData, Room $room)
     {
         return str_replace(
             [
@@ -42,6 +43,31 @@ trait NotificationMarkup
                 $room->getPhone(),
                 $room->getEmail(),
                 $bookingData['liqPay']['button']
+            ],
+            $text
+        );
+    }
+
+    protected function rewardMarkup($text, Reward $reward)
+    {
+        return str_replace(
+            [
+                '[customer_name]',
+                '[customer_last_name]',
+                '[customer_email]',
+                '[customer_phone]',
+                '[reward_id]',
+                '[reward_amount]',
+                '[reward_currency]',
+            ],
+            [
+                $reward->getCustomer()->getName(),
+                $reward->getCustomer()->getLastName(),
+                $reward->getCustomer()->getEmail(),
+                $reward->getCustomer()->getPhone(),
+                $reward->getId(),
+                $reward->getAmount(),
+                $reward->getCurrency()->getCurrency(),
             ],
             $text
         );

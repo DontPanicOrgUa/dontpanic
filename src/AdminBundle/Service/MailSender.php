@@ -4,6 +4,7 @@ namespace AdminBundle\Service;
 
 
 use WebBundle\Entity\Room;
+use WebBundle\Entity\Reward;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MailSender
@@ -30,17 +31,27 @@ class MailSender
         $this->locale = $container->get('request_stack')->getCurrentRequest()->getLocale();
     }
 
-    public function sendBookedGame($bookingData, Room $room)
+    public function sendBooked($bookingData, Room $room)
     {
         if ($this->container->getParameter('email')['customerBooked']) {
-            $this->sendToCustomer($bookingData, $room);
+            $this->customerBooked($bookingData, $room);
         }
         if ($this->container->getParameter('email')['managerBooked']) {
-            $this->sendToManager($bookingData, $room);
+            $this->managerBooked($bookingData, $room);
         }
     }
 
-    public function sendToCustomer($bookingData, Room $room)
+    public function sendReward(Reward $reward, Room $room)
+    {
+        if ($this->container->getParameter('email')['customerReward']) {
+            $this->customerReward($reward);
+        }
+        if ($this->container->getParameter('email')['managerReward']) {
+            $this->managerReward($reward, $room);
+        }
+    }
+
+    public function customerBooked($bookingData, Room $room)
     {
         $template = $this->em
             ->getRepository('WebBundle:Notification')
@@ -50,8 +61,8 @@ class MailSender
                 'recipient' => 'customer'
             ]);
 
-        $title = $this->markup($template->getTitle($this->locale), $bookingData, $room);
-        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
+        $title = $this->bookingMarkup($template->getTitle($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
 
         $swiftMessage = (new \Swift_Message($title))
             ->setFrom('info@escaperooms.at', 'EscapeRooms')
@@ -65,7 +76,7 @@ class MailSender
         $this->mailer->send($swiftMessage);
     }
 
-    public function sendToManager($bookingData, Room $room)
+    public function managerBooked($bookingData, Room $room)
     {
         $template = $this->em
             ->getRepository('WebBundle:Notification')
@@ -79,8 +90,8 @@ class MailSender
             $to[] = $manager->getEmail();
         }
 
-        $title = $this->markup($template->getTitle($this->locale), $bookingData, $room);
-        $message = $this->markup($template->getMessage($this->locale), $bookingData, $room);
+        $title = $this->bookingMarkup($template->getTitle($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
 
         $swiftMessage = (new \Swift_Message($title))
             ->setFrom('info@escaperooms.com', 'EscapeRooms')
@@ -94,4 +105,58 @@ class MailSender
         $this->mailer->send($swiftMessage);
     }
 
+    public function customerReward(Reward $reward)
+    {
+        $template = $this->em
+            ->getRepository('WebBundle:Notification')
+            ->findOneBy([
+                'type' => 'email',
+                'event' => 'reward',
+                'recipient' => 'customer'
+            ]);
+
+        $title = $this->rewardMarkup($template->getTitle($this->locale), $reward);
+        $message = $this->rewardMarkup($template->getMessage($this->locale), $reward);
+
+        $swiftMessage = (new \Swift_Message($title))
+            ->setFrom('info@escaperooms.at', 'EscapeRooms')
+            ->setTo($reward->getCustomer()->getEmail())
+            ->setBody(
+                $this->templating->render('WebBundle:emails:booking.html.twig', [
+                    'message' => $message
+                ]),
+                'text/html'
+            );
+        $this->mailer->send($swiftMessage);
+    }
+
+    public function managerReward(Reward $reward, Room $room)
+    {
+        $template = $this->em
+            ->getRepository('WebBundle:Notification')
+            ->findOneBy([
+                'type' => 'email',
+                'event' => 'booked',
+                'recipient' => 'manager'
+            ]);
+
+        $title = $this->rewardMarkup($template->getTitle($this->locale), $reward);
+        $message = $this->rewardMarkup($template->getMessage($this->locale), $reward);
+
+        $to = [];
+        foreach ($room->getRoomManagers() as $manager) {
+            $to[] = $manager->getEmail();
+        }
+
+        $swiftMessage = (new \Swift_Message($title))
+            ->setFrom('info@escaperooms.at', 'EscapeRooms')
+            ->setTo($to)
+            ->setBody(
+                $this->templating->render('WebBundle:emails:booking.html.twig', [
+                    'message' => $message
+                ]),
+                'text/html'
+            );
+        $this->mailer->send($swiftMessage);
+    }
 }

@@ -4,9 +4,9 @@ namespace AdminBundle\Controller;
 
 
 use WebBundle\Entity\Notification;
-use WebBundle\Entity\Room;
-use AdminBundle\Form\NotificationFormType;
+use AdminBundle\Form\SmsNotificationFormType;
 use Symfony\Component\HttpFoundation\Request;
+use AdminBundle\Form\EmailNotificationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -39,7 +39,10 @@ class NotificationController extends Controller
      */
     public function editAction(Request $request, Notification $notification)
     {
-        $form = $this->createForm(NotificationFormType::class, $notification);
+        $form = $this->createForm(EmailNotificationFormType::class, $notification);
+        if ($notification->getType() == 'sms') {
+            $form = $this->createForm(SmsNotificationFormType::class, $notification);
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $notification = $form->getData();
@@ -49,12 +52,10 @@ class NotificationController extends Controller
             $this->addFlash('success', 'Notification is edited.');
             return $this->redirectToRoute('admin_notifications_list');
         }
-
         $view = 'AdminBundle:Notification:edit_mail.html.twig';
         if ($notification->getType() == 'sms') {
             $view = 'AdminBundle:Notification:edit_sms.html.twig';
         }
-
         return $this->render($view, [
             'form' => $form->createView()
         ]);

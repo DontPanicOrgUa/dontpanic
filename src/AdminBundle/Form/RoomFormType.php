@@ -176,13 +176,7 @@ class RoomFormType extends AbstractType
                 'class' => User::class,
                 'multiple' => true,
                 'label' => 'Managers'
-            ])
-            ->add('clientMailNotification')
-            ->add('clientSmsNotification')
-            ->add('clientSmsReminder')
-            ->add('managerMailNotification')
-            ->add('managerSmsNotification')
-            ->add('managerSMSReminder');
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

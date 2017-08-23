@@ -9,6 +9,11 @@ imports:
 
 monolog:
     handlers:
+        custom_debug_channel:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%-custom_debug_channel.log'
+            level: debug
+            channels: ['custom_debug_channel']
         main:
             type: fingers_crossed
             action_level: error
