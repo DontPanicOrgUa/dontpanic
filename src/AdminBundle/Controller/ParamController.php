@@ -3,7 +3,6 @@
 namespace AdminBundle\Controller;
 
 
-use Symfony\Component\ExpressionLanguage\Tests\Node\Obj;
 use Symfony\Component\Yaml\Yaml;
 use AdminBundle\Form\ParamFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,11 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * Class ExtraParamController
- * @package AdminBundle\ExtraParamController
+ * Class ParamController
+ * @package AdminBundle\ParamController
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ExtraParamController extends Controller
+class ParamController extends Controller
 {
 
     /**
@@ -54,9 +53,11 @@ class ExtraParamController extends Controller
             'emailCustomerBooked' => $params['parameters']['email']['customerBooked'],
             'emailCustomerFeedback' => $params['parameters']['email']['customerFeedback'],
             'emailCustomerCallback' => $params['parameters']['email']['customerCallback'],
+            'emailCustomerReward' => $params['parameters']['email']['customerReward'],
             'emailManagerBooked' => $params['parameters']['email']['managerBooked'],
             'emailManagerFeedback' => $params['parameters']['email']['managerFeedback'],
             'emailManagerCallback' => $params['parameters']['email']['managerCallback'],
+            'emailManagerReward' => $params['parameters']['email']['managerReward'],
             'discountDiscount' => $params['parameters']['discount']['discount'],
             'discountReward' => $params['parameters']['discount']['reward'],
         ];
@@ -80,9 +81,11 @@ class ExtraParamController extends Controller
                     'customerBooked' => $params['emailCustomerBooked'] ? true : false,
                     'customerFeedback' => $params['emailCustomerFeedback'] ? true : false,
                     'customerCallback' => $params['emailCustomerCallback'] ? true : false,
+                    'customerReward' => $params['emailCustomerReward'] ? true : false,
                     'managerBooked' => $params['emailManagerBooked'] ? true : false,
                     'managerFeedback' => $params['emailManagerFeedback'] ? true : false,
                     'managerCallback' => $params['emailManagerCallback'] ? true : false,
+                    'managerReward' => $params['emailManagerReward'] ? true : false,
                 ],
                 'discount' => [
                     'discount' => $params['discountDiscount'],

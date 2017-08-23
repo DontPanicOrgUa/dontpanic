@@ -83,7 +83,7 @@ swiftmailer:
         path: '%kernel.project_dir%/app/spool'
 
 knp_paginator:
-    page_range: 5                      # default page range used in pagination control
+    page_range: 20                      # default page range used in pagination control
     default_options:
         page_name: page                # page query parameter name
         sort_field_name: sort          # sort field query parameter name

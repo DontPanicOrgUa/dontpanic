@@ -45,6 +45,11 @@ class Reward
     private $game;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPaid = false;
+
+    /**
      * @var \DateTime $createdAt
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
@@ -145,6 +150,22 @@ class Reward
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsPaid()
+    {
+        return $this->isPaid;
+    }
+
+    /**
+     * @param mixed $isPaid
+     */
+    public function setIsPaid($isPaid)
+    {
+        $this->isPaid = $isPaid;
     }
 
 }

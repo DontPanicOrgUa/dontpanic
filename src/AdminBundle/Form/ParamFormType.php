@@ -79,6 +79,13 @@ class ParamFormType extends AbstractType
                     'no' => false,
                 ]
             ])
+            ->add('emailCustomerReward', ChoiceType::class, [
+                'label' => 'Send email to Customer (Got new reward)',
+                'choices' => [
+                    'yes' => true,
+                    'no' => false,
+                ]
+            ])
             ->add('emailManagerBooked', ChoiceType::class, [
                 'label' => 'Send email to Manager (Game Booked)',
                 'choices' => [
@@ -95,6 +102,13 @@ class ParamFormType extends AbstractType
             ])
             ->add('emailManagerCallback', ChoiceType::class, [
                 'label' => 'Send email to Manager (Callback accepted)',
+                'choices' => [
+                    'yes' => true,
+                    'no' => false,
+                ]
+            ])
+            ->add('emailManagerReward', ChoiceType::class, [
+                'label' => 'Send email to Manager (New reward for customer)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,

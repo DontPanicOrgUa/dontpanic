@@ -11,9 +11,11 @@ parameters:
         customerBooked: true
         customerFeedback: true
         customerCallback: true
+        customerReward: true
         managerBooked: true
         managerFeedback: true
         managerCallback: true
+        managerReward: true
     discount:
         discount: '5'
         reward: '5'
