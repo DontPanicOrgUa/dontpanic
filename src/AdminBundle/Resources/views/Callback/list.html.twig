@@ -1,0 +1,39 @@
+{% extends 'AdminBundle:layouts:main.html.twig' %}
+
+{% block content %}
+    <h1 class="page-header">Callbacks</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(callbacks, 'careated_at', 'c.id') }}</th>
+                <th>{{ knp_pagination_sortable(callbacks, 'name', 'c.name') }}</th>
+                <th>{{ knp_pagination_sortable(callbacks, 'lastName', 'c.lastName') }}</th>
+                <th>{{ knp_pagination_sortable(callbacks, 'email', 'c.email') }}</th>
+                <th>{{ knp_pagination_sortable(callbacks, 'phone', 'c.phone') }}</th>
+                <th>comment</th>
+                <th>{{ knp_pagination_sortable(callbacks, 'is_processed', 'c.isProcessed') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for callback in callbacks %}
+                <tr>
+                    <td>{{ callback.createdAt|date('d.m.Y H:i') }}</td>
+                    <td>{{ callback.name }}</td>
+                    <td>{{ callback.lastName }}</td>
+                    <td>{{ callback.email }}</td>
+                    <td>{{ callback.phone }}</td>
+                    <td><span data-comment="{{ callback.comment|nl2br }}" data-toggle="modal" data-target="#modal-comment" style="color: #337ab7; cursor: pointer;">view..</span></td>
+                    <td><a href="{{ path('admin_callbacks_process', {id: callback.id}) }}">{{ callback.isProcessed ? 'yes' : 'no' }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(callbacks) }}
+        </div>
+    </div>
+
+    {% include 'AdminBundle:Callback/modal:comment.html.twig' %}
+
+{% endblock %}

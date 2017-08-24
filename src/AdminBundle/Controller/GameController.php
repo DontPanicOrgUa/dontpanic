@@ -40,7 +40,8 @@ class GameController extends Controller
         $result = $paginator->paginate(
             $games,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range'))
+            $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range')),
+            ['defaultSortFieldName' => 'g.id', 'defaultSortDirection' => 'desc']
         );
         return $this->render('AdminBundle:Game:list.html.twig', [
             'games' => $result

@@ -4,21 +4,19 @@ namespace AdminBundle\Controller;
 
 
 use Symfony\Component\HttpFoundation\Request;
+use WebBundle\Entity\Callback as WebBundleCallback;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use WebBundle\Entity\Reward;
 
 /**
- * Class CustomerController
+ * Class CityController
  * @package AdminBundle\Controller
- * @Security("has_role('ROLE_ADMIN')")
  */
-class RewardsController extends Controller
+class CallbackController extends Controller
 {
     /**
-     * @Route("/rewards", name="admin_rewards_list")
+     * @Route("/callbacks", name="admin_callbacks_list")
      * @Method("GET")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -26,33 +24,33 @@ class RewardsController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $rewards = $em->getRepository('WebBundle:Reward')->findAllWithGameAndCustomer();
-        $paginator  = $this->get('knp_paginator');
+        $callbacks = $em->getRepository('WebBundle:Callback')->findAll();
+        $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
-            $rewards,
+            $callbacks,
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range')),
-            ['defaultSortFieldName' => 'r.id', 'defaultSortDirection' => 'desc']
+            ['defaultSortFieldName' => 'c.id', 'defaultSortDirection' => 'desc']
         );
-        return $this->render('AdminBundle:Reward:list.html.twig', [
-            'rewards' => $result
+        return $this->render('AdminBundle:Callback:list.html.twig', [
+            'callbacks' => $result,
         ]);
     }
 
     /**
-     * @Route("/rewards/{id}/is_paid", name="admin_reward_paid")
+     * @Route("/callbacks/{id}/process", name="admin_callbacks_process")
      * @param Request $request
-     * @param Reward $reward
+     * @param WebBundleCallback $callback
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function isPaidAction(Request $request, Reward $reward)
+    public function processAction(Request $request, WebBundleCallback $callback)
     {
-        $reward->setIsPaid(!$reward->getIsPaid());
-        $status = $reward->getIsPaid() ? 'paid' : 'not paid';
+        $callback->setIsProcessed(!$callback->getIsProcessed());
+        $status = $callback->getIsProcessed() ? 'processed' : 'set as not processed';
         $em = $this->getDoctrine()->getManager();
-        $em->persist($reward);
+        $em->persist($callback);
         $em->flush();
-        $this->addFlash('success', sprintf('Reward is marked as %s.', $status));
+        $this->addFlash('success', sprintf('Callback is %s.', $status));
         return $this->redirect($request->headers->get('referer'));
     }
 }

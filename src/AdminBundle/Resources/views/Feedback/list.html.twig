@@ -5,7 +5,6 @@
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Go to .. <span class="caret"></span>
         </button>
-        {% dump(feedbacks) %}
         <ul class="dropdown-menu">
             <li><a class="fa fa-calendar" href="{{ path('admin_rooms_schedule', {slug: feedbacks.params.slug}) }}"> room schedule</a></li>
             <li><a class="fa fa-list" href="{{ path('admin_rooms_list', {slug: feedbacks.params.slug}) }}"> list rooms</a></li>
@@ -16,7 +15,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(feedbacks, 'careated_at', 'f.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(feedbacks, 'careated_at', 'f.created_at') }}</th>
                 <th>{{ knp_pagination_sortable(feedbacks, 'name', 'f.name') }}</th>
                 <th>{{ knp_pagination_sortable(feedbacks, 'email', 'f.email') }}</th>
                 <th>{{ knp_pagination_sortable(feedbacks, 'phone', 'f.phone') }}</th>
@@ -52,6 +51,6 @@
         </div>
     </div>
 
-    {% include 'AdminBundle:Feedback:modal-comment.html.twig' %}
+    {% include 'AdminBundle:Feedback/modal:comment.html.twig' %}
 
 {% endblock %}

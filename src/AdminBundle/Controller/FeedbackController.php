@@ -25,16 +25,14 @@ class FeedbackController extends Controller
     public function listAction($slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $feedbacks = $em->getRepository('WebBundle:Feedback')
-            ->findAllFeedbacksByRoom($slug);
-
+        $feedbacks = $em->getRepository('WebBundle:Feedback')->findAllFeedbacksByRoom($slug);
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $feedbacks,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range'))
+            $request->query->getInt('limit', $this->getParameter('knp_paginator.page_range')),
+            ['defaultSortFieldName' => 'f.id', 'defaultSortDirection' => 'desc']
         );
-
         return $this->render('AdminBundle:Feedback:list.html.twig', [
             'feedbacks' => $result,
         ]);
@@ -42,10 +40,11 @@ class FeedbackController extends Controller
 
     /**
      * @Route("/feedbacks/{id}/activate", name="admin_feedbacks_activate")
+     * @param Request $request
      * @param Feedback $feedback
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function activateAction(Feedback $feedback)
+    public function activateAction(Request $request, Feedback $feedback)
     {
         $feedback->setIsActive(!$feedback->getIsActive());
         $status = $feedback->getIsActive() ? 'activated' : 'deactivated';
@@ -53,25 +52,21 @@ class FeedbackController extends Controller
         $em->persist($feedback);
         $em->flush();
         $this->addFlash('success', sprintf('Feedback is %s.', $status));
-        return $this->redirectToRoute('admin_feedbacks_list', [
-            'slug' => $feedback->getRoom()->getSlug()
-        ]);
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
      * @Route("/feedbacks/{id}/delete", name="admin_feedbacks_delete")
+     * @param Request $request
      * @param Feedback $feedback
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(Feedback $feedback)
+    public function deleteAction(Request $request, Feedback $feedback)
     {
-        $slug = $feedback->getRoom()->getSlug();
         $em = $this->getDoctrine()->getManager();
         $em->remove($feedback);
         $em->flush();
         $this->addFlash('success', 'Feedback is deleted.');
-        return $this->redirectToRoute('admin_feedbacks_list', [
-            'slug' => $slug
-        ]);
+        return $this->redirect($request->headers->get('referer'));
     }
 }

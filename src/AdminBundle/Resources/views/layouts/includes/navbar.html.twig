@@ -30,6 +30,9 @@
                         <li {% if 'pages' in app.request.get('_route') %}class="active"{% endif %}>
                             <a href="{{ path('admin_pages_list') }}">Pages</a>
                         </li>
+                        <li {% if 'callbacks' in app.request.get('_route') %}class="active"{% endif %}>
+                            <a href="{{ path('admin_callbacks_list') }}">Callbacks</a>
+                        </li>
                         <li {% if 'customers' in app.request.get('_route') %}class="active"{% endif %}>
                             <a href="{{ path('admin_customers_list') }}">Customers</a>
                         </li>
