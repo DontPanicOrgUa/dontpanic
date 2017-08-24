@@ -2,7 +2,7 @@
 $(function () {
     'use strict';
 
-    function isFloat(n){
+    function isFloat(n) {
         return Number(n) === n && n % 1 !== 0;
     }
 
@@ -310,7 +310,7 @@ $(function () {
             showThe($resultForm);
             setGameBooked(bookingData);
         }).fail(function (r) {
-            flashModal('error', 'booking');
+            flashModal('error', 'Error', 'Something went wrong, please try again.');
         });
     }
 
@@ -350,7 +350,6 @@ $(function () {
                 discount: discount
             }
         }).done(function (result) {
-            console.log(result.discount);
             $bookingDiscountInput.removeClass('custom-danger');
             $bookingDiscountInput.addClass('custom-success');
             bookingDiscount = result.discount;
@@ -362,7 +361,7 @@ $(function () {
             showPrice();
         });
     }
-    
+
     function calculatePrice(price) {
         var newPrice = (( ( 100 - bookingDiscount ) / 100 ) * price);
         if (isFloat(newPrice)) {
@@ -531,9 +530,9 @@ $(function () {
         }).done(function (r) {
             resetFeedbackForm();
             $feedbackFrom.modal('hide');
-            flashModal('success', 'feedback');
+            flashModal('success', 'Success', 'Feedback successfully sent.');
         }).fail(function (r) {
-            flashModal('error', 'feedback');
+            flashModal('error', 'Error', 'Something went wrong, please try again.');
         });
     }
 
@@ -553,25 +552,11 @@ $(function () {
         sendNewFeedbackData(data);
     });
 
-    function flashModal(status, event) {
+    function flashModal(status, title, message) {
         var $modal = $('#flash-modal');
-        if (status === 'success') {
-            $modal.find('.modal-title').html(transSuccess);
-            $modal.find('.modal-header').addClass('flash-modal-success');
-            if (event === 'booking') {
-                $modal.find('.modal-body').html(transSuccessBooking);
-            } else if (event === 'feedback') {
-                $modal.find('.modal-body').html(transSuccessFeedback);
-            }
-        } else {
-            $modal.find('.modal-title').html(transError);
-            $modal.find('.modal-header').addClass('flash-modal-error');
-            if (event === 'booking') {
-                $modal.find('.modal-body').html(transErrorBooking);
-            } else if (event === 'feedback') {
-                $modal.find('.modal-body').html(transErrorFeedback);
-            }
-        }
+        $modal.find('.modal-header').addClass('flash-modal-' + status);
+        $modal.find('.modal-title').html(title);
+        $modal.find('.modal-body').html(message);
         setTimeout(function () {
             $modal.modal('show');
         }, 400);
@@ -585,6 +570,90 @@ $(function () {
         }
     });
 
+//////////////////////////////////////////////////////////////////////
+/////////////////// callback /////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+    var $callbackFrom = $('#callback-form');
+
+    $callbackFrom.submit(function (e) {
+        e.preventDefault();
+        var data = collectCallbackData();
+        if (validateCallbackForm(data)) {
+            return;
+        }
+        sendNewCallbackData(data);
+    });
+
+    $('a[data-target="#callback-form"]').click(function () {
+        resetFeedbackForm();
+    });
+
+    function collectCallbackData() {
+        return {
+            name: $callbackFrom.find('input[name=name]').val(),
+            lastName: $callbackFrom.find('input[name=lastName]').val(),
+            email: $callbackFrom.find('input[name=email]').val(),
+            phone: $callbackFrom.find('input[name=phone]').val(),
+            comment: $callbackFrom.find('textarea[name=comment]').val(),
+        };
+    }
+
+    function validateCallbackForm(data) {
+        var hasError = false;
+        if (!data.name) {
+            $callbackFrom.find('input[name=name]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!data.lastName) {
+            $callbackFrom.find('input[name=lastName]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!validateEmail(data.email)) {
+            $callbackFrom.find('input[name=email]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!validatePhone(data.phone)) {
+            $callbackFrom.find('input[name=phone]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        if (!data.comment) {
+            $callbackFrom.find('textarea[name=comment]').addClass('custom-danger', 1000);
+            hasError = true;
+        }
+        return hasError;
+    }
+
+    function resetCallbackForm() {
+        $callbackFrom.find('input[name=name]').val('');
+        $callbackFrom.find('input[name=lastName]').val('');
+        $callbackFrom.find('input[name=email]').val('');
+        $callbackFrom.find('input[name=phone]').val('');
+        $callbackFrom.find('textarea[name=comment]').val('');
+        $callbackFrom.find('.custom-danger').removeClass('custom-danger');
+        $callbackFrom.find('.block-layer').hide();
+    }
+
+    $callbackFrom.find('input').focusin(function () {
+        $(this).removeClass('custom-danger');
+    });
+
+    $callbackFrom.find('textarea').focusin(function () {
+        $(this).removeClass('custom-danger');
+    });
+
+    function sendNewCallbackData(data) {
+        $callbackFrom.find('.block-layer').show();
+        $.ajax({
+            type: "POST",
+            url: callbacksAddRoute,
+            data: {data}
+        }).done(function (r) {
+            resetCallbackForm();
+            $callbackFrom.modal('hide');
+            flashModal('success', 'Success', 'Callback successfully sent.');
+        }).fail(function (r) {
+            flashModal('error', 'Error', 'Something went wrong, please try again.');
+        });
+    }
 })
 ;
-

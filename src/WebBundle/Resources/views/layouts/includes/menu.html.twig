@@ -7,8 +7,8 @@
         {% endfor %}
         <li><a href="{{ path('web_shares_list') }}">{{ 'shares'|trans|capitalize }}</a></li>
     </ul>
-    <div class="callback-menu text-center visible-sm-block visible-xs-block">
-        <button class="btn btn-warning">{{ 'callback'|trans|capitalize }}</button>
+    <div class="callback-menu visible-sm-block visible-xs-block">
+        <a href="#" class="btn btn-warning text-center" data-toggle="modal" data-target="#callback-form">{{ 'callback'|trans }}</a>
     </div>
 </nav>
 <!--  MENU end -->

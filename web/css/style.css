@@ -324,18 +324,15 @@ header {
 }
 
 .main-menu a {
-    display: block;
-
-    width: 100%;
+    /*display: block;*/
+    /*width: 100%;*/
     padding: 10px;
-
     font-size: 22px;
-
     color: #fff;
 }
 
 .main-menu .callback-menu {
-    margin-top: 30px;
+    text-align: center;
 }
 
 /* MENU end*/
@@ -1505,13 +1502,14 @@ th:hover {
     height: 100%;
     width: 100%;
     position: absolute;
+    text-align: center;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999999;
 }
 
-.block-layer span.fa {
-    margin-top: 45%;
-    text-align: center;
+.block-layer span.fa-spinner {
+    position: relative;
+    top: 45%;
 }
 
 .flash-modal-error {
