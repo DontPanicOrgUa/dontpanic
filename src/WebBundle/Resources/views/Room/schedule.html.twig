@@ -354,10 +354,11 @@
             <a href="#" class="btn btn-warning show-results" data-toggle="modal"
                data-target="#feedback-form">{{ 'leave.feedback'|trans }}</a>
 
-            {% include 'WebBundle:Room:feedback-form.thml.twig' %}
+            {% include 'WebBundle:Room/modal:feedback.thml.twig' %}
 
         </section>
     </div>
+
 
     {% include 'WebBundle:layouts/includes:flash-modal.html.twig' %}
 

@@ -28,7 +28,9 @@
 
         <div class="callback hidden-sm hidden-xs">
             <p>{{ 'alias.phone'|trans }}</p>
-            <button class="btn btn-warning">{{ 'callback'|trans }}</button>
+            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#callback-form">
+                {{ 'callback'|trans }}
+            </a>
         </div>
 
         {% block languages %}

@@ -1213,7 +1213,7 @@ th:hover {
     display: inline-block;
 }
 
-.review-modal .modal-content textarea {
+.modal-content textarea {
     width: 100%;
     margin-bottom: 20px;
     resize: none;
