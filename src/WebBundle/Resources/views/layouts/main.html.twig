@@ -50,6 +50,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/object-fit-images/3.2.3/ofi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <script src="{{ asset('js/jquery.star-rating-svg.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
@@ -60,7 +61,13 @@
 
     <script>
         var callbacksAddRoute = '{{ path('web_callback_add') }}';
-        console.log(callbacksAddRoute);
+
+        ///////////////////////////////////////////////////////////
+        /////////////// masked input validation ///////////////////
+        ///////////////////////////////////////////////////////////
+        $(function () {
+            $('input[name="phone"]').mask('+99999999?999999999');
+        });
     </script>
 {% endblock %}
 
