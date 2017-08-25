@@ -5,6 +5,7 @@ namespace WebBundle\Controller;
 
 use DateTime;
 use DateTimeZone;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use WebBundle\Entity\Bill;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Game;
@@ -14,6 +15,7 @@ use WebBundle\Entity\Customer;
 use WebBundle\Entity\Discount;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\DBAL\Exception\NonUniqueFieldNameException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -52,7 +54,23 @@ class GameController extends Controller
         if ($reward) {
             $em->persist($reward);
         }
-        $em->flush();
+        try {
+            $em->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            return new JsonResponse([
+                'status' => 'fail',
+                'message' => $this->get('translator')->trans('booking.busy'),
+                'exception' => $e->getMessage()
+            ], 409);
+        } catch (\Exception $e) {
+            $this->get('debug.logger')->error('booking failed on SQL', [$e->getMessage()]);
+            mail('mp091689@gmail.com', 'ESCAPEROOMS FAIL', $e->getMessage());
+            return new JsonResponse([
+                'status' => 'fail',
+                'message' => $this->get('translator')->trans('fatal'),
+                'exception' => $e->getMessage()
+            ], 500);
+        }
 
         try {
             $this->get('mail_sender')->sendBooked($bookingData, $room, $discount);
@@ -75,7 +93,8 @@ class GameController extends Controller
         }
 
         return new JsonResponse([
-            'success' => true,
+            'status' => 'success',
+            'message' => $this->get('translator')->trans('booking.success'),
             'data' => $bookingData
         ], 201);
     }

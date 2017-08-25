@@ -310,7 +310,7 @@ $(function () {
             showThe($resultForm);
             setGameBooked(bookingData);
         }).fail(function (r) {
-            flashModal('error', 'Error', 'Something went wrong, please try again.');
+            flashModal('error', 'Error', r.responseJSON.message);
         });
     }
 
