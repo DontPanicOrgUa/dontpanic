@@ -1,5 +1,7 @@
 parameters:
     locale: de
+    admin:
+        email: 'mp091689@gmail.com'
     liqpay:
         sandbox: true
     sms:

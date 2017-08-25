@@ -3,10 +3,11 @@
 namespace AdminBundle\Service;
 
 
-use WebBundle\Entity\Discount;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Reward;
+use WebBundle\Entity\Discount;
 use WebBundle\Entity\Feedback;
+use WebBundle\Entity\Callback as WCallback;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MailSender
@@ -60,6 +61,16 @@ class MailSender
         }
         if ($this->container->getParameter('email')['managerFeedback']) {
             $this->managerFeedback($feedback, $room);
+        }
+    }
+
+    public function sendCallback(WCallback $callback)
+    {
+        if ($this->container->getParameter('email')['customerCallback']) {
+            $this->customerCallback($callback);
+        }
+        if ($this->container->getParameter('email')['managerCallback']) {
+            $this->managerCallback($callback);
         }
     }
 
@@ -230,6 +241,70 @@ class MailSender
         foreach ($room->getRoomManagers() as $manager) {
             $to[] = $manager->getEmail();
         }
+
+        $swiftMessage = (new \Swift_Message($title))
+            ->setFrom('info@escaperooms.at', 'EscapeRooms')
+            ->setTo($to)
+            ->setBody(
+                $this->templating->render('WebBundle:emails:booking.html.twig', [
+                    'message' => $message
+                ]),
+                'text/html'
+            );
+        $this->mailer->send($swiftMessage);
+    }
+
+    private function customerCallback(WCallback $callback)
+    {
+        $template = $this->em
+            ->getRepository('WebBundle:Notification')
+            ->findOneBy([
+                'type' => 'email',
+                'event' => 'callback',
+                'recipient' => 'customer'
+            ]);
+
+        $title = $this->callbackMarkup(
+            $template->getTitle($this->locale),
+            $callback
+        );
+        $message = $this->callbackMarkup(
+            $template->getMessage($this->locale),
+            $callback
+        );
+
+        $swiftMessage = (new \Swift_Message($title))
+            ->setFrom('info@escaperooms.at', 'EscapeRooms')
+            ->setTo($callback->getEmail())
+            ->setBody(
+                $this->templating->render('WebBundle:emails:booking.html.twig', [
+                    'message' => $message
+                ]),
+                'text/html'
+            );
+        $this->mailer->send($swiftMessage);
+    }
+
+    private function managerCallback(WCallback $callback)
+    {
+        $template = $this->em
+            ->getRepository('WebBundle:Notification')
+            ->findOneBy([
+                'type' => 'email',
+                'event' => 'callback',
+                'recipient' => 'customer'
+            ]);
+
+        $title = $this->callbackMarkup(
+            $template->getTitle($this->locale),
+            $callback
+        );
+        $message = $this->callbackMarkup(
+            $template->getMessage($this->locale),
+            $callback
+        );
+
+        $to = $this->container->getParameter('admin')['email'];
 
         $swiftMessage = (new \Swift_Message($title))
             ->setFrom('info@escaperooms.at', 'EscapeRooms')

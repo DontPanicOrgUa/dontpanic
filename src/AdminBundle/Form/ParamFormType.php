@@ -6,6 +6,7 @@ namespace AdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -22,6 +23,9 @@ class ParamFormType extends AbstractType
                     'EN' => 'en',
                     'RU' => 'ru',
                 ]
+            ])
+            ->add('adminEmail', TextType::class, [
+                'label' => 'Admin email(need for callbacks)',
             ])
             ->add('liqpaySandbox', ChoiceType::class, [
                 'label' => 'Payment test mode (liqpay.sandbox)',

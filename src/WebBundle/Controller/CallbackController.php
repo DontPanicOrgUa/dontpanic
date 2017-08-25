@@ -33,7 +33,11 @@ class CallbackController extends Controller
         $em->persist($callback);
         $em->flush();
 
-//        $this->get('mail_sender')->sendFeedback($feedback, $room);
+        try {
+            $this->get('mail_sender')->sendCallback($callback);
+        } catch (\Exception $e) {
+            $this->get('debug.logger')->error('mail_sender error', [$e->getMessage()]);
+        }
 
         return new JsonResponse([
             'success' => true,

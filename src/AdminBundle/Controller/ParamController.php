@@ -45,6 +45,7 @@ class ParamController extends Controller
         $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/extra.yml'));
         return [
             'locale' => $params['parameters']['locale'],
+            'adminEmail' => $params['parameters']['admin']['email'],
             'liqpaySandbox' => $params['parameters']['liqpay']['sandbox'],
             'smsCustomerBooked' => $params['parameters']['sms']['customerBooked'],
             'smsCustomerRemind' => $params['parameters']['sms']['customerRemind'],
@@ -68,6 +69,9 @@ class ParamController extends Controller
         $parameters = [
             'parameters' => [
                 'locale' => $params['locale'],
+                'admin' => [
+                    'email' => $params['adminEmail']
+                ],
                 'liqpay' => [
                     'sandbox' => $params['liqpaySandbox'] ? true : false
                 ],

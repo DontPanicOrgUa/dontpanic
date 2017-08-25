@@ -39,6 +39,7 @@ name: Name
 date: Date
 time: Time
 from: from
+send: send
 story: Story
 phone: Phone
 email: Email

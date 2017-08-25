@@ -7,6 +7,7 @@ use WebBundle\Entity\Room;
 use WebBundle\Entity\Reward;
 use WebBundle\Entity\Discount;
 use WebBundle\Entity\Feedback;
+use WebBundle\Entity\Callback as WCallback;
 
 trait NotificationMarkup
 {
@@ -81,24 +82,24 @@ trait NotificationMarkup
         );
     }
 
-//    protected function callbackMarkup($text, Callback $callback)
-//    {
-//        return str_replace(
-//            [
-//                '[customer_name]',
-//                '[customer_email]',
-//                '[customer_phone]',
-//                '[customer_comment]',
-//            ],
-//            [
-//                $callback->getName(),
-//                $callback->getEmail(),
-//                $callback->getPhone(),
-//                $callback->getComment()
-//            ],
-//            $text
-//        );
-//    }
+    protected function callbackMarkup($text, WCallback $callback)
+    {
+        return str_replace(
+            [
+                '[customer_name]',
+                '[customer_email]',
+                '[customer_phone]',
+                '[customer_comment]',
+            ],
+            [
+                $callback->getName(),
+                $callback->getEmail(),
+                $callback->getPhone(),
+                $callback->getComment()
+            ],
+            $text
+        );
+    }
 
     protected function feedbackMarkup($text, Feedback $feedback, $title)
     {
