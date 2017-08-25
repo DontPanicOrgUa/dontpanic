@@ -3,6 +3,7 @@
 namespace AdminBundle\Service;
 
 
+use WebBundle\Entity\Payment;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Reward;
 use WebBundle\Entity\Discount;
@@ -71,6 +72,13 @@ class MailSender
         }
         if ($this->container->getParameter('email')['managerCallback']) {
             $this->managerCallback($callback);
+        }
+    }
+
+    public function sendPayment(Payment $payment)
+    {
+        if ($this->container->getParameter('email')['managerPayment']) {
+            $this->managerPayment($payment);
         }
     }
 
@@ -302,6 +310,39 @@ class MailSender
         $message = $this->callbackMarkup(
             $template->getMessage($this->locale),
             $callback
+        );
+
+        $to = $this->container->getParameter('admin')['email'];
+
+        $swiftMessage = (new \Swift_Message($title))
+            ->setFrom('info@escaperooms.at', 'EscapeRooms')
+            ->setTo($to)
+            ->setBody(
+                $this->templating->render('WebBundle:emails:booking.html.twig', [
+                    'message' => $message
+                ]),
+                'text/html'
+            );
+        $this->mailer->send($swiftMessage);
+    }
+
+    private function managerPayment(Payment $payment)
+    {
+        $template = $this->em
+            ->getRepository('WebBundle:Notification')
+            ->findOneBy([
+                'type' => 'email',
+                'event' => 'payment',
+                'recipient' => 'manager'
+            ]);
+
+        $title = $this->paymentMarkup(
+            $template->getTitle($this->locale),
+            $payment
+        );
+        $message = $this->paymentMarkup(
+            $template->getMessage($this->locale),
+            $payment
         );
 
         $to = $this->container->getParameter('admin')['email'];

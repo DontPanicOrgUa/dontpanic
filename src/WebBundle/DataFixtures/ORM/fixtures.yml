@@ -113,6 +113,16 @@ WebBundle\Entity\Notification:
         messageRu: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
         messageEn: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
         messageDe: '<p>Available options:</p> <ul> <li>reward amount: [reward_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>customer percentage: [customer_percentage]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
+    notification_11:
+        type: email
+        event: payment
+        recipient: manager
+        titleRu: 'Новый платеж'
+        titleEn: 'New payment'
+        titleDe: 'Neue Zahlung'
+        messageRu: '<p>Available options:</p> <ul> <li>payment status: [payment_status]</li> <li>payment amount: [payment_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
+        messageEn: '<p>Available options:</p> <ul> <li>payment status: [payment_status]</li> <li>payment amount: [payment_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
+        messageDe: '<p>Available options:</p> <ul> <li>payment status: [payment_status]</li> <li>payment amount: [payment_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
 
 WebBundle\Entity\City:
     city_1:

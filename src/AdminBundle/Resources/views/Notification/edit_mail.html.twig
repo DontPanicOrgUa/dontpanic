@@ -69,6 +69,17 @@
                             <li>game time: [game_time]</li>
                             <li>room title: [room_title]</li>
                         </ul>
+                    {% elseif form.vars.value.event == 'payment' %}
+                        <ul>
+                            <li>payment status: [payment_status]</li>
+                            <li>payment amount: [payment_amount]</li>
+                            <li>customer name: [customer_name]</li>
+                            <li>customer last name: [customer_last_name]</li>
+                            <li>customer email: [customer_email]</li>
+                            <li>customer phone: [customer_phone]</li>
+                            <li>game time: [game_time]</li>
+                            <li>room title: [room_title]</li>
+                        </ul>
                     {% endif %}
                 </div>
             </div>

@@ -59,6 +59,7 @@ class ParamController extends Controller
             'emailManagerFeedback' => $params['parameters']['email']['managerFeedback'],
             'emailManagerCallback' => $params['parameters']['email']['managerCallback'],
             'emailManagerReward' => $params['parameters']['email']['managerReward'],
+            'emailManagerPayment' => $params['parameters']['email']['managerPayment'],
             'discountDiscount' => $params['parameters']['discount']['discount'],
             'discountReward' => $params['parameters']['discount']['reward'],
         ];
@@ -90,6 +91,7 @@ class ParamController extends Controller
                     'managerFeedback' => $params['emailManagerFeedback'] ? true : false,
                     'managerCallback' => $params['emailManagerCallback'] ? true : false,
                     'managerReward' => $params['emailManagerReward'] ? true : false,
+                    'managerPayment' => $params['emailManagerPayment'] ? true : false,
                 ],
                 'discount' => [
                     'discount' => $params['discountDiscount'],

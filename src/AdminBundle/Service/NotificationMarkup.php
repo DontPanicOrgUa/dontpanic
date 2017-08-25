@@ -3,6 +3,10 @@
 namespace AdminBundle\Service;
 
 
+use WebBundle\Entity\Bill;
+use WebBundle\Entity\Customer;
+use WebBundle\Entity\Game;
+use WebBundle\Entity\Payment;
 use WebBundle\Entity\Room;
 use WebBundle\Entity\Reward;
 use WebBundle\Entity\Discount;
@@ -125,6 +129,42 @@ trait NotificationMarkup
                 $feedback->getStory(),
                 $feedback->getService(),
                 $title
+            ],
+            $text
+        );
+    }
+
+    protected function paymentMarkup($text, Payment $payment)
+    {
+        /** @var Bill $bill */
+        $bill = $payment->getBill();
+        /** @var Game $game */
+        $game = $bill->getGame();
+        /** @var Room $room */
+        $room = $game->getRoom();
+        /** @var Customer $customer */
+        $customer = $game->getCustomer();
+
+        return str_replace(
+            [
+                '[payment_status]',
+                '[payment_amount]',
+                '[game_time]',
+                '[room_title]',
+                '[customer_name]',
+                '[customer_last_name]',
+                '[customer_email]',
+                '[customer_phone]',
+            ],
+            [
+                $payment->getStatus(),
+                $payment->getAmount() . ' ' . $room->getCurrency()->getCurrency(),
+                $game->getDatetime(),
+                $room->getTitleEn(),
+                $customer->getName(),
+                $customer->getLastName(),
+                $customer->getEmail(),
+                $customer->getPhone()
             ],
             $text
         );

@@ -64,7 +64,7 @@ class GameController extends Controller
             ], 409);
         } catch (\Exception $e) {
             $this->get('debug.logger')->error('booking failed on SQL', [$e->getMessage()]);
-            mail('mp091689@gmail.com', 'ESCAPEROOMS FAIL', $e->getMessage());
+            mail('mp091689@gmail.com', 'ESCAPEROOMS BOOKING FAIL', $e->getMessage());
             return new JsonResponse([
                 'status' => 'fail',
                 'message' => $this->get('translator')->trans('fatal'),

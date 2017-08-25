@@ -31,7 +31,7 @@ class PaymentController extends Controller
         );
 
         if ($sign != $signature) {
-            $this->get('payment.logger')->error('invalid signature.', [
+            $this->get('debug.logger')->error('invalid signature.', [
                 'sign' => $sign,
                 'signature' => $signature
             ]);
@@ -41,8 +41,6 @@ class PaymentController extends Controller
             ],400);
         }
 
-        $this->get('payment.logger')->info('signature is matched');
-
         $jsonData = base64_decode($data);
         $objectData = json_decode($jsonData);
 
@@ -51,8 +49,12 @@ class PaymentController extends Controller
             ->findOneBy(['orderId' => $objectData->order_id]);
 
         if (!$bill) {
-            $this->get('payment.logger')
+            $this->get('debug.logger')
                 ->error(sprintf('bill with order_id: %s not found.', $objectData->order_id));
+            return new JsonResponse([
+                'status' => 'failure',
+                'message' => 'order_id not found'
+            ],404);
         }
 
         try {
@@ -72,8 +74,19 @@ class PaymentController extends Controller
             $em->persist($payment);
             $em->flush();
         } catch (\Exception $e) {
-            $this->get('payment.logger')
-                ->error(sprintf('Exception was caught.'), $e);
+            mail('mp091689@gmail.com', 'ESCAPEROOMS PAYMENT FAIL', $e->getMessage());
+            $this->get('debug.logger')
+                ->error(sprintf('payment fail was caught'), $e);
+            return new JsonResponse([
+                'status' => 'failure',
+                'message' => 'server error'
+            ],500);
+        }
+
+        try {
+            $this->get('mail_sender')->sendPayment($payment);
+        } catch (\Exception $e) {
+            $this->get('debug.logger')->error('mail_sender error', [$e->getMessage()]);
         }
 
         return new JsonResponse([

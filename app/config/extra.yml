@@ -1,13 +1,13 @@
 parameters:
     locale: de
     admin:
-        email: 'mp091689@gmail.com'
+        email: mp091689@gmail.com
     liqpay:
         sandbox: true
     sms:
-        customerBooked: false
+        customerBooked: true
         customerRemind: false
-        managerBooked: false
+        managerBooked: true
         managerRemind: false
     email:
         customerBooked: true
@@ -18,6 +18,7 @@ parameters:
         managerFeedback: true
         managerCallback: true
         managerReward: true
+        managerPayment: true
     discount:
         discount: '5'
         reward: '5'

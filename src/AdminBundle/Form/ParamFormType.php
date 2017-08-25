@@ -118,6 +118,13 @@ class ParamFormType extends AbstractType
                     'no' => false,
                 ]
             ])
+            ->add('emailManagerPayment', ChoiceType::class, [
+                'label' => 'Send email to Manager (New payment)',
+                'choices' => [
+                    'yes' => true,
+                    'no' => false,
+                ]
+            ])
             ->add('discountDiscount', IntegerType::class, [
                 'label' => 'Default discount value in percentage %',
                 'attr' => [
