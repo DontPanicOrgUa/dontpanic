@@ -3,6 +3,7 @@
 namespace AdminBundle\Service;
 
 
+use WebBundle\Entity\Discount;
 use WebBundle\Entity\Room;
 use Mp091689\TurboSms\TurboSms;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,51 +33,50 @@ class SmsSender
         $this->locale = $container->get('request_stack')->getCurrentRequest()->getLocale();
     }
 
-    public function send($bookingData, Room $room)
+    public function send($bookingData, Room $room, Discount $discount)
     {
         if ($this->container->getParameter('sms')['customerBooked']) {
-            $this->sendToCustomer($bookingData, $room);
+            $this->sendToCustomer($bookingData, $room, $discount);
         }
         if ($this->container->getParameter('sms')['customerRemind']) {
-            $this->sendRemindToCustomer($bookingData, $room);
+            $this->sendRemindToCustomer($bookingData, $room, $discount);
         }
         if ($this->container->getParameter('sms')['managerBooked']) {
-            $this->sendToManagers($bookingData, $room);
+            $this->sendToManagers($bookingData, $room, $discount);
         }
         if ($this->container->getParameter('sms')['managerRemind']) {
-            $this->sendRemindToManagers($bookingData, $room);
+            $this->sendRemindToManagers($bookingData, $room, $discount);
         }
     }
 
-    public function sendToCustomer($bookingData, Room $room)
+    public function sendToCustomer($bookingData, Room $room, Discount $discount)
     {
-        $this->container->get('debug.logger')->debug('called SmsSender/sendToCustomer method');
         $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room, $discount);
         return $this->sender->send($bookingData['phone'], $message);
     }
 
-    public function sendToManagers($bookingData, Room $room)
+    public function sendToManagers($bookingData, Room $room, Discount $discount)
     {
         $template = $this->getTemplate('sms', 'booked', 'manager');
-        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room, $discount);
         foreach ($room->getRoomManagers() as $manager) {
             $this->sender->send($manager->getPhone(), $message);
         }
     }
 
-    public function sendRemindToCustomer($bookingData, Room $room)
+    public function sendRemindToCustomer($bookingData, Room $room, Discount $discount)
     {
         $template = $this->getTemplate('sms', 'booked', 'customer');
-        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room, $discount);
         $remindTime = $this->getRemindTime($bookingData['dateTime'], $room);
         return $this->sender->send($bookingData['phone'], $message, 'Msg', $remindTime);
     }
 
-    public function sendRemindToManagers($bookingData, Room $room)
+    public function sendRemindToManagers($bookingData, Room $room, Discount $discount)
     {
         $template = $this->getTemplate('sms', 'booked', 'manager');
-        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room);
+        $message = $this->bookingMarkup($template->getMessage($this->locale), $bookingData, $room, $discount);
         $remindTime = $this->getRemindTime($bookingData['dateTime'], $room);
         foreach ($room->getRoomManagers() as $manager) {
             $this->sender->send($manager->getPhone(), $message, 'Msg', $remindTime);

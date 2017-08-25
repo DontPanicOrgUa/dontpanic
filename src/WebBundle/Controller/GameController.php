@@ -87,7 +87,7 @@ class GameController extends Controller
         }
 
         try {
-            $this->get('turbosms_sender')->send($bookingData, $room);
+            $this->get('turbosms_sender')->send($bookingData, $room, $discount);
         } catch (\Exception $e) {
             $this->get('debug.logger')->error('turbosms_sender error', [$e->getMessage()]);
         }
