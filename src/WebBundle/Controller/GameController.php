@@ -54,11 +54,25 @@ class GameController extends Controller
         }
         $em->flush();
 
-        $this->get('mail_sender')->sendBooked($bookingData, $room, $discount);
-        if ($reward) {
-            $this->get('mail_sender')->sendReward($reward, $room);
+        try {
+            $this->get('mail_sender')->sendBooked($bookingData, $room, $discount);
+        } catch (\Exception $e) {
+            $this->get('debug.logger')->error('mail_sender error', $e);
         }
-        $this->get('turbosms_sender')->send($bookingData, $room);
+
+        try {
+            if ($reward) {
+                $this->get('mail_sender')->sendReward($reward, $room);
+            }
+        } catch (\Exception $e) {
+            $this->get('debug.logger')->error('mail_sender error', $e);
+        }
+
+        try {
+            $this->get('turbosms_sender')->send($bookingData, $room);
+        } catch (\Exception $e) {
+            $this->get('debug.logger')->error('turbosms_sender error', $e);
+        }
 
         return new JsonResponse([
             'success' => true,
