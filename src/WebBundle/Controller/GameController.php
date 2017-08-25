@@ -96,7 +96,7 @@ class GameController extends Controller
             'status' => 'success',
             'message' => $this->get('translator')->trans('booking.success'),
             'data' => $bookingData
-        ], 200);
+        ], 201);
     }
 
     private function createGame($bookingData, Room $room, Customer $customer): Game

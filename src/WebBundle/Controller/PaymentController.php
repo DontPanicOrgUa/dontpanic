@@ -92,6 +92,6 @@ class PaymentController extends Controller
         return new JsonResponse([
             'status' => 'success',
             'message' => 'callback accepted'
-        ],201);
+        ],200);
     }
 }
