@@ -33,7 +33,7 @@ class Payment
         $this->liqpay = new LiqPay($this->public_key, $this->private_key);
         $this->translator = $translator;
         $this->uuid = $uuid;
-        $this->sandBox = $container->getParameter('liqpay')['sandbox'];
+        $this->sandBox = $container->getParameter('liqpaysandbox');
         $this->router = $router;
     }
 

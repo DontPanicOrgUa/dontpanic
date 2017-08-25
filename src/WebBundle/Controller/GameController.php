@@ -123,7 +123,7 @@ class GameController extends Controller
     {
         $discount = new Discount();
         $discount->setCustomer($customer);
-        $discount->setDiscount($this->getParameter('discount')['discount']);
+        $discount->setDiscount($this->getParameter('discount'));
         $discount->setCode(substr(md5(uniqid(rand(), true)), 0, 8));
         return $discount;
     }
@@ -140,7 +140,7 @@ class GameController extends Controller
             $customer->setLastName($bookingData['lastName']);
             $customer->setEmail($bookingData['email']);
             $customer->setPhone($bookingData['phone']);
-            $customer->setPercentage($this->getParameter('discount')['reward']);
+            $customer->setPercentage($this->getParameter('reward'));
         }
         return $customer;
     }

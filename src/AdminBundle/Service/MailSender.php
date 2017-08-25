@@ -37,47 +37,47 @@ class MailSender
 
     public function sendBooked($bookingData, Room $room, Discount $discount)
     {
-        if ($this->container->getParameter('email')['customerBooked']) {
+        if ($this->container->getParameter('email_customer_booked')) {
             $this->customerBooked($bookingData, $room, $discount);
         }
-        if ($this->container->getParameter('email')['managerBooked']) {
+        if ($this->container->getParameter('email_manager_booked')) {
             $this->managerBooked($bookingData, $room, $discount);
         }
     }
 
     public function sendReward(Reward $reward, Room $room)
     {
-        if ($this->container->getParameter('email')['customerReward']) {
+        if ($this->container->getParameter('email_customer_reward')) {
             $this->customerReward($reward);
         }
-        if ($this->container->getParameter('email')['managerReward']) {
+        if ($this->container->getParameter('email_manager_reward')) {
             $this->managerReward($reward, $room);
         }
     }
 
     public function sendFeedback(Feedback $feedback, Room $room)
     {
-        if ($this->container->getParameter('email')['customerFeedback']) {
+        if ($this->container->getParameter('email_customer_feedback')) {
             $this->customerFeedback($feedback, $room);
         }
-        if ($this->container->getParameter('email')['managerFeedback']) {
+        if ($this->container->getParameter('email_manager_feedback')) {
             $this->managerFeedback($feedback, $room);
         }
     }
 
     public function sendCallback(WCallback $callback)
     {
-        if ($this->container->getParameter('email')['customerCallback']) {
+        if ($this->container->getParameter('email_customer_callback')) {
             $this->customerCallback($callback);
         }
-        if ($this->container->getParameter('email')['managerCallback']) {
+        if ($this->container->getParameter('email_manager_callback')) {
             $this->managerCallback($callback);
         }
     }
 
     public function sendPayment(Payment $payment)
     {
-        if ($this->container->getParameter('email')['managerPayment']) {
+        if ($this->container->getParameter('email_manager_payment')) {
             $this->managerPayment($payment);
         }
     }
@@ -312,7 +312,7 @@ class MailSender
             $callback
         );
 
-        $to = $this->container->getParameter('admin')['email'];
+        $to = $this->container->getParameter('admin_email');
 
         $swiftMessage = (new \Swift_Message($title))
             ->setFrom('info@escaperooms.at', 'EscapeRooms')
@@ -345,7 +345,7 @@ class MailSender
             $payment
         );
 
-        $to = $this->container->getParameter('admin')['email'];
+        $to = $this->container->getParameter('admin_email');
 
         $swiftMessage = (new \Swift_Message($title))
             ->setFrom('info@escaperooms.at', 'EscapeRooms')

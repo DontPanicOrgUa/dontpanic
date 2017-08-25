@@ -26,10 +26,13 @@ class ParamController extends Controller
     public function updateAction(Request $request)
     {
         $form = $this->createForm(ParamFormType::class);
-        $form->setData($this->getParams());
+        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/extra.yml'));
+        $form->setData($params['parameters']);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $this->setParams($request->request->all()['param_form']);
+            $params = $this->collectParams($request->request->all()['param_form']);
+            $yaml = Yaml::dump($params);
+            file_put_contents($this->get('kernel')->getRootDir() . '/config/extra.yml', $yaml);
             $this->addFlash('success', 'Page is edited.');
             return $this->render('AdminBundle:Params:edit.html.twig', [
                 'form' => $form->createView()
@@ -40,66 +43,24 @@ class ParamController extends Controller
         ]);
     }
 
-    private function getParams()
+    private function collectParams($params)
     {
-        $params = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/config/extra.yml'));
-        return [
-            'locale' => $params['parameters']['locale'],
-            'adminEmail' => $params['parameters']['admin']['email'],
-            'liqpaySandbox' => $params['parameters']['liqpay']['sandbox'],
-            'smsCustomerBooked' => $params['parameters']['sms']['customerBooked'],
-            'smsCustomerRemind' => $params['parameters']['sms']['customerRemind'],
-            'smsManagerBooked' => $params['parameters']['sms']['managerBooked'],
-            'smsManagerRemind' => $params['parameters']['sms']['managerRemind'],
-            'emailCustomerBooked' => $params['parameters']['email']['customerBooked'],
-            'emailCustomerFeedback' => $params['parameters']['email']['customerFeedback'],
-            'emailCustomerCallback' => $params['parameters']['email']['customerCallback'],
-            'emailCustomerReward' => $params['parameters']['email']['customerReward'],
-            'emailManagerBooked' => $params['parameters']['email']['managerBooked'],
-            'emailManagerFeedback' => $params['parameters']['email']['managerFeedback'],
-            'emailManagerCallback' => $params['parameters']['email']['managerCallback'],
-            'emailManagerReward' => $params['parameters']['email']['managerReward'],
-            'emailManagerPayment' => $params['parameters']['email']['managerPayment'],
-            'discountDiscount' => $params['parameters']['discount']['discount'],
-            'discountReward' => $params['parameters']['discount']['reward'],
-        ];
-    }
-
-    private function setParams($params)
-    {
-        $parameters = [
-            'parameters' => [
-                'locale' => $params['locale'],
-                'admin' => [
-                    'email' => $params['adminEmail']
-                ],
-                'liqpay' => [
-                    'sandbox' => $params['liqpaySandbox'] ? true : false
-                ],
-                'sms' => [
-                    'customerBooked' => $params['smsCustomerBooked'] ? true : false,
-                    'customerRemind' => $params['smsCustomerRemind'] ? true : false,
-                    'managerBooked' => $params['smsManagerBooked'] ? true : false,
-                    'managerRemind' => $params['smsManagerRemind'] ? true : false
-                ],
-                'email' => [
-                    'customerBooked' => $params['emailCustomerBooked'] ? true : false,
-                    'customerFeedback' => $params['emailCustomerFeedback'] ? true : false,
-                    'customerCallback' => $params['emailCustomerCallback'] ? true : false,
-                    'customerReward' => $params['emailCustomerReward'] ? true : false,
-                    'managerBooked' => $params['emailManagerBooked'] ? true : false,
-                    'managerFeedback' => $params['emailManagerFeedback'] ? true : false,
-                    'managerCallback' => $params['emailManagerCallback'] ? true : false,
-                    'managerReward' => $params['emailManagerReward'] ? true : false,
-                    'managerPayment' => $params['emailManagerPayment'] ? true : false,
-                ],
-                'discount' => [
-                    'discount' => $params['discountDiscount'],
-                    'reward' => $params['discountReward']
-                ]
-            ]
-        ];
-        $yaml = Yaml::dump($parameters, 3);
-        return file_put_contents($this->get('kernel')->getRootDir() . '/config/extra.yml', $yaml);
+        unset($params['save']);
+        unset($params['_token']);
+        $params['liqpay_sandbox'] = (bool)$params['liqpay_sandbox'];
+        $params['sms_customer_booked'] = (bool)$params['sms_customer_booked'];
+        $params['sms_customer_remind'] = (bool)$params['sms_customer_remind'];
+        $params['sms_manager_booked'] = (bool)$params['sms_manager_booked'];
+        $params['sms_manager_remind'] = (bool)$params['sms_manager_remind'];
+        $params['email_customer_booked'] = (bool)$params['email_customer_booked'];
+        $params['email_customer_feedback'] = (bool)$params['email_customer_feedback'];
+        $params['email_customer_callback'] = (bool)$params['email_customer_callback'];
+        $params['email_customer_reward'] = (bool)$params['email_customer_reward'];
+        $params['email_manager_booked'] = (bool)$params['email_manager_booked'];
+        $params['email_manager_feedback'] = (bool)$params['email_manager_feedback'];
+        $params['email_manager_callback'] = (bool)$params['email_manager_callback'];
+        $params['email_manager_reward'] = (bool)$params['email_manager_reward'];
+        $params['email_manager_payment'] = (bool)$params['email_manager_payment'];
+        return ['parameters' => $params];
     }
 }

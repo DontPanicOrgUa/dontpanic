@@ -1,24 +1,19 @@
 parameters:
     locale: de
-    admin:
-        email: mp091689@gmail.com
-    liqpay:
-        sandbox: true
-    sms:
-        customerBooked: true
-        customerRemind: false
-        managerBooked: true
-        managerRemind: false
-    email:
-        customerBooked: true
-        customerFeedback: true
-        customerCallback: true
-        customerReward: true
-        managerBooked: true
-        managerFeedback: true
-        managerCallback: true
-        managerReward: true
-        managerPayment: true
-    discount:
-        discount: '5'
-        reward: '5'
+    admin_email: mp091689@gmail.com
+    liqpay_sandbox: true
+    sms_customer_booked: false
+    sms_customer_remind: false
+    sms_manager_booked: false
+    sms_manager_remind: false
+    email_customer_booked: true
+    email_customer_feedback: true
+    email_customer_callback: true
+    email_customer_reward: true
+    email_manager_booked: true
+    email_manager_feedback: true
+    email_manager_callback: true
+    email_manager_reward: true
+    email_manager_payment: true
+    discount: '6'
+    reward: '7'

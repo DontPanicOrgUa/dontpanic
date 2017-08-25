@@ -35,16 +35,16 @@ class SmsSender
 
     public function send($bookingData, Room $room, Discount $discount)
     {
-        if ($this->container->getParameter('sms')['customerBooked']) {
+        if ($this->container->getParameter('sms_customer_booked')) {
             $this->sendToCustomer($bookingData, $room, $discount);
         }
-        if ($this->container->getParameter('sms')['customerRemind']) {
+        if ($this->container->getParameter('sms_customer_remind')) {
             $this->sendRemindToCustomer($bookingData, $room, $discount);
         }
-        if ($this->container->getParameter('sms')['managerBooked']) {
+        if ($this->container->getParameter('sms_manager_booked')) {
             $this->sendToManagers($bookingData, $room, $discount);
         }
-        if ($this->container->getParameter('sms')['managerRemind']) {
+        if ($this->container->getParameter('sms_manager_remind')) {
             $this->sendRemindToManagers($bookingData, $room, $discount);
         }
     }

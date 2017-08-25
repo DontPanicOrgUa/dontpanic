@@ -159,7 +159,7 @@ trait NotificationMarkup
             [
                 $payment->getStatus(),
                 $payment->getAmount() . ' ' . $room->getCurrency()->getCurrency(),
-                $game->getDatetime(),
+                $game->getDatetime()->format('d.m.Y H:i'),
                 $room->getTitleEn(),
                 $customer->getName(),
                 $customer->getLastName(),

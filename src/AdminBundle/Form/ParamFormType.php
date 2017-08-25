@@ -24,108 +24,108 @@ class ParamFormType extends AbstractType
                     'RU' => 'ru',
                 ]
             ])
-            ->add('adminEmail', TextType::class, [
+            ->add('admin_email', TextType::class, [
                 'label' => 'Admin email(need for callbacks)',
             ])
-            ->add('liqpaySandbox', ChoiceType::class, [
+            ->add('liqpay_sandbox', ChoiceType::class, [
                 'label' => 'Payment test mode (liqpay.sandbox)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('smsCustomerBooked', ChoiceType::class, [
+            ->add('sms_customer_booked', ChoiceType::class, [
                 'label' => 'Send SMS to Customer (Game booked)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('smsCustomerRemind', ChoiceType::class, [
+            ->add('sms_customer_remind', ChoiceType::class, [
                 'label' => 'Send SMS reminder to Customer (Upcoming game)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('smsManagerBooked', ChoiceType::class, [
+            ->add('sms_manager_booked', ChoiceType::class, [
                 'label' => 'Send SMS to managers (Game booked)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('smsManagerRemind', ChoiceType::class, [
+            ->add('sms_manager_remind', ChoiceType::class, [
                 'label' => 'Send SMS reminder to Managers (Upcoming game)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailCustomerBooked', ChoiceType::class, [
+            ->add('email_customer_booked', ChoiceType::class, [
                 'label' => 'Send email to Customer (Game Booked)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailCustomerFeedback', ChoiceType::class, [
+            ->add('email_customer_feedback', ChoiceType::class, [
                 'label' => 'Send email to Customer (Feedback accepted)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailCustomerCallback', ChoiceType::class, [
+            ->add('email_customer_callback', ChoiceType::class, [
                 'label' => 'Send email to Customer (Callback accepted)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailCustomerReward', ChoiceType::class, [
+            ->add('email_customer_reward', ChoiceType::class, [
                 'label' => 'Send email to Customer (Got new reward)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailManagerBooked', ChoiceType::class, [
+            ->add('email_manager_booked', ChoiceType::class, [
                 'label' => 'Send email to Manager (Game Booked)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailManagerFeedback', ChoiceType::class, [
+            ->add('email_manager_feedback', ChoiceType::class, [
                 'label' => 'Send email to Manager (Feedback accepted)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailManagerCallback', ChoiceType::class, [
+            ->add('email_manager_callback', ChoiceType::class, [
                 'label' => 'Send email to Manager (Callback accepted)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailManagerReward', ChoiceType::class, [
+            ->add('email_manager_reward', ChoiceType::class, [
                 'label' => 'Send email to Manager (New reward for customer)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('emailManagerPayment', ChoiceType::class, [
+            ->add('email_manager_payment', ChoiceType::class, [
                 'label' => 'Send email to Manager (New payment)',
                 'choices' => [
                     'yes' => true,
                     'no' => false,
                 ]
             ])
-            ->add('discountDiscount', IntegerType::class, [
+            ->add('discount', IntegerType::class, [
                 'label' => 'Default discount value in percentage %',
                 'attr' => [
                     'max' => 99,
@@ -133,7 +133,7 @@ class ParamFormType extends AbstractType
                 ],
                 'required' => true
             ])
-            ->add('discountReward', IntegerType::class, [
+            ->add('reward', IntegerType::class, [
                 'label' => 'Default percentage of the transaction that the client will receive',
                 'attr' => [
                     'max' => 99,
