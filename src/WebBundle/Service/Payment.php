@@ -6,6 +6,7 @@ namespace WebBundle\Service;
 use LiqPay;
 use AdminBundle\Service\Uuid;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Translation\Translator;
 
@@ -159,7 +160,7 @@ class Payment
             'language' => $bookingData['language'],
             'description' => $bookingData['description'],
             'sandbox' => (int)$this->sandBox,
-            'server_url' => $this->router->generate('web_payments_add')
+            'server_url' => $this->router->generate('web_payments_add', [], UrlGeneratorInterface::ABSOLUTE_URL)
         ];
         return [
             'options' => $options,
