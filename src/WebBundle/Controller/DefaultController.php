@@ -29,7 +29,7 @@ class DefaultController extends Controller
         $currentCity = $this->get('translator')->trans('all.cities');
         /** @var $rooms Room[] */
         if ($cityName && $rooms) {
-            $currentCity = $rooms[0][0]->getCity()->getName($request->getLocale());
+            $currentCity = $rooms[0]['room']->getCity()->getName($request->getLocale());
         }
         return $this->render('WebBundle:Default:list.html.twig', [
             'cities' => $cities,

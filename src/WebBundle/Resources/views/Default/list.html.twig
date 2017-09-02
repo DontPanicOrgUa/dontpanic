@@ -59,29 +59,29 @@
 
                         <div class="col-sm-6 col-md-4 gallery-item">
                             <div class="gallery-img-container">
-                                {% set thumbnail = room[0].thumbnail ?: 'default_thumbnail.jpg' %}
+                                {% set thumbnail = room['room'].thumbnail ?: 'default_thumbnail.jpg' %}
                                 <img src="{{ asset('uploads/rooms/'~thumbnail) }}"
-                                     alt="{{ room[0].title(app.request.locale) }}"
+                                     alt="{{ room['room'].title(app.request.locale) }}"
                                      class="img-responsive zoom">
-                                {% set logo = room[0].logo ?: 'default_logo.png' %}
+                                {% set logo = room['room'].logo ?: 'default_logo.png' %}
                                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="" class="game-logo">
                                 <div class="game-title">
-                                    <p>{{ room[0].title(app.request.locale) }}</p>
+                                    <p>{{ room['room'].title(app.request.locale) }}</p>
                                 </div>
                                 <div class="img-hover"></div>
-                                <a href="{{ path('web_rooms_schedule', {slug: room[0].slug}) }}" class="hover-text">
+                                <a href="{{ path('web_rooms_schedule', {slug: room['room'].slug}) }}" class="hover-text">
                                     <div class="game-title-hover">
-                                        <p>{{ room[0].title(app.request.locale) }}</p>
+                                        <p>{{ room['room'].title(app.request.locale) }}</p>
                                     </div>
                                     <div class="game-img">
                                         <img src="{{ asset('uploads/rooms/'~logo) }}" alt="">
                                     </div>
                                     <div class="game-time"><span
-                                                class="game-time-img"></span>{{ room[0].timeMax }} {{ 'minutes'|trans }}
+                                                class="game-time-img"></span>{{ room['room'].timeMax }} {{ 'minutes'|trans }}
                                     </div>
                                     <div class="game-man">{{ 'players'|trans|capitalize }}:
-                                        {% set playersMax = room[0].playersMax * 13 %}
-                                        {% set playersMin = room[0].playersMin * 13 %}
+                                        {% set playersMax = room['room'].playersMax * 13 %}
+                                        {% set playersMin = room['room'].playersMin * 13 %}
                                         <span class="game-man-img" style="width: {{ playersMax }}px">
                                             <span class="game-man-full" style="width: {{ playersMin }}px"></span>
                                         </span>
@@ -89,7 +89,7 @@
                                     <div class="game-complexity">
                                         <span class="game-complexity-img">
                                             <span class="game-complexity-full"
-                                                  style="width: {{ room[0].difficulty }}0%"></span>
+                                                  style="width: {{ room['room'].difficulty }}0%"></span>
                                         </span>{{ 'complexity'|trans|capitalize }}:
                                     </div>
                                 </a>

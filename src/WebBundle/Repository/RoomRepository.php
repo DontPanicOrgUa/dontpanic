@@ -109,7 +109,9 @@ class RoomRepository extends EntityRepository
 
     public function findAllByCity($cityName, $sort, $order)
     {
-        $queryBuilder = $this->createQueryBuilder('r');
+        $queryBuilder = $this
+            ->createQueryBuilder('r')
+            ->select('r as room');
 
         if ($cityName) {
             $queryBuilder
