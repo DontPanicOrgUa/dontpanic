@@ -107,21 +107,40 @@ class RoomRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findAllByCity($cityName)
+    public function findAllByCity($cityName, $sort, $order)
     {
         $queryBuilder = $this->createQueryBuilder('r');
-        if (!$cityName) {
-            return $queryBuilder->where('r.enabled = :enabled')
-                ->setParameter('enabled', true)
-                ->addSelect('r')
-                ->getQuery()
-                ->getResult();
+
+        if ($cityName) {
+            $queryBuilder
+                ->innerJoin('r.city', 'rc')
+                ->where('rc.nameEn = :cityName')
+                ->setParameter('cityName', $cityName)
+                ->addSelect('rc');
         }
-        return $this->createQueryBuilder('r')
-            ->innerJoin('r.city', 'rc')
-            ->where('rc.nameEn = :cityName')
-            ->setParameter('cityName', $cityName)
-            ->addSelect('rc')
+
+        if ($sort) {
+            if (!$order) {
+                $order = 'DESC';
+            }
+            $queryBuilder
+                ->leftJoin(
+                    'r.feedbacks',
+                    'rf',
+                    'WITH',
+                    'rf.isActive = :isActive'
+                )
+                ->setParameter('isActive', true)
+                ->addSelect('AVG(rf.atmosphere) as s_atmosphere')
+                ->addSelect('AVG(rf.story) as s_story')
+                ->addSelect('AVG(rf.service) as s_service')
+                ->addSelect('r.createdAt as s_newest')
+                ->addSelect('r.difficulty as s_complexity')
+                ->orderBy('s_' . $sort, $order)
+                ->groupBy('r');
+        }
+
+        return $queryBuilder
             ->getQuery()
             ->getResult();
     }

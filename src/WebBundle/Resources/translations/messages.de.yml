@@ -80,6 +80,19 @@ your:
     order: Deine Bestellung
     comment: Ihr Kommentar
 
+select:
+    game: Bitte wählen Sie ein Spiel aus
+    order: Sortieren nach ..
+
+sort:
+    story: Geschichte
+    service: Bedienung
+    atmosphere: Atmosphäre
+    newest.asc: das neuste zuerst
+    newest.desc: neueste letzte
+    complexity.asc: kompliziert zuletzt
+    complexity.desc: kompliziert zuerst
+
 alias:
     phone: "+38 (098) 000-80-77"
     email: "info@escaperooms.at"
@@ -96,7 +109,6 @@ quest.schedule: Quest Zeitplan
 leave.feedback: Hinterlasse feedback
 about.company: Über das Unternehmen
 evaluate.quest: Bewerte die Quest
-select.game: Bitte wählen Sie ein Spiel aus
 winners.of.game: Gewinner des Spiels
 prebooking.required: Voranmeldung ist erforderlich
 details.sent: Alle Details Ihrer Bestellung wurden gesendet

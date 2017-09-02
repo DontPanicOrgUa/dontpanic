@@ -470,7 +470,7 @@ header {
 /* gallery */
 
 .gallery {
-    margin-top: 50px;
+    margin-top: 24px;
     margin-bottom: 50px;
 }
 
@@ -1658,5 +1658,10 @@ h1 a:hover {
 
 .share-row img,
 .share-row .share-description {
+    width: 85%;
+}
+
+.sort-container {
+    margin-top: 24px;
     width: 85%;
 }

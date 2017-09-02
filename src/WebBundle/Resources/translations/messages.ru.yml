@@ -80,6 +80,19 @@ your:
     order: Ваш заказ
     comment: Ваш комментарий
 
+select:
+    game: Пожалуйста, выберите игру
+    order: Сортировать по ..
+
+sort:
+    story: жанру
+    service: обслуживанию
+    atmosphere: атмосфере
+    newest.asc: новые в конце
+    newest.desc: новые в начале
+    complexity.asc: сложные в конце
+    complexity.desc: сложные в начале
+
 alias:
     phone: "+38 (098) 000-80-77"
     email: "info@escaperooms.at"
@@ -96,7 +109,6 @@ quest.schedule: Расписание квеста
 leave.feedback: Оставьте отзыв
 about.company: О компании
 evaluate.quest: Оцените квест
-select.game: Пожалуйста, выберите игру
 winners.of.game: Победители игры
 prebooking.required: Предварительная регистрация обязательна
 details.sent: Все детали Вашего заказа мы отправили на

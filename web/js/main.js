@@ -145,7 +145,7 @@ $(function () {
 
     //выбор сортировки
     sortListItem.click(function (e) {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopImmediatePropagation();
         $('.sort-text').text($(this).text());
         sortList.hide();

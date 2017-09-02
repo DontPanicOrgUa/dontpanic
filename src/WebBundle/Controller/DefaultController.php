@@ -19,14 +19,17 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $cityName = $request->query->get('city');
+        $sort = $request->query->get('sort');
+        $order = $request->query->get('order');
         $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
         $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
         $shares = $em->getRepository('WebBundle:Share')->findAll();
-        $rooms = $em->getRepository('WebBundle:Room')->findAllByCity($cityName);
+        $rooms = $em->getRepository('WebBundle:Room')->findAllByCity($cityName, $sort, $order);
+//        dump($rooms);die;
         $currentCity = $this->get('translator')->trans('all.cities');
         /** @var $rooms Room[] */
         if ($cityName && $rooms) {
-            $currentCity = $rooms[0]->getCity()->getName($request->getLocale());
+            $currentCity = $rooms[0][0]->getCity()->getName($request->getLocale());
         }
         return $this->render('WebBundle:Default:list.html.twig', [
             'cities' => $cities,

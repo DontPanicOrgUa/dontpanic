@@ -10,7 +10,8 @@
                     <ul class="slides">
                         {% for share in shares %}
                             <li>
-                                <img src="{{ asset('uploads/shares/'~share.img(app.request.locale)) }}" alt="{{ share.description(app.request.locale) }}">
+                                <img src="{{ asset('uploads/shares/'~share.img(app.request.locale)) }}"
+                                     alt="{{ share.description(app.request.locale) }}">
                             </li>
                         {% endfor %}
                     </ul>
@@ -24,23 +25,25 @@
         <!--    slider end -->
 
         <!-- service btn-->
-        <div class="container-fluid">
+        <div class="container-fluid sort-container">
             <div class="row">
                 <div class="col-xs-12 servise-btn">
 
-                    {#<a href="http://tamtamlg.github.io/dontpanic/schedule" class="btn btn-link calendar">#}
-                    {#<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{ 'Schedule'|trans }}#}
-                    {#</a>#}
+                    {#<a href="http://tamtamlg.github.io/dontpanic/schedule" class="btn btn-link calendar"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{ 'schedule'|trans }}</a>#}
 
-                    {#<div class="sort-wrapper">#}
-                    {#<span class="sort-text">{{ 'By complexity'|trans }}</span>#}
-                    {#<span class="caret"></span>#}
-                    {#<ul class="sort-list">#}
-                    {#<li><a href="#">{{ 'By complexity'|trans }}</a></li>#}
-                    {#<li><a href="#">{{ 'By players number'|trans }}</a></li>#}
-                    {#<li><a href="#">{{ 'By rating'|trans }}</a></li>#}
-                    {#</ul>#}
-                    {#</div>#}
+                    <div class="sort-wrapper">
+                        <span class="sort-text">{{ 'select.order'|trans }}</span>
+                        <span class="caret"></span>
+                        <ul class="sort-list">
+                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'atmosphere', 'order': 'desc'})) }}">{{ 'sort.atmosphere'|trans }}</a></li>
+                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'story', 'order': 'desc'})) }}">{{ 'sort.story'|trans }}</a></li>
+                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'service', 'order': 'desc'})) }}">{{ 'sort.service'|trans }}</a></li>
+                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'complexity', 'order': 'desc'})) }}">{{ 'sort.complexity.desc'|trans }}</a></li>
+                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'complexity', 'order': 'asc'})) }}">{{ 'sort.complexity.asc'|trans }}</a></li>
+                            {#<li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'newest', 'order': 'desc'})) }}">{{ 'sort.newest.desc'|trans }}</a></li>#}
+                            {#<li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'newest', 'order': 'asc'})) }}">{{ 'sort.newest.asc'|trans }}</a></li>#}
+                        </ul>
+                    </div>
 
                 </div>
             </div>
@@ -56,28 +59,29 @@
 
                         <div class="col-sm-6 col-md-4 gallery-item">
                             <div class="gallery-img-container">
-                                {% set thumbnail = room.thumbnail ?: 'default_thumbnail.jpg' %}
-                                <img src="{{ asset('uploads/rooms/'~thumbnail) }}" alt="{{ room.title(app.request.locale) }}"
+                                {% set thumbnail = room[0].thumbnail ?: 'default_thumbnail.jpg' %}
+                                <img src="{{ asset('uploads/rooms/'~thumbnail) }}"
+                                     alt="{{ room[0].title(app.request.locale) }}"
                                      class="img-responsive zoom">
-                                {% set logo = room.logo ?: 'default_logo.png' %}
+                                {% set logo = room[0].logo ?: 'default_logo.png' %}
                                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="" class="game-logo">
                                 <div class="game-title">
-                                    <p>{{ room.title(app.request.locale) }}</p>
+                                    <p>{{ room[0].title(app.request.locale) }}</p>
                                 </div>
                                 <div class="img-hover"></div>
-                                <a href="{{ path('web_rooms_schedule', {slug: room.slug}) }}" class="hover-text">
+                                <a href="{{ path('web_rooms_schedule', {slug: room[0].slug}) }}" class="hover-text">
                                     <div class="game-title-hover">
-                                        <p>{{ room.title(app.request.locale) }}</p>
+                                        <p>{{ room[0].title(app.request.locale) }}</p>
                                     </div>
                                     <div class="game-img">
                                         <img src="{{ asset('uploads/rooms/'~logo) }}" alt="">
                                     </div>
                                     <div class="game-time"><span
-                                                class="game-time-img"></span>{{ room.timeMax }} {{ 'minutes'|trans }}
+                                                class="game-time-img"></span>{{ room[0].timeMax }} {{ 'minutes'|trans }}
                                     </div>
                                     <div class="game-man">{{ 'players'|trans|capitalize }}:
-                                        {% set playersMax = room.playersMax * 13 %}
-                                        {% set playersMin = room.playersMin * 13 %}
+                                        {% set playersMax = room[0].playersMax * 13 %}
+                                        {% set playersMin = room[0].playersMin * 13 %}
                                         <span class="game-man-img" style="width: {{ playersMax }}px">
                                             <span class="game-man-full" style="width: {{ playersMin }}px"></span>
                                         </span>
@@ -85,7 +89,7 @@
                                     <div class="game-complexity">
                                         <span class="game-complexity-img">
                                             <span class="game-complexity-full"
-                                                  style="width: {{ room.difficulty }}0%"></span>
+                                                  style="width: {{ room[0].difficulty }}0%"></span>
                                         </span>{{ 'complexity'|trans|capitalize }}:
                                     </div>
                                 </a>
