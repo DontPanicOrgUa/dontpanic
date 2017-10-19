@@ -34,7 +34,7 @@ $(function () {
                 '<input' +
                 ' type="radio"' +
                 ' name="price"' +
-                ' value=\'{"players": "' + this.players + '", "price": "' + this.price + '"}\'> ' + this.players + ' / ' + this.price + ' <br>'
+                ' value=\'{"id": "' + this.id + '", "players": "' + this.players + '", "price": "' + this.price + '"}\'> ' + this.players + ' / ' + this.price + ' <br>'
             );
         });
     }
@@ -44,6 +44,7 @@ $(function () {
             dateTime: bookingModal.find('.game-date-time span').html(),
             players: '',
             price: '',
+            priceId: null,
             name: bookingModal.find('input[name=name]').val(),
             lastName: bookingModal.find('input[name=lastName]').val(),
             email: bookingModal.find('input[name=email]').val(),
@@ -53,6 +54,7 @@ $(function () {
         };
         var priceJSON = bookingModal.find('input[name=price]:checked').val();
         if (priceJSON) {
+            booking.priceId = JSON.parse(priceJSON).id;
             booking.players = JSON.parse(priceJSON).players;
             booking.price = JSON.parse(priceJSON).price;
         }
