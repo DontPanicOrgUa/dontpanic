@@ -176,6 +176,34 @@ class RoomFormType extends AbstractType
                 'class' => User::class,
                 'multiple' => true,
                 'label' => 'Managers'
+            ])
+            ->add('sort', IntegerType::class, [
+                'attr' => [
+                    'min' => 0,
+                    'max' => 100000,
+                    'value' => 0
+                ]
+            ])
+            ->add('labelNew', ChoiceType::class, [
+                'label' => 'Show "NEW" label?',
+                'choices' => [
+                    'yes' => true,
+                    'no' => false,
+                ]
+            ])
+            ->add('labelPartner', ChoiceType::class, [
+                'label' => 'Show "PARTNER" label?',
+                'choices' => [
+                    'yes' => true,
+                    'no' => false,
+                ]
+            ])
+            ->add('labelShare', ChoiceType::class, [
+                'label' => 'Show "SHARE" label?',
+                'choices' => [
+                    'yes' => true,
+                    'no' => false,
+                ]
             ]);
     }
 

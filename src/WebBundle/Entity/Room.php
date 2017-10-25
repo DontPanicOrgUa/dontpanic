@@ -238,19 +238,16 @@ class Room
     private $sort = 0;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="boolean", options={"default"=true})
      */
     private $labelNew = true;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="boolean", options={"default"=false})
      */
     private $labelPartner = false;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="boolean", options={"default"=false})
      */
     private $labelShare = false;
