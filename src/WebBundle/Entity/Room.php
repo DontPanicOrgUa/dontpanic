@@ -232,6 +232,30 @@ class Room
     private $feedbacks;
 
     /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    private $sort = 0;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="boolean", options={"default"=true})
+     */
+    private $labelNew = true;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private $labelPartner = false;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private $labelShare = false;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -840,5 +864,68 @@ class Room
         $this->apiKey = $apiKey;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param mixed $sort
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabelNew()
+    {
+        return $this->labelNew;
+    }
+
+    /**
+     * @param mixed $labelNew
+     */
+    public function setLabelNew($labelNew)
+    {
+        $this->labelNew = $labelNew;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabelPartner()
+    {
+        return $this->labelPartner;
+    }
+
+    /**
+     * @param mixed $labelPartner
+     */
+    public function setLabelPartner($labelPartner)
+    {
+        $this->labelPartner = $labelPartner;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabelShare()
+    {
+        return $this->labelShare;
+    }
+
+    /**
+     * @param mixed $labelShare
+     */
+    public function setLabelShare($labelShare)
+    {
+        $this->labelShare = $labelShare;
+    }
 }
 
