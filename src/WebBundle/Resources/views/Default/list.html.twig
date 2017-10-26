@@ -65,6 +65,9 @@
                                      class="img-responsive zoom">
                                 {% set logo = room['room'].logo ?: 'default_logo.png' %}
                                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="" class="game-logo">
+                                <img src="{{ asset('img/label-new-ru.png') }}" alt="" class="game-label-new">
+                                <img src="{{ asset('img/label-partner-en.png') }}" alt="" class="game-label-partner">
+                                <img src="{{ asset('img/label-share-en.png') }}" alt="" class="game-label-share">
                                 <div class="game-title">
                                     <p>{{ room['room'].title(app.request.locale) }}</p>
                                 </div>
