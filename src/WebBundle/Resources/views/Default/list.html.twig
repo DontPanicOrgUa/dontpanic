@@ -35,11 +35,21 @@
                         <span class="sort-text">{{ 'select.order'|trans }}</span>
                         <span class="caret"></span>
                         <ul class="sort-list">
-                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'atmosphere', 'order': 'desc'})) }}">{{ 'sort.atmosphere'|trans }}</a></li>
-                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'story', 'order': 'desc'})) }}">{{ 'sort.story'|trans }}</a></li>
-                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'service', 'order': 'desc'})) }}">{{ 'sort.service'|trans }}</a></li>
-                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'complexity', 'order': 'desc'})) }}">{{ 'sort.complexity.desc'|trans }}</a></li>
-                            <li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'complexity', 'order': 'asc'})) }}">{{ 'sort.complexity.asc'|trans }}</a></li>
+                            <li>
+                                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'atmosphere', 'order': 'desc'})) }}">{{ 'sort.atmosphere'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'story', 'order': 'desc'})) }}">{{ 'sort.story'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'service', 'order': 'desc'})) }}">{{ 'sort.service'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'complexity', 'order': 'desc'})) }}">{{ 'sort.complexity.desc'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'complexity', 'order': 'asc'})) }}">{{ 'sort.complexity.asc'|trans }}</a>
+                            </li>
                             {#<li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'newest', 'order': 'desc'})) }}">{{ 'sort.newest.desc'|trans }}</a></li>#}
                             {#<li><a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'sort': 'newest', 'order': 'asc'})) }}">{{ 'sort.newest.asc'|trans }}</a></li>#}
                         </ul>
@@ -65,14 +75,24 @@
                                      class="img-responsive zoom">
                                 {% set logo = room['room'].logo ?: 'default_logo.png' %}
                                 <img src="{{ asset('uploads/rooms/'~logo) }}" alt="" class="game-logo">
-                                <img src="{{ asset('img/label-new-ru.png') }}" alt="" class="game-label-new">
-                                <img src="{{ asset('img/label-partner-en.png') }}" alt="" class="game-label-partner">
-                                <img src="{{ asset('img/label-share-en.png') }}" alt="" class="game-label-share">
+                                {% if room['room'].labelNew %}
+                                    <img src="{{ asset('img/label-new-' ~ app.request.locale ~ '.png') }}" alt=""
+                                         class="game-label-new">
+                                {% endif %}
+                                {% if room['room'].labelPartner %}
+                                    <img src="{{ asset('img/label-partner-' ~ app.request.locale ~ '.png') }}" alt=""
+                                         class="game-label-partner">
+                                {% endif %}
+                                {% if room['room'].labelShare %}
+                                    <img src="{{ asset('img/label-share-' ~ app.request.locale ~ '.png') }}" alt=""
+                                         class="game-label-share">
+                                {% endif %}
                                 <div class="game-title">
                                     <p>{{ room['room'].title(app.request.locale) }}</p>
                                 </div>
                                 <div class="img-hover"></div>
-                                <a href="{{ path('web_rooms_schedule', {slug: room['room'].slug}) }}" class="hover-text">
+                                <a href="{{ path('web_rooms_schedule', {slug: room['room'].slug}) }}"
+                                   class="hover-text">
                                     <div class="game-title-hover">
                                         <p>{{ room['room'].title(app.request.locale) }}</p>
                                     </div>

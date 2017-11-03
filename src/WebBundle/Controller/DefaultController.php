@@ -25,7 +25,6 @@ class DefaultController extends Controller
         $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
         $shares = $em->getRepository('WebBundle:Share')->findAll();
         $rooms = $em->getRepository('WebBundle:Room')->findAllByCity($cityName, $sort, $order);
-//        dump($rooms);die;
         $currentCity = $this->get('translator')->trans('all.cities');
         /** @var $rooms Room[] */
         if ($cityName && $rooms) {

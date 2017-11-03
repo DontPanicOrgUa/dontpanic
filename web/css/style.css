@@ -541,13 +541,28 @@ header {
     transform: translate(-50%, -50%);
 }
 
-.game-label-new,
-.game-label-partner,
-.game-label-share {
+.game-label-partner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    opacity: 0.75;
+}
+
+.game-label-new {
     position: absolute;
     top: 1%;
     left: 1%;
     width: 25%;
+    opacity: 0.75;
+}
+
+.game-label-share {
+    position: absolute;
+    bottom: 1%;
+    left: 1%;
+    width: 25%;
+    opacity: 0.75;
 }
 
 .game-title {

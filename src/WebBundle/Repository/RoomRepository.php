@@ -92,6 +92,9 @@ class RoomRepository extends EntityRepository
             ->addSelect('rf')
             ->addSelect('rc')
             ->addSelect('rct')
+//            ->addSelect('r.id')
+//            ->addSelect('AVG(g.result) as g_result')
+//            ->groupBy('r.id ')
             ->orderBy('b.time', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
@@ -138,7 +141,9 @@ class RoomRepository extends EntityRepository
                 ->addSelect('AVG(rf.service) as s_service')
                 ->addSelect('r.createdAt as s_newest')
                 ->addSelect('r.difficulty as s_complexity')
-                ->orderBy('s_' . $sort, $order)
+                ->addSelect('r.sort')
+                ->addOrderBy('r.sort', 'DESC')
+                ->addOrderBy('s_' . $sort, $order)
                 ->groupBy('r');
         }
 

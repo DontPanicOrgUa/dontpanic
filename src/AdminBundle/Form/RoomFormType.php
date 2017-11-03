@@ -119,13 +119,13 @@ class RoomFormType extends AbstractType
                     '9' => 9,
                     '10' => 10
                 ],
-                'data' => 5
+//                'data' => 5
             ])
             ->add('timeMax', IntegerType::class, [
                 'label' => 'Time max in minutes',
                 'attr' => [
                     'min' => 1,
-                    'value' => 60
+//                    'value' => 60
                 ]
             ])
             ->add('playersMin', ChoiceType::class, [
@@ -135,7 +135,7 @@ class RoomFormType extends AbstractType
                     '3' => 3,
                     '4' => 4
                 ],
-                'data' => 2
+//                'data' => 2
             ])
             ->add('playersMax', ChoiceType::class, [
                 'choices' => [
@@ -149,13 +149,13 @@ class RoomFormType extends AbstractType
                     '9' => 9,
                     '10' => 10
                 ],
-                'data' => 4
+//                'data' => 4
             ])
             ->add('ageMin', IntegerType::class, [
                 'attr' => [
                     'min' => 3,
                     'max' => 90,
-                    'value' => 14
+//                    'value' => 14
                 ]
             ])
             ->add('enabled', ChoiceType::class, [
@@ -181,7 +181,6 @@ class RoomFormType extends AbstractType
                 'attr' => [
                     'min' => 0,
                     'max' => 100000,
-                    'value' => 0
                 ]
             ])
             ->add('labelNew', ChoiceType::class, [
