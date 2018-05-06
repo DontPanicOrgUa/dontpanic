@@ -3,8 +3,8 @@
 namespace AdminBundle\Controller;
 
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use WebBundle\Entity\City;
 use AdminBundle\Form\CityFormType;
+use RoomBundle\Entity\City;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,7 +28,7 @@ class CityController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $cities = $em->getRepository('WebBundle:City')->findAll();
+        $cities = $em->getRepository(City::class)->findAll();
 
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(

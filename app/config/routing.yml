@@ -1,3 +1,8 @@
+room:
+    resource: "@RoomBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 default_home_page:
     path:     /
     defaults: { _controller: WebBundle:Default:index, _locale: '%locale%' }

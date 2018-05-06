@@ -3,9 +3,9 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Price;
 use AdminBundle\Form\PriceFormType;
+use RoomBundle\Entity\Price;
+use RoomBundle\Entity\Room;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

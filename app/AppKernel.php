@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new ApiBundle\ApiBundle(),
+            new RoomBundle\RoomBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

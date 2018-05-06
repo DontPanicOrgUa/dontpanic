@@ -3,8 +3,8 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Genre;
 use AdminBundle\Form\GenreFormType;
+use RoomBundle\Entity\Genre;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -27,7 +27,7 @@ class GenreController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $genres = $em->getRepository('WebBundle:Genre')->findAll();
+        $genres = $em->getRepository(Genre::class)->findAll();
 
         $paginator  = $this->get('knp_paginator');
         $result = $paginator->paginate(

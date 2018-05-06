@@ -1,0 +1,6 @@
+services:
+#    room.example:
+#        class: RoomBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    room.schedule:
+        class: RoomBundle\Service\Schedule\ScheduleService

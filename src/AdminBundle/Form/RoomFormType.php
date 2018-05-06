@@ -2,11 +2,11 @@
 
 namespace AdminBundle\Form;
 
-use WebBundle\Entity\City;
-use WebBundle\Entity\Room;
 use AdminBundle\Entity\User;
-use WebBundle\Entity\Currency;
-use WebBundle\Repository\CityRepository;
+use RoomBundle\Entity\City;
+use RoomBundle\Entity\Currency;
+use RoomBundle\Entity\Room;
+use RoomBundle\Repository\CityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -215,6 +215,6 @@ class RoomFormType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'admin_bundle_city_form_type';
+        return 'admin_bundle_room_form_type';
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AdminBundle\Form;
 
-use WebBundle\Entity\Blank;
+use RoomBundle\Entity\Blank;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

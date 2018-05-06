@@ -1,6 +1,9 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
+
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -8,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="genres")
- * @ORM\Entity(repositoryClass="WebBundle\Repository\GenreRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\GenreRepository")
  * @UniqueEntity(fields={"nameRu"})
  * @UniqueEntity(fields={"nameEn"})
  * @UniqueEntity(fields={"nameDe"})

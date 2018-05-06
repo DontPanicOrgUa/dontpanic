@@ -3,10 +3,13 @@
 namespace WebBundle\Controller;
 
 
-use WebBundle\Entity\Room;
+use RoomBundle\Entity\City;
+use RoomBundle\Entity\Room;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use WebBundle\Entity\Page;
+use WebBundle\Entity\Share;
 
 class DefaultController extends Controller
 {
@@ -21,10 +24,10 @@ class DefaultController extends Controller
         $cityName = $request->query->get('city');
         $sort = $request->query->get('sort');
         $order = $request->query->get('order');
-        $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
-        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
-        $shares = $em->getRepository('WebBundle:Share')->findAll();
-        $rooms = $em->getRepository('WebBundle:Room')->findAllByCity($cityName, $sort, $order);
+        $cities = $em->getRepository(City::class)->findAllWithActiveRooms();
+        $menu = $em->getRepository(Page::class)->findBy(['isInMenu' => true]);
+        $shares = $em->getRepository(Share::class)->findAll();
+        $rooms = $em->getRepository(Room::class)->findAllByCity($cityName, $sort, $order);
         $currentCity = $this->get('translator')->trans('all.cities');
         /** @var $rooms Room[] */
         if ($cityName && $rooms) {

@@ -3,7 +3,7 @@
 namespace AdminBundle\Form;
 
 
-use WebBundle\Entity\Genre;
+use RoomBundle\Entity\Genre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

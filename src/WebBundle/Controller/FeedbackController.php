@@ -9,8 +9,8 @@
 namespace WebBundle\Controller;
 
 
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Feedback;
+use RoomBundle\Entity\Room;
+use RoomBundle\Entity\Feedback;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

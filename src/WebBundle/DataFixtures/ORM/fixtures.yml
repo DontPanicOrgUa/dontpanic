@@ -124,7 +124,7 @@ WebBundle\Entity\Notification:
         messageEn: '<p>Available options:</p> <ul> <li>payment status: [payment_status]</li> <li>payment amount: [payment_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
         messageDe: '<p>Available options:</p> <ul> <li>payment status: [payment_status]</li> <li>payment amount: [payment_amount]</li> <li>customer name: [customer_name]</li> <li>customer last name: [customer_last_name]</li> <li>customer email: [customer_email]</li> <li>customer phone: [customer_phone]</li> <li>game time: [game_time]</li> <li>room title: [room_title]</li> </ul>'
 
-WebBundle\Entity\City:
+RoomBundle\Entity\City:
     city_1:
         nameRu: Киев
         nameEn: Kiev
@@ -145,7 +145,7 @@ WebBundle\Entity\Share:
         imgEn: "pay_online_en.jpg"
         imgDe: "pay_online_de.jpg"
 
-WebBundle\Entity\Currency:
+RoomBundle\Entity\Currency:
     currency_1:
         currency: UAH
     currency_2:
@@ -153,7 +153,7 @@ WebBundle\Entity\Currency:
     currency_3:
         currency: USD
 
-WebBundle\Entity\Genre:
+RoomBundle\Entity\Genre:
     genre_1:
         nameRu: Приключения
         nameEn: Adventure
@@ -167,7 +167,7 @@ WebBundle\Entity\Genre:
         nameEn: Books and movies
         nameDe: Bücher und Filme
 
-WebBundle\Entity\Room:
+RoomBundle\Entity\Room:
     room_1:
         city: '@city_2'
         currency: '@currency_2'
@@ -230,7 +230,7 @@ AdminBundle\Entity\User:
         roles: ['ROLE_ADMIN']
         phone: '380507095075'
 
-WebBundle\Entity\Blank:
+RoomBundle\Entity\Blank:
     blank_1_1:
         room: '@room_1'
         time: <(new \DateTime('10:00'))>
@@ -283,7 +283,7 @@ WebBundle\Entity\Blank:
         room: '@room_2'
         time: <(new \DateTime('21:30'))>
 
-WebBundle\Entity\Price:
+RoomBundle\Entity\Price:
     price1:
             blank: '@blank_1_1'
             players: 2
@@ -1827,7 +1827,7 @@ WebBundle\Entity\Price:
 
 
 
-WebBundle\Entity\TimeZone:
+RoomBundle\Entity\TimeZone:
     zone_001:
         title: America/Adak
     zone_002:

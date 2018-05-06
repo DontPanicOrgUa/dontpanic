@@ -32,7 +32,7 @@ class Bill
     private $data;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Game", inversedBy="bills")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Game", inversedBy="bills")
      */
     private $game;
 

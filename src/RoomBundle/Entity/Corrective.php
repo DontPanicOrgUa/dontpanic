@@ -1,13 +1,15 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="WebBundle\Repository\CorrectiveRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\CorrectiveRepository")
  * @ORM\Table(name="correctives")
  */
 class Corrective
@@ -31,7 +33,7 @@ class Corrective
     private $data;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="correctives")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Room", inversedBy="correctives")
      */
     private $room;
 

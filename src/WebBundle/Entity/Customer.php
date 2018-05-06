@@ -49,7 +49,7 @@ class Customer
     private $phone;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Game", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Game", mappedBy="customer")
      */
     private $games;
 

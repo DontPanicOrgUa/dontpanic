@@ -25,7 +25,7 @@ class Reward
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Currency")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Currency")
      */
     private $currency;
 
@@ -40,7 +40,7 @@ class Reward
     private $discount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Game", inversedBy="rewards")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Game", inversedBy="rewards")
      */
     private $game;
 

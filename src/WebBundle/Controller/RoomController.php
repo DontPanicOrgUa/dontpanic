@@ -3,11 +3,14 @@
 namespace WebBundle\Controller;
 
 
-use WebBundle\Entity\City;
-use AdminBundle\Service\ScheduleBuilder;
+use RoomBundle\Entity\City;
+use RoomBundle\Entity\Room;
+use RoomBundle\Service\Schedule\ScheduleService;
+use RoomBundle\Service\Schedule\Strategy\EscapeRoomsSchedule;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use WebBundle\Entity\Page;
 
 class RoomController extends Controller
 {
@@ -21,17 +24,19 @@ class RoomController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $room = $em
-            ->getRepository('WebBundle:Room')
+            ->getRepository(Room::class)
             ->findBySlugForWeb($slug);
         if (!$room) {
             throw $this->createNotFoundException('The room does not exist');
         }
 
-        $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
-        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
+        $cities = $em->getRepository(City::class)->findAllWithActiveRooms();
+        $menu = $em->getRepository(Page::class)->findBy(['isInMenu' => true]);
 
-        $scheduleBuilder = new ScheduleBuilder($room);
-        $schedule = $scheduleBuilder->collect();
+        /** @var ScheduleService $scheduleService */
+        $scheduleService = $this->get('room.schedule');
+        $schedule = $scheduleService->getSchedule($room, EscapeRoomsSchedule::class);
+
         if (empty($schedule)) {
             $this->addFlash('errors', ['No schedule for "' . $room->getTitle($request->getLocale()) . '".']);
             return $this->redirectToRoute('admin_rooms_list');
@@ -50,6 +55,6 @@ class RoomController extends Controller
     public function getCities()
     {
         $em = $this->getDoctrine()->getManager();
-        return $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
+        return $em->getRepository(City::class)->findAllWithActiveRooms();
     }
 }

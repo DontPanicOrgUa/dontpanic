@@ -1,6 +1,8 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="feedbacks")
- * @ORM\Entity(repositoryClass="WebBundle\Repository\FeedbackRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\FeedbackRepository")
  */
 class Feedback
 {
@@ -72,7 +74,7 @@ class Feedback
     private $isActive = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="feedbacks")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Room", inversedBy="feedbacks")
      */
     private $room;
 

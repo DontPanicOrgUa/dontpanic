@@ -1,5 +1,8 @@
 <?php
-namespace WebBundle\Entity;
+
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -23,32 +26,33 @@ class TimeZone
     private $title;
 
     /**
-     * @param mixed $title
+     * @param string $title
+     *
+     * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getTitle();
     }
-
 }

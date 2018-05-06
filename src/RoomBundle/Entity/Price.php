@@ -1,13 +1,15 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="WebBundle\Repository\PriceRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\PriceRepository")
  * @ORM\Table(name="prices")
  */
 class Price
@@ -34,7 +36,7 @@ class Price
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Blank", inversedBy="prices")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Blank", inversedBy="prices")
      * @Assert\NotBlank(message="Please chose the time")
      */
     private $blank;

@@ -6,19 +6,22 @@ namespace WebBundle\Controller;
 use DateTime;
 use DateTimeZone;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use WebBundle\Entity\Bill;
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Game;
-use WebBundle\Entity\Price;
-use WebBundle\Entity\Reward;
-use WebBundle\Entity\Customer;
-use WebBundle\Entity\Discount;
+use RoomBundle\Entity\City;
+use RoomBundle\Entity\Game;
+use RoomBundle\Entity\Price;
+use RoomBundle\Entity\Room;
+use RoomBundle\Repository\PriceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\DBAL\Exception\NonUniqueFieldNameException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use WebBundle\Entity\Bill;
+use WebBundle\Entity\Customer;
+use WebBundle\Entity\Discount;
+use WebBundle\Entity\Page;
+use WebBundle\Entity\Reward;
 
 class GameController extends Controller
 {
@@ -113,7 +116,7 @@ class GameController extends Controller
         $game->setDatetime(
             new DateTime(
                 $bookingData['dateTime'],
-                new DateTimeZone($room->getCity()->getTimezone())
+                new DateTimeZone((string)$room->getCity()->getTimezone())
             )
         );
         return $game;
@@ -132,7 +135,7 @@ class GameController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $customer = $em
-            ->getRepository('WebBundle:Customer')
+            ->getRepository(Customer::class)
             ->findOneBy(['phone' => preg_replace("/[^0-9]/", '', $bookingData['phone'])]);
         if (!$customer) {
             $customer = new Customer();
@@ -149,7 +152,7 @@ class GameController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $discount = $em
-            ->getRepository('WebBundle:Discount')
+            ->getRepository(DiscountController::class)
             ->findOneByCodeObject($bookingData['discount']);
         if ($discount) {
             return [
@@ -165,10 +168,9 @@ class GameController extends Controller
 
     private function getPrice($priceId): Price
     {
-        $em = $this->getDoctrine()->getManager();
-        return $em
-            ->getRepository('WebBundle:Price')
-            ->find($priceId);
+        /** @var PriceRepository $priceRepository */
+        $priceRepository = $this->getDoctrine()->getManager()->getRepository(Price::class);
+        return $priceRepository->find($priceId);
     }
 
     private function createBill($bookingData, Game $game): Bill
@@ -206,7 +208,7 @@ class GameController extends Controller
     {
         $year = $request->query->get('year') ?: date('Y');
         $month = $request->query->get('month') ?: date('m');
-        $timeZone = new DateTimeZone($room->getCity()->getTimezone());
+        $timeZone = new DateTimeZone((string)$room->getCity()->getTimezone());
         $start = DateTime::createFromFormat('d.m.Y', '01.' . $month . '.' . $year, $timeZone);
         $end = DateTime::createFromFormat('d.m.Y', '01.' . $month . '.' . $year, $timeZone)
             ->modify('+ 1 month')
@@ -214,10 +216,10 @@ class GameController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
-        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
+        $cities = $em->getRepository(City::class)->findAllWithActiveRooms();
+        $menu = $em->getRepository(Page::class)->findBy(['isInMenu' => true]);
 
-        $games = $em->getRepository('WebBundle:Game')
+        $games = $em->getRepository(Game::class)
             ->getGamesWithResultsByRoom($room->getSlug(), $start, $end);
 
         $pagination = $this->calendarPaginator($request, $room);
@@ -233,7 +235,7 @@ class GameController extends Controller
 
     private function calendarPaginator(Request $request, Room $room)
     {
-        $tz = new DateTimeZone($room->getCity()->getTimezone());
+        $tz = new DateTimeZone((string)$room->getCity()->getTimezone());
         $now = new DateTime('now', $tz);
         $year = $request->query->get('year') ?: $now->format('Y');
         $month = $request->query->get('month') ?: $now->format('m');

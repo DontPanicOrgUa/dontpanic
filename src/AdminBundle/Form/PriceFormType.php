@@ -2,16 +2,14 @@
 
 namespace AdminBundle\Form;
 
+use RoomBundle\Entity\Blank;
+use RoomBundle\Entity\Price;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use WebBundle\Entity\Blank;
-use WebBundle\Entity\Price;
 use Symfony\Component\Form\AbstractType;
-use WebBundle\Repository\BlankRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use WebBundle\Repository\RoomRepository;
 
 class PriceFormType extends AbstractType
 {

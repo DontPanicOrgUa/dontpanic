@@ -3,7 +3,7 @@
 namespace AdminBundle\Form;
 
 
-use WebBundle\Entity\Game;
+use RoomBundle\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

@@ -3,7 +3,7 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Feedback;
+use RoomBundle\Entity\Feedback;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,7 +25,7 @@ class FeedbackController extends Controller
     public function listAction($slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $feedbacks = $em->getRepository('WebBundle:Feedback')->findAllFeedbacksByRoom($slug);
+        $feedbacks = $em->getRepository(Feedback::class)->findAllFeedbacksByRoom($slug);
         $paginator = $this->get('knp_paginator');
         $result = $paginator->paginate(
             $feedbacks,

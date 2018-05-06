@@ -14,7 +14,7 @@ class Uuid
      * @param int $length
      * @return bool|string
      */
-    public function generate($prefix = '', $length = 8)
+    public static function generate($prefix = '', $length = 8)
     {
         return $prefix . substr(md5(uniqid(mt_rand(), true)), 0, $length);
     }

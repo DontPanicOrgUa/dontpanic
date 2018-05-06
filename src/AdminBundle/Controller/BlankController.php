@@ -3,9 +3,10 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Blank;
 use AdminBundle\Form\BlankFormType;
+use RoomBundle\Entity\Blank;
+use RoomBundle\Entity\Room;
+use RoomBundle\Repository\RoomRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,11 +26,14 @@ class BlankController extends Controller
      * @Method("GET")
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function listAction($slug)
     {
-        $em = $this->getDoctrine()->getManager();
-        $room = $em->getRepository('WebBundle:Room')->findBySlug($slug);
+        /** @var RoomRepository $roomRepository */
+        $roomRepository = $this->getDoctrine()->getManager()->getRepository(Room::class);
+        $room = $roomRepository->findBySlug($slug);
         return $this->render('AdminBundle:Blank:list.html.twig', [
             'room' => $room
         ]);

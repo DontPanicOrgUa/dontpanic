@@ -3,13 +3,13 @@
 namespace AdminBundle\Service;
 
 
-use WebBundle\Entity\Payment;
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Reward;
-use WebBundle\Entity\Discount;
-use WebBundle\Entity\Feedback;
+use RoomBundle\Entity\Feedback;
+use RoomBundle\Entity\Room;
 use WebBundle\Entity\Callback as WCallback;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use WebBundle\Entity\Discount;
+use WebBundle\Entity\Payment;
+use WebBundle\Entity\Reward;
 
 class MailSender
 {

@@ -1,17 +1,21 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
+
 
 use AdminBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="rooms")
- * @ORM\Entity(repositoryClass="WebBundle\Repository\RoomRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\RoomRepository")
  * @UniqueEntity(fields={"apiKey"})
  * @UniqueEntity(fields={"titleRu"})
  * @UniqueEntity(fields={"titleEn"})
@@ -28,7 +32,7 @@ class Room
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     private $apiKey;
 
@@ -186,25 +190,25 @@ class Room
     private $enabled = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Blank", mappedBy="room", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Blank", mappedBy="room", cascade={"remove"})
      * @ORM\OrderBy({"time" = "ASC"})
      */
     private $blanks;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Game", mappedBy="room", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Game", mappedBy="room", cascade={"remove"})
      */
     private $games;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\City", inversedBy="rooms")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\City", inversedBy="rooms")
      * @ORM\JoinColumn(nullable=false)
      */
     private $city;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Currency", inversedBy="rooms")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Currency", inversedBy="rooms")
      * @ORM\JoinColumn(nullable=false)
      */
     private $currency;
@@ -221,12 +225,12 @@ class Room
     private $roomManagers;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Corrective", mappedBy="room", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Corrective", mappedBy="room", cascade={"remove"})
      */
     private $correctives;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Feedback", mappedBy="room", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Feedback", mappedBy="room", cascade={"remove"})
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $feedbacks;
@@ -270,6 +274,7 @@ class Room
 
     public function __construct()
     {
+        $this->apiKey = Uuid::uuid1();
         $this->blanks = new ArrayCollection();
         $this->roomManagers = new ArrayCollection();
         $this->feedbacks = new ArrayCollection();

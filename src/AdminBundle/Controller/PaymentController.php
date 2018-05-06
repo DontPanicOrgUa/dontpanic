@@ -3,7 +3,7 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Game;
+use RoomBundle\Entity\Game;
 use WebBundle\Entity\Payment;
 use AdminBundle\Form\PaymentFormType;
 use Symfony\Component\HttpFoundation\Request;

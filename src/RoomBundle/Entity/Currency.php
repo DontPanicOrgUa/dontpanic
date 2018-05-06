@@ -1,6 +1,9 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
+
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="currencies")
- * @ORM\Entity(repositoryClass="WebBundle\Repository\CurrencyRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\CurrencyRepository")
  * @UniqueEntity(fields={"currency"})
  */
 class Currency
@@ -27,7 +30,7 @@ class Currency
     private $currency;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Room", mappedBy="currency")
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Room", mappedBy="currency")
      */
     private $rooms;
 

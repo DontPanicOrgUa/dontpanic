@@ -1,5 +1,9 @@
 <?php
-namespace WebBundle\Entity;
+
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
+
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -7,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="games", uniqueConstraints={@ORM\UniqueConstraint(name="unique_room_datetime", columns={"room_id", "datetime"})})
- * @ORM\Entity(repositoryClass="WebBundle\Repository\GameRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\GameRepository")
  */
 class Game
 {
@@ -45,7 +49,7 @@ class Game
     private $photo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Room", inversedBy="games")
      */
     private $room;
 

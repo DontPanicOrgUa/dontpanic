@@ -1,6 +1,8 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="WebBundle\Repository\BlankRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\BlankRepository")
  * @ORM\Table(name="blanks")
  */
 class Blank
@@ -29,13 +31,13 @@ class Blank
     private $time;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\Room", inversedBy="blanks")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\Room", inversedBy="blanks")
      * @JoinColumn(name="room_id", referencedColumnName="id")
      */
     private $room;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Price", mappedBy="blank", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Price", mappedBy="blank", cascade={"remove"})
      * @ORM\OrderBy({"price" = "ASC"})
      */
     private $prices;

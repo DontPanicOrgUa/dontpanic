@@ -3,15 +3,15 @@
 namespace AdminBundle\Service;
 
 
+use RoomBundle\Entity\Feedback;
+use RoomBundle\Entity\Game;
+use RoomBundle\Entity\Room;
 use WebBundle\Entity\Bill;
-use WebBundle\Entity\Customer;
-use WebBundle\Entity\Game;
-use WebBundle\Entity\Payment;
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Reward;
-use WebBundle\Entity\Discount;
-use WebBundle\Entity\Feedback;
 use WebBundle\Entity\Callback as WCallback;
+use WebBundle\Entity\Customer;
+use WebBundle\Entity\Discount;
+use WebBundle\Entity\Payment;
+use WebBundle\Entity\Reward;
 
 trait NotificationMarkup
 {

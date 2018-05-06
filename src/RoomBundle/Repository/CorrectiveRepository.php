@@ -1,6 +1,8 @@
 <?php
 
-namespace WebBundle\Repository;
+declare(strict_types=1);
+
+namespace RoomBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;

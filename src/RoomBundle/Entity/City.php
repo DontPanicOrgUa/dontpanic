@@ -1,16 +1,18 @@
 <?php
 
-namespace WebBundle\Entity;
+declare(strict_types=1);
+
+namespace RoomBundle\Entity;
+
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Intl\Locale;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="cities")
- * @ORM\Entity(repositoryClass="WebBundle\Repository\CityRepository")
+ * @ORM\Entity(repositoryClass="RoomBundle\Repository\CityRepository")
  * @UniqueEntity(fields={"nameRu"})
  * @UniqueEntity(fields={"nameEn"})
  * @UniqueEntity(fields={"nameDe"})
@@ -44,13 +46,13 @@ class City
     private $nameDe;
 
     /**
-     * @ORM\OneToMany(targetEntity="WebBundle\Entity\Room", mappedBy="city")
+     * @ORM\OneToMany(targetEntity="RoomBundle\Entity\Room", mappedBy="city")
      */
     private $rooms;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="WebBundle\Entity\TimeZone")
+     * @ORM\ManyToOne(targetEntity="RoomBundle\Entity\TimeZone")
      * @ORM\JoinColumn(nullable=false)
      */
     private $timezone;
@@ -147,9 +149,9 @@ class City
     }
 
     /**
-     * @return string
+     * @return TimeZone
      */
-    public function getTimezone()
+    public function getTimezone(): TimeZone
     {
         return $this->timezone;
     }

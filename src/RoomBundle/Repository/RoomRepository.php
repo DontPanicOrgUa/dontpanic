@@ -1,12 +1,14 @@
 <?php
 
-namespace WebBundle\Repository;
+declare(strict_types=1);
+
+namespace RoomBundle\Repository;
 
 
 use DateTime;
-use WebBundle\Entity\Room;
 use AdminBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
+use RoomBundle\Entity\Room;
 
 class RoomRepository extends EntityRepository
 {
@@ -34,6 +36,8 @@ class RoomRepository extends EntityRepository
     /**
      * @param string $slug
      * @return Room
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug($slug)
     {
@@ -46,7 +50,7 @@ class RoomRepository extends EntityRepository
             ->leftJoin('b.prices', 'p')
             ->addSelect('b')
             ->addSelect('p')
-            ->addSelect('rct')
+//            ->addSelect('rct')
             ->orderBy('b.time', 'ASC')
             ->getQuery()
             ->getSingleResult();

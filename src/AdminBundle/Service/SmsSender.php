@@ -4,7 +4,7 @@ namespace AdminBundle\Service;
 
 
 use WebBundle\Entity\Discount;
-use WebBundle\Entity\Room;
+use RoomBundle\Entity\Room;
 use Mp091689\TurboSms\TurboSms;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -96,7 +96,7 @@ class SmsSender
 
     private function getRemindTime($dateTime, Room $room)
     {
-        $dt = new \DateTime($dateTime, new \DateTimeZone($room->getCity()->getTimezone()));
+        $dt = new \DateTime($dateTime, new \DateTimeZone((string)$room->getCity()->getTimezone()));
         return $dt
             ->setTimezone(new \DateTimeZone('Europe/Kiev'))
             ->modify('- 2 hours')

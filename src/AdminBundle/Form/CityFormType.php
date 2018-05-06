@@ -2,8 +2,7 @@
 
 namespace AdminBundle\Form;
 
-use WebBundle\Entity\City;
-use WebBundle\Entity\TimeZone;
+use RoomBundle\Entity\TimeZone;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

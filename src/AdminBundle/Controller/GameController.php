@@ -9,8 +9,8 @@
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Game;
 use AdminBundle\Form\GameFormType;
+use RoomBundle\Entity\Game;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,7 +33,7 @@ class GameController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $games = $em
-            ->getRepository('WebBundle:Game')
+            ->getRepository(Game::class)
             ->getAllGamesByRoom($slug, $search, $dateStart, $dateEnd);
 
         $paginator = $this->get('knp_paginator');
@@ -57,7 +57,7 @@ class GameController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var Game $game */
-        $game = $em->getRepository('WebBundle:Game')->find($id);
+        $game = $em->getRepository(Game::class)->find($id);
         if (!$game) {
             throw $this->createNotFoundException('The game does not exist');
         }

@@ -4,7 +4,7 @@ namespace AdminBundle\Security;
 
 
 use AdminBundle\Entity\User;
-use WebBundle\Entity\Room;
+use RoomBundle\Entity\Room;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 

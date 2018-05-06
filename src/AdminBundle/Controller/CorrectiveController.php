@@ -5,8 +5,9 @@ namespace AdminBundle\Controller;
 
 use DateTime;
 use DateTimeZone;
-use WebBundle\Entity\Room;
-use WebBundle\Entity\Corrective;
+use RoomBundle\Entity\Corrective;
+use RoomBundle\Entity\Room;
+use RoomBundle\Repository\CorrectiveRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,14 +31,13 @@ class CorrectiveController extends Controller
      */
     public function addAction(Request $request, Room $room)
     {
-        $dateTime = new DateTime($request->request->get('dateTime'), new DateTimeZone($room->getCity()->getTimezone()));
+        $dateTime = new DateTime($request->request->get('dateTime'), new DateTimeZone((string)$room->getCity()->getTimezone()));
         $data = $request->request->get('data');
 
         $em = $this->getDoctrine()->getManager();
-
-        $corrective = $em
-            ->getRepository('WebBundle:Corrective')
-            ->getCorrectiveByRoomIdAndDateTime($room->getId(), $dateTime);
+        /** @var CorrectiveRepository $correctiveRepository */
+        $correctiveRepository = $em->getRepository(Corrective::class);
+        $corrective = $correctiveRepository->getCorrectiveByRoomIdAndDateTime($room->getId(), $dateTime);
 
         if (!$data) {
             if ($corrective) {

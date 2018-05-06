@@ -3,7 +3,7 @@
 namespace WebBundle\Controller;
 
 
-use WebBundle\Entity\Game;
+use RoomBundle\Entity\Game;
 use WebBundle\Entity\Payment;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;

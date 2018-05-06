@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AdminBundle\Controller;
 
 
-use WebBundle\Entity\Room;
 use AdminBundle\Form\RoomFormType;
 use Knp\Component\Pager\Paginator;
-use AdminBundle\Service\ScheduleBuilder;
+use RoomBundle\Entity\Room;
+use RoomBundle\Repository\RoomRepository;
+use RoomBundle\Service\Schedule\ScheduleService;
+use RoomBundle\Service\Schedule\Strategy\EscapeRoomsSchedule;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,9 +34,10 @@ class RoomController extends Controller
      */
     public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        /** @var RoomRepository $roomRepository */
+        $roomRepository = $this->getDoctrine()->getManager()->getRepository(Room::class);
 
-        $rooms = $em->getRepository('WebBundle:Room')->queryFindAllByUserRights($this->getUser());
+        $rooms = $roomRepository->queryFindAllByUserRights($this->getUser());
 
         /** @var Paginator $paginator */
         $paginator = $this->get('knp_paginator');
@@ -198,15 +203,18 @@ class RoomController extends Controller
     public function scheduleAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $room = $em
-            ->getRepository('WebBundle:Room')
-            ->findBySlugForWeb($slug);
+        /** @var RoomRepository $roomRepository */
+        $roomRepository = $em->getRepository(Room::class);
+        $room = $roomRepository->findBySlugForWeb($slug);
         if (!$room) {
             throw $this->createNotFoundException('The room does not exist');
         }
         $this->denyAccessUnlessGranted('view', $room);
-        $scheduleBuilder = new ScheduleBuilder($room);
-        $schedule = $scheduleBuilder->collect();
+
+        /** @var ScheduleService $scheduleService */
+        $scheduleService = $this->get('room.schedule');
+        $schedule = $scheduleService->getSchedule($room, EscapeRoomsSchedule::class);
+
         if (empty($schedule)) {
             $this->addFlash('errors', ['Schedule for "' . $room->getTitle($request->getLocale()) . '" is not ready.']);
             return $this->redirectToRoute('admin_rooms_list');

@@ -3,8 +3,11 @@
 namespace WebBundle\Controller;
 
 
+use RoomBundle\Entity\City;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use WebBundle\Entity\Page;
+use WebBundle\Entity\Share;
 
 class ShareController extends Controller
 {
@@ -15,9 +18,9 @@ class ShareController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $shares = $em->getRepository('WebBundle:Share')->findAll();
-        $cities = $em->getRepository('WebBundle:City')->findAllWithActiveRooms();
-        $menu = $em->getRepository('WebBundle:Page')->findBy(['isInMenu' => true]);
+        $shares = $em->getRepository(Share::class)->findAll();
+        $cities = $em->getRepository(City::class)->findAllWithActiveRooms();
+        $menu = $em->getRepository(Page::class)->findBy(['isInMenu' => true]);
         return $this->render('WebBundle:Share:list.html.twig', [
             'shares' => $shares,
             'menu' => $menu,
